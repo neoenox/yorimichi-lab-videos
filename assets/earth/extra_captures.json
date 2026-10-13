@@ -1,0 +1,14 @@
+[
+  {
+    "name": "regional",
+    "url": "https://earth.google.com/web/@35.359,136.466,200a,120000d,35y,0h,0t,0r/data=CgRCAggBQgIIAEoNCP___________wEQAA?hl=en",
+    "attribution": "- navigation \"Main Navigation\":\n  - link \"Overview\":\n    - /url: https://mapsplatform.google.com/maps-products/earth/\n  - text: \"|\"\n  - link \"Home\":\n    - /url: /web/home\n  - text: \"|\"\n  - link \"Plans\":\n    - /url: /web/plans\n  - text: \"|\"\n  - link \"Data Layers\":\n    - /url: /web/data-layers\n  - text: \"|\"\n  - link \"Ask Google Earth\":\n    - /url: /web/ask-google-earth\n  - text: \"|\"\n  - link \"Tools\":\n    - /url: /web/tools\n  - text: \"|\"\n  - link \"Detect Change\":\n    - /url: /web/detect-change\n  - text: \"|\"\n  - link \"Capabilities\":\n    - /url: https://mapsplatform.google.com/maps-products/earth/capabilities/\n  - text: \"|\"\n  - link \"Versions\":\n    - /url: /versions/\n- heading \"Google Earth\" [level=1]\n- paragraph: Explore the globe, access and share your projects, view professional plans, geospatial data layers, site analysis tools, change detection, and conversational search.\n- alertdialog:\n  - region \"Alert\":\n    - text: \"Data attribution This map includes data from: Landsat / Copernicus Data SIO, NOAA, U.S. Navy, NGA, GEBCO Imagery from the dates: 12/14/2015–1/1/2021 Note, some visible imagery has unknown date information.\"\n    - button \"Terms of service\"\n    - button \"Done\"",
+    "captured_at": "2026-10-13T01:57:13.192Z"
+  },
+  {
+    "name": "oblique",
+    "url": "https://earth.google.com/web/@35.359,136.466,200a,9500d,35y,0h,45t,0r/data=CgRCAggBQgIIAEoNCP___________wEQAA?hl=en",
+    "attribution": "- navigation \"Main Navigation\":\n  - link \"Overview\":\n    - /url: https://mapsplatform.google.com/maps-products/earth/\n  - text: \"|\"\n  - link \"Home\":\n    - /url: /web/home\n  - text: \"|\"\n  - link \"Plans\":\n    - /url: /web/plans\n  - text: \"|\"\n  - link \"Data Layers\":\n    - /url: /web/data-layers\n  - text: \"|\"\n  - link \"Ask Google Earth\":\n    - /url: /web/ask-google-earth\n  - text: \"|\"\n  - link \"Tools\":\n    - /url: /web/tools\n  - text: \"|\"\n  - link \"Detect Change\":\n    - /url: /web/detect-change\n  - text: \"|\"\n  - link \"Capabilities\":\n    - /url: https://mapsplatform.google.com/maps-products/earth/capabilities/\n  - text: \"|\"\n  - link \"Versions\":\n    - /url: /versions/\n- heading \"Google Earth\" [level=1]\n- paragraph: Explore the globe, access and share your projects, view professional plans, geospatial data layers, site analysis tools, change detection, and conversational search.\n- alertdialog:\n  - region \"Alert\":\n    - text: \"Data attribution This map includes data from: Airbus Imagery from the dates: 1/9/2023–2/17/2026 Note, some visible imagery has unknown date information.\"\n    - button \"Terms of service\"\n    - button \"Done\"",
+    "captured_at": "2026-10-13T01:57:56.584Z"
+  }
+]

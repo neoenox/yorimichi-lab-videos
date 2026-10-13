@@ -1,0 +1,34 @@
+- navigation "Main Navigation":
+  - link "Overview":
+    - /url: https://mapsplatform.google.com/maps-products/earth/
+  - text: "|"
+  - link "Home":
+    - /url: /web/home
+  - text: "|"
+  - link "Plans":
+    - /url: /web/plans
+  - text: "|"
+  - link "Data Layers":
+    - /url: /web/data-layers
+  - text: "|"
+  - link "Ask Google Earth":
+    - /url: /web/ask-google-earth
+  - text: "|"
+  - link "Tools":
+    - /url: /web/tools
+  - text: "|"
+  - link "Detect Change":
+    - /url: /web/detect-change
+  - text: "|"
+  - link "Capabilities":
+    - /url: https://mapsplatform.google.com/maps-products/earth/capabilities/
+  - text: "|"
+  - link "Versions":
+    - /url: /versions/
+- heading "Google Earth" [level=1]
+- paragraph: Explore the globe, access and share your projects, view professional plans, geospatial data layers, site analysis tools, change detection, and conversational search.
+- alertdialog:
+  - region "Alert":
+    - text: "Data attribution This map includes data from: Airbus Imagery from the dates: 6/3/2023 Note, some visible imagery has unknown date information."
+    - button "Terms of service"
+    - button "Done"
