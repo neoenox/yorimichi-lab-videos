@@ -278,6 +278,7 @@ spec = dict(
             '・地図（合戦前の情勢図・両軍の動き・桶狭間の周辺）:自作（国土地理院「陰影起伏図」を加工。'
             '現在の地形に、記事の記述から位置関係を模式的に重ねたもので、当時の地形・道筋の再現ではありません）',
             '・サムネイルの背景:自作（同じ地図素材を加工）',
+            '・場面のイラスト:ChatGPT（OpenAI）による生成イラスト（イメージです。実際の場面・人物・資料の再現ではありません）',
         ],
         notes=[
             '地図の矢印は両軍の位置関係を示す模式で、実際の行軍路ではありません。地点の座標は大字の代表点で、'
@@ -291,6 +292,7 @@ spec = dict(
             '原史料（『信長公記』など）と専門書で、兵力・経過・戦場の記述を確認する',
             '地図の地点座標（大字の代表点）を、史跡の位置で確認する',
             '「桶狭間山」の諸説の要約が、各氏の主張とずれていないか確認する',
+            '生成イラスト6枚が、実在の人物・場所・作品の再現に見えないか（顔・文字・家紋が入っていないか）確認する',
         ],
     ),
     thumb=dict(
@@ -302,6 +304,29 @@ spec = dict(
         y0=24, bar_y=520, bar_w=700, sub_size=38, shade_x=740, shade_w=540,
     ),
 )
+
+# ---------------------------------------------------------------- 生成イラスト（背景）
+# 地図のある章（joukyou / keika / senjou）は図で足りるので敷かない。それ以外の章は、
+# 文字の後ろに場面の挿絵を敷く（挿絵はイメージで、実際の場面の再現ではない）。
+# 注意書きは、どの章でも空いている header の右（y=100）に逃がす（vp.py it_art の note_y）。
+ART = [
+    ('intro',    'field_dusk',   1),
+    ('kessen',   'downpour',    -1),
+    ('heiryou',  'old_records',  1),
+    ('kaishaku', 'war_council', -1),
+    ('sengo',    'quiet_field',  1),
+    ('matome',   'old_book',    -1),
+]
+ART_NOTE = 'イメージ（生成画像）。実際の場面の再現ではありません'
+for key, name, direction in ART:
+    images[name] = dict(file=MAPS + f'art_{name}.png')
+    ch = next(c for c in chapters if c['key'] == key)
+    box = [60, 170, 1860, 850]
+    ch['scene'][:0] = [
+        dict(t='art', name=name, box=box, at=0, dim=1.0, dir=direction, drift=36,
+             note=ART_NOTE, note_y=100),
+        dict(t='shade', box=box, at=0, alpha=0.48),
+    ]
 
 out = ROOT / 'data' / 'oke_spec.json'
 out.write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf8')

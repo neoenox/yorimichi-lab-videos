@@ -18,6 +18,24 @@
    "file": "assets/okehazama/map_field.png",
    "credit": "自作図「桶狭間の周辺」（国土地理院「陰影起伏図」を加工）",
    "source_url": "https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png"
+  },
+  "field_dusk": {
+   "file": "assets/okehazama/art_field_dusk.png"
+  },
+  "downpour": {
+   "file": "assets/okehazama/art_downpour.png"
+  },
+  "old_records": {
+   "file": "assets/okehazama/art_old_records.png"
+  },
+  "war_council": {
+   "file": "assets/okehazama/art_war_council.png"
+  },
+  "quiet_field": {
+   "file": "assets/okehazama/art_quiet_field.png"
+  },
+  "old_book": {
+   "file": "assets/okehazama/art_old_book.png"
   }
  },
  "bgm": [
@@ -46,6 +64,33 @@
    "opener_until": 1,
    "opener_y": 300,
    "scene": [
+    {
+     "t": "art",
+     "name": "field_dusk",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "dim": 1.0,
+     "dir": 1,
+     "drift": 36,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません",
+     "note_y": 100
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "alpha": 0.48
+    },
     {
      "t": "chips",
      "y": 440,
@@ -257,6 +302,33 @@
    "chapter_title": "桶狭間の合戦",
    "scene": [
     {
+     "t": "art",
+     "name": "downpour",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "dim": 1.0,
+     "dir": -1,
+     "drift": 36,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません",
+     "note_y": 100
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "alpha": 0.48
+    },
+    {
      "t": "stack",
      "x0": 60,
      "x1": 1860,
@@ -428,6 +500,33 @@
    "chapter_title": "兵力は、どれくらいだったのか",
    "scene": [
     {
+     "t": "art",
+     "name": "old_records",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "dim": 1.0,
+     "dir": 1,
+     "drift": 36,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません",
+     "note_y": 100
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "alpha": 0.48
+    },
+    {
      "t": "panel",
      "box": [
       60,
@@ -558,6 +657,33 @@
    "title": "なぜ勝てたのか、いくつもの見方",
    "chapter_title": "なぜ勝てたのか：いくつもの見方",
    "scene": [
+    {
+     "t": "art",
+     "name": "war_council",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "dim": 1.0,
+     "dir": -1,
+     "drift": 36,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません",
+     "note_y": 100
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "alpha": 0.48
+    },
     {
      "t": "stack",
      "x0": 60,
@@ -705,6 +831,33 @@
    "chapter_title": "合戦のあと",
    "scene": [
     {
+     "t": "art",
+     "name": "quiet_field",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "dim": 1.0,
+     "dir": 1,
+     "drift": 36,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません",
+     "note_y": 100
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "alpha": 0.48
+    },
+    {
      "t": "panel",
      "box": [
       60,
@@ -845,6 +998,33 @@
    "chapter_title": "分かること、決められないこと",
    "scene": [
     {
+     "t": "art",
+     "name": "old_book",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "dim": 1.0,
+     "dir": -1,
+     "drift": 36,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません",
+     "note_y": 100
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 0,
+     "alpha": 0.48
+    },
+    {
      "t": "cols2",
      "size": 30,
      "xm": 940,
@@ -949,7 +1129,8 @@
   ],
   "credit_lines": [
    "・地図（合戦前の情勢図・両軍の動き・桶狭間の周辺）:自作（国土地理院「陰影起伏図」を加工。現在の地形に、記事の記述から位置関係を模式的に重ねたもので、当時の地形・道筋の再現ではありません）",
-   "・サムネイルの背景:自作（同じ地図素材を加工）"
+   "・サムネイルの背景:自作（同じ地図素材を加工）",
+   "・場面のイラスト:ChatGPT（OpenAI）による生成イラスト（イメージです。実際の場面・人物・資料の再現ではありません）"
   ],
   "notes": [
    "地図の矢印は両軍の位置関係を示す模式で、実際の行軍路ではありません。地点の座標は大字の代表点で、数百メートル程度のずれがあります。",
@@ -960,7 +1141,8 @@
   "checks": [
    "原史料（『信長公記』など）と専門書で、兵力・経過・戦場の記述を確認する",
    "地図の地点座標（大字の代表点）を、史跡の位置で確認する",
-   "「桶狭間山」の諸説の要約が、各氏の主張とずれていないか確認する"
+   "「桶狭間山」の諸説の要約が、各氏の主張とずれていないか確認する",
+   "生成イラスト6枚が、実在の人物・場所・作品の再現に見えないか（顔・文字・家紋が入っていないか）確認する"
   ]
  },
  "thumb": {

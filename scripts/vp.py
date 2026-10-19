@@ -247,7 +247,8 @@ def it_swirl(im,d,cx,it):
     for l in wrapn(d,lab,f,it.get('lw',520)):line_text(d,(x-tw(d,l,f)/2,yy),l,f,WHITE,a);yy+=int(it.get('lsize',34)*1.3)
 _ART={}
 def it_art(im,d,cx,it):
-    """生成イラストを、箱いっぱいに敷く（ゆっくり拡大・移動）。spec: dict(t='art',name='<images のキー>',box=[...],at=N,until=M,dim=0.7)"""
+    """生成イラストを、箱いっぱいに敷く（ゆっくり拡大・移動）。spec: dict(t='art',name='<images のキー>',box=[...],at=N,until=M,dim=0.7)
+    note= の注意書きは既定で箱の右下。note_y= を渡すと、その高さ（画面座標）に置く（例：本文に重なる章で header の右へ逃がす）。"""
     if not cx.vis(it):return
     a=cx.a(it.get('at'),.8)
     if a<=0:return
@@ -263,7 +264,7 @@ def it_art(im,d,cx,it):
     mask=Image.new('L',(w,h),0);ImageDraw.Draw(mask).rounded_rectangle((0,0,w-1,h-1),18,fill=int(255*a))
     layer=Image.new('RGBA',(w,h),(0,0,0,0));layer.paste(crop,(0,0),mask);im.alpha_composite(layer,(x0,y0))
     if it.get('note'):
-        f=F[it.get('note_size',24)];tw_=int(d.textlength(it['note'],font=f));ln=ImageDraw.Draw(im,'RGBA');nx=x1-tw_-34;ny=y1-(36+it.get('note_size',24))
+        f=F[it.get('note_size',24)];tw_=int(d.textlength(it['note'],font=f));ln=ImageDraw.Draw(im,'RGBA');nx=x1-tw_-34;ny=it.get('note_y',y1-(36+it.get('note_size',24)))
         ln.rounded_rectangle((nx-12,ny-6,x1-14,ny+34),10,fill=(5,16,26,int(215*a)));ln.text((nx,ny),it['note'],font=f,fill=(215,224,226,int(255*a)))
 def it_shade(im,d,cx,it):
     """暗い下地（文字を読みやすくする）。spec: dict(t='shade',box=[...],at=N,until=M,alpha=0.8)"""
