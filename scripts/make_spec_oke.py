@@ -6,6 +6,8 @@ Run:  .venv\\Scripts\\python.exe scripts\\make_spec_oke.py
 import json
 from pathlib import Path
 
+import oke_maps  # 地図の画素位置は、地図を作った式（oke_maps.map_at）から直接もらう
+
 ROOT = Path(__file__).resolve().parents[1]
 MAPS = 'assets/okehazama/'
 GSI = 'https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png'
@@ -18,6 +20,26 @@ images = {
     'field': dict(file=MAPS + 'map_field.png',
                   credit='自作図「桶狭間の周辺」（国土地理院「陰影起伏図」を加工）', source_url=GSI),
 }
+
+_AT = {n: oke_maps.map_at(n) for n in ('map_situ', 'map_march', 'map_field')}
+
+
+def map_pt(name, key):
+    """地図画像の中の位置（左上=(0,0)、右下=(1,1)）。key は地点名か (lon,lat)。"""
+    x, y = _AT[name](key)
+    m = oke_maps.MAPS[name]
+    return [round(x / m[5], 4), round(y / m[6], 4)]
+
+
+def march_in(name, frm, to, margin=0.03):
+    """地図の外から来る軍勢は、地図の縁の少し外で切った入口から動かす（画面外を延々と歩かせない）。"""
+    a, b = map_pt(name, frm), map_pt(name, to)
+    if all(-margin <= v <= 1 + margin for v in a):
+        return a
+    ts = [t for i in (0, 1) if b[i] != a[i]
+          for t in ((v - a[i]) / (b[i] - a[i]) for v in (-margin, 1 + margin)) if 0 < t < 1]
+    t = max(ts) if ts else 1.0
+    return [round(a[0] + (b[0] - a[0]) * t, 4), round(a[1] + (b[1] - a[1]) * t, 4)]
 
 chapters = []
 
@@ -61,7 +83,20 @@ chapters.append(dict(
     key='keika', title='五月十二日から、十九日へ',
     chapter_title='合戦までの経過',
     scene=[
-        dict(t='image', name='march', box=[40, 150, 956, 850]),
+        # 軍勢が地図の上を動く（vp_anim.oke_march）。legs=[[i0,i1]] は「文 i0 の開始から、文 i1 の開始まで」。
+        dict(t='anim', name='oke_march', img='march', box=[40, 150, 956, 850], at=0,
+             armies=[
+                 # 今川軍：駿府方面から地図の東端を越えて沓掛城へ（5/12 出陣 → 5/18 到着）、
+                 #          のち本隊は沓掛城を出て桶狭間へ西進（5/19）
+                 dict(col=(255, 150, 90), legs=[[0, 1], [11, 12]],
+                      pts=[march_in('map_march', 'sunpu', 'kutsukake'),
+                           map_pt('map_march', 'kutsukake'),
+                           map_pt('map_march', 'okehazama_den')]),
+                 # 織田軍：清洲城（四時ごろ出発）→ 熱田神宮（八時ごろ）→ 善照寺砦（十時ごろ）
+                 dict(col=(120, 190, 255), legs=[[6, 8], [8, 9]],
+                      pts=[map_pt('map_march', 'kiyosu'), map_pt('map_march', 'atsuta'),
+                           map_pt('map_march', 'zenshoji')]),
+             ]),
         dict(t='stack', x0=980, x1=1860, y0=170, ymax=845, size=28, gap=9, items=[
             dict(text='五月十二日、義元が駿府を出陣。', at=0, until=2),
             dict(text='十八日、義元は沓掛城に入る。', at=1, until=3),
@@ -88,6 +123,8 @@ chapters.append(dict(
             dict(text='しかし、逆に討ち取られてしまう。', at=1, until=3),
             dict(text='砦を順調に落とした義元は喜び、謡をうたわせた。', at=2, until=3),
         ]),
+        # この章の図は「桶狭間山はどこか」を見るためのもの。どの候補地へ進んだかを描くと
+        # 一つの説を選んだことになるので、軍勢の移動は経過の章（行軍図）にだけ入れる。
         dict(t='image', name='field', box=[40, 150, 956, 850], at=3, until=7),
         dict(t='stack', x0=980, x1=1860, y0=170, ymax=845, size=28, gap=12, items=[
             dict(text='義元が本隊を布陣して休息していたのは、「桶狭間山」という山だった。', at=3, until=7),
@@ -282,7 +319,8 @@ spec = dict(
             '・場面のイラスト:ChatGPT（OpenAI）による生成イラスト（イメージです。実際の場面・人物・資料の再現ではありません）',
         ],
         notes=[
-            '地図の矢印は両軍の位置関係を示す模式で、実際の行軍路ではありません。地点の座標は住所検索APIが'
+            '地図の矢印と、地図の上で動く軍勢の印（今川軍＝橙、織田軍＝青）は、両軍の位置関係を示す模式で、'
+            '実際の行軍路・時刻ではありません。地点の座標は住所検索APIが'
             '返す大字の代表点で、史跡そのものの位置ではありません。数百メートルから1キロメートル以上、'
             'ずれている地点があります。',
             '原史料は、公開されている翻刻（『信長公記』『甲陽軍鑑』）で確認しました。原本・影印本と専門書は'

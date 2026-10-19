@@ -11,8 +11,9 @@ VEINBLUE = (92, 140, 220); WHITE = (245, 243, 232); GOLD = (239, 201, 118); DIM 
 
 
 def bind(g):
-    global F, FB
+    global F, FB, get_img
     F, FB = g['F'], g['FB']
+    get_img = g.get('get_img')
 
 
 def lerp(a, b, t):
@@ -548,4 +549,83 @@ def caltiles(im, d0, cx, it, a):
     commit(im, L, box, a)
 
 
-DRAW = dict(lunar=lunar, caltiles=caltiles, orbit=orbit, sunangle=sunangle, declination=declination, declination2=declination2, polar=polar, forearm=forearm, cells=cells, loop=loop, skin=skin, skintone=skintone, contrast=contrast, textbook=textbook)
+# ------------------------------------------------------------------ 地図の上の軍勢（桶狭間の戦い）
+def _upto(pts, s):
+    """道すじの先頭から、のこり s の地点までを結んだ折れ線（末尾が先頭のいまの位置）。"""
+    out = [pts[0]]
+    for i in range(len(pts) - 1):
+        l = math.dist(pts[i], pts[i + 1])
+        if s <= l:
+            f = s / l if l else 0
+            out.append((pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f,
+                        pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f))
+            return out
+        out.append(pts[i + 1])
+        s -= l
+    return out
+
+
+def _plate(d, xy, s, size, col, pad=9):
+    """地形の上でも読めるように、文字の後ろへ濃い板をしいて軍の名を出す。"""
+    f = F[size * S]
+    w = d.textlength(s, font=f)
+    x, y = xy[0] * S, xy[1] * S
+    d.rounded_rectangle((x - pad * S, y - 5 * S, x + w + pad * S, y + (size + 7) * S), 7 * S,
+                        fill=(6, 16, 26, 226), outline=tuple(col) + (170,), width=2 * S)
+    d.text((x, y), s, font=f, fill=(250, 248, 240, 255))
+
+
+def oke_march(im, d0, cx, it, a):
+    """地図の上を軍勢の印が道すじに沿って動く（桶狭間の戦いの行軍図）。
+
+    spec: dict(t='anim', name='oke_march', img='march', box=[x0,y0,x1,y1], at=N, until=M,
+               armies=[dict(col=(r,g,b), pts=[(nx,ny), ...], legs=[[i0,i1], ...],
+                            label='織田軍', lab_off=(dx,dy), head=15)])
+    pts は地図画像の左上(0,0)〜右下(1,1)の相対座標で、軍の通り道（通過点）を順に並べる。
+    legs は pts の間の区間ごとの予定で、legs[k]=[i0,i1] は「文 i0 が始まってから、文 i1 が
+    始まるまでに pts[k] から pts[k+1] へ動く」という意味（i1 が文の数なら章の終わりまで）。
+    区間の外では通過点で止まっている。"""
+    box = it['box']
+    W, H = box[2] - box[0], box[3] - box[1]
+    pic = get_img(it['img'], W - 16, H - 16)             # it_image と同じ収め方・同じ置き方
+    px0, py0 = (W - pic.width) // 2, 8
+    mp = pic.convert('RGBA')
+    if a < 1:                                            # 出るときは薄く出す（it_image と同じ）
+        mp.putalpha(mp.getchannel('A').point(lambda v: int(v * a)))
+    im.alpha_composite(mp, (box[0] + px0, box[1] + py0))
+    mw, mh = pic.width, pic.height                     # 印と道すじは地図の枠で切る
+    L, d = layer([0, 0, mw, mh])
+    n = len(cx.segl)
+
+    def P(q):
+        return (q[0] * mw, q[1] * mh)
+
+    for am in it.get('armies', []):
+        pts = [P(q) for q in am['pts']]
+        legs = am['legs']
+        k = 0                                            # いま何番目の区間か（まだなら 0）
+        for j, (i0, _) in enumerate(legs):
+            if i0 < n and cx.t >= cx.st[i0]:
+                k = j
+        i0, i1 = legs[k][0], legs[k][1]
+        t0 = cx.st[i0]
+        t1 = cx.st[i1] if i1 < n else cx.st[n - 1] + cx.segl[n - 1]['duration']
+        p = 0.0 if cx.t <= t0 else min(1.0, (cx.t - t0) / max(.001, t1 - t0))
+        s = sum(math.dist(pts[j], pts[j + 1]) for j in range(k))
+        s += ease(p) * math.dist(pts[k], pts[k + 1])
+        trav = _upto(pts, s)
+        col = tuple(am['col'])
+        if len(trav) > 1:                                # 通った道すじ（暗い縁＋明るい線）
+            poly(d, trav, (6, 14, 22, 170), 13)
+            poly(d, trav, col + (232,), 8)
+        head, r = trav[-1], am.get('head', 15)
+        circle(d, head, r + 7 + 4 * math.sin(cx.t * 4), outline=col + (90,), w=2)
+        circle(d, head, r + 3, fill=(6, 14, 22, 210))
+        circle(d, head, r, fill=col + (255,), outline=(250, 248, 240, 255), w=3)
+        if am.get('label'):
+            ox, oy = am.get('lab_off', (22, -52))
+            _plate(d, (head[0] + ox, head[1] + oy), am['label'], am.get('lsize', 26), col)
+    commit(im, L, [box[0] + px0, box[1] + py0, box[0] + px0 + mw, box[1] + py0 + mh], a)
+
+
+DRAW = dict(lunar=lunar, caltiles=caltiles, orbit=orbit, sunangle=sunangle, declination=declination, declination2=declination2, polar=polar, forearm=forearm, cells=cells, loop=loop, skin=skin, skintone=skintone, contrast=contrast, textbook=textbook, oke_march=oke_march)

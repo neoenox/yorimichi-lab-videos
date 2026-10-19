@@ -241,13 +241,14 @@ def draw_march(im, d, at):
     route(d, [at('kutsukake'), at('odaka'), at('okehazama_den')], org, '今川軍', .5, 8, 30, -50)
     route(d, [at('kiyosu'), at('atsuta'), at('zenshoji'), at('nakajima'), at('okehazama_den')],
           blu, '織田軍', .45, 8, 30, 34)
-    for k, lab, kind, off, sub, sub_col in [
+    for k, lab, kind, off, sub, sub_col, *al in [
             ('kiyosu', '清洲城', 'castle', (-148, -30), '5/19 4時ごろ', (206, 218, 226)),
             ('atsuta', '熱田神宮', 'fort', (24, -44), '8時ごろ', (206, 218, 226)),
-            ('kutsukake', '沓掛城', 'castle', (24, -48), '今川方', (255, 172, 120)),
-            ('okehazama_den', '桶狭間', 'battle', (26, -40), None, None)]:
+            ('kutsukake', '沓掛城', 'castle', (24, -78), '今川方', (255, 172, 120)),
+            ('zenshoji', '善照寺砦', 'fort', (-40, -46), None, None, 'right'),
+            ('okehazama_den', '桶狭間', 'battle', (-26, -40), None, None, 'right')]:
         marker(d, at(k), kind)
-        label(d, at(k), lab, off, 30, sub, sub_col=sub_col)
+        label(d, at(k), lab, off, 30, sub, sub_col=sub_col, align=al[0] if al else 'left')
     note(d, '矢印は位置関係の模式図です。', (26, im.height - 74))
     water_label(d, '伊勢湾', (26, im.height - 132))
 
@@ -282,10 +283,37 @@ def draw_thumb(im, d, at):
     marker(d, at('okehazama_den'), 'battle')
 
 
+# ---------------------------------------------------------------- 5. windows
+# 切り出しの条件を表にしておく。地図の上で軍勢を動かす（vp_anim.oke_march）ときに、
+# 場所の画素位置が要るので、build() と同じ式を map_at() からも使えるようにしている。
+MAPS = {
+    'map_situ': (15, 136.925, 137.000, 35.038, 35.100, 900, 680, draw_situ),
+    'map_march': (14, 136.775, 137.075, 35.035, 35.260, 900, 676, draw_march),
+    'map_field': (15, 136.942, 137.032, 35.034, 35.086, 900, 672, draw_field),
+    'thumb_art': (14, 136.596, 137.084, 35.035, 35.260, 1280, 720, draw_thumb),
+}
+
+
+def map_at(name):
+    """地図画像の中の座標を返す関数をつくる（左上=(0,0)、右下=(out_w,out_h)）。"""
+    z, lon0, lon1, lat0, lat1, out_w, out_h = MAPS[name][:7]
+    xa, ya = txy(lon0, lat1, z)
+    xb, yb = txy(lon1, lat0, z)
+    x0, y0 = int(math.floor(xa)), int(math.floor(ya))
+    box = (int(xa * 256 - x0 * 256), int(ya * 256 - y0 * 256),
+           int(xb * 256 - x0 * 256), int(yb * 256 - y0 * 256))
+
+    def at(k):
+        lon, lat = PT[k] if isinstance(k, str) else k[:2]
+        mx, my = txy(lon, lat, z)
+        return ((mx * 256 - x0 * 256 - box[0]) / (box[2] - box[0]) * out_w,
+                (my * 256 - y0 * 256 - box[1]) / (box[3] - box[1]) * out_h)
+
+    return at
+
+
 if __name__ == '__main__':
     TILES.mkdir(parents=True, exist_ok=True)
-    build('map_situ', 15, 136.925, 137.000, 35.038, 35.100, 900, 680, draw_situ)
-    build('map_march', 14, 136.775, 137.075, 35.035, 35.260, 900, 676, draw_march)
-    build('map_field', 15, 136.942, 137.032, 35.034, 35.086, 900, 672, draw_field)
-    build('thumb_art', 14, 136.596, 137.084, 35.035, 35.260, 1280, 720, draw_thumb)
+    for _n, (_z, _lo0, _lo1, _la0, _la1, _w, _h, _fn) in MAPS.items():
+        build(_n, _z, _lo0, _lo1, _la0, _la1, _w, _h, _fn)
     print('done')
