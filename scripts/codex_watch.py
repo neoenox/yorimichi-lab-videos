@@ -91,22 +91,31 @@ def audio_report(video, srt, out):
 PROMPT = """あなたは、解説動画（YouTubeチャンネル「寄り道ラボ」、合成音声のナレーション＋図解）を、公開前に**最初から最後まで通して視聴する**査読者です。
 **ファイルは変更せず、読むだけ**にしてください。結果は日本語で、重大度（高／中／低）の高い順に出してください。
 
-【材料】
-- 添付画像 watch_01.png〜：動画を{step}秒おきに切り出した静止画。各コマの左上に、動画の時刻（分:秒）が入っています。左上から右へ、上から下の順に並んでいます。
-- {srt}：字幕（ナレーションの読み上げと同じ文章。時刻つき）
-- {audio}：音声の測定値（ラウドネス、無音区間、字幕の読む速さ）
+【材料と、その使い方】添付ファイルの中身がすべてです。全部読んでから書いてください。
+- {srt}：**字幕。ナレーションの読み上げそのもの（時刻つき）。ナレーションの正本はこれ。**
+- {spec}：**画面の正本。**どの章に何が、どの時刻から、どの位置・大きさで出るかがJSONで書かれています。
 - {script}
-動画の音は聞けません。音は、測定値で判断してください（聞いて確かめられない点は「未確認」と書く）。
+- {desc}：概要欄。
+- {audio}：音声の測定値（ラウドネス、無音区間、字幕の読む速さ）。
+- 添付画像 watch_01.png〜：動画を{step}秒おきに切り出した静止画。各コマの左上に動画の時刻（分:秒）。左上から右へ、上から下の順。
+  **1コマは480×270に縮小されているので、画面の文字は読めません。**画像は「レイアウト・重なり・空白・同じ画面が長く続く区間」の確認にだけ使ってください。
+
+【禁止（ここを外すと査読が無意味になります）】
+- **画像から読み取れない文字を、推測で補わないこと。** 文面は必ず {srt} から引用してください。
+- **{srt}・{spec}・台本のどこにも無い固有名詞・年号・事件を書かないこと。** 書く場合は、SRTの時刻と文面を引用して示してください。
+- 確かめられないことは「未確認」と書いてください。自信のない読み取りを断定にしないこと。
+
+動画の音は聞けません。音は測定値で判断してください。
 
 【見てほしい点】
-1. **時刻ごとの画面とナレーションの対応**：字幕の時刻の画面が、読み上げの内容と合っているか（別の話題の図が出ている、図が出る前に話が進んでいる、など）。
+1. **時刻ごとの画面とナレーションの対応**：SRTの各時刻に、specのどの章の要素が出ているか。話と画面がずれている区間はないか。
 2. **画面の不具合**：文字のはみ出し・欠け・重なり、小さすぎる文字、真っ黒・空白のコマ、同じ画面が長く続いて動きがない区間。
-3. **ナレーションの正しさ**：事実関係、数字、年号、固有名詞。根拠より強い断定。画面の数字と字幕の数字の不一致。
+3. **ナレーションの正しさ**：事実関係、数字、年号、固有名詞。根拠より強い断定。画面の数字（spec）と字幕の数字（SRT）の不一致。
 4. **音声**：測定値から、音量不足・超過、不自然な無音、冒頭と末尾の余白の問題。
 5. **字幕**：長すぎる・読む速さが速すぎる字幕、誤字、画面の文字との重複。
 6. **公開してよいか**：上を総合して、「公開してよい／直せば公開してよい／公開不可」の3段階で判定し、直すべき点を優先順に挙げる。
 
-出力形式：先頭に判定、その後、指摘ごとに「重大度／時刻／該当箇所（引用）／問題／直し案」。確認した範囲（何枚のシートを見たか）を最後に書く。問題がなければ「指摘なし」。
+出力形式：先頭に判定。その後、指摘ごとに「重大度／時刻／**根拠にしたファイルと引用**／問題／直し案」。最後に、確認した範囲（見たシート数と、読んだファイル名）を書く。問題がなければ「指摘なし」。
 """
 
 
@@ -119,12 +128,24 @@ def main():
     work.mkdir(parents=True, exist_ok=True)
     sheets = frames(video, work)
     audio_report(video, srt, work)
+    spec = ROOT / 'data' / f'{slug}_spec.json'
+    desc = ROOT / 'out' / f'{slug}_description.md'
+    mats = [srt, work / 'audio_report.txt']          # 正本（字幕）と音声の測定値は必ず渡す
     script = '（台本ファイルなし。字幕を台本として扱う）'
     if theme and (ROOT / 'docs' / 'themes' / theme / '09_script_v2.md').exists():
+        td = ROOT / 'docs' / 'themes' / theme
         script = f'docs/themes/{theme}/09_script_v2.md（最終台本）と docs/themes/{theme}/08_fact_check.md（事実確認の記録）'
+        mats += [td / '09_script_v2.md', td / '08_fact_check.md']
     script += os.environ.get('EXTRA', '')
+    if spec.exists():
+        mats.append(spec)                            # 画面の正本（どの時刻に何が出るか）
+    if desc.exists():
+        mats.append(desc)
+    mats = [m for m in mats if m.exists()]
     prompt = PROMPT.format(step=STEP, srt=srt.relative_to(ROOT).as_posix(),
-                           audio=(work / 'audio_report.txt').relative_to(ROOT).as_posix(), script=script)
+                           audio=(work / 'audio_report.txt').relative_to(ROOT).as_posix(), script=script,
+                           spec=spec.relative_to(ROOT).as_posix() if spec.exists() else '（なし）',
+                           desc=desc.relative_to(ROOT).as_posix() if desc.exists() else '（なし）')
     out = (ROOT / 'docs' / 'themes' / theme / f'14_codex_watch{TAG}.md') if theme else work / 'codex_watch.md'
     cmd = ['codex', 'exec', '-s', 'read-only', '--skip-git-repo-check', '-C', str(ROOT), '-o', str(out)]
     for s in sheets:
@@ -134,6 +155,8 @@ def main():
         prompt += (f'\n\n【出力】所見は {out.relative_to(ROOT).as_posix()} に書き出してください。'
                    'このファイル以外は、作成も変更もしないでください。')
         cmd = ['opencode.cmd', 'run', '-m', os.environ.get('MODEL', 'opencode/nemotron-3.5-super-vl-free'), '--auto']
+        for m in mats:          # 正本（字幕SRT・仕様JSON・台本・概要欄・音声の測定値）を先に添付する。
+            cmd += ['-f', str(m)]   # これが無いとモデルは低解像度の画から文字を拾おうとして推測で埋める
         for sh_ in sheets:
             cmd += ['-f', str(sh_)]
         cmd.append(prompt)
