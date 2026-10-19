@@ -131,15 +131,29 @@ def main():
         cmd += ['-i', str(s)]
     cmd.append('-')
     if os.environ.get('REVIEWER') == 'opencode':  # Codex が使えないときの代替（環境変数 MODEL で指定。画像を読めるモデルが必要）
-        cmd = ['opencode.cmd', 'run', '-m', os.environ.get('MODEL', 'kilo/google/gemini-3.1-pro-preview'), '--auto']
+        prompt += (f'\n\n【出力】所見は {out.relative_to(ROOT).as_posix()} に書き出してください。'
+                   'このファイル以外は、作成も変更もしないでください。')
+        cmd = ['opencode.cmd', 'run', '-m', os.environ.get('MODEL', 'opencode/nemotron-3.5-super-vl-free'), '--auto']
         for sh_ in sheets:
             cmd += ['-f', str(sh_)]
         cmd.append(prompt)
-        r = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=str(ROOT), timeout=1800)
+        before = out.stat().st_mtime if out.exists() else None
+        r = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=str(ROOT), timeout=5400)
         txt = r.stdout.decode('utf8', 'replace')
-        if r.returncode == 0 and len(txt.strip()) > 200:
-            out.write_text(txt, encoding='utf8')
-        print(slug, 'sheets', len(sheets), 'opencode exit', r.returncode, '->', out if r.returncode == 0 else txt[-300:])
+        log = ROOT / 'out' / 'codex' / f'{slug}{TAG}_watch_oc.log'
+        log.parent.mkdir(exist_ok=True, parents=True)
+        log.write_text(txt, encoding='utf8')
+        after = out.stat().st_mtime if out.exists() else None
+        if after and after != before:
+            print(slug, 'sheets', len(sheets), 'opencode ->', out, '(written by the reviewer)')
+        else:
+            clean = re.sub(r'\x1b\[[0-9;]*m', '', txt)
+            body = '\n'.join(l for l in clean.splitlines() if not l.startswith(('> ', '$ ', '→ '))).strip()
+            if r.returncode == 0 and len(body) > 200:
+                out.write_text(body + '\n', encoding='utf8')
+                print(slug, 'sheets', len(sheets), 'opencode ->', out, '(from stdout)')
+            else:
+                print(slug, 'sheets', len(sheets), 'opencode exit', r.returncode, 'NO OUTPUT (see', log, ')', txt[-300:])
         return
     log = ROOT / 'out' / 'codex' / f'{slug}{TAG}_watch.log'
     log.parent.mkdir(exist_ok=True, parents=True)

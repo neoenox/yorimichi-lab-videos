@@ -3,7 +3,7 @@ usage: python scripts/codex_review.py <theme_dir> script|video [slug]
   script: reads <theme_dir>/08_fact_check.md + 09_script_v1.md  -> <theme_dir>/12_codex_script_review.md
   video : reads script v2 + out/<slug>_description.md + review sheets (images) -> <theme_dir>/13_codex_video_review.md
 The result is advice only: every finding must be verified against the original sources before it is applied (record in 10_review_log.md)."""
-import subprocess,sys,os
+import subprocess,sys,os,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 COMMON="""あなたは、歴史・科学・暮らしの解説動画（YouTubeチャンネル「寄り道ラボ」、合成音声のナレーション＋図解）の査読者です。
@@ -47,10 +47,44 @@ def main():
     rel=f'docs/themes/{d}';out=ROOT/rel/('12_codex_script_review.md' if kind=='script' else '13_codex_video_review.md')
     prompt=COMMON+(SCRIPT.format(d=rel) if kind=='script' else VIDEO.format(d=rel,slug=slug))
     cmd=['codex','exec','-s','read-only','--skip-git-repo-check','-C',str(ROOT),'-o',str(out)]
+    sheets=sorted((ROOT/'out'/f'{slug}_review').glob('sheet_*.png')) if kind=='video' else []
     if kind=='video':
-        sheets=sorted((ROOT/'out'/f'{slug}_review').glob('sheet_*.png'))
         for s in sheets:cmd+=['-i',str(s)]
     cmd.append('-')
+    if os.environ.get('REVIEWER')=='opencode':  # Codex が使えないときの代替（codex_watch.py と同じ流儀）
+        # 添付しないとモデルがファイルを読まずに「原稿を送ってください」と返すので、材料は必ず添付する
+        if kind=='script':
+            mat=[ROOT/rel/'07_brief.md',ROOT/rel/'08_fact_check.md',ROOT/rel/'09_script_v1.md']
+        else:
+            mat=[ROOT/rel/'08_fact_check.md',ROOT/rel/'09_script_v2.md',
+                 ROOT/'out'/f'{slug}_description.md',ROOT/'data'/f'{slug}_spec.json']+sheets
+        have='\n'.join(f'- {p.relative_to(ROOT).as_posix()}' for p in mat if p.exists())
+        prompt=('【重要】このメッセージには、査読に必要なファイルの中身を**すべて添付済み**です。'
+                '「原稿を送ってください」と聞き返さず、まず添付を全部読み、そのうえで以下の指示にしたがって査読結果を書いてください。'
+                '添付が画像の場合は、画像の中の文字を読んでください。\n'
+                f'添付したファイル:\n{have}\n\n')+prompt
+        prompt+=(f'\n\n【出力】査読結果は {out.relative_to(ROOT).as_posix()} に書き出してください。'
+                 'このファイル以外は、作成も変更もしないでください。')
+        ocmd=['opencode.cmd','run','-m',os.environ.get('MODEL','opencode/nemotron-3.5-super-vl-free'),'--auto']
+        for s in mat:
+            if s.exists():ocmd+=['-f',str(s)]
+        ocmd.append(prompt)
+        log=ROOT/'out'/'codex'/f'{d}_{kind}_oc.log';log.parent.mkdir(exist_ok=True,parents=True)
+        before=out.stat().st_mtime if out.exists() else None
+        r=subprocess.run(ocmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,cwd=str(ROOT),timeout=3600)
+        txt=r.stdout.decode('utf8','replace');log.write_text(txt,encoding='utf8')
+        after=out.stat().st_mtime if out.exists() else None
+        if after and after!=before:                      # モデルが本文をファイルに書いた場合
+            print('opencode exit','->',out,'(written by the reviewer)')
+        else:                                            # 書かなかった場合は標準出力から（ANSIと道具の行を落として）
+            clean=re.sub(r'\x1b\[[0-9;]*m','',txt)
+            keep=[l for l in clean.splitlines() if not l.startswith(('> ','$ ','→ '))]
+            body='\n'.join(keep).strip()
+            if r.returncode==0 and len(body)>200:
+                out.write_text(body+'\n',encoding='utf8');print('opencode exit 0 ->',out,'(from stdout)')
+            else:
+                print('opencode exit',r.returncode,'NO OUTPUT (see',log,')',txt[-300:])
+        return
     log=ROOT/'out'/'codex'/f'{d}_{kind}.log';log.parent.mkdir(exist_ok=True,parents=True)
     with log.open('wb') as lf:r=subprocess.run(cmd,input=prompt.encode('utf8'),stdout=lf,stderr=subprocess.STDOUT,cwd=str(ROOT))
     print('exit',r.returncode,'->',out if out.exists() else 'NO OUTPUT (see '+str(log)+')')
