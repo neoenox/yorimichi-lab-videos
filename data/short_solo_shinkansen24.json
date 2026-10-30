@@ -1,0 +1,43 @@
+{
+ "title": "新幹線の遅れ「平均24秒」は本当？",
+ "long_id": "gNGUPpg4wQM",
+ "long_title": "新幹線の遅延は、平均で何秒？ JR東海の資料と報道で確かめる",
+ "pron": "data/shinkansen_pronunciations.json",
+ "art": "assets/shinkansen/art_intro.png",
+ "hook": "「新幹線の遅れは、平均で24秒」と聞いたことはありませんか。その数字がいつのものか、確かめます。",
+ "notes": "■ 動画で確かめたこと\n・「平均24秒」は、2016年度の数字として報道で紹介されています(nippon.com、二次情報)。\n・JR東海の資料では、2024年度の平均遅延時分は、運行一列車あたり1.4分(84秒)です。自然災害等による遅延も含みます。\n・集計の方法は確かめていないので、この2つの数字だけで定時運行の良し悪しは言えません。",
+ "answer": "24秒は2016年度の数字",
+ "scenes": [
+  {
+   "text": "新幹線の遅れは、平均で、二十四秒。そう聞いたことは、ありませんか。",
+   "big": "新幹線の遅れ、平均24秒？",
+   "art": "assets/shinkansen/art_intro.png"
+  },
+  {
+   "text": "この二十四秒は、二〇一六年度の数字として、報道で紹介されています。",
+   "big": "24秒は、2016年度の数字",
+   "src": "nippon.com（二次情報）",
+   "art": "assets/shinkansen/art_platform.png",
+   "col": "white"
+  },
+  {
+   "text": "JR東海の資料では、二〇二四年度は、運行一列車あたり、一・四分です。",
+   "big": "2024年度：1.4分",
+   "src": "JR東海",
+   "art": "assets/shinkansen/art_tracks.png"
+  },
+  {
+   "text": "一・四分は、八十四秒。自然災害などによる遅れも、含まれています。",
+   "big": "1.4分＝84秒",
+   "sub": "自然災害等による遅延も含む",
+   "src": "JR東海",
+   "art": "assets/shinkansen/art_storm.png",
+   "col": "white"
+  },
+  {
+   "text": "くわしくは、長い動画で、確かめています。",
+   "end": true
+  }
+ ],
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+}

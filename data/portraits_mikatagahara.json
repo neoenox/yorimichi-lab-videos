@@ -1,0 +1,26 @@
+[
+  {
+    "id": "shingen",
+    "name": "武田信玄",
+    "file": "assets\\portraits\\shingen.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Takeda Shingen.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Kuniyoshi",
+    "desc": "",
+    "date": "1843 - 1847",
+    "credit": "http://visipix.com/search/search.php?userid=1616934267&amp;q=%272aAuthors/K/Kuniyoshi%201797-1861%2C%20Utagawa%2C%20Japan%27&amp;s=22&amp;l=en&amp;u=2&amp;ub=1&amp;k=1",
+    "sha256": "4aee9a83dfa19f3b908f06009914178e5d11728613a9805b1f90de2e0f824160"
+  },
+  {
+    "id": "sakuma_n",
+    "name": "佐久間信盛",
+    "file": "assets\\portraits\\sakuma_n.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Sakuma Nobumori.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "Sakuma Nobimori",
+    "date": "延宝年間(1673-1680)頃",
+    "credit": "中央公論社『普及版 戦国合戦絵屏風集成 第一巻 川中島合戦図 長篠合戦図』(1988)より",
+    "sha256": "601387891feb7bba6a14fe4d7c92aaed24ca3d1db4186404eb20ed053711852b"
+  }
+]

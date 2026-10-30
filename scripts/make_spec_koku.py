@@ -1,7 +1,7 @@
 """Writes data/koku_spec.json (scene definitions are data; edit here and re-run)."""
 import json,sys
 sys.path.insert(0,str(__import__('pathlib').Path(__file__).parent))
-from specart import inject
+from specart import inject, inject2
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
 spec=dict(slug='koku',theme_dir='20261017_koku',pack='04_edo_ichikoku',header_sub='江戸の時刻の仕組みを確かめる',images={},
@@ -41,7 +41,7 @@ spec=dict(slug='koku',theme_dir='20261017_koku',pack='04_edo_ichikoku',header_su
  dict(key='cal',title='暦の時刻と、暮らしの時刻',chapter_title='暦の時刻と、暮らしの時刻',opener='暦の上の「刻」',opener_until=0,scene=[
    dict(t='panel',box=[60,160,1860,230],text='暦の上では、「刻」に別の意味もあった',at=0,size=40,hi=True),
    dict(t='panel',box=[60,250,930,470],title='不定時法の一刻',text='昼と夜を6等分。季節で伸び縮みする',at=1,until=3,size=38),
-   dict(t='panel',box=[990,250,1860,470],title='百刻法の一刻（暦）',text='一日を100等分。14.4分（14分24秒）で、一年中同じ',at=1,until=3,size=38),
+   dict(t='panel',box=[990,250,1860,470],title='百刻法の一刻（暦）',text='一日を100等分。14.4分（14分24秒）。季節によらず一定',at=1,until=3,size=38),
    dict(t='panel',box=[60,260,1860,380],text='暦は、十二辰刻と百刻法で書かれた　／　人々の生活の基準は、不定時法',at=3,size=44),
    dict(t='panel',box=[60,410,1860,530],text='天保暦（1844年暦）：暦の時刻も、不定時法に直された',at=4,size=44,col='gold'),
    dict(t='panel',box=[60,560,1860,680],text='論文の著者の評価：天文学の立場では、学術的には後退',at=5,size=44)]),
@@ -70,4 +70,5 @@ spec=dict(slug='koku',theme_dir='20261017_koku',pack='04_edo_ichikoku',header_su
   checks=['計算例の数値(論文の表2)の転記を、もう一度見る(`docs/themes/20261017_koku/08_fact_check.md` K3)']),
  thumb=dict(bg='assets/koku/thumb_art.png',lines=[['江戸の',80,'white'],['一刻は',130,'gold'],['いつも',80,'white'],['2時間？',130,'gold']],sub='夏と冬で、何分違う？',y0=12,bar_y=548,bar_w=560,sub_size=44,shade_x=700,shade_w=520))
 inject(spec,dict(intro='edo',mech='sundial',calc='sunrise',names='bell',cal='wadokei',meiji='meiji',end='edo'))
+inject2(spec,{'calc':('calc',3)})
 (R/'data'/'koku_spec.json').write_text(json.dumps(spec,ensure_ascii=False,indent=1),encoding='utf8');print('spec written')

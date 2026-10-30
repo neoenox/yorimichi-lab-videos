@@ -1,0 +1,143 @@
+{
+ "calendar": {
+  "new": "2waqm6-Kqg4",
+  "old": "GrLYiIA43EI",
+  "publishAt": "2026-10-26T11:00:00Z"
+ },
+ "einstein": {
+  "new": "5LTjdjdQDR4",
+  "old": "Q0EhnmVzF00",
+  "publishAt": "2026-10-27T11:00:00Z"
+ },
+ "sekigahara": {
+  "new": "HVdstpUra9E",
+  "old": "7dC3hp2IC8g",
+  "publishAt": "2026-10-28T11:00:00Z"
+ },
+ "rain30": {
+  "new": "myjfHXMUQ-4",
+  "old": "gP2Qxtkjg2o",
+  "publishAt": "2026-10-29T11:00:00Z"
+ },
+ "islands": {
+  "new": "JWfCtCq1Zjg",
+  "old": "4vTbd4RI8Lk",
+  "publishAt": "2026-10-31T11:00:00Z"
+ },
+ "komaki": {
+  "new": "T9dn5K9Rgvg",
+  "old": "sPt2J6EYMtA",
+  "publishAt": "2026-11-01T11:00:00Z"
+ },
+ "yakubusoku": {
+  "new": "YdOyg6W-954",
+  "old": "is-8hTbiqxY",
+  "publishAt": "2026-11-02T11:00:00Z"
+ },
+ "oke": {
+  "new": "RDSXfLVMrDk",
+  "old": "enTP_nUuqDI",
+  "publishAt": "2026-11-03T11:00:00Z"
+ },
+ "yamazaki": {
+  "new": "_iQG1kUdoTc",
+  "old": "7f1J3697tlE",
+  "publishAt": "2026-11-04T11:00:00Z"
+ },
+ "shizugatake": {
+  "new": "y1E14uWhmgg",
+  "old": "4sp2xLV5f80",
+  "publishAt": "2026-11-06T11:00:00Z",
+  "note": "browser"
+ },
+ "venus": {
+  "new": "dBs6pF-Qz2w",
+  "old": "13omLH2Crw4",
+  "publishAt": "2026-11-08T11:00:00Z"
+ },
+ "honnoji": {
+  "new": "bsbf0T-RslY",
+  "old": "xGiba6mENm8",
+  "publishAt": "2026-11-09T11:00:00Z"
+ },
+ "oceanblue": {
+  "new": "dYAFL198wT4",
+  "old": "Ih6EwHlS5kM",
+  "publishAt": "2026-11-10T11:00:00Z"
+ },
+ "worldmap": {
+  "new": "i1YOi6r6MhM",
+  "old": "3ewMIxXPe5A",
+  "publishAt": "2026-11-11T11:00:00Z"
+ },
+ "akashi": {
+  "new": "LgePZBLaOTk",
+  "old": "Os18k-kNrSc",
+  "publishAt": "2026-11-12T11:00:00Z"
+ },
+ "ninja": {
+  "new": "BpZ7pce2htQ",
+  "old": "i1JKM-Fbjpg",
+  "publishAt": "2026-11-13T11:00:00Z"
+ },
+ "gps": {
+  "new": "j1WZYf-TXqU",
+  "old": "RHcuJJm9iS4",
+  "publishAt": "2026-11-14T11:00:00Z"
+ },
+ "rice": {
+  "new": "i6uM3eAXmlM",
+  "old": "lEd4BI2Nc28",
+  "publishAt": "2026-11-16T11:00:00Z"
+ },
+ "forest": {
+  "new": "piQdBb8SsNY",
+  "old": "raoPuxJEnEI",
+  "publishAt": "2026-11-20T11:00:00Z"
+ },
+ "shomi": {
+  "new": "qX1IAFU91ak",
+  "old": "Ac2h-LH7FUM",
+  "publishAt": "2026-11-22T11:00:00Z"
+ },
+ "lightning": {
+  "new": "smfBjHIV_zA",
+  "old": "247MDXfVJlM",
+  "publishAt": "2026-11-24T11:00:00Z"
+ },
+ "magnitude": {
+  "new": "71aUPEXqklE",
+  "old": "30iAgzoSAC8",
+  "publishAt": "2026-11-25T11:00:00Z"
+ },
+ "moon": {
+  "new": "mQwLsy6OqsY",
+  "old": "dvzkMUS_i14",
+  "publishAt": "2026-11-27T11:00:00Z"
+ },
+ "vitaminc": {
+  "new": "wJyBVJRvdeE",
+  "old": "LyzltztAO9A",
+  "publishAt": "2026-12-02T11:00:00Z"
+ },
+ "zenzen": {
+  "new": "1zdEPEveReY",
+  "old": "1NXj3N8WfF4",
+  "publishAt": "2026-12-05T11:00:00Z"
+ },
+ "flatearth": {
+  "new": "PhT8Bjmx3Tw",
+  "old": "aux2mul9Psw",
+  "publishAt": "2026-12-09T11:00:00Z"
+ },
+ "leapsecond": {
+  "new": "bnpUMtqVNe4",
+  "old": "FxmGYv9qGC0",
+  "publishAt": "2026-12-12T11:00:00Z"
+ },
+ "sunrise": {
+  "new": "bbaSqiNWZeY",
+  "old": "jO_0qn3EDfI",
+  "publishAt": "2026-12-19T11:00:00Z"
+ }
+}

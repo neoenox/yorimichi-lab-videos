@@ -4,23 +4,26 @@
  "pack": "04_edo_ichikoku",
  "header_sub": "江戸の時刻の仕組みを確かめる",
  "images": {
-  "meiji": {
-   "file": "assets/koku/art_meiji.png"
+  "wadokei": {
+   "file": "assets/koku/art_wadokei.png"
   },
   "edo": {
    "file": "assets/koku/art_edo.png"
-  },
-  "sunrise": {
-   "file": "assets/koku/art_sunrise.png"
-  },
-  "wadokei": {
-   "file": "assets/koku/art_wadokei.png"
   },
   "sundial": {
    "file": "assets/koku/art_sundial.png"
   },
   "bell": {
    "file": "assets/koku/art_bell.png"
+  },
+  "meiji": {
+   "file": "assets/koku/art_meiji.png"
+  },
+  "sunrise": {
+   "file": "assets/koku/art_sunrise.png"
+  },
+  "calc": {
+   "file": "assets/koku/art_calc.png"
   }
  },
  "bgm": [
@@ -277,6 +280,31 @@
       850
      ],
      "at": 0,
+     "alpha": 0.66
+    },
+    {
+     "t": "art",
+     "name": "calc",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 3,
+     "dim": 0.8,
+     "dir": -1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 3,
      "alpha": 0.66
     },
     {
@@ -662,7 +690,7 @@
       470
      ],
      "title": "百刻法の一刻（暦）",
-     "text": "一日を100等分。14.4分（14分24秒）で、一年中同じ",
+     "text": "一日を100等分。14.4分（14分24秒）。季節によらず一定",
      "at": 1,
      "until": 3,
      "size": 38
@@ -885,8 +913,7 @@
    "国立国会図書館「本の万華鏡 第32回」第1章「時刻の統一」:https://www.ndl.go.jp/kaleido/entry/32/2.html"
   ],
   "credit_lines": [
-   "・サムネイルの背景:Codex(OpenAI)による生成イラスト(江戸時代の日時計のイメージ。史実の再現ではありません)",
-   "・場面のイラスト:Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
+   "・サムネイルの背景と場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
   ],
   "notes": [
    "数値は、論文の計算例(北緯35度・東経135度、均時差を含む)です。江戸の町の実際の鐘の時刻とは、ずれる場合があります。",

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "shibata",
+    "name": "柴田勝家",
+    "file": "assets\\portraits\\shibata.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Shibata_Katsuie_large.jpg",
+    "license": "Public domain",
+    "artist": "Unknown",
+    "desc": "",
+    "date": "Momoyama - Early Edo period",
+    "credit": "The Japanese book \"Shibata Katsuie\", Fukui City History Museum, 2006",
+    "sha256": "6b64d18d117313da3357af0b692f39516ce8ebb665e4f7c3ab5a0fdccbe499d6"
+  },
+  {
+    "id": "sakuma_m",
+    "name": "佐久間盛政",
+    "file": "assets\\portraits\\sakuma_m.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Sakuma_Genba.jpg",
+    "license": "Public domain",
+    "artist": "Nobukazu Yōsai",
+    "desc": "『佐久間盛政秀吉ヲ襲フ』の左版の一部。",
+    "date": "1893",
+    "credit": "個人蔵錦絵",
+    "sha256": "b8b2262e3706825aeff8e0223acf2654ffec01fa3bad9221f811816544ec9382"
+  },
+  {
+    "id": "maeda",
+    "name": "前田利家",
+    "file": "assets\\portraits\\maeda.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Maeda_Toshiie.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "前田利家。Maeda Toshiie. 戦国時代から安土桃山時代の武将。大名。",
+    "date": "before 1867date QS:P,+1867-00-00T00:00:00Z/7,P1326,+1867-00-00T00:00:00Z/9",
+    "credit": "Own work (個人所蔵品)",
+    "sha256": "7d84b1284085bf27eb59485c163c0c4482c8878e651342159fcb7a5cc9533875"
+  },
+  {
+    "id": "kato_k",
+    "name": "加藤清正",
+    "file": "assets\\portraits\\kato_k.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Katō_Kiyomasa.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "Portrait of Katō Kiyomasa.",
+    "date": "Edo period?",
+    "credit": "Kyoto City Kochiin Collection",
+    "sha256": "27bb2a448dd50c264e2e9e55173e188cbb942824923768209c9c1ee809d09ebc"
+  },
+  {
+    "id": "hidenaga",
+    "name": "羽柴秀長",
+    "file": "assets\\portraits\\hidenaga.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Hidenaga_Toyotomi.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "豊臣秀長（羽柴秀長）戦国時代から安土桃山時代にかけての武将。大名。豊臣秀吉の弟。\n\nToyotomi Hidenaga (1540 - 1591) was a half-brother of Toyotomi Hideyoshi, one of the most powerful (and significant) warlords of Japan's Sengoku period.",
+    "date": "Before 140years.",
+    "credit": "奈良県大和郡山市春岳院所蔵品。This is a collection of the Syungakuin in Japan Yamatokooriyama-shi, Nara.",
+    "sha256": "7952f564b9024f74fea5d761fb691fb0f4dc20aebca395ec60af420ff9aff4c9"
+  }
+]

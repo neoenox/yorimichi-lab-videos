@@ -8,6 +8,7 @@ from hn_text import display
 import gm_geo as G
 import gm_proj as P
 from PIL import Image,ImageDraw,ImageFont
+import rich_text as rich
 ROOT=Path(__file__).resolve().parents[1];FD='C:/Windows/Fonts/';_FC={}
 SPEC_F={'sans':('NotoSansJP-VF.ttf',560),'sub':('NotoSansJP-VF.ttf',640),'serif':('NotoSerifJP-VF.ttf',800)}
 def vfont(kind,size):
@@ -290,7 +291,7 @@ def sc_others(im,d,cx):
         panel(d,(px_,170,1870,420),'2017年');line_text(d,(px_+25,236),'アメリカ・ボストンの公立学校が',F[34],WHITE,cx.a(1));line_text(d,(px_+25,284),'面積を保つ図法の地図を採用',F[34],WHITE,cx.a(1))
         if cx.on(2):line_text(d,(px_+25,346),'形の歪みが大きいという議論も',F[34],GOLD,cx.a(2))
     if cx.on(3):
-        panel(d,(px_,440,1870,720),'2018年　イコール・アース図法');line_text(d,(px_+25,506),'面積を保つ図法の一つ',F[36],WHITE,cx.a(3))
+        panel(d,(px_,440,1870,720),'2018年　イコール・アース図法');line_text(d,(px_+25,506),'面積を保つ図法の1つ',F[36],WHITE,cx.a(3))
         if cx.on(4):line_text(d,(px_+25,562),'見た目のバランスを重視した',F[34],DIM,cx.a(4));line_text(d,(px_+25,606),'ロビンソン図法に着想を得た',F[34],DIM,cx.a(4))
     if cx.on(6):
         panel(d,(px_,170,1870,420),'見かけの面積比（アフリカ÷グリーンランド）' if False else '見かけの面積比')
@@ -348,7 +349,7 @@ def sc_end(im,d,cx):
     if cx.on(5):
         d.rounded_rectangle((50,640,930,840),14,fill=BG,outline=GOLD,width=3);line_text(d,(80,656),'分かること',F[40],GOLD,cx.a(5));ptext(d,80,716,'何かを守るために、何かを犠牲にする',F[34],800,WHITE,cx.a(6))
     if cx.on(7):
-        d.rounded_rectangle((960,640,1870,840),14,fill=BG,outline=GOLD,width=3);line_text(d,(990,656),'一つに決められないこと',F[40],GOLD,cx.a(7));ptext(d,990,716,'最適な図法は、使う目的しだい',F[34],840,WHITE,cx.a(8))
+        d.rounded_rectangle((960,640,1870,840),14,fill=BG,outline=GOLD,width=3);line_text(d,(990,656),'1つに決められないこと',F[40],GOLD,cx.a(7));ptext(d,990,716,'最適な図法は、使う目的しだい',F[34],840,WHITE,cx.a(8))
 SCENES={'intro':sc_intro,'why':sc_why,'mercator':sc_mercator,'measure':sc_measure,'others':sc_others,'webmap':sc_webmap,'end':sc_end}
 # ---------------- subtitles (46px, max 2 lines, long sentences are paged instead of shrunk)
 _SUBP={}
@@ -375,9 +376,9 @@ def render_frame(i):
     header(d,cx.key);SCENES[cx.key](im,d,cx);d=ImageDraw.Draw(im,'RGBA')
     active=next((x for x in cx.segl if x['start']<=t<x['end']),None)
     if active:
-        f=FSUB[46];lines=sub_lines(d,active,f,t);sub=(60,860,1860,1008);d.rounded_rectangle(sub,12,fill=(5,18,29,242))
+        f=FSUB[52];lines=sub_lines(d,active,f,t);sub=(60,850,1860,1008);d.rounded_rectangle(sub,12,fill=(5,18,29,242))
         for j,txt in enumerate(lines):
-            w=tw(d,txt,f);assert w<1760;d.text(((1920-w)/2,872+j*62),txt,font=f,fill='#fffcef')
+            w=tw(d,txt,f);assert w<1760;rich.draw_center(d,960,862+j*70,txt,f,'#fffcef',(255,208,122))
     d.rectangle((48,1012,48+1824*(i+1)/N,1018),fill=(201,173,112));return im
 def render(a,b):
     stills=[int(x) for x in os.environ['STILLS'].split(',')] if os.environ.get('STILLS') else None
@@ -403,18 +404,18 @@ def chk_duration():
 def final():
     parts=sorted(ROOT.glob('cache/gm_part_*.mp4'),key=lambda p:int(p.stem.split('_')[2]))
     lst=ROOT/'cache'/'gm_parts.txt';lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts));wav=str(ROOT/'out'/'gm_narration.wav')
-    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',wav,'-af','loudnorm=I=-15:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
+    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',wav,'-af','loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
     j=json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}',r.stderr,re.S).group(0))
-    af=f"loudnorm=I=-15:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
-    subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',wav,'-map','0:v','-map','1:a','-c:v','h264_nvenc','-preset','p5','-cq','25','-b:v','0','-pix_fmt','yuv420p','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(ROOT/'out'/'gm_video.mp4')],check=True)
+    af=f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
+    subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',wav,'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(ROOT/'out'/'gm_video.mp4')],check=True)
     chk_duration();print('loudnorm input',j['input_i'],'LUFS')
 def remix(bgm_db=-16.0,bgm_file='gm_bgm.wav'):
     nar=str(ROOT/'out'/'gm_narration.wav');bgm=str(ROOT/'out'/bgm_file);mix=str(ROOT/'cache'/'gm_mix.wav')
     fc=f"[0:a]aresample=48000,pan=stereo|c0=c0|c1=c0,asplit=2[n1][n2];[1:a]volume={bgm_db}dB[bg];[bg][n2]sidechaincompress=threshold=0.02:ratio=4:attack=30:release=900:makeup=1[duck];[n1][duck]amix=inputs=2:normalize=0:duration=first[m]"
     subprocess.run(['ffmpeg','-y','-v','warning','-i',nar,'-i',bgm,'-filter_complex',fc,'-map','[m]','-c:a','pcm_s16le',mix],check=True)
-    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',mix,'-af','loudnorm=I=-15:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
+    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',mix,'-af','loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
     j=json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}',r.stderr,re.S).group(0))
-    af=f"loudnorm=I=-15:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
+    af=f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
     subprocess.run(['ffmpeg','-y','-v','warning','-i',str(ROOT/'out'/'gm_video_nobgm.mp4'),'-i',mix,'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(ROOT/'out'/'gm_video.mp4')],check=True)
     print('mix input',j['input_i'])
 if __name__=='__main__':

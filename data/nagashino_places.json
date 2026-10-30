@@ -1,0 +1,100 @@
+{
+ "nagashino_castle": {
+  "name": "長篠城跡",
+  "lat": 34.92282,
+  "lon": 137.55985,
+  "src": "Wikipedia/Wikidata 座標（日本語版・Wikidata一致）",
+  "acc": "史跡の代表点。数十m"
+ },
+ "shidara_museum": {
+  "name": "設楽原歴史資料館",
+  "lat": 34.91888,
+  "lon": 137.52853,
+  "src": "Wikipedia 座標（Wikidata 34.91875,137.52825 とほぼ一致）",
+  "acc": "数十m"
+ },
+ "battlefield": {
+  "name": "設楽原（決戦場）",
+  "lat": 34.92147,
+  "lon": 137.52508,
+  "src": "Wikipedia「長篠の戦い」の座標",
+  "acc": "代表点。決戦場は連吾川沿いに広がる"
+ },
+ "rengo_river": {
+  "name": "連吾川",
+  "lat": 34.91616,
+  "lon": 137.52448,
+  "src": "OpenStreetMap（Nominatim）。©OpenStreetMap contributors",
+  "acc": "川の代表点。流路はGSI地図で確認"
+ },
+ "shingen_zuka": {
+  "name": "信玄塚",
+  "lat": 34.91816,
+  "lon": 137.52869,
+  "src": "OpenStreetMap（Nominatim）",
+  "acc": "武田軍戦没者の塚（後世）。位置の目印として使う場合は注記"
+ },
+ "ioji": {
+  "name": "医王寺（勝頼の本陣と伝わる）",
+  "lat": 34.93034,
+  "lon": 137.55787,
+  "src": "Wikipedia 座標",
+  "acc": "勝頼が長篠城攻めの本陣を置いたと伝わる寺。『信長公記』には書かれていない"
+ },
+ "houraiji": {
+  "name": "鳳来寺",
+  "lat": 34.97874,
+  "lon": 137.58619,
+  "src": "Wikipedia 座標",
+  "acc": "武田軍が退いた方角の目印（『信長公記』に「鳳来寺をさして」）"
+ },
+ "noda_castle": {
+  "name": "野田城跡",
+  "lat": 34.8905,
+  "lon": 137.4772,
+  "src": "OpenStreetMap（Nominatim）",
+  "acc": "信長は5/17に野田原で野陣。城跡とは別の可能性あり"
+ },
+ "ushikubo": {
+  "name": "牛久保城跡",
+  "lat": 34.80906,
+  "lon": 137.38294,
+  "src": "Wikipedia 座標",
+  "acc": "5/16 信長が泊まった牛窪の城"
+ },
+ "okazaki": {
+  "name": "岡崎城",
+  "lat": 34.95581,
+  "lon": 137.15994,
+  "src": "GSI 住所検索（岡崎市康生町）",
+  "acc": "5/14 信長が着陣"
+ },
+ "TBD_tobinosu": {
+  "name": "鳶ノ巣山砦（跡）",
+  "lat": null,
+  "lon": null,
+  "src": "要確認",
+  "acc": "長篠城の南東〜東（豊川＝寒狭川の対岸）。設楽原歴史資料館・新城市の資料か、国土地理院の史跡情報で確定する。OSMの「鳶ノ巣山」(34.97,137.70)は別の山"
+ },
+ "TBD_nobunaga_hq": {
+  "name": "信長の本陣（極楽寺山＝茶臼山）",
+  "lat": null,
+  "lon": null,
+  "src": "要確認",
+  "acc": "『信長公記』は志多羅郷の極楽寺山に陣。茶臼山と同一かは要確認"
+ },
+ "TBD_ieyasu_hq": {
+  "name": "家康の陣（高松山＝弾正山？）",
+  "lat": null,
+  "lon": null,
+  "src": "要確認",
+  "acc": "『信長公記』の高松山と、現地の弾正山の同定は要確認"
+ },
+ "TBD_fence": {
+  "name": "馬防柵（復元地）",
+  "lat": null,
+  "lon": null,
+  "src": "要確認",
+  "acc": "連吾川の西岸に沿う。復元柵の位置は現地資料で確認。当時の柵の位置・長さは確定しない"
+ }
+}

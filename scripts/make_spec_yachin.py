@@ -1,0 +1,63 @@
+"""Writes data/yachin_spec.json（江戸の長屋の家賃は、月四千八百円ほどだった？）。台本：docs/themes/20270310_yachin/09_script_v2.md
+at / until は『章内の行番号（0始まり）』。spec_common.finalize が文の番号に直す。"""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import finalize, TOP
+spec = dict(slug='yachin', theme_dir='20270310_yachin', pack='65_yachin', header_sub='解説記事で、長屋の家賃の数字を確かめる',
+ images={},
+ bgm=[['intro', 'hiro', 'piano36'], ['kazu', 'oya', 'piano12'], ['oya', 'end', 'piano40']],
+ chapters=[
+ dict(key='intro', title='江戸の長屋の家賃は、月4800円ほどだった？', chapter_title='導入：江戸の長屋の家賃は、月4800円ほどだった？', opener='江戸の長屋の家賃は、月四千八百円ほどだった？', opener_until=1, scene=[
+   dict(t='big', text='長屋の家賃は月4800円ほど？', y=270, at=0, size=48, col='gold'),
+   dict(t='panel', box=[120, 450, 1800, 570], text='九尺二間の、小さな長屋の話', at=1, size=40, hi=True),
+   dict(t='panel', box=[120, 620, 1800, 700], text='確かめる材料：解説記事の説明', at=3, size=38),
+   dict(t='panel', box=[120, 750, 1800, 860], text='答え：記事で換算が違い、円の金額は決められない', at=4, size=34, col='gold')]),
+ dict(key='hiro', title='長屋の広さ', chapter_title='長屋の広さ', scene=[
+   dict(t='panel', box=TOP, text='まず、長屋の広さ', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='解説記事：九尺二間は、間口約2.7m', at=1, until=2, size=38, hi=True),
+   dict(t='panel', box=TOP, text='奥行き約3.6m、面積は約9.7平方メートル', at=2, until=3, size=38),
+   dict(t='panel', box=TOP, text='土間に水がめ・流し・かまど。奥は四畳余り', at=3, until=4, size=38),
+   dict(t='panel', box=TOP, text='井戸や便所は、路地の奥の共同', at=4, size=40, col='gold')]),
+ dict(key='kazu', title='家賃の数字', chapter_title='家賃の数字', scene=[
+   dict(t='panel', box=TOP, text='気になるのは、家賃', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='ある記事：現代の感覚で、月4875円ほど', at=1, until=2, size=40, hi=True),
+   dict(t='panel', box=TOP, text='別の記事：割長屋の家賃は、月3万円', at=2, until=3, size=40),
+   dict(t='panel', box=TOP, text='同じ長屋でも、6倍ほどの差', at=3, until=4, size=40),
+   dict(t='panel', box=TOP, text='換算の前提が違い、円の数字は決められない', at=4, size=36, col='gold'),
+   dict(t='table', box=[60, 300, 1860, 640], cols=['長屋の家賃（記事の換算）', '月'], colw=[1200, 600], size=32, rows=[
+     dict(at=1, cells=['九尺二間の長屋（ある記事）', '約4875円']),
+     dict(at=2, cells=['割長屋（別の記事）', '約3万円']),
+     dict(at=4, cells=['当時の家賃の記録', '確認できず'], col='gold')])]),
+ dict(key='bun', title='文で考える', chapter_title='文で考える', scene=[
+   dict(t='panel', box=TOP, text='当時の単位で、考える', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='ある記事：坪あたり月100文という前提', at=1, until=2, size=38, hi=True),
+   dict(t='panel', box=TOP, text='九尺二間は3坪。3坪×100文＝月300文（自作の計算）', at=2, until=3, size=34),
+   dict(t='panel', box=TOP, text='別の記事：庶民の稼ぎは、一日300文', at=3, until=4, size=38),
+   dict(t='panel', box=TOP, text='その前提なら、家賃は一日分ほど。ただし記録ではない', at=4, size=34, col='gold')]),
+ dict(key='oya', title='大家の役割', chapter_title='大家の役割', scene=[
+   dict(t='panel', box=TOP, text='家賃を受け取る、大家とは', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='解説記事：家賃の取り立てと、長屋の管理', at=1, until=2, size=38, hi=True),
+   dict(t='panel', box=TOP, text='店子の身元引き受け・もめ事の仲裁・相談役', at=2, until=3, size=36),
+   dict(t='panel', box=TOP, text='収入：家賃などの3〜5％と、共同便所の肥料の代金', at=3, until=4, size=34),
+   dict(t='panel', box=TOP, text='大家は、住人の世話役でもあったようだ', at=4, size=38, col='gold')]),
+ dict(key='end', title='まとめ', chapter_title='まとめ', scene=[
+   dict(t='cols2', size=32, xm=940, xm2=980, left=dict(title='分かったこと', title_at=1, items=[
+      dict(at=1, text='九尺二間は約9.7平方メートル。四畳余りと土間'),
+      dict(at=2, text='家賃は記事で、月約4875円〜3万円と大きく違う'),
+      dict(at=3, text='大家は取り立てのほか、身元引き受けなども担った')]),
+     right=dict(title='分からないこと・言い方', title_at=4, items=[
+      dict(at=4, text='文での当時の家賃の記録。円の正しい金額'),
+      dict(at=4, text='「円の金額は、記事で大きく違い、決められない」と言うのが近い')]))]),
+ ],
+ desc=dict(title_main='江戸の長屋の家賃は月4800円ほどだったのか', title_no=1,
+  titles=['江戸の長屋の家賃は、月4800円ほどだった？ 解説記事の数字で確かめる', '長屋の家賃は月4875円か3万円か 記事で6倍違う理由', '九尺二間の長屋と大家の役割 江戸の家賃を確かめる'],
+  intro='「江戸の長屋の家賃は、月に4800円ほどだった」と聞いたことはありませんか。この動画では、解説記事の説明で、長屋の広さと家賃の数字、大家の役割を確かめます。',
+  points=['解説記事によると、九尺二間の棟割長屋は、間口が約2.7m、奥行きが約3.6m、面積が約9.7平方メートルで、土間と四畳余りの部屋がありました。', '家賃は、ある記事では現代の感覚で月4875円ほど、別の記事では割長屋で月3万円と紹介され、約6倍の差があります。換算の前提が違うため、円の金額は一つに決められません。', '坪あたり月100文という前提の記事に基づくと、3坪で月300文になります(自作の計算で、当時の記録ではありません)。大家は家賃の取り立てのほか、身元引き受けや仲裁なども担いました。'],
+  refs=['PRESIDENT Online「毎日湯屋に通うほどの風呂好きだった江戸の町人たち」(『新版 江戸の家計簿』より・二次情報):https://president.jp/articles/-/85985', 'All About 江戸時代の暮らしの解説記事(二次情報):https://allabout.co.jp/gm/gc/427311'],
+  credit_lines=['・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実在の場面・人物・資料の再現ではありません)'],
+  notes=['家賃の円換算(約4875円、約3万円)は、それぞれ別の解説記事の紹介で、換算の前提が違います。どちらが正しいとは判断していません。', '坪あたり月100文は、江戸文化の問題記事が置いていた前提で、当時の家賃の記録ではありません。月300文は自作の計算です。', '庶民の稼ぎ一日300文は、記事の試算で、出典の原典は未確認です。', '当時の店賃(家賃)の記録そのものは、今回確認できていません。'],
+  tags='江戸時代, 長屋, 家賃, 九尺二間, 大家, 江戸の暮らし, 検証',
+  checks=['江戸の店賃の記録(文・両)を確認する', '『新版 江戸の家計簿』の原文を確認する', '大家の収入の割合の出典を確認する']),
+ thumb=dict(bg='assets/yachin/thumb_art.png', lines=[['長屋の家賃', 100, 'white'], ['月4800円？', 105, 'gold']], sub='解説記事の数字で、確かめる', shade_col=[10, 24, 44], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
+finalize(spec, {'intro': 'intro', 'hiro': 'room', 'kazu': 'gate', 'bun': 'gate', 'oya': 'gate', 'end': 'intro'})

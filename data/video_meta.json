@@ -1,0 +1,230 @@
+{
+ "drain": {
+  "kind": "long",
+  "field": "science",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "vein": {
+  "kind": "long",
+  "field": "body",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "koku": {
+  "kind": "long",
+  "field": "calendar",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "compass": {
+  "kind": "long",
+  "field": "earth",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "gdp": {
+  "kind": "long",
+  "field": "economy",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "season": {
+  "kind": "long",
+  "field": "earth",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "scurvy": {
+  "kind": "long",
+  "field": "history_sci",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "calendar": {
+  "kind": "long",
+  "field": "calendar",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "einstein": {
+  "kind": "long",
+  "field": "person",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "zenzen": {
+  "kind": "long",
+  "field": "language",
+  "structure": "検証型(旧)",
+  "thumb": "旧"
+ },
+ "rain30": {
+  "kind": "long",
+  "field": "weather",
+  "structure": "検証型(旧)",
+  "thumb": "新"
+ },
+ "moon": {
+  "kind": "long",
+  "field": "astronomy",
+  "structure": "検証型(旧)",
+  "thumb": "新"
+ },
+ "islands": {
+  "kind": "long",
+  "field": "geography",
+  "structure": "検証型(旧)",
+  "thumb": "新"
+ },
+ "magnitude": {
+  "kind": "long",
+  "field": "earth",
+  "structure": "検証型(旧)",
+  "thumb": "新"
+ },
+ "yakubusoku": {
+  "kind": "long",
+  "field": "language",
+  "structure": "検証型(旧)",
+  "thumb": "新"
+ },
+ "leapsecond": {
+  "kind": "long",
+  "field": "time",
+  "structure": "C仕組み",
+  "thumb": "新"
+ },
+ "sunrise": {
+  "kind": "long",
+  "field": "astronomy",
+  "structure": "B逆転",
+  "thumb": "新"
+ },
+ "venus": {
+  "kind": "long",
+  "field": "astronomy",
+  "structure": "C仕組み",
+  "thumb": "新"
+ },
+ "short_drain": {
+  "kind": "short",
+  "field": "science",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_vein": {
+  "kind": "short",
+  "field": "body",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_koku": {
+  "kind": "short",
+  "field": "calendar",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_compass": {
+  "kind": "short",
+  "field": "earth",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_gdp": {
+  "kind": "short",
+  "field": "economy",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_season": {
+  "kind": "short",
+  "field": "earth",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_scurvy": {
+  "kind": "short",
+  "field": "history_sci",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_calendar": {
+  "kind": "short",
+  "field": "calendar",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_einstein": {
+  "kind": "short",
+  "field": "person",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_zenzen": {
+  "kind": "short",
+  "field": "language",
+  "structure": "Short",
+  "thumb": "旧"
+ },
+ "short_rain30": {
+  "kind": "short",
+  "field": "weather",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_moon": {
+  "kind": "short",
+  "field": "astronomy",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_islands": {
+  "kind": "short",
+  "field": "geography",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_magnitude": {
+  "kind": "short",
+  "field": "earth",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_yakubusoku": {
+  "kind": "short",
+  "field": "language",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_leapsecond": {
+  "kind": "short",
+  "field": "time",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_sunrise": {
+  "kind": "short",
+  "field": "astronomy",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "oceanblue": {
+  "kind": "long",
+  "field": "ocean",
+  "structure": "B逆転",
+  "thumb": "新"
+ },
+ "short_venus": {
+  "kind": "short",
+  "field": "astronomy",
+  "structure": "Short",
+  "thumb": "新"
+ },
+ "short_oceanblue": {
+  "kind": "short",
+  "field": "ocean",
+  "structure": "Short",
+  "thumb": "新"
+ }
+}

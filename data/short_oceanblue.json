@@ -1,0 +1,47 @@
+{
+ "title": "海が青いのは、空が映っているから？",
+ "long_id": "31mlleqtpsM",
+ "long_title": "海が青いのは、空が映っているから？ NOAAの解説で確かめる",
+ "pron": "data/oceanblue_pronunciations.json",
+ "art": "assets/oceanblue/art_intro.png",
+ "hook": "「海が青いのは、空が映っているから」と思っていませんか。NOAAとウッズホール海洋研究所の解説で確かめます。",
+ "notes": "■ 動画で確かめたこと\n・空は水面では映りますが、水面の下に潜っても青は残ります（WHOI）。\n・海が青い主な理由は、水が光の赤い側の色を吸収し、青い側の色が残るからです（NOAA）。\n・赤やオレンジは数メートルでほとんど消え、青と紫が最も深くまで届きます（WHOI）。\n・吸収と散乱が色にどのくらい影響するかの割合は、この動画の資料だけでは分かりません。",
+ "scenes": [
+  {
+   "text": "海が青いのは、空が青くて、その空が、水面に映っているから。そう思っていませんか。",
+   "big": "海が青いのは、空が映るから？",
+   "art": "assets/oceanblue/art_intro.png"
+  },
+  {
+   "text": "空が映るのは、本当です。でも、水面の下に潜っても、青い色は、残ります。",
+   "big": "水の下でも、青は残る",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_sky.png",
+   "col": "white"
+  },
+  {
+   "text": "NOAAによると、海が青いのは、水が、光の赤い側の色を、吸収するからです。",
+   "big": "水が、赤い側の色を吸収",
+   "src": "NOAA",
+   "art": "assets/oceanblue/art_light.png"
+  },
+  {
+   "text": "赤やオレンジは、数メートルでほとんど消え、青と紫が、最も深くまで届きます。",
+   "big": "青い光が、最後まで残る",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_colors.png",
+   "col": "white"
+  },
+  {
+   "text": "海は、空を映すだけの、鏡ではありません。水が、光の色を選んで吸収するのです。",
+   "big": "海は、空を映すだけの鏡ではない",
+   "art": "assets/oceanblue/art_end.png"
+  },
+  {
+   "text": "くわしくは、長い動画で、確かめています。",
+   "end": true,
+   "art": "assets/oceanblue/art_end.png"
+  }
+ ],
+ "answer": "空の映りでは、ない"
+}

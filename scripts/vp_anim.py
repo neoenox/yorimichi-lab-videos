@@ -410,7 +410,8 @@ def polar(im, d0, cx, it, a):
     if t_g >= 0:
         k = ease(t_g / 0.6)
         circle(d, gp, 14 * k, fill=(255, 170, 120, 255), outline=WHITE + (255,), w=2)
-        text(d, (gp[0] + 20, gp[1] - 44), '地磁気極' + chr(10) + '（双極子モデル）', 28, (255, 170, 120), 'la')
+        text(d, (gp[0] - 14, gp[1] - 100), '地磁気極' + chr(10) + '（双極子モデル）', 28, (255, 170, 120), 'la')
+        poly(d, [gp, (gp[0] - 4, gp[1] - 52)], (255, 170, 120, 255), 2)
     text(d, (W / 2, H - 14), '※北極側から見た模式図（位置関係は概略）', 22, DIM, 'ms')
     commit(im, L, box, a)
 
@@ -544,9 +545,358 @@ def caltiles(im, d0, cx, it, a):
         text(d, (x + tw_ / 2, y + 225), west, 24, (70, 60, 60) if not skip else DIM, 'mm', alpha=int(255 * k))
         if skip:
             poly(d, [(x + 20, y + th_ - 20), (x + tw_ - 20, y + 90)], (230, 100, 100, int(255 * k)), 6)
-    if s4 >= 0:
-        text(d, (W / 2, H - 36), '日が消えたのではなく、日付の数え方が切り替わった', 34, GOLD, 'mm')
     commit(im, L, box, a)
+
+
+# ------------------------------------------------------------------ 降水確率（rain30）
+def _drop(d, x, y, r, col=(120, 190, 255, 255)):
+    d.polygon([(x * S, (y - r * 1.5) * S), ((x - r) * S, (y + r * 0.3) * S), ((x + r) * S, (y + r * 0.3) * S)], fill=col)
+    circle(d, (x, y + r * 0.3), r, fill=col)
+
+
+def rain100(im, d0, cx, it, a):
+    """100回の同じ予報を並べ、pct 回に『1ミリ以上の降水あり』の印がつく（自作の模式図。実際の観測ではない）。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    pct = it.get('pct', 30)
+    s0, s1 = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1))
+    # 配置は決まった疑似乱数（pct 個を、10x10の格子の中にばらけて置く）
+    idx = sorted(range(100), key=lambda k: (k * 37 + 11) % 101)[:pct]
+    rainy = set(idx)
+    cell = min((W - 40) / 10, (H - 150) / 10)
+    gx0 = (W - cell * 10) / 2; gy0 = 70
+    text(d, (W / 2, 28), f'同じ「{pct}％」の予報が、100回出されたとき（自作の模式図）', 38, GOLD, 'mm')
+    for k in range(100):
+        r_, c_ = divmod(k, 10)
+        x = gx0 + c_ * cell + cell / 2; y = gy0 + r_ * cell + cell / 2
+        tk = s0 - k * 0.012
+        if tk < 0:
+            continue
+        kk = ease(tk / 0.25)
+        circle(d, (x, y), cell * 0.36 * kk, fill=(60, 78, 100, 255), outline=(120, 140, 160, 255), w=2)
+        if k in rainy and s1 >= 0:
+            kk2 = ease((s1 - (list(sorted(rainy)).index(k)) * 0.05) / 0.3)
+            if kk2 > 0:
+                _drop(d, x, y, cell * 0.22 * kk2)
+    if s1 >= 0:
+        text(d, (W / 2, H - 38), f'およそ {pct} 回で、1ミリ以上の降水がある（実際の観測結果ではありません）', 34, (150, 205, 255), 'mm')
+    commit(im, L, box, a)
+
+
+def blocks6(im, d0, cx, it, a):
+    """1日を6時間ごとに区切る（気象庁：6時間ごとに10％単位で発表）。18時〜24時を強調。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    s0, s1 = T(cx, it.get('s_a', 1)), T(cx, it.get('s_b', 2))
+    bw = (W - 80) / 4; y0 = 120; h = 150
+    for i, lab in enumerate(('0時〜6時', '6時〜12時', '12時〜18時', '18時〜24時')):
+        if s0 < 0:
+            break
+        k = ease((s0 - i * 0.15) / 0.4)
+        x = 40 + i * bw
+        hi = (i == 3 and s1 >= 0)
+        d.rounded_rectangle((x * S, y0 * S, (x + bw - 16) * S, (y0 + h) * S), 16 * S, fill=((70, 110, 160, int(255 * k)) if hi else (45, 62, 84, int(255 * k))),
+                            outline=(GOLD if hi else (120, 140, 160)) + (int(255 * k),), width=3 * S)
+        text(d, (x + (bw - 16) / 2, y0 + 40), lab, 38, WHITE, 'mm', alpha=int(255 * k))
+        if hi:
+            text(d, (x + (bw - 16) / 2, y0 + 100), '例：20％', 46, GOLD, 'mm')
+    if s0 >= 0:
+        text(d, (W / 2, 60), '降水確率は、6時間ごとに、10％単位で発表（気象庁）', 38, WHITE, 'mm')
+    if s1 >= 0:
+        text(d, (W / 2, y0 + h + 60), '20％の予報が100回出されたとき、およそ20回は、1ミリ以上の雨が降る', 38, (150, 205, 255), 'mm')
+    commit(im, L, box, a)
+
+
+def areapoint(im, d0, cx, it, a):
+    """『地域の30％の面積で降る』ではなく『どの点でも同じ確率』（気象庁の定義）の対比。自作の模式図。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb = T(cx, it.get('s_a', 1)), T(cx, it.get('s_b', 0))
+    pw = (W - 120) / 2; py0 = 90; ph = H - 220
+    # 左：面積（誤解）
+    for i in range(2):
+        x0 = 40 + i * (pw + 40)
+        d.rounded_rectangle((x0 * S, py0 * S, (x0 + pw) * S, (py0 + ph) * S), 18 * S, fill=(50, 66, 88, 255), outline=(150, 165, 185, 255), width=3 * S)
+    text(d, (40 + pw / 2, 40), '地域の30％の面積で降る？', 38, (255, 170, 120), 'mm')
+    text(d, (40 + pw + 40 + pw / 2, 40), '気象庁の定義：どの点でも、同じ確率', 38, (150, 205, 255), 'mm')
+    if sa >= 0:
+        k = ease(sa / 0.8)
+        d.rectangle((40 * S, py0 * S, (40 + pw * 0.3 * k) * S, (py0 + ph) * S), fill=(100, 160, 230, 190))
+        text(d, (40 + pw / 2, py0 + ph + 36), '面積の話ではありません', 34, (255, 170, 120), 'mm')
+        if k > 0.9:
+            poly(d, [(40 + 40, py0 + 40), (40 + pw - 40, py0 + ph - 40)], (235, 90, 80, 255), 8)
+            poly(d, [(40 + pw - 40, py0 + 40), (40 + 40, py0 + ph - 40)], (235, 90, 80, 255), 8)
+    if sb >= 0:
+        k = ease(sb / 0.8)
+        x0 = 40 + pw + 40
+        for r_ in range(6):
+            for c_ in range(8):
+                x = x0 + 50 + c_ * (pw - 100) / 7; y = py0 + 50 + r_ * (ph - 100) / 5
+                circle(d, (x, y), 15 * k, fill=(120, 190, 255, 255))
+        text(d, (x0 + pw / 2, py0 + ph + 36), 'どの点でも「30％」（降る可能性）', 34, (150, 205, 255), 'mm')
+    commit(im, L, box, a)
+
+
+def onemm(im, d0, cx, it, a):
+    """降水量の多少は示さない：弱い雨も強い雨も、『1ミリ以上』なら同じ『あり』。例の量は自作の例。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    s0, s1 = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 2))
+    colw = (W - 160) / 2
+    items = [('弱い雨の例：1ミリ', 1), ('強い雨の例：30ミリ', 12)]
+    for i, (lab, n) in enumerate(items):
+        if s0 < 0:
+            break
+        k = ease((s0 - i * 0.3) / 0.5)
+        x0 = 60 + i * (colw + 40)
+        d.rounded_rectangle((x0 * S, 70 * S, (x0 + colw) * S, (H - 160) * S), 18 * S, fill=(40, 56, 78, int(255 * k)), outline=(120, 140, 160, int(255 * k)), width=3 * S)
+        text(d, (x0 + colw / 2, 40), lab, 38, WHITE, 'mm', alpha=int(255 * k))
+        for j in range(n):
+            x = x0 + 60 + (j % 6) * (colw - 120) / 5; y = 130 + (j // 6) * 90 + ((cx.t * 70 + j * 37) % 60 if k > 0.9 else 0)
+            _drop(d, x, min(y, H - 190), 14 * k)
+        if s1 >= 0:
+            text(d, (x0 + colw / 2, H - 120), '1ミリ以上 → 「降水あり」', 34, (150, 205, 255), 'mm', alpha=int(255 * ease(s1 / 0.5)))
+    if s1 >= 0:
+        text(d, (W / 2, H - 50), '降水確率は、量の多さを示しません（気象庁）', 38, GOLD, 'mm')
+    commit(im, L, box, a)
+
+
+def calib(im, d0, cx, it, a):
+    """予報の検証の考え方：横軸＝予報した確率、縦軸＝実際の出現率。理想は傾き1の直線（自作の模式図）。実際の検証結果ではない。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    s0, s1 = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1))
+    ox, oy = 270, H - 130; aw = W - 440; ah = H - 220
+    d.line([(ox * S, oy * S), ((ox + aw) * S, oy * S)], fill=(200, 210, 220, 255), width=3 * S)
+    d.line([(ox * S, oy * S), (ox * S, (oy - ah) * S)], fill=(200, 210, 220, 255), width=3 * S)
+    text(d, (ox + aw / 2, oy + 70), '予報した降水確率（10％刻み）', 34, WHITE, 'mm')
+    text(d, (ox - 30, oy - ah / 2), '実際の出現率', 32, WHITE, 'rm')
+    for k in range(0, 11, 2):
+        x = ox + aw * k / 10
+        text(d, (x, oy + 28), f'{k * 10}％', 28, DIM, 'mm')
+        y = oy - ah * k / 10
+        text(d, (ox - 10, y), f'{k * 10}％', 28, DIM, 'rm')
+    if s0 >= 0:
+        k = ease(s0 / 1.0)
+        x1 = ox + aw * k; y1 = oy - ah * k
+        poly(d, [(ox, oy), (x1, y1)], (255, 205, 110, 255), 6)
+    if s1 >= 0:
+        for j in range(1, 11):
+            kk = ease((s1 - j * 0.12) / 0.3)
+            if kk > 0:
+                circle(d, (ox + aw * j / 10, oy - ah * j / 10), 10 * kk, fill=(150, 205, 255, 255))
+        text(d, (ox + aw * 0.28, oy - ah * 0.8), '理想は、予報値＝出現率（傾き1の直線）', 34, GOLD, 'mm')
+    text(d, (W / 2, 22), '自作の模式図（実際の検証結果ではありません）', 28, DIM, 'mm')
+    commit(im, L, box, a)
+
+
+
+# ------------------------------------------------------------------ 月の自転と公転（moon）
+def moonsync(im, d0, cx, it, a):
+    """月が地球を公転しながら自転する模式図（自作）。mode: 'spin'（自転する月）／'nospin'（自転しない月）／'both'（左右に並べる）／'daynight'（太陽光と昼夜）。
+    月面の赤い印は『地球に向いている側』の目印。縮尺・距離は示さない。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    mode = it.get('mode', 'both')
+    t0 = max(0.0, cx.t - 0.3)
+
+    def panel(ox, oy, R, rot, title, col, show_sun=False):
+        # 地球
+        circle(d, (ox, oy), 66, fill=(70, 120, 200, 255), outline=(150, 190, 240, 255), w=3)
+        text(d, (ox, oy + 100), '地球', 36, (170, 200, 240), 'mm')
+        # 軌道
+        circle(d, (ox, oy), R, outline=(110, 125, 145, 255), w=2)
+        phi = t0 * 0.9
+        mx, my = ox + R * math.cos(phi), oy - R * math.sin(phi)
+        mr = 56
+        circle(d, (mx, my), mr, fill=(222, 214, 190, 255), outline=(250, 245, 225, 255), w=2)
+        if show_sun:
+            # 太陽光は左から。光が当たらない側（右側）を暗くする
+            d.pieslice(((mx - mr) * S, (my - mr) * S, (mx + mr) * S, (my + mr) * S), -90, 90, fill=(30, 38, 56, 235))
+        th = rot(phi)
+        px, py = mx + mr * 0.78 * math.cos(th), my - mr * 0.78 * math.sin(th)
+        circle(d, (px, py), 16, fill=(235, 80, 70, 255), outline=(255, 235, 230, 255), w=2)
+        text(d, (ox, oy - R - 40), title, 38, col, 'mm')
+
+    if mode == 'both':
+        R = min(W / 4 - 90, H / 2 - 130)
+        panel(W * 0.25, H / 2 + 20, R, lambda phi: phi + math.pi, '自転する月（同じ面が地球を向く）', (150, 205, 255))
+        panel(W * 0.75, H / 2 + 20, R, lambda phi: 0.0, 'もし、自転しない月なら', (255, 190, 130))
+        text(d, (W / 2, H - 24), '赤い印：月面の、ある一か所（自作の模式図。縮尺は実際と異なります）', 32, DIM, 'mm')
+    elif mode == 'daynight':
+        R = min(W / 2 - 260, H / 2 - 130)
+        # 太陽光
+        for k in range(5):
+            y = H / 2 + (k - 2) * 90
+            poly(d, [(30, y), (150, y)], (255, 235, 150, 255), 5)
+        text(d, (90, H / 2 - 220), '太陽光', 34, (255, 235, 150), 'mm')
+        panel(W / 2 + 60, H / 2 + 20, R, lambda phi: phi + math.pi, '月は自転しながら公転（暗くなる側が入れ替わる）', (150, 205, 255), show_sun=True)
+        text(d, (W / 2, H - 24), '赤い印は、地球に向いている側。位置によって、昼になったり夜になったりする（自作の模式図）', 32, DIM, 'mm')
+    else:
+        R = min(W / 2 - 240, H / 2 - 130)
+        rot = (lambda phi: phi + math.pi) if mode == 'spin' else (lambda phi: 0.0)
+        panel(W / 2, H / 2 + 20, R, rot, '自転する月' if mode == 'spin' else 'もし、自転しない月なら', (150, 205, 255) if mode == 'spin' else (255, 190, 130))
+    commit(im, L, box, a)
+
+
+
+def _egg(d, c, a_, b_, ang, fill, outline):
+    pts = []
+    for k in range(72):
+        u = 2 * math.pi * k / 72
+        x, y = a_ * math.cos(u), b_ * math.sin(u)
+        pts.append((c[0] + x * math.cos(ang) - y * math.sin(ang), c[1] - (x * math.sin(ang) + y * math.cos(ang))))
+    d.polygon([(x * S, y * S) for x, y in pts], fill=fill, outline=outline)
+
+
+def tidalbulge(im, d0, cx, it, a):
+    """できたばかりの月のふくらみのずれ（NASA『Tidal Locking』の説明を図にした自作の模式図。縮尺・形は実際と異なる）。
+    s_a: ゆがんでいる／s_b: 自転でふくらみがずれる／s_c: 重力が引き戻す／s_d: 熱として失われ自転が遅くなる／s_e: 同期した／s_f: 遠ざかる"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb, sc, sd, se, sf = [T(cx, it.get(k, i)) for k, i in (('s_a', 0), ('s_b', 1), ('s_c', 2), ('s_d', 3), ('s_e', 4), ('s_f', 5))]
+    ex, ey = W * 0.25, H * 0.5; mx0 = W * 0.68; my = H * 0.5
+    mx = mx0 + (60 * ease(sf / 1.5) if sf >= 0 else 0)
+    circle(d, (ex, ey), 120, fill=(70, 120, 200, 255), outline=(150, 190, 240, 255), w=3)
+    text(d, (ex, ey + 160), '地球', 36, (170, 200, 240), 'mm')
+    # 月（ふくらみ＝長い軸）
+    ang0 = math.pi                              # 地球の方向
+    ang = ang0
+    if sb >= 0:
+        ang = ang0 - math.radians(40) * ease(sb / 0.8)
+    if sc >= 0:
+        ang = ang0 - math.radians(40) * (1 - 0.6 * ease(sc / 1.2))
+    if sd >= 0:
+        ang = ang0 - math.radians(16) * (1 - ease(sd / 3.0))
+    if se >= 0:
+        ang = ang0
+    hot = sd >= 0 and se < 0
+    col = (235, 150, 110, 255) if hot else (222, 214, 190, 255)
+    if sa >= 0:
+        _egg(d, (mx, my), 100, 72, ang, col, (250, 245, 225, 255))
+        text(d, (mx, my - 130), 'ふくらんだ部分（長い軸）', 32, WHITE, 'mm')
+        # 地球の方向の線
+        poly(d, [(mx, my), (ex + 130, ey)], (150, 170, 200, 200), 3)
+    if sb >= 0 and sc < 0:
+        text(d, (W / 2, H - 70), '月が自転すると、ふくらみが、地球の方向から少しずれる', 36, (255, 205, 130), 'mm')
+    if sc >= 0 and sd < 0:
+        poly(d, [(mx - 90, my + 60), (mx - 200, my + 20)], (150, 205, 255, 255), 8)
+        arrow_head(d, (mx - 200, my + 20), (mx - 90, my + 60), (150, 205, 255, 255), 24)
+        text(d, (W / 2, H - 70), '地球の重力が、そのずれを、引き戻そうとする', 36, (150, 205, 255), 'mm')
+    if sd >= 0 and se < 0:
+        text(d, (mx, my + 150), '熱として失われる', 34, (255, 170, 120), 'mm')
+        text(d, (W / 2, H - 70), 'エネルギーが熱になり、月の自転が、だんだん遅くなる', 36, (255, 170, 120), 'mm')
+    if se >= 0 and sf < 0:
+        text(d, (W / 2, H - 70), '自転一回 ＝ 地球のまわりを一周する時間（同じになった）', 36, GOLD, 'mm')
+    if sf >= 0:
+        poly(d, [(mx + 110, my), (mx + 220, my)], (255, 205, 110, 255), 8)
+        arrow_head(d, (mx + 110, my), (mx + 220, my), (255, 205, 110, 255), 24)
+        text(d, (W / 2, H - 70), '潮汐力で、月は、地球から少しずつ遠ざかってきた（今も、年に約4cm）', 34, (255, 205, 110), 'mm')
+    text(d, (W / 2, 28), '自作の模式図（形・距離・縮尺は実際と異なります）', 28, DIM, 'mm')
+    commit(im, L, box, a)
+
+
+
+def islemap(im, d0, cx, it, a):
+    """島の数え方の模式図（自作。実在の地図ではない）。s_a: 粗い地図／s_b: 詳しい地図（数えられる陸地が増える）／s_c: 周囲長の基準で数える対象を示す。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb, sc = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1)), T(cx, it.get('s_c', 2))
+    if it.get('mode') == 'both':
+        import random
+        rnd = random.Random(7)
+        pw = (W - 160) / 2
+        for i, (lab, col_) in enumerate((('粗い地図', (255, 205, 130)), ('詳しい地図', (150, 205, 255)))):
+            x0 = 60 + i * (pw + 40)
+            d.rounded_rectangle((x0 * S, 90 * S, (x0 + pw) * S, (H - 120) * S), 20 * S, fill=(24, 52, 86, 255), outline=(120, 150, 190, 255), width=3 * S)
+            text(d, (x0 + pw / 2, 60), lab, 36, col_, 'mm')
+        rr = random.Random(7)
+        for k in range(70):
+            fx = rr.random(); fy = rr.random(); rad = (46 if k < 12 else (26 if k < 30 else 11)) * (0.8 + 0.4 * rr.random())
+            for i in range(2):
+                if i == 0 and k >= 12:
+                    continue
+                if i == 0 and sa < 0:
+                    continue
+                if i == 1 and sb < 0:
+                    continue
+                x0 = 60 + i * (pw + 40)
+                kk = ease(((sa if i == 0 else sb) - (k % 7) * 0.04) / 0.5)
+                if kk > 0:
+                    circle(d, (x0 + 40 + fx * (pw - 80), 130 + fy * (H - 330)), rad * 0.62 * kk, fill=(214, 200, 150, 255), outline=(245, 235, 200, 255), w=2)
+        text(d, (W / 2, H - 55), '同じ海域を、細かさの異なる二つの地図で表した、自作の模式図（実在の地図ではありません）', 30, DIM, 'mm')
+        commit(im, L, box, a)
+        return
+    d.rounded_rectangle((60 * S, 70 * S, (W - 60) * S, (H - 110) * S), 20 * S, fill=(24, 52, 86, 255), outline=(120, 150, 190, 255), width=3 * S)
+    import random
+    rnd = random.Random(7)
+    isl = []
+    for k in range(70):
+        x = 120 + rnd.random() * (W - 240); y = 110 + rnd.random() * (H - 330)
+        r = 46 if k < 12 else (26 if k < 30 else 11)
+        isl.append((x, y, r * (0.8 + 0.4 * rnd.random()), k))
+    for x, y, r, k in isl:
+        big = k < 12; mid = k < 30
+        vis = big if sb < 0 else True
+        if sa < 0:
+            continue
+        if not vis:
+            continue
+        kk = ease((sa if big else sb - (k % 7) * 0.05) / 0.6)
+        if kk <= 0:
+            continue
+        small = (r < 20)
+        col = (214, 200, 150, 255) if not (sc >= 0 and small) else (110, 118, 130, 255)
+        circle(d, (x, y), r * kk, fill=col, outline=(245, 235, 200, 255), w=2)
+    if sa >= 0 and sb < 0:
+        text(d, (W / 2, H - 60), '粗い地図：数えられる陸地は、少ない', 38, (255, 205, 130), 'mm')
+    if sb >= 0 and sc < 0:
+        text(d, (W / 2, H - 60), '詳しい地図：小さな陸地も描かれ、数えられる陸地が増える', 38, (150, 205, 255), 'mm')
+    if sc >= 0:
+        text(d, (W / 2, H - 60), '周囲長0.1km以上の陸地を数える（灰色は、基準未満）', 38, GOLD, 'mm')
+    text(d, (W / 2, 36), '自作の模式図（実在の地図・島の位置ではありません）', 28, DIM, 'mm')
+    commit(im, L, box, a)
+
+
+
+def bulb(im, d0, cx, it, a):
+    """電球のたとえ（気象庁）：マグニチュード＝電球の明るさ、震度＝離れた場所での明るさ（自作の模式図）。s_a: 電球／s_b: 離れた場所／s_c: 遠いほど暗い"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb, sc = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1)), T(cx, it.get('s_c', 2))
+    bx, by = 260, H / 2
+    if sa >= 0:
+        k = ease(sa / 0.6)
+        for r in (150, 110, 70):
+            circle(d, (bx, by), r * k, fill=(255, 220, 120, int(40 * k)))
+        circle(d, (bx, by), 44 * k, fill=(255, 235, 150, 255), outline=(255, 250, 210, 255), w=3)
+        text(d, (bx, by + 190), '電球の明るさ ＝ マグニチュード', 34, (255, 225, 140), 'mm')
+        text(d, (bx, by + 235), '（一つの地震に、一つ）', 30, DIM, 'mm')
+    if sb >= 0:
+        for i, (dx, lab) in enumerate(((620, '近い場所'), (1000, 'やや遠い場所'), (1380, '遠い場所'))):
+            kk = ease((sb - i * 0.3) / 0.5)
+            if kk <= 0:
+                continue
+            bright = (1.0, 0.55, 0.22)[i] if sc >= 0 else 0.6
+            col = (int(255 * bright), int(235 * bright), int(150 * bright), 255)
+            circle(d, (dx, by), 70 * kk, fill=col, outline=(200, 210, 230, 255), w=3)
+            text(d, (dx, by + 120), lab, 32, WHITE, 'mm', alpha=int(255 * kk))
+            poly(d, [(bx + 60, by), (dx - 80, by)], (255, 235, 150, 110), 3)
+        text(d, (1000, by - 170), '離れた場所での明るさ ＝ 震度（場所によって異なる）', 34, (150, 205, 255), 'mm')
+    if sc >= 0:
+        text(d, (W / 2, H - 40), '同じ電球でも、離れた場所では、周りは暗くなる（自作の模式図）', 32, DIM, 'mm')
+    commit(im, L, box, a)
+
+
+def shindo(im, d0, cx, it, a):
+    """日本の震度の10階級（気象庁）。s_a: ゼロ〜四／s_b: 五弱〜七"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1))
+    labs = ['0', '1', '2', '3', '4', '5弱', '5強', '6弱', '6強', '7']
+    cols = [(120, 170, 220), (110, 190, 220), (110, 205, 190), (140, 215, 140), (200, 220, 120), (240, 210, 100), (245, 175, 90), (240, 130, 80), (225, 90, 80), (200, 60, 90)]
+    tw = (W - 120) / 10
+    for i, (lab, col) in enumerate(zip(labs, cols)):
+        s = sa if i < 5 else sb
+        if s < 0:
+            continue
+        k = ease((s - (i % 5) * 0.2) / 0.5)
+        x = 60 + i * tw
+        d.rounded_rectangle((x * S, (H / 2 - 110) * S, (x + tw - 14) * S, (H / 2 + 110) * S), 16 * S, fill=col + (int(255 * k),), outline=(255, 255, 255, int(200 * k)), width=3 * S)
+        text(d, (x + (tw - 14) / 2, H / 2), lab, 64 if len(lab) == 1 else 52, (30, 30, 40), 'mm', alpha=int(255 * k))
+    text(d, (W / 2, H / 2 - 190), '日本の震度は、全部で10階級（気象庁）', 40, WHITE, 'mm')
+    commit(im, L, box, a)
+
 
 
 # ------------------------------------------------------------------ 地図の上の軍勢（桶狭間の戦い）
@@ -628,4 +978,272 @@ def oke_march(im, d0, cx, it, a):
     commit(im, L, [box[0] + px0, box[1] + py0, box[0] + px0 + mw, box[1] + py0 + mh], a)
 
 
-DRAW = dict(lunar=lunar, caltiles=caltiles, orbit=orbit, sunangle=sunangle, declination=declination, declination2=declination2, polar=polar, forearm=forearm, cells=cells, loop=loop, skin=skin, skintone=skintone, contrast=contrast, textbook=textbook, oke_march=oke_march)
+def leapclock(im, d0, cx, it, a):
+    """うるう秒の挿入（総務省）：2017年1月1日、8:59:59 → 8:59:60 → 9:00:00（日本時間）。デジタル時計の模式図（自作）。s_a/s_b/s_c"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    ss = [T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1)), T(cx, it.get('s_c', 2))]
+    labs = ['直前', '追加された1秒', '直後']; vals = ['08:59:59', '08:59:60', '09:00:00']
+    pw, ph, gap = 460, 250, 70; x0 = (W - 3 * pw - 2 * gap) / 2; y0 = H / 2 - ph / 2 - 20
+    for i in range(3):
+        k = ease(ss[i] / 0.5)
+        if k <= 0:
+            continue
+        x = x0 + i * (pw + gap); hot = i == 1
+        d.rounded_rectangle((x * S, y0 * S, (x + pw) * S, (y0 + ph) * S), radius=22 * S, fill=(20, 18, 8, int(235 * k)) if hot else (10, 22, 36, int(235 * k)), outline=(239, 201, 118, int(255 * k)) if hot else (120, 150, 180, int(255 * k)), width=(6 if hot else 3) * S)
+        text(d, (x + pw / 2, y0 + ph / 2 - 10), vals[i], 78, GOLD if hot else WHITE, 'mm', alpha=int(255 * k))
+        text(d, (x + pw / 2, y0 + ph - 38), labs[i], 34, GOLD if hot else DIM, 'mm', alpha=int(255 * k))
+        if i < 2 and ss[i + 1] >= 0:
+            poly(d, [(x + pw + 8, y0 + ph / 2), (x + pw + gap - 8, y0 + ph / 2)], (239, 201, 118, 255), 5)
+    text(d, (W / 2, y0 + ph + 70), '2017年1月1日（日本時間）　※実機の表示ではなく、仕組みを説明する自作の模式図です', 30, DIM, 'mm')
+    commit(im, L, box, a)
+
+
+def tolerance(im, d0, cx, it, a):
+    """ずれの許容上限：0.9秒 → 3,600秒（BIPM決議5）。幅は3,600秒を全幅とした縮尺（自作の模式図）。s_a: 0.9秒／s_b: 3,600秒／s_c: 注記"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb, sc = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1)), T(cx, it.get('s_c', 2))
+    x0, x1 = 120, W - 120; bw = x1 - x0
+    if sa >= 0:
+        k = ease(sa / 0.5); y = H * 0.30
+        text(d, (x0, y - 70), 'これまでの上限：0.9秒', 40, WHITE, 'la', alpha=int(255 * k))
+        d.rectangle((x0 * S, (y - 4) * S, x1 * S, (y + 40) * S), outline=(120, 150, 180, int(140 * k)), width=2 * S)
+        d.rectangle((x0 * S, (y - 4) * S, (x0 + max(3, bw * 0.9 / 3600)) * S, (y + 40) * S), fill=(239, 201, 118, int(255 * k)))
+        text(d, (x0 + 22, y + 74), '↑ この細い線（縮尺：右端＝3,600秒）', 30, DIM, 'la', alpha=int(255 * k))
+    if sb >= 0:
+        k = ease(sb / 0.7); y = H * 0.62
+        text(d, (x0, y - 70), '2027年5月20日からの上限：3,600秒（1時間）', 40, WHITE, 'la')
+        d.rectangle((x0 * S, (y - 4) * S, (x0 + bw * k) * S, (y + 40) * S), fill=(110, 170, 235, 255))
+    if sc >= 0:
+        text(d, (W / 2, H - 50), '広げたのは「許容する上限」。実際のずれが、すぐ1時間になるわけではない', 34, GOLD, 'mm', alpha=int(255 * ease(sc / 0.5)))
+    commit(im, L, box, a)
+
+
+def driftsaw(im, d0, cx, it, a):
+    """うるう秒の仕組み（自作の模式図）：二つの時刻のずれが少しずつ広がり、0.9秒の枠に近づくと1秒を入れる（または抜く）。mode='pos'：1秒を入れる／mode='neg'：1秒を抜く（負のうるう秒）。s_a：描き始める文"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    s = T(cx, it.get('s_a', 0))
+    if s < 0:
+        commit(im, L, box, a); return
+    neg = it.get('mode', 'pos') == 'neg'
+    x0, x1 = 150, W - 90; yc = H * 0.50; pps = 200.0
+    ybot, ytop = yc + 0.9 * pps, yc - 0.9 * pps
+    for yy in (ytop, ybot):
+        poly(d, [(x0, yy), (x1, yy)], (239, 201, 118, 150), 3)
+    poly(d, [(x0, yc), (x1, yc)], (120, 150, 180, 120), 2)
+    text(d, (x0 - 14, ytop), '0.9秒', 30, GOLD, 'rm'); text(d, (x0 - 14, ybot), '0.9秒', 30, GOLD, 'rm'); text(d, (x0 - 14, yc), 'ずれなし', 28, DIM, 'rm')
+    text(d, (W / 2, 40), '二つの時刻（原子時計をもとにした時刻と、自転に基づく時刻）の「ずれ」', 34, WHITE, 'mm')
+    sg = -1 if neg else 1; teeth = 3; tw = (x1 - x0) / teeth
+    pts = []
+    for k in range(teeth):
+        xs = x0 + k * tw
+        pts.append(((xs + 6, yc - sg * 0.1 * pps), (xs + tw * 0.86, yc + sg * 0.9 * pps), 'drift'))
+        pts.append(((xs + tw * 0.86, yc + sg * 0.9 * pps), (xs + tw * 0.9, yc - sg * 0.1 * pps), 'jump'))
+    u = ease(s / 5.0) * len(pts)
+    for i, (p, q, kind) in enumerate(pts):
+        f = min(1.0, max(0.0, u - i))
+        if f <= 0:
+            break
+        e = (p[0] + (q[0] - p[0]) * f, p[1] + (q[1] - p[1]) * f)
+        col = (110, 170, 235, 255) if kind == 'drift' else ((255, 150, 70, 255) if neg else (239, 201, 118, 255))
+        poly(d, [p, e], col, 7 if kind == 'drift' else 9)
+        if kind == 'jump' and f >= 1.0 and i == 1:
+            lab = '1秒を抜く（負のうるう秒）' if neg else '1秒を入れる（うるう秒）'
+            text(d, (q[0] + 16, (p[1] + q[1]) / 2), lab, 30, (255, 150, 70) if neg else GOLD, 'lm')
+    text(d, (W / 2, H - 36), '自作の模式図です（実測値ではありません）', 28, DIM, 'mm')
+    commit(im, L, box, a)
+
+
+_SUN_RISE = [27, 26, 26, 26, 26, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 27, 27, 27, 28, 28] + [29, 29, 29, 30, 30, 31, 31, 32, 33, 33, 34, 34, 35, 36, 36]   # 東京2027年6/1〜7/15 の日の出（4時＋分）
+_SUN_SET = [51, 52, 52, 53, 54, 54, 55, 55, 56, 56, 57, 57, 58, 58, 58, 59, 59, 59, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1] + [1, 1, 1, 1, 1, 0, 0, 0, 0, 59, 59, 59, 58, 58, 57]   # 日の入り（18時＋分。0以下は19時台）
+_SUN_NOON = [39, 39, 39, 39, 39, 40, 40, 40, 40, 40, 41, 41, 41, 41, 41, 42, 42, 42, 42, 43, 43, 43, 43, 43, 44, 44, 44, 44, 44, 45] + [45, 45, 45, 45, 46, 46, 46, 46, 46, 46, 47, 47, 47, 47, 47]   # 南中（11時＋分）
+
+
+def suncurve(im, d0, cx, it, a):
+    """東京の6月〜7月前半の、日の出／日の入り／南中の変化（国立天文台 暦計算室 2027年の数字、分単位）。mode='rise'|'set'|'noon'。s_a：描き始める文。夏至（6/21）に縦線、最小・最大の続く区間を強調。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    s = T(cx, it.get('s_a', 0))
+    if s < 0:
+        commit(im, L, box, a); return
+    mode = it.get('mode', 'rise')
+    if mode == 'rise':
+        vals = list(_SUN_RISE); base = 4 * 60; lab = '東京の日の出（2027年）'; hi = lambda v: v == min(_SUN_RISE); col = (255, 190, 120); fmt = lambda m: f'{m // 60}:{m % 60:02d}'
+    elif mode == 'set':
+        vals = [(v if v >= 51 else v + 60) for v in _SUN_SET]; base = 18 * 60; lab = '東京の日の入り（2027年）'; hi = lambda v: v == max(vals); col = (255, 150, 150); fmt = lambda m: f'{m // 60}:{m % 60:02d}'
+    else:
+        vals = list(_SUN_NOON); base = 11 * 60; lab = '東京の南中の時刻（2027年）'; hi = lambda v: False; col = (150, 210, 255); fmt = lambda m: f'{m // 60}:{m % 60:02d}'
+    mn, mx = min(vals) - 1, max(vals) + 1
+    x0, x1 = 300, W - 100; y0, y1 = 110, H - 110
+    n = len(vals)
+    px = lambda i: x0 + (x1 - x0) * i / (n - 1)
+    py = lambda v: y1 - (y1 - y0) * (v - mn) / (mx - mn)
+    text(d, (W / 2, 40), lab + '　※国立天文台 暦計算室の数字（分単位）', 32, WHITE, 'mm')
+    poly(d, [(x0, y1), (x1, y1)], (120, 150, 180, 200), 2); poly(d, [(x0, y0), (x0, y1)], (120, 150, 180, 200), 2)
+    for day, name in ((0, '6/1'), (20, '6/21 夏至'), (30, '7/1'), (44, '7/15')):
+        text(d, (px(day), y1 + 22), name, 28, GOLD if day == 20 else DIM, 'mm')
+    k = ease(s / 3.0); m = max(2, int(n * k))
+    sol = px(20)
+    poly(d, [(sol, y0 - 20), (sol, y1)], (239, 201, 118, 170), 3)
+    pts = [(px(i), py(vals[i])) for i in range(m)]
+    poly(d, pts, col + (255,), 6)
+    for i in range(m):
+        if hi(vals[i]):
+            circle(d, (px(i), py(vals[i])), 8, fill=(239, 201, 118, 255))
+    text(d, (x0 - 14, py(vals[0])), fmt(base + vals[0]), 28, DIM, 'rm')
+    if k >= 1.0:
+        text(d, (x0 - 14, py(vals[20])), fmt(base + vals[20]) + '（夏至）', 28, GOLD, 'rm')
+        text(d, (x0 - 14, py(vals[-1])), fmt(base + vals[-1]), 28, DIM, 'rm')
+    commit(im, L, box, a)
+
+
+def dayline(im, d0, cx, it, a):
+    """日の出・南中・日の入りの関係（国立天文台の説明をもとにした自作の模式図）。s_a：三つの印／s_b：南中が遅くなると、どちらも同じ向きにずれる"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    sa, sb = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1))
+    x0, x1 = 160, W - 160; yc = H * 0.52
+    poly(d, [(x0, yc), (x1, yc)], (120, 150, 180, 220), 4)
+    pos = {'日の出': x0 + 120, '南中': (x0 + x1) / 2, '日の入り': x1 - 120}
+    cols = {'日の出': (255, 190, 120), '南中': (255, 240, 170), '日の入り': (255, 150, 150)}
+    shift = ease(sb / 1.2) * 70 if sb >= 0 else 0
+    if sa >= 0:
+        for i, (k, x) in enumerate(pos.items()):
+            kk = ease((sa - i * 0.35) / 0.5)
+            if kk <= 0:
+                continue
+            xx = x + shift
+            circle(d, (xx, yc), 26 * kk, fill=cols[k] + (255,), outline=(255, 255, 255, 255), w=3)
+            text(d, (xx, yc - 70), k, 38, cols[k], 'mm', alpha=int(255 * kk))
+        xm = pos['南中']
+        text(d, (xm - 330, yc + 90), '前', 40, DIM, 'mm'); text(d, (xm + 330, yc + 90), '後ろ', 40, DIM, 'mm')
+        text(d, (W / 2, 70), '日の出と日の入りは、南中の時刻を挟んで、前と後ろに分かれる', 36, WHITE, 'mm')
+    if sb >= 0:
+        for k, x in pos.items():
+            poly(d, [(x + 40, yc + 150), (x + 40 + shift + 40, yc + 150)], (239, 201, 118, 255), 6)
+        text(d, (W / 2, H - 70), '南中が遅くなると、どちらも同じ向き（遅い方）にずれる（自作の模式図）', 34, GOLD, 'mm')
+    commit(im, L, box, a)
+
+
+def venusspin(im, d0, cx, it, a):
+    """金星を上から見た図（自作の模式図、NASAの周期をもとにした）：公転224.701日、自転243.025日（逆向き）。経過日数を進め、自転の回転数・公転の周回数・太陽が空の同じ位置に戻った回数を数える。s_a：動き始める文"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    s = T(cx, it.get('s_a', 0))
+    ox, oy, R = W * 0.30, H * 0.54, 205
+    circle(d, (ox, oy), 46, fill=(255, 205, 90, 255), outline=(255, 235, 160, 255), w=3)
+    for rr in (66, 88):
+        circle(d, (ox, oy), rr, outline=(255, 205, 90, int(80 - (rr - 66) * 1.5)), w=2)
+    text(d, (ox, oy), '太陽', 28, (60, 40, 0), 'mm')
+    circle(d, (ox, oy), R, outline=(120, 150, 180, 170), w=2)
+    text(d, (W / 2, 36), '上から見た金星（自作の模式図。周期はNASAの表の数字）', 32, WHITE, 'mm')
+    P_ORB, P_ROT = 224.701, 243.025
+    if s < 0:
+        t = 0.0
+    else:
+        t = min(1.0, s / float(it.get('dur', 10.0))) * P_ROT
+    th = 2 * math.pi * t / P_ORB
+    phi = -2 * math.pi * t / P_ROT
+    px, py = ox + R * math.cos(th), oy - R * math.sin(th)
+    pr = 40
+    circle(d, (px, py), pr, fill=(225, 190, 150, 255), outline=(255, 245, 225, 255), w=3)
+    al = math.pi / 2 + phi
+    mx, my = px + pr * 1.7 * math.cos(al), py - pr * 1.7 * math.sin(al)
+    poly(d, [(px, py), (mx, my)], (90, 190, 255, 255), 6)
+    circle(d, (mx, my), 9, fill=(90, 190, 255, 255))
+    be = th + math.pi
+    poly(d, [(px, py), (px + pr * 1.3 * math.cos(be), py - pr * 1.3 * math.sin(be))], (255, 205, 90, 230), 4)
+    ang = math.pi / 2 + th - phi
+    noon = int(ang / (2 * math.pi))
+    rx = W * 0.62
+    text(d, (rx, H * 0.16), f'経過：{t:5.1f}日', 40, WHITE, 'la')
+    text(d, (rx, H * 0.30), f'自転：{t / P_ROT:.2f}回転（逆向き）', 36, (150, 210, 255), 'la')
+    text(d, (rx, H * 0.42), f'公転：{t / P_ORB:.2f}周', 36, GOLD, 'la')
+    text(d, (rx, H * 0.58), f'太陽が空の同じ位置に戻った回数：{noon}回', 34, (255, 205, 150), 'la')
+    text(d, (rx, H * 0.74), '青い線：金星の地表の一点の向き', 28, (150, 210, 255), 'la')
+    text(d, (rx, H * 0.82), '黄色い線：太陽の向き', 28, GOLD, 'la')
+    commit(im, L, box, a)
+
+
+def oceanlight(im, d0, cx, it, a):
+    """海の色の模式図（NOAA・WHOIの説明をもとにした自作、数値なし）。mode='surface'：水面は空を映す（嵐の日は灰色・夕方はピンク）／水面の下は青が残る。mode='depth'：光の色が深さとともに減る（赤・オレンジは数メートルでほぼ消え、青と紫が最も深くまで届く）。"""
+    Z = 1.0; box = it['box']; L, d = layer(box, Z); W, H = vs(box, Z)
+    mode = it.get('mode', 'surface')
+    sa, sb, sc = T(cx, it.get('s_a', 0)), T(cx, it.get('s_b', 1)), T(cx, it.get('s_c', 2))
+    if mode == 'surface':
+        pw, ph = 760, 400; y0 = 130
+        xs = (150, 150 + pw + 100)
+        if sa >= 0:
+            k = ease(sa / 0.6)
+            cols = [(120, 125, 135), (235, 165, 175)]
+            ph_t = (sa / 3.0) % 2.0
+            c0 = cols[0] if ph_t < 1.0 else cols[1]
+            d.rounded_rectangle((xs[0] * S, y0 * S, (xs[0] + pw) * S, (y0 + ph) * S), radius=20 * S, fill=c0 + (int(255 * k),), outline=(255, 255, 255, int(200 * k)), width=3 * S)
+            text(d, (xs[0] + pw / 2, y0 + ph / 2 - 20), '水面：空を映す', 46, WHITE, 'mm', alpha=int(255 * k))
+            text(d, (xs[0] + pw / 2, y0 + ph / 2 + 50), '嵐の日は灰色、日の出・日の入りはピンク', 30, WHITE, 'mm', alpha=int(255 * k))
+        if sb >= 0:
+            k = ease(sb / 0.6)
+            for i in range(10):
+                f = i / 9.0
+                col = (int(40 + 0 * f), int(130 - 40 * f), int(215 - 55 * f))
+                d.rectangle((xs[1] * S, (y0 + ph * f * 0.9) * S, (xs[1] + pw) * S, (y0 + ph * (f + 0.1) * 0.9 + 4) * S), fill=col + (int(255 * k),))
+            d.rounded_rectangle((xs[1] * S, y0 * S, (xs[1] + pw) * S, (y0 + ph * 0.9 + 4) * S), radius=20 * S, outline=(255, 255, 255, int(200 * k)), width=3 * S)
+            text(d, (xs[1] + pw / 2, y0 + ph / 2 - 20), '水面の下：青が残る', 46, WHITE, 'mm', alpha=int(255 * k))
+            text(d, (xs[1] + pw / 2, y0 + ph / 2 + 50), '青い色は、水そのものがつくる（WHOI）', 30, WHITE, 'mm', alpha=int(255 * k))
+        text(d, (W / 2, 70), '水面と水中を比べた自作の模式図', 34, WHITE, 'mm')
+        text(d, (W / 2, H - 50), '解説の内容を表した図です（実際の写真ではありません）', 28, DIM, 'mm')
+    elif mode == 'scatter':
+        k = ease(sa / 1.2) if sa >= 0 else 0
+        text(d, (W / 2, 60), '青と紫の光が、水の中の粒子で散乱される様子（自作の模式図）', 34, WHITE, 'mm')
+        import random
+        rnd = random.Random(7)
+        pts = [(W * 0.55 + rnd.uniform(-330, 330), H * 0.58 + rnd.uniform(-150, 150)) for _ in range(9)]
+        sx, sy = W * 0.18, 140
+        if k > 0:
+            poly(d, [(sx, sy), (W * 0.55, H * 0.46)], (80, 150, 255, int(255 * k)), 10)
+            for (px_, py_) in pts:
+                circle(d, (px_, py_), 11, fill=(230, 235, 245, int(230 * k)))
+            for (px_, py_) in pts[:6]:
+                for ang in (0.5, 2.0, 3.6, 5.1):
+                    kk = ease((sb - 0.6) / 1.2) if sb >= 0 else 0
+                    if kk > 0:
+                        poly(d, [(px_, py_), (px_ + 90 * kk * math.cos(ang), py_ + 90 * kk * math.sin(ang))], (110, 175, 255, int(200 * kk)), 4)
+        if sb >= 0:
+            text(d, (W / 2, H - 70), '粒子に当たった光は、いろいろな方向へ散らばる', 34, GOLD, 'mm', alpha=int(255 * ease(sb / 0.8)))
+    else:
+        names = [('赤', (235, 70, 60), 0.16), ('オレンジ', (245, 150, 50), 0.22), ('黄', (240, 220, 70), 0.42), ('緑', (90, 200, 110), 0.62), ('青', (70, 140, 245), 0.98), ('紫', (150, 100, 230), 0.92)]
+        x0, x1 = 300, W - 140; y_top = 120; rh = 56; gap = 28
+        text(d, (W / 2, 50), '光の色が、深さとともに減る様子（自作の模式図。深さの数値は示さない）', 32, WHITE, 'mm')
+        text(d, (x0, y_top - 38), '水面', 30, GOLD, 'mm'); text(d, (x1, y_top - 38), '深い', 30, GOLD, 'mm')
+        for i, (nm, col, ln) in enumerate(names):
+            y = y_top + i * (rh + gap)
+            kk = ease(sa / 2.5) if sa >= 0 else 0
+            text(d, (x0 - 20, y + rh / 2), nm, 36, col, 'rm')
+            d.rectangle((x0 * S, y * S, x1 * S, (y + rh) * S), outline=(120, 150, 180, 90), width=2)
+            if kk > 0:
+                ww = (x1 - x0) * ln * kk
+                d.rectangle((x0 * S, y * S, (x0 + ww) * S, (y + rh) * S), fill=col + (230,))
+        if sb >= 0:
+            k = ease(sb / 0.6)
+            text(d, (x0 + (x1 - x0) * 0.26, y_top + rh / 2 + 0), '数メートルで、ほぼ消える（WHOI）', 28, WHITE, 'lm', alpha=int(255 * k))
+        if sc >= 0:
+            k = ease(sc / 0.6)
+            text(d, (x1 - 10, y_top + 4 * (rh + gap) + rh / 2 - 38), '青と紫が、最も深くまで届く', 30, GOLD, 'rm', alpha=int(255 * k))
+    commit(im, L, box, a)
+
+
+DRAW = dict(oceanlight=oceanlight, venusspin=venusspin, dayline=dayline, suncurve=suncurve, driftsaw=driftsaw, leapclock=leapclock, tolerance=tolerance, bulb=bulb, shindo=shindo, islemap=islemap, tidalbulge=tidalbulge, moonsync=moonsync, rain100=rain100, blocks6=blocks6, areapoint=areapoint, onemm=onemm, calib=calib, lunar=lunar, caltiles=caltiles, orbit=orbit, sunangle=sunangle, declination=declination, declination2=declination2, polar=polar, forearm=forearm, cells=cells, loop=loop, skin=skin, skintone=skintone, contrast=contrast, textbook=textbook, oke_march=oke_march)
+
+try:
+    import vp_anim_b as _b
+    DRAW.update(_b.DRAW_B)
+except ImportError as _e:
+    print('vp_anim_b not loaded:', _e)
+
+try:
+    import vp_anim_c as _c
+    DRAW.update(_c.DRAW_C)
+except ImportError as _e:
+    print('vp_anim_c not loaded:', _e)
+
+try:
+    import vp_anim_brain as _br
+    DRAW.update(_br.DRAW_BRAIN)
+except ImportError as _e:
+    print('vp_anim_brain not loaded:', _e)

@@ -27,14 +27,81 @@ def font(size, serif=False):
     return _FC[k]
 
 
-def wrap(d, text, f, maxw):
-    lines, cur = [], ''
-    for ch in text:
-        if d.textlength(cur + ch, font=f) > maxw and cur and ch not in '、。」）！？':
-            lines.append(cur); cur = ch
-        else:
-            cur += ch
-    return lines + ([cur] if cur else [])
+def wrap(d, text, f, maxw, min_ratio=0.55, near=3):
+    """幅 maxw で折り返す。行末付近の句読点・助詞・数量単位を優先し、カタカナ語や数字の途中では切らない。"""
+    PUNCT = '、。，．！？!?／・ 　:：'
+    PARTICLE = 'はがをにでともへや'
+    UNITS = '万人年日月度倍個台件艘歳回目'
+    KIN = '、。，．！？!?」』）】ー'
+
+    def kat(c):
+        return 'ァ' <= c <= 'ヶ' or c == 'ー'
+
+    def safe(k):
+        if k <= 0 or k >= len(text):
+            return False
+        a, b = text[k - 1], text[k]
+        if kat(a) and kat(b):
+            return False
+        if a.isdigit() and b.isdigit():
+            return False
+        return True
+
+    def strong(k, begin):
+        return text[k - 1] in PUNCT or (text[k - 1] in UNITS and k - 2 >= begin and text[k - 2].isdigit())
+
+    lines, i, n = [], 0, len(text)
+    while i < n:
+        j = i
+        while j < n and d.textlength(text[i:j + 1], font=f) <= maxw:
+            j += 1
+        if j >= n:
+            lines.append(text[i:])
+            break
+        while j > i + 1 and text[j] in KIN:      # 行頭禁則
+            j -= 1
+        lo = i + max(1, int((j - i) * min_ratio))
+        best = None
+        for k in range(j, max(i + 1, j - near) - 1, -1):        # (1) 行末付近の文節境界
+            if safe(k) and (strong(k, i) or text[k - 1] in PARTICLE):
+                best = k
+                break
+        if best is None:                                          # (2) 強い境界
+            for k in range(j - near - 1, lo - 1, -1):
+                if safe(k) and strong(k, i):
+                    best = k
+                    break
+        if best is None:                                          # (3) 助詞
+            for k in range(j, lo - 1, -1):
+                if safe(k) and text[k - 1] in PARTICLE:
+                    best = k
+                    break
+        if best is None:                                          # (4) 安全な位置まで戻す
+            best = j
+            while best > lo and not safe(best):
+                best -= 1
+            if best <= i:
+                best = j
+        lines.append(text[i:best])
+        i = best
+    out = [x for x in (s.strip() for s in lines) if x]
+    # 最終行が極端に短い（「の、」だけ、など）ときは、前の行から少し移して釣り合わせる
+    if len(out) >= 2 and d.textlength(out[-1], font=f) < 0.45 * maxw:
+        prev, last = out[-2], out[-1]
+        moved = False
+        UNIT = '度倍年月日人個回分秒島両代階種件位万億千百%'
+        while prev and d.textlength(last, font=f) < 0.45 * maxw:
+            ch = prev[-1]
+            p = prev[-2:-1]
+            if ch in KIN:                      # 句読点を行頭に移さない
+                break
+            if p and ((kat(p) and kat(ch)) or (p.isdigit() and (ch.isdigit() or ch in UNIT))):
+                break
+            prev, last = prev[:-1], ch + last
+            moved = True
+        if moved:
+            out[-2], out[-1] = prev, last
+    return out
 
 
 def swirl(d, c, r, ccw, col, lw=10):
@@ -189,7 +256,7 @@ def render(spec, segs, total, work, out_mp4):
         srt.append(f'{i + 1}\n{st(a)} --> {st(b)}\n{c}')
     (ROOT / 'out' / 'short_drain_subtitles.srt').write_text('\n\n'.join(srt) + '\n', encoding='utf8')
     proc = subprocess.Popen(['ffmpeg', '-y', '-v', 'warning', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', 'pipe:0',
-                             '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', str(out_mp4)], stdin=subprocess.PIPE)
+                             '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', str(out_mp4)], stdin=subprocess.PIPE)
     for fi in range(n):
         t = fi / FPS
         seg = next((s for s in segs if s['start'] - 0.2 <= t < s['end'] + 0.35), segs[-1] if t >= segs[-1]['end'] else segs[0])
@@ -220,7 +287,7 @@ def mix(spec, work, total, out_mp4, final):
     fc = ('[1:a]aresample=48000,volume=0.30,afade=t=in:d=1,afade=t=out:st=%.2f:d=1.5[b];[2:a]aresample=48000,asplit=2[n1][n2];'
           '[b][n1]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[bd];[bd][n2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=7[a]') % (total - 1.5)
     subprocess.run(['ffmpeg', '-y', '-v', 'warning', '-i', str(out_mp4), '-stream_loop', '-1', '-i', str(bgm), '-i', str(work / 'narration.wav'),
-                    '-filter_complex', fc, '-map', '0:v', '-map', '[a]', '-t', f'{total:.2f}', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', str(final)], check=True)
+                    '-filter_complex', fc, '-map', '0:v', '-map', '[a]', '-t', f'{total:.2f}', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', str(final)], check=True)
 
 
 def description(spec):

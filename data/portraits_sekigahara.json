@@ -1,0 +1,110 @@
+[
+  {
+    "id": "otani",
+    "name": "大谷吉継",
+    "file": "assets\\portraits\\otani.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Ōtani_Yoshitsugu.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Yoshiiku",
+    "desc": "An ukiyo-e of Ōtani Yoshitsugu.",
+    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "credit": "旧[1] 新[2] 東京都立図書館",
+    "sha256": "639a785bebab71515da34e0e9c768fa309a53520dd3bafc6f28393e1a06f4376"
+  },
+  {
+    "id": "ukita",
+    "name": "宇喜多秀家",
+    "file": "assets\\portraits\\ukita.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Ukita_Hideie.jpg",
+    "license": "Public domain",
+    "artist": "市原寿一",
+    "desc": "宇喜多秀家(Ukita Hideie)",
+    "date": "",
+    "credit": "[1]",
+    "sha256": "e6f60ff692889a94ee695aa01fe98f8fc0fb6ed85645e25b35bd64584314216b"
+  },
+  {
+    "id": "shimazu",
+    "name": "島津義弘",
+    "file": "assets\\portraits\\shimazu.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Shimazu_Yoshihiro.jpg",
+    "license": "Public domain",
+    "artist": "不明。",
+    "desc": "島津義弘。Shimazu Yoshihiro.",
+    "date": "江戸時代。",
+    "credit": "尚古集成館所蔵品。",
+    "sha256": "db34d75418eb49fa77057e81856f2b4219cbac91f7c7298e4bb82c1060457fdb"
+  },
+  {
+    "id": "konishi",
+    "name": "小西行長",
+    "file": "assets\\portraits\\konishi.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Daimyo_Konishi_Yukinaga_Ukiyo-e.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Yoshiiku",
+    "desc": "An ukiyo-e of daimyo Konishi Yukinaga.",
+    "date": "1867",
+    "credit": "http://upload.wikimedia.org/wikipedia/uk/a/ae/Konishi_Yukinaga.jpg",
+    "sha256": "a6f226a4750b79320b4e90c9c137cb2a1d70eca8b5cfdee699400864893839e5"
+  },
+  {
+    "id": "fukushima",
+    "name": "福島正則",
+    "file": "assets\\portraits\\fukushima.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Masanori_Fukushima.JPG",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "Fukushima Masanori (1561-1624) was a samurai of the late Sengoku Period to early Edo Period.",
+    "date": "Unknown date",
+    "credit": "福島正則画像。東京国立博物館所蔵品。A portrait of Masanori Fukushima. A holding of the Tokyo National Museum.",
+    "sha256": "62529af7a329a2d0777dbbc652f3840bbc156b208efcc95f22626010e4fe6c84"
+  },
+  {
+    "id": "ii",
+    "name": "井伊直政",
+    "file": "assets\\portraits\\ii.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Ii_Naomasa.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "Ii Naomasa.",
+    "date": "江戸時代。",
+    "credit": "彦根城博物館所蔵品。",
+    "sha256": "8c68c6a8f79c8dc1c72560576ff4946fbac13f8a812f8b9e8c9dcfaab04b98a2"
+  },
+  {
+    "id": "mori_h",
+    "name": "毛利秀元",
+    "file": "assets\\portraits\\mori_h.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:毛利秀元.jpg",
+    "license": "Public domain",
+    "artist": "Kanō Tan'yū",
+    "desc": "",
+    "date": "1651",
+    "credit": "Book cover titled \"Mōri clan and Shimonoseki\" (book coer)",
+    "sha256": "f5768d7262875d33ab7d6f69e35737847739a6702700ff5a1387ded6a7b9b9a6"
+  },
+  {
+    "id": "kuroda",
+    "name": "黒田長政",
+    "file": "assets\\portraits\\kuroda.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Kuroda_Nagamasa.jpg",
+    "license": "Public domain",
+    "artist": "不明。",
+    "desc": "黒田長政。Kuroda Nagamasa.",
+    "date": "江戸時代",
+    "credit": "福岡市博物館所蔵の肖像画。",
+    "sha256": "7348eaffa00f5de57e6052613a25462bb4a2d83a14943a217c402cbeed4daf4a"
+  },
+  {
+    "id": "kikkawa",
+    "name": "吉川広家",
+    "file": "assets\\portraits\\kikkawa.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Kikkawa_Hiroie.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "吉川広家の肖像。",
+    "date": "2011-12-07 18:33:12",
+    "credit": "東京大学史料編纂所データベース",
+    "sha256": "8c3413d5166af5e0af4e3c891bdc7b62f153371411571140339b10b11f81f1ad"
+  }
+]

@@ -6,6 +6,7 @@ import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from hn_text import display
 from PIL import Image,ImageDraw,ImageFont
+import rich_text as rich
 ROOT=Path(__file__).resolve().parents[1]
 FD='C:/Windows/Fonts/';_FC={}
 SPEC_F={'sans':('NotoSansJP-VF.ttf',560),'sub':('NotoSansJP-VF.ttf',640),'serif':('NotoSerifJP-VF.ttf',800)}
@@ -227,9 +228,9 @@ def static_layer(ci,sc,note=True):
         _TOP=Image.new('RGBA',(1920,230),(5,12,20,255));_TOP.putalpha(g.resize((1920,230)))
     im.alpha_composite(_TOP,(0,0));d=ImageDraw.Draw(im)
     ST=dict(stroke_width=5,stroke_fill=(5,10,16))
-    TT=disp_title(sc)
+    TT=display(disp_title(sc))
     if SC[key].get('theory'):TT={'諸説':'動機を比べる','史料':'史料を読む'}.get(SC[key]['theory']['tag'].split(' ')[0],TT)
-    d.text((48,16),TT,font=(FB[40] if SC[key].get('theory') else FB[60] if len(TT)<16 else FB[52]),fill=WHITE,**ST);d.text((48,94 if not SC[key].get('theory') else 70),sc['category'],font=F[28],fill=(200,210,214),stroke_width=4,stroke_fill=(5,10,16))
+    d.text((48,16),TT,font=(FB[40] if SC[key].get('theory') else FB[60] if len(TT)<16 else FB[52]),fill=WHITE,**ST);d.text((48,94 if not SC[key].get('theory') else 70),display(sc['category']),font=F[28],fill=(200,210,214),stroke_width=4,stroke_fill=(5,10,16))
     date=SC[key].get('date','')
     if date:
         f=FB[56];w=d.textlength(date,font=f);d.text((1872-w,14),date,font=f,fill=GOLD,**ST)
@@ -343,7 +344,7 @@ def hook_layer(t):
     return base
 _SUBP={}
 def sub_lines(d,seg,f,t):
-    """2-line subtitle pages at a fixed 46px: a long sentence is split into timed pages (by character count) instead of shrinking the font."""
+    """2-line subtitle pages at a fixed 52px: a long sentence is split into timed pages (by character count) instead of shrinking the font."""
     k=seg['start']
     if k not in _SUBP:
         txt=display(seg['text']);ls=wrap(d,txt,f,1720)
@@ -417,7 +418,7 @@ def render(a,b):
                     bx=(45,602,905,830);d.rounded_rectangle(bx,12,fill=BG,outline=EDGE,width=2);used.append(bx)
                     d.text((68,610),'峠の標高（出典）　約230 m',font=F[40],fill=WHITE);d.text((68,668),f'経路の最高点（DEM）　{ana["max_elev_m"]:.0f} m',font=F[40],fill=WHITE);d.text((68,726),f'登り {ana["ascent_m"]:.0f} m / 下り {ana["descent_m"]:.0f} m',font=F[40],fill=WHITE);d.text((68,786),'（高低差は現代のDEMによる）',font=F[28],fill=DIM)
                 if key=='d_temple':
-                    panel(d,(45,170,930,480),'二つの「本能寺」',used);d.ellipse((70,246,94,270),fill=COL['honnoji']);d.text((108,232),'当時：蛸薬師通の北・約120m四方',font=F[36],fill=WHITE)
+                    panel(d,(45,170,930,480),'2つの「本能寺」',used);d.ellipse((70,246,94,270),fill=COL['honnoji']);d.text((108,232),'当時：蛸薬師通の北・約120m四方',font=F[36],fill=WHITE)
                     d.ellipse((70,312,94,336),fill=COL['honnoji_now']);d.text((108,298),'現在：寺町御池（1591–92年に移転）',font=F[36],fill=WHITE);d.text((70,382),f'二地点の距離　約{ana["honnoji_old_to_now_m"]/1000:.2f} km',font=FB[44],fill=GOLD)
                 if key=='d_attack':
                     panel(d,(45,170,960,450),'6/2 午前4時ごろ（諸説）',used);d.text((70,232),'包囲の配置・炎は説明用の演出',font=F[38],fill=WHITE);d.text((70,298),'側近：20〜30人とも150〜160人とも',font=F[38],fill=WHITE);d.text((70,364),'（諸説あり確定していない）',font=F[30],fill=DIM)
@@ -456,10 +457,10 @@ def render(a,b):
             im.alpha_composite(ov.resize((1920,1080),Image.BOX));d=ImageDraw.Draw(im,'RGBA')
             active=next((x for x in seg_list if x['start']<=t<x['end']),None);sub=None
             if active:
-                f=FSUB[46];lines=sub_lines(d,active,f,t)
-                sub=(60,860,1860,1008);d.rounded_rectangle(sub,12,fill=(5,18,29,242))
+                f=FSUB[52];lines=sub_lines(d,active,f,t)
+                sub=(60,850,1860,1008);d.rounded_rectangle(sub,12,fill=(5,18,29,242))
                 for j,txt in enumerate(lines):
-                    w=tw(d,txt,f);assert w<1760;d.text(((1920-w)/2,872+j*62),txt,font=f,fill='#fffcef')
+                    w=tw(d,txt,f);assert w<1760;rich.draw_center(d,960,862+j*70,txt,f,'#fffcef',(255,208,122))
             d.rectangle((48,1012,48+1824*(i+1)/N,1018),fill=(201,173,112))
             proc.stdin.write(im.convert('RGB').tobytes())
             if stills:im.convert('RGB').save(ROOT/'cache'/f'still4_{i}.png')
@@ -476,10 +477,10 @@ def final():
     parts=sorted(ROOT.glob('cache/hn4_part_*.mp4'),key=lambda p:int(p.stem.split('_')[2]))
     lst=ROOT/'cache'/'hn4_parts.txt';lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
     wav=str(ROOT/'out'/'hn_narration.wav')
-    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',wav,'-af','loudnorm=I=-15:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
+    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',wav,'-af','loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
     j=json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}',r.stderr,re.S).group(0))
-    af=f"loudnorm=I=-15:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
-    subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',wav,'-map','0:v','-map','1:a','-c:v','h264_nvenc','-preset','p5','-cq','25','-b:v','0','-pix_fmt','yuv420p','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(ROOT/'out'/'honnoji.mp4')],check=True)
+    af=f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
+    subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',wav,'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(ROOT/'out'/'honnoji.mp4')],check=True)
     chk_duration()
     print('loudnorm input',j['input_i'],'LUFS')
 
@@ -488,9 +489,9 @@ def remix(bgm_db=-16.0,bgm_file='hn_bgm.wav'):
     nar=str(ROOT/'out'/'hn_narration.wav');bgm=str(ROOT/'out'/bgm_file);mix=str(ROOT/'cache'/'hn_mix.wav')
     fc=f"[0:a]aresample=48000,pan=stereo|c0=c0|c1=c0,asplit=2[n1][n2];[1:a]volume={bgm_db}dB[bg];[bg][n2]sidechaincompress=threshold=0.02:ratio=4:attack=30:release=900:makeup=1[duck];[n1][duck]amix=inputs=2:normalize=0:duration=first[m]"
     subprocess.run(['ffmpeg','-y','-v','warning','-i',nar,'-i',bgm,'-filter_complex',fc,'-map','[m]','-c:a','pcm_s16le',mix],check=True)
-    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',mix,'-af','loudnorm=I=-15:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
+    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',mix,'-af','loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
     j=json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}',r.stderr,re.S).group(0))
-    af=f"loudnorm=I=-15:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
+    af=f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
     subprocess.run(['ffmpeg','-y','-v','warning','-i',str(ROOT/'out'/'honnoji_nobgm.mp4'),'-i',mix,'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(ROOT/'out'/'honnoji.mp4')],check=True)
     print('mix input',j['input_i'],'LUFS (narration+BGM before normalisation)')
 if __name__=='__main__':

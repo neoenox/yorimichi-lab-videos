@@ -1,7 +1,7 @@
 """Writes data/gdp_spec.json."""
 import json,sys
 sys.path.insert(0,str(__import__('pathlib').Path(__file__).parent))
-from specart import inject
+from specart import inject, inject2
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
 SRC='内閣府『無償労働の貨幣評価』（令和5年7月）を基に作成'
@@ -72,4 +72,5 @@ spec=dict(slug='gdp',theme_dir='20261017_gdp',pack='05_housework_gdp',header_sub
   checks=['数値(図表2-1・2-2)の転記を、もう一度見る(`docs/themes/20261017_gdp/08_fact_check.md` G6・G7)']),
  thumb=dict(bg='assets/gdp/thumb_art.png',lines=[['家事を',80,'white'],['外注すると',110,'gold'],['GDPは',80,'white'],['増える？',130,'gold']],sub='内閣府の資料で確かめる',y0=12,bar_y=560,bar_w=560,sub_size=44,shade_x=700,shade_w=520))
 inject(spec,dict(intro='house',two='tools',why='ledger',calc='ledger',y2021='city',sat='office',end='house'))
+inject2(spec,{'y2021':('y2021',6),'end':('end',6)})
 (R/'data'/'gdp_spec.json').write_text(json.dumps(spec,ensure_ascii=False,indent=1),encoding='utf8');print('spec written')

@@ -1,6 +1,9 @@
 """Writes data/season_spec.json."""
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from specart import inject2
 R=Path(__file__).resolve().parents[1]
 spec=dict(slug='season',theme_dir='20261018_season',pack='11_season_distance',header_sub='季節の原因をNASAの解説で確かめる',images={k:dict(file=f'assets/season/art_{k}.png') for k in ('summer','winter','space','tilt','sun','seasons')},
  bgm=[['intro','dist','piano36'],['tilt','compare','piano12'],['south','end','piano40']],
@@ -67,7 +70,7 @@ spec=dict(slug='season',theme_dir='20261018_season',pack='11_season_distance',he
   intro='「夏が暑いのは、地球が太陽に近づくから」。そう思っていませんか。この動画では、NASAの解説と教材から、季節の原因を確かめます。地球と太陽の距離は季節でどう変わるのか(近日点は1月、遠日点は7月)、季節をつくっているのは何か(地軸の傾き)、距離と傾きの効果を簡単な計算でどれくらい違うのか、南半球はどうなのか。分かることと決められないことを、分けて見ていきます。',
   points=['地球の公転軌道は完全な円ではなく、近日点(約9,140万マイル)は1月、遠日点(約9,450万マイル)は7月です。北半球が夏の7月に、地球は太陽から最も遠くなります。NASAは、距離が季節の原因ではないことの証明だとしています(NASA Space Place)。','季節は地軸の傾きによって生じます。地軸は公転面に垂直な方向から約23.4度傾いています(NASA Earth Facts、NASA教材)。北極が太陽の方へ傾く約6月に北半球は夏、南極が太陽の方へ傾く約12月に北半球は冬になります。両極は反対側にあるため、季節の時期も反対です(NASA Space Place)。','NASAの教材は、夏は昼が長く、太陽の光がより急な角度で届くと説明しています。','動画内の「約7パーセント」「約1.9倍」は自作の計算です。距離の差は、太陽から受ける光の強さが距離の2乗に反比例するとして求めた日射の差(近日点は遠日点より約7％強い)。傾きの差は、距離を同じとし、北緯35度の夏至・冬至の正午の太陽の高さ(約78度・約32度)から、水平な地面が受ける光の強さを比べた値(大気は無視、昼の長さは含まない)で、気温の比ではありません。','距離による光の変化が各地の気温を何度変えるのか、各地の実際の気温が海や大気などでどう決まるのかは、この動画では確認していません。'],
   refs=['NASA Space Place「What Causes the Seasons?」:https://spaceplace.nasa.gov/seasons/en/','NASA Science「Earth Facts」:https://science.nasa.gov/earth/facts/','NASA(Goddard)教材 Stargaze「Seasons」:https://cdaweb.gsfc.nasa.gov/pub/documents/archived_websites/pwg.gsfc.nasa.gov/stargaze/Lseason.htm'],
-  credit_lines=['・図・グラフ・計算:自作(NASAの公表値を基にした模式図と計算です。外部画像は使用していません)','・サムネイルの背景と場面のイラスト:Codex(OpenAI)による生成イラスト(地球・太陽・風景のイメージ。実際の縮尺・天体・風景の再現ではありません)'],
+  credit_lines=['・図・グラフ・計算:自作(NASAの公表値を基にした模式図と計算です。外部画像は使用していません)','・サムネイルの背景と場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(地球・太陽・風景のイメージ。実際の縮尺・天体・風景の再現ではありません)'],
   notes=['距離は、NASA Space Placeのマイル値を、1マイル=約1.609kmとして自作で換算した概算です。','「約7％」「約1.9倍」は、条件(距離を同じ・北緯35度・正午・水平な地面・大気を無視)を置いた自作の計算で、各地の実際の気温や日射量の比ではありません。','誤りがあればコメントでお知らせください。確認のうえ、訂正します。'],
   tags='季節, 夏, 冬, 地軸の傾き, 太陽までの距離, 近日点, 遠日点, 南半球, NASA, 科学, 雑学, 検証',
   checks=['傾きによる日射の差(約1.9倍)と、距離による差(約7％)を、もう一度検算する(`docs/themes/20261018_season/08_fact_check.md`)','NASA Space Place・教材の原文との照合(任意)']),
@@ -86,4 +89,5 @@ def _fit(o):
     elif isinstance(o,list):
         for v in o:_fit(v)
 _fit(spec)
+inject2(spec,{'compare':('compare',4)})
 (R/'data'/'season_spec.json').write_text(json.dumps(spec,ensure_ascii=False,indent=1),encoding='utf8');print('spec written')

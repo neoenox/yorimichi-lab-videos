@@ -1,0 +1,74 @@
+"""Writes data/leapsecond_spec.json（うるう秒は、なぜ入れて、なぜやめる？）。台本：docs/themes/20261105_leapsecond/09_script_v2.md"""
+import json, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from specart import inject
+R = Path(__file__).resolve().parents[1]
+TOP = [60, 170, 1860, 235]
+spec = dict(slug='leapsecond', theme_dir='20261105_leapsecond', pack='19_leap_second', header_sub='うるう秒を入れた理由とやめる理由を、資料で確かめる',
+ images={},
+ bgm=[['intro', 'why_in', 'piano36'], ['why_out', 'change', 'piano12'], ['end', 'end', 'piano40']],
+ chapters=[
+ dict(key='intro', title='八時五十九分六十秒', chapter_title='導入：「8時59分60秒」が入った日', scene=[
+   dict(t='anim', name='leapclock', box=[60, 190, 1860, 600], at=0, s_a=0, s_b=1, s_c=2),
+   dict(t='panel', box=[120, 650, 1800, 740], text='2026年の国際度量衡総会の決議：うるう秒を、やめる', at=4, size=42, hi=True),
+   dict(t='panel', box=[120, 770, 1800, 840], text='資料：総務省（うるう秒挿入のお知らせ）・BIPM（国際度量衡総会 決議5）', at=6, size=30)]),
+ dict(key='why_in', title='なぜ、入れてきたのか', chapter_title='なぜ、入れてきたのか', scene=[
+   dict(t='panel', box=TOP, text='協定世界時（UTC）と、地球の自転に基づく時刻（UT1）のずれを、小さく保つ', at=0, until=2, size=38, hi=True),
+   dict(t='panel', box=TOP, text='総務省：ずれが0.9秒以内に収まるように、1秒を入れる仕組み', at=2, until=3, size=40, hi=True),
+   dict(t='panel', box=TOP, text='2017年の調整は、制度が始まってから27回目（前回：2015年7月1日）', at=3, size=40),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='anim', name='driftsaw', box=[60, 250, 1860, 850], at=0, until=3, s_a=0, mode='pos'),
+   dict(t='anim', name='leapclock', box=[60, 250, 1860, 850], at=3, s_a=3, s_b=4, s_c=5)]),
+ dict(key='why_out', title='なぜ、やめるのか', chapter_title='なぜ、やめるのか', scene=[
+   dict(t='panel', box=TOP, text='決議の前文：重要な設備や産業は、あとから調整の入らない時刻を必要としている', at=0, until=3, size=38, hi=True),
+   dict(t='panel', box=TOP, text='問題は、1秒を足すことだけではない：1秒を抜く「負のうるう秒」', at=3, until=5, size=40, hi=True),
+   dict(t='panel', box=TOP, text='負のうるう秒は、これまで一度も使われていない。決議：重要な設備には、高いリスク', at=5, until=7, size=36, hi=True),
+   dict(t='panel', box=TOP, text='2025年3月の専門家の会合：2035年までに、負のうるう秒が必要になる確率を見積もった', at=7, until=9, size=36, hi=True),
+   dict(t='panel', box=TOP, text='足す仕組みが、抜く可能性によって、問題になった（自作のまとめ）', at=9, size=40, col='gold'),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='chips', y=420, w=330, h=130, gap=40, size=52, items=[dict(at=1, until=3, text='交通'), dict(at=1, until=3, text='エネルギー'), dict(at=1, until=3, text='通信'), dict(at=1, until=3, text='宇宙')]),
+   dict(t='anim', name='driftsaw', box=[60, 250, 1860, 850], at=3, until=8, s_a=4, mode='neg'),
+   dict(t='bars', box=[160, 400, 1760, 720], title='2035年までに負のうるう秒が必要になる確率（専門家の会合の見積もり）', unit='％', max=100, lab_w=300, data=[
+     dict(at=8, label='見積もり', value=30, vlabel='30％', col='org')])]),
+ dict(key='change', title='やめると、何が変わるのか', chapter_title='やめると、何が変わるのか', scene=[
+   dict(t='panel', box=TOP, text='決議：2027年5月20日から、うるう秒による調整をしない、連続した協定世界時', at=0, until=1, size=34, hi=True),
+   dict(t='panel', box=TOP, text='ずれの許容上限を、0.9秒から、3,600秒（1時間）に広げる', at=1, until=2, size=40, hi=True),
+   dict(t='panel', box=TOP, text='これは「許容する上限」の話。実際のずれが1時間になる、という意味ではない', at=2, until=4, size=36, col='gold'),
+   dict(t='panel', box=TOP, text='決議の意図：数世紀にわたって、協定世界時を連続させる', at=4, size=40),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='anim', name='tolerance', box=[60, 250, 1860, 850], at=1, s_a=1, s_b=1, s_c=2)]),
+ dict(key='end', title='つまり、なぜやめるのか', chapter_title='結論：つまり、なぜやめるのか', scene=[
+   dict(t='big', text='なぜ、やめるのか', y=250, at=1, size=72, col='gold'),
+   dict(t='panel', box=[60, 400, 1860, 540], text='決議の趣旨（自作のまとめ）：自転と時刻を細かく合わせ続けるより、時刻を途中で調整しないことを優先する', at=2, size=40, hi=True),
+   dict(t='panel', box=[60, 600, 1860, 730], text='決められないこと：身の回りの時計が、いつ、どう変わるのか（この動画の資料だけでは分からない）', at=4, size=38, col='gold')])
+ ],
+ desc=dict(title_main='うるう秒は、なぜ入れて、なぜやめるのか', title_no=1,
+  titles=['うるう秒は、なぜやめる？ 国際度量衡総会の決議を確かめる', 'うるう秒を入れてきた理由と、やめる理由を、資料で確かめる', 'うるう秒をやめると「1時間のずれ」になる？ 決議の中身を確かめる'],
+  intro='日本時間の2017年1月1日、午前8時59分59秒の次に、「8時59分60秒」が入りました。うるう秒です。このうるう秒を、やめる決議が、2026年の国際度量衡総会で出されました。この動画では、総務省とBIPMの資料から、なぜ入れてきて、なぜやめるのかを確かめます。うるう秒を入れてきた理由、やめる理由、やめると何が変わるのか、を分けて見ていきます。',
+  points=['うるう秒は、原子時計をもとにした協定世界時と、地球の自転に基づく時刻のずれを、0.9秒以内に保つために、1秒を入れる仕組みです。2017年1月1日(日本時間)の午前8時59分59秒と9時00分00秒の間に「8時59分60秒」が入りました。制度が始まってから27回目で、前回は2015年7月1日でした(総務省「『うるう秒』挿入のお知らせ」)。', '2026年の第28回国際度量衡総会の決議5の前文は、交通・エネルギー・通信・宇宙などの重要な設備や産業が連続した協定世界時を必要としていること、負のうるう秒は一度も使われたことがなく重要な設備には高いリスクがあること、2025年3月の専門家の会合が2035年までに負のうるう秒が必要になる確率を30％と見積もったことを挙げています(BIPM)。', '決議は、2027年5月20日から、うるう秒による調整をしない連続した協定世界時とし、地球の自転に基づく時刻とのずれの許容上限を3,600秒(1時間)とします。これは許容する上限であり、実際のずれが1時間になるという意味ではありません。決議は、数世紀にわたって協定世界時を連続させることを意図しています(同)。'],
+  refs=['総務省「『うるう秒』挿入のお知らせ」:https://www.soumu.go.jp/menu_news/s-news/01tsushin03_02000177.html', 'BIPM 第28回国際度量衡総会(2026年) 決議5「UTCの連続性を確保するための技術的措置」:https://www.bipm.org/committees/cg/cgpm/28-2026/resolution-5'],
+  credit_lines=['・図:自作(総務省とBIPMの資料をもとにした模式図です。実機の表示ではありません)', '・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実際の場面の再現ではありません)'],
+  notes=['図は、資料の説明を理解するための自作の模式図で、実機の表示や実測値ではありません。', '決議の採択日、各国・各機関の対応、身の回りの時計への具体的な影響は、この動画では確認していません。', '公式の決議はフランス語版です。この動画の内容は、英語版の決議ページの確認に基づきます。'],
+  tags='うるう秒, 協定世界時, 国際度量衡総会, 時刻, 原子時計, 日本標準時, 総務省, 科学, 雑学, 検証',
+  checks=['BIPMの決議5の原文を、公開前にもう一度開いて確認する(`docs/themes/20261105_leapsecond/08_fact_check.md`)', '決議の採択日がページに出ているか確認する(出ていれば説明に足せる)', '2017年以降にうるう秒が入ったか、入っていないかは未確認(動画では言っていない)']),
+ thumb=dict(bg='assets/leapsecond/thumb_art.png', lines=[['うるう秒', 140, 'white'], ['なぜやめる？', 100, 'gold']], sub='総務省・国際度量衡総会の資料で', shade_col=[14, 30, 60], accent=[170, 200, 255], bar_col=[170, 200, 255], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
+
+
+def _fit(o):
+    if isinstance(o, dict):
+        if o.get('t') == 'panel' and o.get('title'):
+            h = o['box'][3] - o['box'][1]
+            if h < 112:
+                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
+                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
+                else: o['size'] = min(o.get('size', 40), 30)
+            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
+        for v in o.values(): _fit(v)
+    elif isinstance(o, list):
+        for v in o: _fit(v)
+
+
+_fit(spec)
+inject(spec, dict(intro='intro', why_in='in', why_out='out', change='change', end='end'))
+(R / 'data' / 'leapsecond_spec.json').write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf8'); print('spec written')

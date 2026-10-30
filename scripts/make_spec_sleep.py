@@ -1,0 +1,60 @@
+"""Writes data/sleep_spec.json（昔の人は、夜に二回に分けて眠っていた？）。台本：docs/themes/20261230_sleep/09_script_v2.md
+at / until は『章内の行番号（0始まり）』。spec_common.finalize が文の番号に直す。"""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import finalize, TOP
+spec = dict(slug='sleep', theme_dir='20261230_sleep', pack='55_sleep', header_sub='英語版Wikipediaで、昔の人の分割睡眠を確かめる',
+ images={},
+ bgm=[['intro', 'ekirch', 'piano36'], ['jikken', 'giron', 'piano12'], ['iikata', 'end', 'piano40']],
+ chapters=[
+ dict(key='intro', title='昔の人は、夜に2回に分けて眠っていた？', chapter_title='導入：昔の人は、夜に2回に分けて眠っていた？', opener='昔の人は、夜に2回に分けて眠っていた？', opener_until=1, scene=[
+   dict(t='big', text='昔の人は、夜に2回に分けて眠っていた？', y=270, at=0, size=46, col='gold'),
+   dict(t='panel', box=[120, 450, 1800, 570], text='夜中に1〜2時間起きて、また眠る、という眠り方', at=1, size=40, hi=True),
+   dict(t='panel', box=[120, 620, 1800, 700], text='確かめる材料：英語版Wikipedia「Segmented sleep」', at=3, size=38),
+   dict(t='panel', box=[120, 750, 1800, 860], text='答え：記録は多いが、普通だったかは議論が続いている', at=4, size=36, col='gold')]),
+ dict(key='ekirch', title='エカーチの主張', chapter_title='エカーチの主張', scene=[
+   dict(t='panel', box=TOP, text='まず、この説を広めた人を見る', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='歴史家ロジャー・エカーチ：産業革命の前の西洋では、眠りが途中で途切れるのが普通', at=1, until=2, size=30, hi=True),
+   dict(t='panel', box=TOP, text='根拠：古代・中世・近代の文書にある、500以上の記述', at=2, until=3, size=38),
+   dict(t='panel', box=TOP, text='早く眠る → 夜中に目覚める → もう一度眠る', at=3, until=4, size=40),
+   dict(t='panel', box=TOP, text='最初の眠り「first sleep」と、二度目の「second sleep」の間は、約1時間', at=4, size=32, col='gold'),
+   dict(t='table', box=[60, 300, 1860, 560], cols=['エカーチの説（英語版Wikipedia）', '内容'], colw=[900, 900], size=34, rows=[
+     dict(at=2, cells=['根拠', '500以上の記述']),
+     dict(at=4, cells=['目覚めている時間', '約1時間'], col='gold')])]),
+ dict(key='jikken', title='実験では、どうだったか', chapter_title='実験では、どうだったか', scene=[
+   dict(t='panel', box=TOP, text='記録だけでなく、実験もある', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='1992年：健康な男性7人が、1日14時間の暗闇で、1か月過ごした', at=1, until=2, size=34, hi=True),
+   dict(t='panel', box=TOP, text='最初は11時間ほど眠った（睡眠不足を取り戻したためと考えられる）', at=2, until=3, size=34),
+   dict(t='panel', box=TOP, text='その後：約4時間眠り、2〜3時間起き、また約4時間眠った', at=3, until=4, size=36, col='gold'),
+   dict(t='panel', box=TOP, text='暗い夜が長いと、眠りが2つに分かれる人もいた', at=4, size=38)]),
+ dict(key='giron', title='疑問の声', chapter_title='疑問の声', scene=[
+   dict(t='panel', box=TOP, text='一方で、疑問の声もある', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='2015年：電気のない赤道付近の3つの社会は、3つとも、夜の眠りは1回', at=1, until=2, size=32, hi=True),
+   dict(t='panel', box=TOP, text='2023年の論文：エカーチの根拠は限られ、言葉の意味も一つとは限らない、とのこと', at=2, until=3, size=30),
+   dict(t='panel', box=TOP, text='この論文は、検索結果の要約だけ確認。本文は未確認', at=3, until=4, size=36, col='gold'),
+   dict(t='panel', box=TOP, text='分割睡眠が体によい、という説も、広い合意はない', at=4, size=38)]),
+ dict(key='iikata', title='どう言えばよいのか', chapter_title='どう言えばよいのか', scene=[
+   dict(t='panel', box=TOP, text='「昔の人は2回に分けて眠った」は、どう言えばよいか', at=0, until=1, size=36),
+   dict(t='panel', box=TOP, text='そういう記録が、数多くあることは、事実のようだ', at=1, until=2, size=38, hi=True),
+   dict(t='panel', box=TOP, text='いつも、どこでも普通だったかは、はっきりしない', at=2, until=3, size=38),
+   dict(t='panel', box=TOP, text='明かり・季節・仕事・文化で、夜の眠りは変わった（自作の整理）', at=3, size=34, col='gold')]),
+ dict(key='end', title='まとめ', chapter_title='まとめ', scene=[
+   dict(t='cols2', size=32, xm=940, xm2=980, left=dict(title='分かったこと', title_at=1, items=[
+      dict(at=1, text='エカーチは、500以上の記述から、夜を2回に分けて眠るのが普通だったと主張した'),
+      dict(at=2, text='長い暗闇の実験で、似た眠り方が現れた。電気のない社会で、1回だった例もある')]),
+     right=dict(title='分からないこと・言い方', title_at=3, items=[
+      dict(at=3, text='どの時代・地域で、どれくらい普通だったか'),
+      dict(at=4, text='「2回に分けて眠る人も多かったようだが、全員とは言い切れない」と言うのが近い')]))]),
+ ],
+ desc=dict(title_main='昔の人は夜に二回に分けて眠っていたのか', title_no=1,
+  titles=['昔の人は、夜に2回に分けて眠っていた？ 英語版Wikipediaで確かめる', '「第一の眠り・第二の眠り」は本当？ 昔の分割睡眠の説と、疑問の声', '電気のない時代の眠り方：エカーチの説と14時間の暗闇実験'],
+  intro='「電気がなかった昔の人は、夜に2回に分けて眠っていた」と聞いたことはありませんか。この動画では、英語版Wikipediaの解説で、この説の根拠と疑問の声を確かめます。',
+  points=['歴史家ロジャー・エカーチは、500以上の記述から、産業革命の前の西洋では、夜の眠りが途中で途切れるのが普通だったと主張しています(英語版Wikipedia)。', '1992年の実験では、健康な男性7人が1日14時間の暗闇で1か月過ごしたところ、約4時間眠り、2〜3時間起き、また約4時間眠る形が現れました。', '一方、2015年には、電気のない赤道付近の3つの社会で、夜の眠りが1回だったという研究が報告されています。'],
+  refs=['Wikipedia(英語版)「Segmented sleep」(二次情報):https://en.wikipedia.org/wiki/Segmented_sleep', 'A. Roger Ekirch, "Segmented Sleep" (Ekirchの解説ページ):https://sites.google.com/vt.edu/roger-ekirch/sleep-research/segmented-sleep', 'Have we lost sleep? A reconsideration of segmented sleep in early modern England (2023・検索結果の要約のみ確認):https://pmc.ncbi.nlm.nih.gov/articles/PMC10404514/'],
+  credit_lines=['・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実在の場面・人物・資料の再現ではありません)'],
+  notes=['500以上の記述、1992年の実験、2015年の調査の数字は、英語版Wikipediaの記述で、原論文は確認できていません。', '2023年の論文は、検索結果の要約だけを確認しました。本文は未確認です。', 'エカーチの説は、西洋(主に英国)の記録が中心です。日本の昔の人の眠り方について言うものではありません。'],
+  tags='睡眠, 分割睡眠, エカーチ, 歴史, 電気, 昔の人, 眠り方, 検証',
+  checks=['エカーチの論文・著書で、記述の数と内容を確認する', '2015年の非産業社会の調査の原論文を確認する', '2023年の批判論文の本文を確認する']),
+ thumb=dict(bg='assets/sleep/thumb_art.png', lines=[['昔の人は', 95, 'white'], ['夜に2回寝た？', 110, 'gold']], sub='分割睡眠の説を、確かめる', shade_col=[10, 24, 44], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
+finalize(spec, {'intro': 'intro', 'ekirch': 'candle', 'jikken': 'dark', 'giron': 'candle', 'iikata': 'dark', 'end': 'intro'})

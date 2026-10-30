@@ -12,7 +12,9 @@ import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from hn_text import display
 from PIL import Image,ImageDraw,ImageFont
+import rich_text as rich
 ROOT=Path(__file__).resolve().parents[1];FD='C:/Windows/Fonts/';BASE='http://127.0.0.1:50021';SPEED=0.95
+XFADE=0.35  # 章の切れ目のクロスフェード（秒）
 BG=(7,24,36,240);GOLD=(239,201,118);WHITE=(245,243,232);DIM=(190,205,208);EDGE=(176,153,100);NAVY=(9,22,34);ORG=(255,150,90);BLUE=(120,190,255);VIO=(170,135,255);GRN=(120,210,150);RED=(235,90,80)
 COL={'gold':GOLD,'white':WHITE,'dim':DIM,'org':ORG,'blue':BLUE,'vio':VIO,'grn':GRN,'red':RED}
 SPEC_F={'sans':('NotoSansJP-VF.ttf',560),'sub':('NotoSansJP-VF.ttf',640),'serif':('NotoSerifJP-VF.ttf',800)}
@@ -28,8 +30,18 @@ class _Fam:
 F=_Fam('sans');FB=_Fam('serif');FSUB=_Fam('sub')
 SLUG=None;SPEC=None;TL=None;SEGS=None;N=0;KEYS=[]
 def P(rel):return ROOT/rel
+# 画面に出す文字は、数量・回数・順序を算用数字にする（字幕と同じ規則。慣用句は hn_text.KEEP で保護）
+_TXT={'text','title','sub','chapter_title','opener','cells','lines'}
+def _cv(v):
+    if isinstance(v,str):return display(v)
+    if isinstance(v,list):return [_cv(x) for x in v]
+    return v
+def _conv_display(o):
+    if isinstance(o,dict):return {k:(_cv(v) if k in _TXT else _conv_display(v)) for k,v in o.items()}
+    if isinstance(o,list):return [_conv_display(v) for v in o]
+    return o
 def load_spec(slug):
-    global SLUG,SPEC;SLUG=slug;SPEC=json.loads(P(f'data/{slug}_spec.json').read_text(encoding='utf8'));return SPEC
+    global SLUG,SPEC;SLUG=slug;SPEC=_conv_display(json.loads(P(f'data/{slug}_spec.json').read_text(encoding='utf8')));return SPEC
 def theme_dir():return P('docs/themes')/SPEC['theme_dir']
 def load_runtime():
     global TL,SEGS,N,KEYS
@@ -176,6 +188,7 @@ def it_table(im,d,cx,it):
             hmax=max(hmax,len(ls)*int(size*1.25));x+=w
         yy+=hmax+14;assert yy<=y1+4,f'table overflow in {cx.key}'
 def it_cols2(im,d,cx,it):
+    if not cx.vis(it):return
     for side,(bx0,bx1) in (('left',(it.get('x0',60),it.get('xm',940))),('right',(it.get('xm2',980),it.get('x1',1860)))):
         sp=it.get(side)
         if not sp:continue
@@ -296,30 +309,71 @@ def render_scene(im,d,cx):
 def header(d,ci):
     d.text((48,16),SPEC['chapters'][ci].get('title',''),font=FB[60],fill=WHITE,stroke_width=5,stroke_fill=(5,10,16));d.text((48,94),SPEC['header_sub'],font=F[28],fill=(200,210,214),stroke_width=4,stroke_fill=(5,10,16))
 # ---------------------------------------------------------------- subtitles / frames
+def split_clauses(txt,maxc=42):
+    """42字を超える字幕は、読点の切れ目で分け、1回に出す量を減らす（時間は文字数に比例）"""
+    if len(txt)<=maxc:return [txt]
+    parts=[x+'、' for x in txt.split('、')];parts[-1]=parts[-1][:-1]
+    out=[];cur=''
+    for x in parts:
+        if cur and len(cur)+len(x)>maxc:out.append(cur);cur=x
+        else:cur+=x
+    if cur:out.append(cur)
+    return out
 _SUBP={}
 def sub_lines(d,seg,f,t):
     k=seg['start']
     if k not in _SUBP:
-        txt=display(seg['text']);ls=wrap(d,txt,f,1720)
-        if len(ls)<=2:_SUBP[k]=[(ls,seg['start'],seg['end'])]
+        txt=display(seg['text']);ls=wrap(d,txt,f,1720);ch=split_clauses(txt);ct=seg.get('cue_times')
+        if len(ch)>1:
+            if ct and len(ct)==len(ch)+1:ts=ct
+            else:
+                tot=sum(len(c) for c in ch);cum=0;fr=[]
+                for c in ch:fr.append(cum/tot);cum+=len(c)
+                fr.append(1.0);ts=snap_bounds(seg,fr)
+            _SUBP[k]=[(wrap(d,c,f,1720),ts[i],ts[i+1]) for i,c in enumerate(ch)]
+        elif len(ls)<=2:_SUBP[k]=[(ls,seg['start'],seg['end'])]
         else:
-            allw=wrapn(d,txt,f,1720);pages=[allw[i:i+2] for i in range(0,len(allw),2)];tot=sum(len(''.join(p)) for p in pages);cum=0;out=[]
-            for p in pages:
-                n=len(''.join(p));out.append((p,seg['start']+(seg['end']-seg['start'])*cum/tot,seg['start']+(seg['end']-seg['start'])*(cum+n)/tot));cum+=n
-            _SUBP[k]=out
+            allw=wrapn(d,txt,f,1720);pages=[allw[i:i+2] for i in range(0,len(allw),2)];tot=sum(len(''.join(p)) for p in pages);cum=0;fr=[]
+            for p in pages:fr.append(cum/tot);cum+=len(''.join(p))
+            fr.append(1.0);ts=snap_bounds(seg,fr)
+            _SUBP[k]=[(p,ts[i],ts[i+1]) for i,p in enumerate(pages)]
     for ls,s0,s1 in _SUBP[k]:
         if t<s1:return ls
     return _SUBP[k][-1][0]
-def render_frame(i):
-    t=i/30;ci=next(k for k,c in enumerate(TL) if t<c['end']+1e-9);cx=Ctx(ci,t)
+def _base_frame(ci,t,with_header=True):
+    """字幕なしの 1 コマ（ヘッダー＋シーン＋章の見出し）。"""
     im=Image.new('RGBA',(1920,1080),NAVY+(255,));d=ImageDraw.Draw(im,'RGBA')
-    header(d,ci);render_scene(im,d,cx);d=ImageDraw.Draw(im,'RGBA')
-    active=next((x for x in cx.segl if x['start']<=t<x['end']),None)
-    if active:
-        f=FSUB[46];lines=sub_lines(d,active,f,t);d.rounded_rectangle((60,860,1860,1008),12,fill=(5,18,29,242))
-        for j,txt in enumerate(lines):
-            w=tw(d,txt,f);assert w<1760;d.text(((1920-w)/2,872+j*62),txt,font=f,fill='#fffcef')
-    d.rectangle((48,1012,48+1824*(i+1)/N,1018),fill=(201,173,112));return im
+    if with_header:header(d,ci)
+    render_scene(im,d,Ctx(ci,t));return im
+def _subs_layer(ci,t,alpha):
+    """字幕だけの透明レイヤー。章の切れ目では alpha でフェードさせる。"""
+    if alpha<=0:return None
+    cx=Ctx(ci,t);active=next((x for x in cx.segl if x['start']<=t<x['end']),None)
+    if not active:return None
+    lay=Image.new('RGBA',(1920,1080),(0,0,0,0));d=ImageDraw.Draw(lay,'RGBA')
+    f=FSUB[52];lines=sub_lines(d,active,f,t);d.rounded_rectangle((60,850,1860,1008),12,fill=(5,18,29,242))
+    for j,txt in enumerate(lines):
+        assert tw(d,txt,f)<1760
+        rich.draw_center(d,960,862+j*70,txt,f,'#fffcef',(255,208,122))
+    if alpha<1:lay.putalpha(lay.getchannel('A').point(lambda v:int(v*alpha)))
+    return lay
+def render_frame(i):
+    t=i/30;ci=next(k for k,c in enumerate(TL) if t<c['end']+1e-9)
+    # 章の切れ目は、前の章と次の章を同時に描いて混ぜる（0.35 秒）。ハードカットの「飛び」を消す。
+    b=None
+    if ci>0 and t<TL[ci]['start']+XFADE/2:b,A,B=TL[ci]['start'],ci-1,ci
+    elif ci<len(TL)-1 and t>TL[ci]['end']-XFADE/2:b,A,B=TL[ci]['end'],ci,ci+1
+    if b is None:
+        im=_base_frame(ci,t);layers=((ci,1.0),)
+    else:
+        w=min(1.0,max(0.0,(t-(b-XFADE/2))/XFADE))
+        im=Image.blend(_base_frame(A,t,False),_base_frame(B,t,False),w)
+        # 見出しは混ぜず、切り替わりで入れ替える（二重に重なって読めなくなるのを防ぐ）
+        header(ImageDraw.Draw(im),B if w>=0.5 else A);layers=((A,1-w),(B,w))
+    for k,a in layers:
+        lay=_subs_layer(k,t,a)
+        if lay:im.alpha_composite(lay)
+    d=ImageDraw.Draw(im);d.rectangle((48,1012,48+1824*(i+1)/N,1018),fill=(201,173,112));return im
 def render_part(a,b):
     stills=[int(x) for x in os.environ['STILLS'].split(',')] if os.environ.get('STILLS') else None
     out=P(f'cache/{SLUG}_part_{a}_{b}.mp4');(P('logs')).mkdir(exist_ok=True);log=P(f'logs/{SLUG}_enc_{a}.log').open('wb')
@@ -365,6 +419,67 @@ def readwav(p):
     with wave.open(str(p),'rb') as w:return np.frombuffer(w.readframes(w.getnframes()),np.int16),w.getframerate()
 def writewav(p,a,rate):
     with wave.open(str(p),'wb') as w:w.setnchannels(1);w.setsampwidth(2);w.setframerate(rate);w.writeframes(a.astype(np.int16).tobytes())
+SNAP_TOL=0.5;DIP_TOL=0.35;MIN_CUE=0.45
+def _env(pcm,rate):
+    """10ms フレームの RMS とホップ（サンプル数）"""
+    hop=max(1,int(0.01*rate));n=len(pcm)//hop
+    if n<3:return np.zeros(0),hop
+    x=pcm[:n*hop].astype(np.float64)/32768
+    return np.sqrt((x.reshape(n,hop)**2).mean(axis=1)),hop
+def _silence_centers(fr,hop,rate,dur,min_len=0.12,ratio=0.08):
+    """発話中の無音（息継ぎ）の中央を秒で返す。音量は発話区間の中央値に対して相対で見る（既存音声からも取れる）"""
+    if len(fr)<3:return []
+    loud=fr[fr>fr.max()*0.1];ref=float(np.median(loud)) if loud.size else float(fr.mean())
+    thr=max(0.008,ratio*ref);sil=fr<thr;out=[];i=0;n=len(fr)
+    while i<n:
+        if sil[i]:
+            j=i
+            while j<n and sil[j]:j+=1
+            if (j-i)*hop/rate>=min_len:
+                c=(i+j)/2*hop/rate
+                if 0.15<c<dur-0.15:out.append(c)
+            i=j
+        else:i+=1
+    return out
+def _cue_times(pcm,rate,t0,dur,fr):
+    """境界を 無音 → 音量の谷 → 比例位置 の順で決める（fr は 0..1 の上り順・最後は 1.0）"""
+    env,hop=_env(pcm,rate);sil=_silence_centers(env,hop,rate,dur)
+    if len(env)==0:return [round(t0+dur*f,4) for f in fr]
+    out=[];prev=0.0;pi=0
+    for j,f in enumerate(fr):
+        t=dur*f
+        if j<len(fr)-1:
+            lo=max(prev+MIN_CUE,t-SNAP_TOL);hi=min(dur-MIN_CUE,t+SNAP_TOL)
+            cand=[p for p in sil[pi:] if lo<=p<=hi]
+            if cand:
+                t=min(cand,key=lambda p:abs(p-t));pi=sil.index(t)+1
+            else:
+                lo2=max(prev+MIN_CUE,t-DIP_TOL);hi2=min(dur-MIN_CUE,t+DIP_TOL)
+                a,b=int(lo2*rate/hop),int(hi2*rate/hop)
+                if b>a:t=max(prev+MIN_CUE,(a+int(np.argmin(env[a:b])))*hop/rate)
+        else:t=dur
+        out.append(round(t0+t,4));prev=t
+    return out
+def snap_bounds(seg,fr):
+    """境界（0..1 の上り順、最後は 1.0）を最寄りの無音へ寄せる。無音は1つずつ順番に割り当て、SNAP_TOL/MIN_CUE を守る"""
+    ps=sorted(seg.get('pauses') or []);t0=seg['start'];t1=seg['end'];span=max(1e-6,t1-t0)
+    if not ps:return [t0+span*f for f in fr]
+    out=[];prev=t0;pi=0
+    for j,f in enumerate(fr):
+        t=t0+span*f
+        if j<len(fr)-1:
+            lo=max(prev+MIN_CUE,t-SNAP_TOL);hi=min(t1-MIN_CUE,t+SNAP_TOL)
+            best=None
+            for k in range(pi,len(ps)):
+                p=ps[k]
+                if p<lo:continue
+                if p>hi:break
+                if best is None or abs(p-t)<abs(best-t):best=p
+            if best is not None:
+                t=best;pi=ps.index(best)+1
+        else:t=t1
+        out.append(t);prev=t
+    return out
 def stage_audio():
     requests,speaker,style=_vv();folder=P(f'cache/{SLUG}_audio');folder.mkdir(exist_ok=True,parents=True)
     dic=json.loads(P(f'data/{SLUG}_pronunciations.json').read_text(encoding='utf8'));scenes=json.loads(P(f'data/{SLUG}_scenes.json').read_text(encoding='utf8'))
@@ -379,13 +494,25 @@ def stage_audio():
                 q=requests.post(BASE+'/audio_query',params={'text':spoken,'speaker':style},timeout=120).json();q.update(speedScale=SPEED,intonationScale=1.08,prePhonemeLength=.15,postPhonemeLength=.35,outputSamplingRate=24000)
                 r=requests.post(BASE+'/synthesis',params={'speaker':style},json=q,timeout=180);r.raise_for_status();p.write_bytes(r.content);meta.write_text(json.dumps({'key':key}),encoding='utf8')
             pcm,rate=readwav(p);dur=len(pcm)/rate;rms=float(np.sqrt(np.mean((pcm.astype(float)/32768)**2)));peak=float(np.abs(pcm).max()/32768)
+            ch0=split_clauses(display(text));tot0=sum(len(c) for c in ch0);cum0=0;fr0=[]
+            for c in ch0:fr0.append(cum0/tot0);cum0+=len(c)
+            fr0.append(1.0);ct=_cue_times(pcm,rate,cursor+t,dur,fr0);env0,hop0=_env(pcm,rate)
             assert dur>.4 and rms>.003 and peak<.999,(sc['key'],i,dur,rms,peak)
-            segs.append(dict(scene=sc['id'],text=text,spoken=spoken,start=round(cursor+t,4),end=round(cursor+t+dur,4),duration=dur,rms=rms,peak=peak));local.append(pcm);t+=dur
+            segs.append(dict(scene=sc['id'],text=text,spoken=spoken,start=round(cursor+t,4),end=round(cursor+t+dur,4),duration=dur,rms=rms,peak=peak,cue_times=ct,pauses=[round(cursor+t+x,4) for x in _silence_centers(env0,hop0,rate,dur)]));local.append(pcm);t+=dur
         sd=math.ceil((t+1.6)*30)/30;j=np.concatenate(local);j=np.pad(j,(0,round(sd*rate)-len(j)));allpcm.append(j)
         timeline.append({**sc,'start':cursor,'duration':sd,'end':cursor+sd});cursor+=sd
     writewav(P(f'out/{SLUG}_narration.wav'),np.concatenate(allpcm),rate)
     st=lambda t:(lambda ms:f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}')(round(t*1000))
-    P(f'out/{SLUG}_subtitles.srt').write_text('\n\n'.join(f'{i+1}\n{st(x["start"])} --> {st(x["end"])}\n{display(x["text"])}' for i,x in enumerate(segs))+'\n',encoding='utf8')
+    cues=[];rep=[]
+    for x in segs:
+        ch=split_clauses(display(x['text']));tot=sum(len(c) for c in ch);cum=0;fr=[]
+        for c in ch:fr.append(cum/tot);cum+=len(c)
+        fr.append(1.0);nom=[x['start']+(x['end']-x['start'])*f for f in fr]
+        ct=x.get('cue_times');ts=ct if ct and len(ct)==len(ch)+1 else snap_bounds(x,fr)
+        rep.append(dict(start=x['start'],end=x['end'],n=len(ch),snapped=sum(1 for a,b in zip(nom,ts) if abs(a-b)>1e-6),max_shift=round(max([abs(a-b) for a,b in zip(nom,ts)]),4),pauses=len(x.get('pauses') or [])))
+        for i,c in enumerate(ch):cues.append((ts[i],ts[i+1],c))
+    P(f'out/{SLUG}_subtitles.srt').write_text('\n\n'.join(f'{i+1}\n{st(a)} --> {st(b)}\n{c}' for i,(a,b,c) in enumerate(cues))+'\n',encoding='utf8')
+    P(f'out/{SLUG}_subtitle_timing.json').write_text(json.dumps(dict(tol=SNAP_TOL,min_cue=MIN_CUE,max_shift=max([r['max_shift'] for r in rep] or [0]),snapped=sum(r['snapped'] for r in rep),segments=rep),ensure_ascii=False,indent=1),encoding='utf8')
     P(f'data/{SLUG}_timeline.json').write_text(json.dumps(timeline,ensure_ascii=False,indent=1),encoding='utf8')
     P(f'out/{SLUG}_audio_report.json').write_text(json.dumps(dict(engine=requests.get(BASE+'/version').json(),speaker='VOICEVOX:四国めたん',style=style,segments=segs,total_seconds=cursor,all_lines_voiced=True,semantic_asr_verified=False),ensure_ascii=False,indent=1),encoding='utf8')
     print('total',round(cursor,1),'s',int(cursor//60),'min',int(cursor%60),'s')
@@ -415,9 +542,9 @@ def stage_bgm():
     with wave.open(str(P(f'out/{SLUG}_bgm.wav')),'wb') as w:w.setnchannels(2);w.setsampwidth(2);w.setframerate(SR);w.writeframes((mix.T*32767).astype(np.int16).tobytes())
     print('bgm ok',round(TOTAL,1),'s')
 def loud_args(path):
-    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',str(path),'-af','loudnorm=I=-15:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
+    r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',str(path),'-af','loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
     j=json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}',r.stderr,re.S).group(0))
-    return f"loudnorm=I=-15:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true",j
+    return f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true",j
 def stage_build(chunk=2000,bgm_db=-6.0):
     load_runtime()
     for f in P('cache').glob(f'{SLUG}_part_*.mp4'):f.unlink()
@@ -427,7 +554,7 @@ def stage_build(chunk=2000,bgm_db=-6.0):
     rc=[p.wait() for p in procs];assert all(r==0 for r in rc),f'part render failed {rc}'
     parts=sorted(P('cache').glob(f'{SLUG}_part_*.mp4'),key=lambda p:int(p.stem.split('_')[2]));lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
     wav=P(f'out/{SLUG}_narration.wav');nob=P(f'out/{SLUG}_video_nobgm.mp4');af,j=loud_args(wav)
-    subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',str(wav),'-map','0:v','-map','1:a','-c:v','h264_nvenc','-preset','p5','-cq','25','-b:v','0','-pix_fmt','yuv420p','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(nob)],check=True)
+    subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',str(wav),'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(nob)],check=True)
     mix=P(f'cache/{SLUG}_mix.wav');bgm=P(f'out/{SLUG}_bgm.wav')
     fc=f"[0:a]aresample=48000,pan=stereo|c0=c0|c1=c0,asplit=2[n1][n2];[1:a]volume={bgm_db}dB[bg];[bg][n2]sidechaincompress=threshold=0.02:ratio=4:attack=30:release=900:makeup=1[duck];[n1][duck]amix=inputs=2:normalize=0:duration=first[m]"
     subprocess.run(['ffmpeg','-y','-v','warning','-i',str(wav),'-i',str(bgm),'-filter_complex',fc,'-map','[m]','-c:a','pcm_s16le',str(mix)],check=True)
@@ -471,7 +598,7 @@ def stage_thumb():
     def st(d,xy,text,f,fill,sw=10):d.text(xy,text,font=f,fill=fill,stroke_width=sw,stroke_fill=(6,10,18))
     if th.get('bg'):
         im=Image.open(P(th['bg'])).convert('RGBA');s=max(W/im.width,H/im.height);im=im.resize((int(im.width*s)+1,int(im.height*s)+1),Image.LANCZOS);x=(im.width-W)//2;y=(im.height-H)//2;im=im.crop((x,y,x+W,y+H))
-        sh=Image.new('RGBA',(W,H),(4,10,20,255));g=Image.new('L',(W,1));px=g.load()
+        sh=Image.new('RGBA',(W,H),tuple(th.get('shade_col',(4,10,20)))+(255,));g=Image.new('L',(W,1));px=g.load()
         for xx in range(W):px[xx,0]=int(235*max(0,min(1,(th.get('shade_x',760)-xx)/th.get('shade_w',560))))
         sh.putalpha(g.resize((W,H)));im.alpha_composite(sh)
     else:
@@ -484,8 +611,8 @@ def stage_thumb():
         im.alpha_composite(pic.convert('RGBA'),(W-pw-40,40));ImageDraw.Draw(im).rectangle((W-pw-40,40,W-40,H-40),outline=GOLD,width=6)
     d=ImageDraw.Draw(im);y=th.get('y0',30)
     for text,size,col in th['lines']:
-        st(d,(50,y),text,font(size),WHITE if col=='white' else GOLD,12 if size>=100 else 8);y+=int(size*1.2)
-    by=th.get('bar_y',520);d.rectangle((54,by,th.get('bar_w',640),by+12),fill=RED);st(d,(50,by+35),th['sub'],font(th.get('sub_size',38)),WHITE,6)
+        st(d,(50,y),text,font(size),WHITE if col=='white' else tuple(th.get('accent',GOLD)),12 if size>=100 else 8);y+=int(size*1.2)
+    by=th.get('bar_y',520);d.rectangle((54,by,th.get('bar_w',640),by+12),fill=tuple(th.get('bar_col',RED)));st(d,(50,by+35),th['sub'],font(th.get('sub_size',38)),WHITE,6)
     out=P(f'out/{SLUG}_thumbnail.jpg');im.convert('RGB').save(out,quality=92);print(out,round(out.stat().st_size/1e3),'KB')
 def stage_pack():
     import make_upload_pack as M

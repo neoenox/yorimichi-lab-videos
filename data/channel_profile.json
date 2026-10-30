@@ -1,0 +1,678 @@
+{
+ "_doc": "チャンネルの傾向。scripts/topic_pick.py が、候補の『新しさ』『カテゴリの偏り』『シリーズ接続』『伸びの傾向』を計算するのに使う。views などの実績は Studio のアナリティクスの数字を、人が（またはClaudeがブラウザで読んで）追記する。空欄(null)は『まだ実績なし』として中立に扱う。",
+ "formula": "よくある思い込み → 公的な一次資料で確かめる → 数字と図で見せる（約4〜7分、ナレーション＋自作の動く図＋生成イラスト）",
+ "videos": [
+  {
+   "slug": "drain",
+   "title": "南半球では、排水の渦は逆回転する？",
+   "cat": "science",
+   "tags": [
+    "地球の自転",
+    "コリオリ",
+    "物理",
+    "NOAA"
+   ],
+   "status": "public",
+   "views": 1208,
+   "short_views": 1208,
+   "avg_view_pct": null,
+   "published": "2026-10-18"
+  },
+  {
+   "slug": "vein",
+   "title": "静脈の血は、体の中では青い？",
+   "cat": "body",
+   "tags": [
+    "血液",
+    "色",
+    "錯覚",
+    "光"
+   ],
+   "status": "scheduled",
+   "views": 1238,
+   "published": "2026-10-20",
+   "short_views": 1238
+  },
+  {
+   "slug": "koku",
+   "title": "江戸の「一刻」は、いつも同じ長さだったのか？",
+   "cat": "calendar",
+   "tags": [
+    "江戸",
+    "時刻",
+    "不定時法",
+    "季節",
+    "日の出"
+   ],
+   "status": "scheduled",
+   "views": 1226,
+   "published": "2026-10-21",
+   "short_views": 1226
+  },
+  {
+   "slug": "compass",
+   "title": "方位磁針は、北極点を指している？",
+   "cat": "earth",
+   "tags": [
+    "磁北",
+    "地磁気",
+    "地図",
+    "NOAA",
+    "国土地理院"
+   ],
+   "status": "scheduled",
+   "views": 1207,
+   "published": "2026-10-23",
+   "short_views": 1207
+  },
+  {
+   "slug": "gdp",
+   "title": "家事を外注すると、GDPは増える？",
+   "cat": "economy",
+   "tags": [
+    "GDP",
+    "家事",
+    "統計",
+    "内閣府"
+   ],
+   "status": "scheduled",
+   "views": 1174,
+   "published": "2026-10-25",
+   "short_views": 1174
+  },
+  {
+   "slug": "season",
+   "title": "夏が暑いのは、地球が太陽に近いから？",
+   "cat": "earth",
+   "tags": [
+    "季節",
+    "地球の公転",
+    "距離",
+    "NASA",
+    "日の出"
+   ],
+   "status": "scheduled",
+   "views": 1257,
+   "published": "2026-10-27",
+   "short_views": 1257
+  },
+  {
+   "slug": "scurvy",
+   "title": "壊血病は、「レモンが効く」と分かったら解決したのか？",
+   "cat": "history_sci",
+   "tags": [
+    "壊血病",
+    "航海",
+    "医学史",
+    "ビタミン"
+   ],
+   "status": "scheduled",
+   "views": 1209,
+   "published": "2026-10-29",
+   "short_views": 1209
+  },
+  {
+   "slug": "calendar",
+   "title": "明治5年は、12月が2日で終わった？",
+   "cat": "calendar",
+   "tags": [
+    "明治",
+    "改暦",
+    "旧暦",
+    "国立国会図書館",
+    "国立天文台"
+   ],
+   "status": "scheduled",
+   "views": 1177,
+   "published": "2026-10-30",
+   "short_views": 1177
+  },
+  {
+   "slug": "einstein",
+   "title": "アインシュタインは、数学が苦手な落第生だった？",
+   "cat": "person",
+   "tags": [
+    "アインシュタイン",
+    "俗説",
+    "学歴"
+   ],
+   "status": "scheduled",
+   "views": 1026,
+   "published": "2026-11-03",
+   "short_views": 1026
+  },
+  {
+   "slug": "zenzen",
+   "title": "「全然おいしい」は最近の間違い？",
+   "cat": "language",
+   "tags": [
+    "言葉",
+    "全然",
+    "国語",
+    "青空文庫"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-06"
+  },
+  {
+   "slug": "ninja",
+   "title": "忍者は、黒装束で手裏剣を投げていたのか？",
+   "cat": "history",
+   "tags": [
+    "忍者",
+    "江戸",
+    "俗説",
+    "国立国会図書館"
+   ],
+   "status": "draft",
+   "views": null,
+   "published": null
+  },
+  {
+   "slug": "gm",
+   "title": "グリーンランドはアフリカに何個入る？",
+   "cat": "earth",
+   "tags": [
+    "地図",
+    "メルカトル",
+    "歪み"
+   ],
+   "status": "draft",
+   "views": null,
+   "published": null
+  },
+  {
+   "slug": "honnoji",
+   "title": "本能寺の変（30分版）",
+   "cat": "history",
+   "tags": [
+    "本能寺",
+    "光秀",
+    "戦国"
+   ],
+   "status": "draft",
+   "views": null,
+   "published": null
+  },
+  {
+   "slug": "okehazama",
+   "title": "桶狭間の戦い",
+   "cat": "history",
+   "tags": [
+    "桶狭間",
+    "戦国",
+    "信長"
+   ],
+   "status": "draft",
+   "views": null,
+   "published": null
+  },
+  {
+   "slug": "nagashino",
+   "title": "長篠の戦いを地図で解説 三段撃ちは本当？",
+   "cat": "history",
+   "tags": [
+    "長篠",
+    "三段撃ち",
+    "戦国",
+    "信長",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-27"
+  },
+  {
+   "slug": "sekigahara",
+   "title": "関ヶ原の戦い 開戦は何時？ 小早川秀秋はいつ寝返った？",
+   "cat": "history",
+   "tags": [
+    "関ヶ原",
+    "小早川秀秋",
+    "問鉄砲",
+    "戦国",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": 291,
+   "published": "2026-12-05",
+   "short_views": 291
+  },
+  {
+   "slug": "sunrise",
+   "title": "日の出が一番早いのは、夏至の日？",
+   "cat": "earth",
+   "tags": [
+    "日の出",
+    "夏至",
+    "季節",
+    "均時差",
+    "国立天文台"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-07"
+  },
+  {
+   "slug": "akashi",
+   "title": "日本の標準時は、なぜ明石の時刻？",
+   "cat": "calendar",
+   "tags": [
+    "標準時",
+    "明石",
+    "東経135度",
+    "時刻",
+    "国立天文台"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-12"
+  },
+  {
+   "slug": "leapsecond",
+   "title": "うるう秒は、なぜ入れて、なぜやめる？",
+   "cat": "calendar",
+   "tags": [
+    "うるう秒",
+    "原子時計",
+    "地球の自転",
+    "NICT"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-05"
+  },
+  {
+   "slug": "oceanblue",
+   "title": "海が青いのは、空が映っているから？",
+   "cat": "earth",
+   "tags": [
+    "海",
+    "青",
+    "光の吸収",
+    "レイリー散乱"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-10"
+  },
+  {
+   "slug": "islands",
+   "title": "日本の島は、本当に2倍に増えた？",
+   "cat": "earth",
+   "tags": [
+    "島",
+    "国土地理院",
+    "地図",
+    "計数"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-10-31"
+  },
+  {
+   "slug": "rain30",
+   "title": "降水確率30％は、地域の30％で雨が降るという意味？",
+   "cat": "science",
+   "tags": [
+    "降水確率",
+    "気象庁",
+    "天気",
+    "確率"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-10-29"
+  },
+  {
+   "slug": "gps",
+   "title": "GPS衛星は、あなたが今どこにいるかを知っている？",
+   "cat": "tech",
+   "tags": [
+    "GPS",
+    "衛星",
+    "位置情報",
+    "測位"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-14"
+  },
+  {
+   "slug": "shomi",
+   "title": "賞味期限を1日過ぎた食品は、危険なの？",
+   "cat": "food",
+   "tags": [
+    "賞味期限",
+    "消費期限",
+    "食品ロス",
+    "消費者庁"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-21"
+  },
+  {
+   "slug": "rice",
+   "title": "日本人が食べるお米は、昔の半分以下になった？",
+   "cat": "food",
+   "tags": [
+    "米",
+    "消費量",
+    "農林水産省",
+    "統計"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-16"
+  },
+  {
+   "slug": "yakubusoku",
+   "title": "「役不足」は、自分の能力が足りないという意味？",
+   "cat": "language",
+   "tags": [
+    "役不足",
+    "国語",
+    "文化庁",
+    "世論調査"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-03"
+  },
+  {
+   "slug": "coldvirus",
+   "title": "寒い場所にいるだけで、風邪をひく？",
+   "cat": "body",
+   "tags": [
+    "風邪",
+    "寒さ",
+    "ウイルス",
+    "CDC"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-04"
+  },
+  {
+   "slug": "magnitude",
+   "title": "マグニチュードが1増えると、地震は10倍強くなる？",
+   "cat": "earth",
+   "tags": [
+    "地震",
+    "マグニチュード",
+    "震度",
+    "エネルギー"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-01"
+  },
+  {
+   "slug": "moon",
+   "title": "月は同じ面を見せるから、自転していない？",
+   "cat": "science",
+   "tags": [
+    "月",
+    "自転",
+    "公転",
+    "同期自転",
+    "NASA"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-10-30"
+  },
+  {
+   "slug": "venus",
+   "title": "金星では、1日が1年より長い？",
+   "cat": "science",
+   "tags": [
+    "金星",
+    "自転",
+    "公転",
+    "太陽日",
+    "NASA"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-08"
+  },
+  {
+   "slug": "forest",
+   "title": "日本は、森林の少ない国？",
+   "cat": "earth",
+   "tags": [
+    "森林率",
+    "林野庁",
+    "国土",
+    "統計"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-19"
+  },
+  {
+   "slug": "lightning",
+   "title": "雷は、夏にしか起きない？",
+   "cat": "science",
+   "tags": [
+    "雷",
+    "冬季雷",
+    "気象庁",
+    "日本海"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-23"
+  },
+  {
+   "slug": "yamazaki",
+   "title": "山崎の戦いは、本当に「天王山」で決まったのか？",
+   "cat": "history",
+   "tags": [
+    "山崎の戦い",
+    "天王山",
+    "秀吉",
+    "光秀",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-12-12"
+  },
+  {
+   "slug": "shizugatake",
+   "title": "賤ヶ岳の戦いで、秀吉の「大返し」は本当に速かったのか？",
+   "cat": "history",
+   "tags": [
+    "賤ヶ岳",
+    "秀吉",
+    "柴田勝家",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-12-19"
+  },
+  {
+   "slug": "brain10",
+   "title": "人は、脳の10%しか使っていない？",
+   "cat": "body",
+   "tags": [
+    "脳",
+    "10%",
+    "俗説",
+    "ジェームズ"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2027-01-23"
+  },
+  {
+   "slug": "jikyu",
+   "title": "日本の食料自給率37%なら、食べ物の63%は輸入？",
+   "cat": "food",
+   "tags": [
+    "食料自給率",
+    "農林水産省",
+    "カロリー"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2027-01-30"
+  },
+  {
+   "slug": "bukka",
+   "title": "物価が2%上がったら、どの家庭の生活費も2%増える？",
+   "cat": "economy",
+   "tags": [
+    "物価",
+    "消費者物価指数",
+    "総務省",
+    "家計"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2027-02-06"
+  },
+  {
+   "slug": "galileo",
+   "title": "ガリレオは「それでも地球は動く」と言った？",
+   "cat": "history_sci",
+   "tags": [
+    "ガリレオ",
+    "地動説",
+    "俗説",
+    "バレッティ"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2027-02-13"
+  },
+  {
+   "slug": "takarakuji",
+   "title": "宝くじは、買ったお金の何割が当せん金になる？",
+   "cat": "economy",
+   "tags": [
+    "宝くじ",
+    "当せん金",
+    "還元率",
+    "収益金"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2027-02-20"
+  },
+  {
+   "slug": "flatearth",
+   "title": "中世の人は、地球が平らだと信じていた？",
+   "cat": "history_sci",
+   "tags": [
+    "中世",
+    "地球平面",
+    "俗説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-12-09"
+  },
+  {
+   "slug": "vitaminc",
+   "title": "ビタミンCは、風邪に効く？",
+   "cat": "body",
+   "tags": [
+    "ビタミンC",
+    "風邪",
+    "Cochrane"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-12-02"
+  },
+  {
+   "slug": "komaki",
+   "title": "小牧・長久手の戦い",
+   "cat": "history",
+   "tags": [
+    "小牧長久手",
+    "秀吉",
+    "朱印状",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-01"
+  },
+  {
+   "slug": "mikatagahara",
+   "title": "三方ヶ原の戦い",
+   "cat": "history",
+   "tags": [
+    "三方ヶ原",
+    "信玄",
+    "家康",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-05"
+  },
+  {
+   "slug": "anegawa",
+   "title": "姉川の戦い",
+   "cat": "history",
+   "tags": [
+    "姉川",
+    "信長",
+    "浅井",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-07"
+  },
+  {
+   "slug": "tottori",
+   "title": "鳥取城の戦い",
+   "cat": "history",
+   "tags": [
+    "鳥取城",
+    "秀吉",
+    "兵糧攻め",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-15"
+  },
+  {
+   "slug": "tedorigawa",
+   "title": "手取川の戦い",
+   "cat": "history",
+   "tags": [
+    "手取川",
+    "上杉謙信",
+    "信長",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-17"
+  },
+  {
+   "slug": "shimabara",
+   "title": "島原の乱",
+   "cat": "history",
+   "tags": [
+    "島原",
+    "天草四郎",
+    "戦況解説"
+   ],
+   "status": "scheduled",
+   "views": null,
+   "published": "2026-11-18"
+  }
+ ]
+}

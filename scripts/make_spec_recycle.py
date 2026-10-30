@@ -1,0 +1,59 @@
+"""Writes data/recycle_spec.json（江戸は、ごみがほとんど出ない完全リサイクル社会だった？）。台本：docs/themes/20270120_recycle/09_script_v2.md
+at / until は『章内の行番号（0始まり）』。spec_common.finalize が文の番号に直す。"""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import finalize, TOP
+spec = dict(slug='recycle', theme_dir='20270120_recycle', pack='58_recycle', header_sub='環境省の白書の説明で、江戸のリサイクルを確かめる',
+ images={},
+ bgm=[['intro', 'shinyo', 'piano36'], ['hai', 'kanzen', 'piano12'], ['moto', 'end', 'piano40']],
+ chapters=[
+ dict(key='intro', title='江戸は、ごみが出ない完全リサイクル社会だった？', chapter_title='導入：江戸は、ごみが出ない完全リサイクル社会だった？', opener='江戸は、ごみが出ない完全リサイクル社会だった？', opener_until=1, scene=[
+   dict(t='big', text='江戸は、ごみが出ない完全リサイクル社会だった？', y=270, at=0, size=42, col='gold'),
+   dict(t='panel', box=[120, 450, 1800, 570], text='今の環境の話で、よく引き合いに出される', at=1, size=40, hi=True),
+   dict(t='panel', box=[120, 620, 1800, 700], text='確かめる材料：環境省の白書', at=3, size=38),
+   dict(t='panel', box=[120, 750, 1800, 860], text='答え：再利用は盛んだったが、「完全」とまでは言い切れない', at=4, size=34, col='gold')]),
+ dict(key='shinyo', title='し尿は、どう使われたか', chapter_title='し尿は、どう使われたか', scene=[
+   dict(t='panel', box=TOP, text='いちばん有名な、し尿の話', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='環境省の白書：農家が武家屋敷・長屋ごとに契約し、汲み取る権利を得た', at=1, until=2, size=32, hi=True),
+   dict(t='panel', box=TOP, text='江戸の中ごろには、取引を仲立ちする仲買の組織も', at=2, until=3, size=38),
+   dict(t='panel', box=TOP, text='後期：値段が上がり、近郊の農民が幕府に陳情した例も', at=3, until=4, size=36),
+   dict(t='panel', box=TOP, text='し尿は、取引される品物だった', at=4, size=40, col='gold')]),
+ dict(key='hai', title='灰と古着', chapter_title='灰と古着', scene=[
+   dict(t='panel', box=TOP, text='次は、灰と古着', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='「灰買い」が家庭の灰を集め、農家に売った。灰は肥料に', at=1, until=2, size=36, hi=True),
+   dict(t='panel', box=TOP, text='灰は、紙づくり・染め物・酒づくりにも使われた', at=2, until=3, size=38),
+   dict(t='panel', box=TOP, text='着物や履物などの日用品は、「ほとんど」が再び使われた（白書）', at=3, until=4, size=34),
+   dict(t='panel', box=TOP, text='再利用を仕事にする組織は、千にも及んだ（白書）', at=4, size=38, col='gold')]),
+ dict(key='kanzen', title='「完全」と言えるのか', chapter_title='「完全」と言えるのか', scene=[
+   dict(t='panel', box=TOP, text='「完全」と言えるのか', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='白書の今回読んだ範囲に、「完全に」「すべて」という言い方はない', at=1, until=2, size=34, hi=True),
+   dict(t='panel', box=TOP, text='使われているのは、「ほとんど」「どんなものでも」など', at=2, until=3, size=36),
+   dict(t='panel', box=TOP, text='埋立地が10か所以上、という記述も。何を埋め立てたかは未確認', at=3, until=4, size=32),
+   dict(t='panel', box=TOP, text='「ごみが全く出なかった」とは、言い切れない', at=4, size=38, col='gold')]),
+ dict(key='moto', title='この話の出どころ', chapter_title='この話の出どころ', scene=[
+   dict(t='panel', box=TOP, text='この話は、どこから来たのか', at=0, until=1, size=40),
+   dict(t='panel', box=TOP, text='国会図書館のレファレンス事例：業者を3種類に分ける本を紹介', at=1, until=2, size=34),
+   dict(t='panel', box=TOP, text='その本は一般向けの読み物。史料で確かめた研究ではない', at=2, until=3, size=36, hi=True),
+   dict(t='panel', box=TOP, text='白書も、江戸の事例を、現代の「手本」として紹介する文章', at=3, until=4, size=34),
+   dict(t='panel', box=TOP, text='「手本」として語られる分、話がきれいにまとまっている可能性', at=4, size=32, col='gold')]),
+ dict(key='end', title='まとめ', chapter_title='まとめ', scene=[
+   dict(t='cols2', size=32, xm=940, xm2=980, left=dict(title='分かったこと', title_at=1, items=[
+      dict(at=1, text='し尿・灰・古着など、再利用の仕組みが広く発達していた（白書）'),
+      dict(at=2, text='「完全」「ごみが出なかった」は、今回読んだ範囲では裏付けられない'),
+      dict(at=3, text='原典の史料は確認していない')]),
+     right=dict(title='分からないこと・言い方', title_at=4, items=[
+      dict(at=4, text='埋立の中身。再利用された割合の数字'),
+      dict(at=4, text='「再利用は盛ん。ただし完全とは言い切れない」と言うのが近い')]))]),
+ ],
+ desc=dict(title_main='江戸はごみが出ない完全リサイクル社会だったのか', title_no=1,
+  titles=['江戸は、ごみが出ない完全リサイクル社会だった？ 環境省の白書で確かめる', '江戸のリサイクルは本当に「完全」？ し尿・灰・古着と、言い過ぎの境目', '江戸は循環型社会だった？ 環境白書の説明を読み解く'],
+  intro='「江戸は、ごみがほとんど出ない、完全なリサイクル社会だった」と聞いたことはありませんか。この動画では、環境省の白書の説明で、江戸の再利用の仕組みと、「完全」という言い方を確かめます。',
+  points=['環境省の『平成20年版 環境・循環型社会白書』によると、農家は武家屋敷や長屋ごとに契約し、お金や品物と引き換えにし尿を汲み取る権利を得ていました。江戸の中ごろには仲買の組織も現れました。', '「灰買い」が家庭の灰を集めて農家に売り、灰は肥料のほか、紙づくり・染め物・酒づくりにも使われました。日用品の「ほとんど」が再び使われたとも書かれています。', '「完全に」「すべて」という言い方は、今回読んだ範囲の白書には見当たりませんでした。江戸の埋立地が10か所以上あったという記述もありますが、何を埋め立てたかは確認していません。'],
+  refs=['環境省『平成20年版 環境・循環型社会白書』(江戸の循環型社会に関する節):https://www.env.go.jp/policy/hakusyo/h20/html/hj08010202.html', '国立国会図書館 レファレンス協同データベース「江戸時代、ゴミはどのように処理していたのですか?」:https://crd.ndl.go.jp/reference/detail?page=ref_view&id=1000071634'],
+  credit_lines=['・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実在の場面・人物・資料の再現ではありません)'],
+  notes=['白書の記述は、江戸の循環を現代の環境の手本として紹介する文章で、原典の史料(下肥取引の記録など)は確認できていません。', '「完全に」「すべて」という言い方が白書にない、という確認は、今回読んだ節の範囲に限ります。', '埋立地の記述について、何を埋め立てたか(ごみかどうか)は確認していません。', 'レファレンス事例が紹介する、リサイクル業者を3種類に分ける本は、一般向けの読み物で、原典は確認していません。'],
+  tags='江戸時代, リサイクル, 循環型社会, し尿, 灰買い, 古着, 環境白書, 検証',
+  checks=['下肥取引・ごみ処理に関する歴史研究(史料に基づくもの)を確認する', '江戸の埋立地の埋立材について確認する', '再利用された割合の数字があるか確認する']),
+ thumb=dict(bg='assets/recycle/thumb_art.png', lines=[['江戸のごみは', 90, 'white'], ['完全リサイクル？', 100, 'gold']], sub='環境白書の説明で、確かめる', shade_col=[10, 24, 44], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
+finalize(spec, {'intro': 'intro', 'shinyo': 'farm', 'hai': 'shop', 'kanzen': 'shop', 'moto': 'farm', 'end': 'intro'})

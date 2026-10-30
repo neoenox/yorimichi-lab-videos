@@ -1,0 +1,48 @@
+{
+ "title": "金星では、1日が1年より長い？",
+ "long_id": "rj1bDRBWHsY",
+ "long_title": "金星では、1日が1年より長い？ NASAの表で確かめる",
+ "pron": "data/venus_pronunciations.json",
+ "art": "assets/venus/art_intro.png",
+ "hook": "「金星では、一日が一年より長い」と聞いたことはありませんか。NASAの表の数字で確かめます。",
+ "notes": "■ 動画で確かめたこと\n・NASAの表では、金星の自転周期（星を基準）は5,832.6時間で約243日、公転周期は224.701日です。自転一回のほうが長くなります。\n・同じ表の「Length of day」（太陽が正午の位置に戻るまでの平均の時間）は2,802.0時間＝116.75日で、公転周期より短くなります。\n・自転が公転と反対向きなので、太陽が戻るのが早くなります（日数への換算と検算は自作の計算）。",
+ "scenes": [
+  {
+   "text": "金星では、一日が、一年より長い。そう聞いたことはありませんか。",
+   "big": "金星：一日 ＞ 一年？",
+   "art": "assets/venus/art_intro.png"
+  },
+  {
+   "text": "NASAの表では、金星が自転で一回転する時間は、約二百四十三日です。",
+   "big": "自転一回：約243日",
+   "src": "NASA",
+   "art": "assets/venus/art_nums.png",
+   "col": "white"
+  },
+  {
+   "text": "公転で、太陽のまわりを一周する時間は、二百二十四・七日です。",
+   "big": "公転一周：224.7日",
+   "src": "NASA",
+   "art": "assets/venus/art_sun.png"
+  },
+  {
+   "text": "つまり、自転一回のほうが、長いのです。ただし、太陽が空の同じ位置に戻る周期は、百十六・七五日です。",
+   "big": "太陽が戻る周期：116.75日",
+   "sub": "自転が公転と反対向きだから",
+   "art": "assets/venus/art_why.png",
+   "col": "white"
+  },
+  {
+   "text": "一日の意味が違えば、答えも変わります。",
+   "big": "一日の意味で、答えが変わる",
+   "art": "assets/venus/art_end.png"
+  },
+  {
+   "text": "くわしくは、長い動画で、確かめています。",
+   "end": true,
+   "art": "assets/venus/art_end.png"
+  }
+ ],
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の資料の複製ではありません）\n・図・表：自作",
+ "answer": "1日が、1年より長い"
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "nobukatsu",
+    "name": "織田信雄",
+    "file": "assets\\portraits\\nobukatsu.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Oda Nobukatu.jpg",
+    "license": "Public domain",
+    "artist": "投稿者がファイル作成",
+    "desc": "織田信雄画像\n総見寺蔵\n96.2×52.7\n\n絹本著色",
+    "date": "2009-02-04",
+    "credit": "ブレイズマン (talk) 09:38, 4 February 2009 (UTC)",
+    "sha256": "47cc41b09e7f6c1ff5f2b4e99be2665d701b393708936d00ab541013a57492f6"
+  },
+  {
+    "id": "mori_n",
+    "name": "森長可",
+    "file": "assets\\portraits\\mori_n.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Mori Nagayoshi.jpg",
+    "license": "Public domain",
+    "artist": "seno",
+    "desc": "森長可(Mori Nagayoshi)",
+    "date": "",
+    "credit": "常照寺所蔵",
+    "sha256": "892a190f0cc8681c76fc215071675f1ce0d9cd7506cfd54a7e880ae61a0e94a2"
+  },
+  {
+    "id": "hidetsugu",
+    "name": "豊臣秀次",
+    "file": "assets\\portraits\\hidetsugu.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Toyotomi Hidetsugu.jpg",
+    "license": "Public domain",
+    "artist": "seno",
+    "desc": "豊臣秀次(Toyotomi Hidetsugu)",
+    "date": "",
+    "credit": "Toyotomi Hidetsugu large.jpgより作成。",
+    "sha256": "1e450ec9db710a47681b4b43673e463bedb0a8a9f596f065130604011b851674"
+  },
+  {
+    "id": "honda_t",
+    "name": "本多忠勝",
+    "file": "assets\\portraits\\honda_t.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Honda Tadakatsu.jpg",
+    "license": "Public domain",
+    "artist": "Papinot",
+    "desc": "Honda Tadakatsu portrait",
+    "date": "before 1610date QS:P,+1610-00-00T00:00:00Z/7,P1326,+1610-00-00T00:00:00Z/9",
+    "credit": "Historical Dictionary",
+    "sha256": "ccebeda5f33a77ce9a40658f0f44e2705bc4f28a33eb24c6d2ec24b5f5fd98a3"
+  }
+]

@@ -1,6 +1,9 @@
 """Writes data/calendar_spec.json."""
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from specart import inject2
 R=Path(__file__).resolve().parents[1]
 spec=dict(slug='calendar',theme_dir='20261018_calendar',pack='09_calendar_meiji5',header_sub='明治5年の改暦を確かめる',images={k:dict(file=f'assets/calendar/art_{k}.png') for k in ('desk','moon','meiji','ledger','diary','flip')},
  bgm=[['intro','old','piano36'],['event','why','piano12'],['diary','end','piano40']],
@@ -22,13 +25,13 @@ spec=dict(slug='calendar',theme_dir='20261018_calendar',pack='09_calendar_meiji5
    dict(t='art',name='meiji',box=[60,170,1860,850],at=0,dim=0.8,dir=-1,note='イメージ（生成画像）。実際の場面の再現ではありません'),dict(t='shade',box=[60,170,1860,850],at=0,alpha=0.68),
    dict(t='panel',box=[60,170,1860,280],title='明治5年11月（旧暦）',text='政府が、太陽暦への改暦を発表（国立国会図書館）',at=0,until=4,size=36),
    dict(t='panel',box=[60,295,1860,405],title='11月9日の布告',text='旧暦の明治5年12月3日を、明治6年1月1日とする',at=1,until=4,size=40,hi=True),
-   dict(t='panel',box=[60,420,1860,530],title='国立天文台 暦Wiki',text='わずか20日後に、1000年以上続いた暦をやめるのは、無謀な話だった',at=2,until=4,size=36),
+   dict(t='panel',box=[60,420,1860,530],title='国立天文台 暦Wiki',text='わずか20日ほど後に、1000年以上続いた暦をやめるのは、無謀な話だった',at=2,until=4,size=36),
    dict(t='panel',box=[60,545,1860,655],title='国立国会図書館',text='準備期間はほとんどなく、国内は混乱した',at=3,until=4,size=36),
    dict(t='anim',name='caltiles',box=[60,170,1860,530],at=4,s_a=4,s_b=5,s_c=6,s_skip=7),
    dict(t='panel',box=[60,540,1860,610],text='※旧暦のままなら12月3日にあたる日が、明治6年1月1日（12月3日は、実際には使われなかった）',at=7,size=30,col='dim'),
-   dict(t='big',text='日が、消えたわけではない',y=640,at=8,size=56,col='gold'),
-   dict(t='panel',box=[60,690,1860,760],text='続いている日の、数え方が切り替わった',at=9,size=40),
-   dict(t='panel',box=[60,770,1860,840],text='明治5年の12月は、1日と2日の、2日間だけ',at=10,size=44,hi=True)]),
+   dict(t='big',text='日が、消えたわけではない',y=604,at=8,size=56,col='gold'),
+   dict(t='panel',box=[60,704,1860,772],text='続いている日の、数え方が切り替わった',at=9,size=40),
+   dict(t='panel',box=[60,780,1860,848],text='明治5年の12月は、1日と2日の、2日間だけ',at=10,size=44,hi=True)]),
  dict(key='why',title='なぜ、暦を変えたのか',chapter_title='なぜ、暦を変えたのか',scene=[
    dict(t='art',name='ledger',box=[60,170,1860,850],at=0,dim=0.8,dir=1,note='イメージ（生成画像）。実際の場面の再現ではありません'),dict(t='shade',box=[60,170,1860,850],at=0,alpha=0.7),
    dict(t='panel',box=[60,170,1860,270],text='「給与の節約のためだった」という説明がある',at=1,until=3,size=44,col='gold'),
@@ -53,7 +56,7 @@ spec=dict(slug='calendar',theme_dir='20261018_calendar',pack='09_calendar_meiji5
    dict(t='panel',box=[60,630,1860,760],title='暦Wiki',text='会計年度：10月〜9月 → 1月〜12月に改められた',at=3,size=40)]),
  dict(key='end',title='分かること、決められないこと',chapter_title='結論：分かること、決められないこと',scene=[
    dict(t='cols2',size=34,xm=940,xm2=980,left=dict(title='分かること',title_at=0,items=[
-      dict(at=1,text='明治5年12月3日が、明治6年1月1日に。12月は2日間だけ'),dict(at=3,text='日が消えたのではなく、日付の数え方が切り替わった'),dict(at=4,text='欧米との統一のほか、閏月と月給にまつわる財政の事情が、背景として挙げられている')]),
+      dict(at=1,text='旧暦の明治5年12月3日が、明治6年1月1日に。12月は2日間だけ'),dict(at=3,text='日が消えたのではなく、日付の数え方が切り替わった'),dict(at=4,text='欧米との統一のほか、閏月と月給にまつわる財政の事情が、背景として挙げられている')]),
      right=dict(title='決められないこと',title_at=5,items=[
       dict(at=6,text='欧米との統一と財政の、どちらが決め手だったか'),dict(at=7,text='暮らしの、地域ごとの混乱の様子（この動画では未確認）')]))])
  ],
@@ -62,9 +65,10 @@ spec=dict(slug='calendar',theme_dir='20261018_calendar',pack='09_calendar_meiji5
   intro='日本には、12月が2日で終わった年がある。明治5年12月2日の次の日は、明治6年1月1日だった。本当に12月は2日しかなかったのか、日が消えてしまったのか。この動画では、国立国会図書館と国立天文台の解説から、明治の改暦で何が起きたのかを確かめます。太陰太陽暦のしくみ、改暦の経緯、当日の日記、なぜ暦を変えたのか(欧米との統一、閏月と月給)、改暦のその後を、分かることと決められないことを分けて見ていきます。',
   points=['明治5年(1872)11月9日の布告で、旧暦の明治5年12月3日を明治6年1月1日とし、太陽暦を採用しました(国立天文台 暦Wiki、国立国会図書館)。','12月2日は西暦1872年12月31日、その翌日が1873年1月1日(明治6年1月1日)です。日が消えたのではなく、日付の数え方が切り替わり、明治5年の12月は1日と2日の2日間だけになりました(国立国会図書館の日記の紹介、暦Wiki。対応表は自作)。','国立国会図書館は、欧米との統一をはかったと説明し、国立天文台の解説は、閏月と月給(明治6年が13か月になり1か月分多く給料が必要になる)を背景に挙げています。暦Wikiは、2日間だけの12月の給料も払わず、合わせて2か月分を節約したと述べています。ただし、どれがどれだけ大きな理由だったかは、これらの解説だけでは決められません。','宍戸璣の日記(国立国会図書館掲載の訳)に、12月2日「太陰暦、この日をもって結尾とす」、12月3日「この日、初めて太陽歴日を用う、すなわち、癸酉、一月一日とす」とあります。','旧暦の併記は明治42年の暦まで続けられ、会計年度も改められました(暦Wiki)。'],
   refs=['国立国会図書館「江戸から明治の改暦」:https://www.ndl.go.jp/koyomi/chapter1/s2.html','国立国会図書館「暦の渡来と普及」:https://www.ndl.go.jp/koyomi/chapter1/s1.html','国立国会図書館「当日の日記」(宍戸璣、明治5年12月2日):https://www.ndl.go.jp/nikki/citeid/shishido_18721202','国立天文台 暦計算室 暦Wiki「6. 明治維新と太陽暦」:https://eco.mtk.nao.ac.jp/koyomi/wiki/CEF2BBCB2FC6FCCBDCA4CECEF12F6.CCC0BCA3B0DDBFB7A4C8C2C0CDDBCEF1.html','国立天文台 貴重資料展示室 第14回展示「江戸から現在まで」:https://eco.mtk.nao.ac.jp/koyomi/exhibition/014/'],
-  credit_lines=['・図・表・年表:自作(旧暦・新暦の対応表は、国立国会図書館の日記の紹介の日付を基にした自作です。外部画像は使用していません)','・サムネイルの背景と場面のイラスト:Codex(OpenAI)による生成イラスト(実際の場面の再現ではありません。明治初期の暦のイメージ。史実の再現ではありません)'],
+  credit_lines=['・図・表・年表:自作(旧暦・新暦の対応表は、国立国会図書館の日記の紹介の日付を基にした自作です。外部画像は使用していません)','・サムネイルの背景と場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(実際の場面の再現ではありません。明治初期の暦のイメージ。史実の再現ではありません)'],
   notes=['給与の節約など、改暦の理由については、国立天文台の解説・暦Wikiの記述を紹介したもので、どの理由がどれだけ大きかったかは、決められません。','「同館掲載の訳」は国立国会図書館のサイトに掲載された現代語訳で、日記の原文そのものではありません。','暮らしの、地域ごとの混乱の様子は、確認していません。','誤りがあればコメントでお知らせください。確認のうえ、訂正します。'],
   tags='明治5年, 改暦, 太陽暦, 旧暦, 12月2日, 明治時代, 日本史, 暦, 国立国会図書館, 国立天文台, 雑学, 検証',
   checks=['布告(太政官布告第337号)の原本画像の確認(任意。動画は国立天文台・国立国会図書館の記述に基づく)','「二十日ほど」の日数(暦Wiki)と、旧暦11月の日数の確認(任意)']),
  thumb=dict(bg='assets/calendar/thumb_art.png',lines=[['12月が',90,'white'],['2日で',110,'white'],['終わった？',140,'gold']],sub='明治5年の改暦を確かめる',y0=14,bar_y=520,bar_w=620,sub_size=44,shade_x=700,shade_w=520))
+inject2(spec,{'event':('event',5),'why':('why',5),'end':('end',4)})
 (R/'data'/'calendar_spec.json').write_text(json.dumps(spec,ensure_ascii=False,indent=1),encoding='utf8');print('spec written')

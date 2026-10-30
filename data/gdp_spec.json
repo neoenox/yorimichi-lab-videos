@@ -7,17 +7,23 @@
   "office": {
    "file": "assets/gdp/art_office.png"
   },
-  "house": {
-   "file": "assets/gdp/art_house.png"
-  },
   "ledger": {
    "file": "assets/gdp/art_ledger.png"
   },
   "city": {
    "file": "assets/gdp/art_city.png"
   },
+  "house": {
+   "file": "assets/gdp/art_house.png"
+  },
   "tools": {
    "file": "assets/gdp/art_tools.png"
+  },
+  "y2021": {
+   "file": "assets/gdp/art_y2021.png"
+  },
+  "end": {
+   "file": "assets/gdp/art_end.png"
   }
  },
  "bgm": [
@@ -466,6 +472,31 @@
      "alpha": 0.66
     },
     {
+     "t": "art",
+     "name": "y2021",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 6,
+     "dim": 0.8,
+     "dir": -1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 6,
+     "alpha": 0.66
+    },
+    {
      "t": "bars",
      "box": [
       60,
@@ -745,6 +776,31 @@
      "alpha": 0.66
     },
     {
+     "t": "art",
+     "name": "end",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 6,
+     "dim": 0.8,
+     "dir": -1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 6,
+     "alpha": 0.66
+    },
+    {
      "t": "cols2",
      "size": 36,
      "xm": 940,
@@ -853,7 +909,7 @@
   ],
   "credit_lines": [
    "・図・グラフ:内閣府『無償労働の貨幣評価』(令和5年7月)の公表値を基に自作(図表2-1・2-2)",
-   "・サムネイルの背景と場面のイラスト:Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
+   "・サムネイルの背景と場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
   ],
   "notes": [
    "金額・比率は内閣府の推計値で、推計の方法(賃金の取り方)によって変わります。名目GDP比は、同じ年の名目GDPとの比較であり、GDPの内訳ではありません。",

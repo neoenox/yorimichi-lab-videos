@@ -11,6 +11,18 @@
 方針: このスクリプトは公開しない（privacyStatus は常に private）。公開は人が Studio で行う。
 認証情報は secrets/（git管理外）。アップロード済みは data/youtube_ids.json に記録し、二重投稿を防ぐ。
 """
+import socket as _socket
+_orig_gai = _socket.getaddrinfo
+
+
+def _gai_v6_first(*a, **k):
+    """この環境ではIPv4でYouTube APIに接続できない時があるので、IPv6を先に試す。"""
+    r = _orig_gai(*a, **k)
+    return sorted(r, key=lambda x: 0 if x[0] == _socket.AF_INET6 else 1)
+
+
+_socket.getaddrinfo = _gai_v6_first
+
 import json, sys
 from pathlib import Path
 
@@ -76,7 +88,7 @@ def cmd_upload(pack, dry=False, new_version=False):
     desc = (d / 'description.txt').read_text(encoding='utf8').strip()
     tags = [t.strip() for t in (d / 'tags.txt').read_text(encoding='utf8').split(',') if t.strip()]
     assert len(title) <= 100, f'タイトルが{len(title)}字'
-    assert len(desc.encode('utf8')) <= 5000, f'概要欄が{len(desc.encode("utf8"))}バイト'
+    assert len(desc) <= 5000, f'概要欄が{len(desc.encode("utf8"))}バイト'
     assert sum(len(t) for t in tags) <= 480, 'タグが長すぎる'
     assert '<' not in title + desc and '>' not in title + desc, '概要欄/タイトルに < > は使えない'
     ids = load_ids()
@@ -101,6 +113,8 @@ def cmd_upload(pack, dry=False, new_version=False):
         try:
             st, resp = req.next_chunk(num_retries=5)
         except Exception as e:  # 回線の一時的な切れ（再開可能なアップロードなので、同じ位置から再試行）
+            if 'quota' in str(e).lower():
+                raise  # クォータ切れは待っても直らないので、すぐ上位へ
             fails += 1
             print('  retry', fails, type(e).__name__, flush=True)
             if fails > 30:
@@ -124,6 +138,43 @@ def cmd_upload(pack, dry=False, new_version=False):
       print('captions ok')
 
 
+def cmd_finish(pack, vid, at=None):
+    """ブラウザ（Studio）で動画本体だけを上げた場合の仕上げ。台帳に登録（旧IDは superseded へ）→ タイトル・概要欄・タグ → サムネイル → 字幕 → 公開予約（at があれば）。API枠は約2,000ユニット/本のところ、約600で済む。"""
+    from googleapiclient.http import MediaFileUpload
+    d = R / 'upload' / pack
+    title = (d / 'title.txt').read_text(encoding='utf8').strip()
+    desc = (d / 'description.txt').read_text(encoding='utf8').strip()
+    tags = [t.strip() for t in (d / 'tags.txt').read_text(encoding='utf8').split(',') if t.strip()]
+    assert len(title) <= 100 and len(desc) <= 5000 and '<' not in title + desc and '>' not in title + desc
+    yt = service()
+    if not any(it['id'] == CHANNEL_ID for it in mine(yt)):
+        sys.exit('認証中のチャンネルが寄り道ラボではありません。中止')
+    ids = load_ids()
+    old = ids.get(pack, {}).get('video_id')
+    if old != vid:
+        ids[pack] = dict(video_id=vid, privacy='private', via='browser',
+                         superseded=ids.get(pack, {}).get('superseded', []) + ([old] if old else []),
+                         deleted=ids.get(pack, {}).get('deleted', []))
+        IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+        print('ledger', pack, old, '->', vid)
+    status = dict(privacyStatus='private', selfDeclaredMadeForKids=False, embeddable=True, license='youtube')
+    if at:
+        import datetime as dt
+        t = dt.datetime.strptime(at, '%Y-%m-%d %H:%M') - dt.timedelta(hours=9)
+        status['publishAt'] = t.strftime('%Y-%m-%dT%H:%M:00Z')
+    else:   # 予約済みの動画に finish しても、公開予約を消さない
+        cur = yt.videos().list(part='status', id=vid).execute()['items'][0]['status']
+        if cur.get('publishAt'): status['publishAt'] = cur['publishAt']
+    yt.videos().update(part='snippet,status', body=dict(id=vid, snippet=dict(title=title, description=desc, tags=tags, categoryId=CATEGORY,
+                       defaultLanguage='ja', defaultAudioLanguage='ja'), status=status)).execute()
+    print('metadata ok', status.get('publishAt', ''))
+    if (d / 'thumbnail.jpg').exists():
+        yt.thumbnails().set(videoId=vid, media_body=MediaFileUpload(str(d / 'thumbnail.jpg'))).execute(); print('thumbnail ok')
+    if (d / 'subtitles_ja.srt').exists():
+        yt.captions().insert(part='snippet', body=dict(snippet=dict(videoId=vid, language='ja', name='', isDraft=False)),
+                             media_body=MediaFileUpload(str(d / 'subtitles_ja.srt'), mimetype='application/octet-stream')).execute(); print('captions ok')
+
+
 def cmd_delete_superseded():
     """data/youtube_ids.json の superseded に載っていて、かつ非公開の動画だけを削除する（公開済みは触らない）。"""
     yt = service()
@@ -135,8 +186,14 @@ def cmd_delete_superseded():
                 print('skip (not private):', vid)
                 continue
             if v:
-                yt.videos().delete(id=vid).execute()
-                print('deleted', vid, v[0]['snippet']['title'][:24])
+                try:
+                    yt.videos().delete(id=vid).execute()
+                    print('deleted', vid, v[0]['snippet']['title'][:24])
+                except Exception as e:
+                    if 'videoNotFound' in str(e) or 'quota' not in str(e).lower():
+                        print('delete failed (not found / other):', vid, str(e)[-120:])
+                    else:
+                        print('quota exceeded; stop deleting'); IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8'); return
             rec['superseded'].remove(vid)
             rec.setdefault('deleted', []).append(vid)
     IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
@@ -164,8 +221,38 @@ def cmd_list():
         print(v['id'], v['status']['privacyStatus'], v['snippet']['title'])
 
 
+def cmd_stats():
+    """全動画の公開予約日時(日本時間)・再生数・高評価・長さを、公開日順に表示する。"""
+    import datetime
+    yt = service()
+    up = yt.channels().list(part='contentDetails', mine=True).execute()['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+    ids, tok = [], None
+    while True:
+        r = yt.playlistItems().list(part='contentDetails', playlistId=up, maxResults=50, pageToken=tok).execute()
+        ids += [i['contentDetails']['videoId'] for i in r['items']]; tok = r.get('nextPageToken')
+        if not tok: break
+    rows = []
+    for k in range(0, len(ids), 50):
+        for v in yt.videos().list(part='snippet,status,statistics,contentDetails', id=','.join(ids[k:k + 50])).execute()['items']:
+            t = v['status'].get('publishAt') or v['snippet']['publishedAt']
+            jst = datetime.datetime.strptime(t[:16], '%Y-%m-%dT%H:%M') + datetime.timedelta(hours=9)
+            st = v.get('statistics', {})
+            rows.append((jst.strftime('%Y-%m-%d %H:%M'), v['status']['privacyStatus'], st.get('viewCount', '-'), st.get('likeCount', '-'), v['contentDetails']['duration'], v['id'], v['snippet']['title']))
+    for r in sorted(rows): print(*r, sep=' | ')
+
+
+def cmd_redesc(pack):
+    """台帳の video_id の概要欄だけを、upload/<pack>/description.txt に更新する（タイトル・予約は変えない）。"""
+    yt = service(); ids = load_ids(); vid = ids[pack]['video_id']
+    v = yt.videos().list(part='snippet', id=vid).execute()['items'][0]
+    desc = (R / 'upload' / pack / 'description.txt').read_text(encoding='utf8').strip()
+    assert len(desc) <= 5000 and '<' not in desc and '>' not in desc
+    v['snippet']['description'] = desc
+    yt.videos().update(part='snippet', body=dict(id=vid, snippet=v['snippet'])).execute(); print('description updated', pack, vid)
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if not a:
         sys.exit(__doc__)
-    {'auth': cmd_auth, 'whoami': cmd_whoami, 'list': cmd_list, 'delete-superseded': cmd_delete_superseded, 'schedule': lambda: cmd_schedule(a[1], a[2])}.get(a[0], lambda: cmd_upload(a[1], '--dry' in a, '--new-version' in a) if a[0] == 'upload' else sys.exit(__doc__))()
+    {'auth': cmd_auth, 'whoami': cmd_whoami, 'list': cmd_list, 'stats': cmd_stats, 'delete-superseded': cmd_delete_superseded, 'schedule': lambda: cmd_schedule(a[1], a[2]), 'redesc': lambda: cmd_redesc(a[1]), 'finish': lambda: cmd_finish(a[1], a[2], a[3] if len(a) > 3 else None)}.get(a[0], lambda: cmd_upload(a[1], '--dry' in a, '--new-version' in a) if a[0] == 'upload' else sys.exit(__doc__))()

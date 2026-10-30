@@ -1,0 +1,1231 @@
+{
+ "_doc": "次の動画の候補。点数(0-5)は Claude の事前の見立てで、採用前に『関門』（骨格の事実を一次資料で確認）を必ず実行する。gate_blockers が空でない候補は自動で落とす。season は公開に向く月(1-12)。ties は、既存動画のslugとの接続。",
+ "candidates": [
+  {
+   "id": "sunrise_solstice",
+   "title": "日の出が一番早いのは、夏至の日？",
+   "cat": "earth",
+   "tags": [
+    "日の出",
+    "夏至",
+    "季節",
+    "均時差",
+    "国立天文台"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    5,
+    6,
+    12
+   ],
+   "ties": [
+    "season",
+    "koku"
+   ],
+   "source_hint": "国立天文台 暦Wiki『日の出・日の入り』『均時差』",
+   "gate_blockers": []
+  },
+  {
+   "id": "jst_akashi",
+   "title": "日本の標準時は、なぜ明石の時刻？",
+   "cat": "calendar",
+   "tags": [
+    "標準時",
+    "明石",
+    "東経135度",
+    "時刻",
+    "国立天文台"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "koku",
+    "compass",
+    "calendar"
+   ],
+   "source_hint": "国立天文台、情報通信研究機構(NICT)、明治19年勅令",
+   "gate_blockers": []
+  },
+  {
+   "id": "tanabata",
+   "title": "七夕は、なぜ梅雨で星が見えにくい日になった？",
+   "cat": "calendar",
+   "tags": [
+    "七夕",
+    "旧暦",
+    "新暦",
+    "伝統的七夕",
+    "国立天文台"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    6,
+    7
+   ],
+   "ties": [
+    "calendar"
+   ],
+   "source_hint": "国立天文台『伝統的七夕』",
+   "gate_blockers": []
+  },
+  {
+   "id": "moon_recede",
+   "title": "月は、毎年3.8cmずつ地球から遠ざかっている？",
+   "cat": "earth",
+   "tags": [
+    "月",
+    "距離",
+    "レーザー測距",
+    "NASA",
+    "潮汐"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "season",
+    "drain"
+   ],
+   "source_hint": "NASA Apollo retroreflector, 国立天文台",
+   "gate_blockers": []
+  },
+  {
+   "id": "brain_10",
+   "title": "人は、脳の10%しか使っていない？",
+   "cat": "body",
+   "tags": [
+    "脳",
+    "俗説",
+    "神経科学",
+    "画像"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 3,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "vein",
+    "einstein"
+   ],
+   "source_hint": "Scientific American / NIH 系の解説（一次は総説論文）",
+   "gate_blockers": []
+  },
+  {
+   "id": "napoleon_short",
+   "title": "ナポレオンは、背が低かった？",
+   "cat": "person",
+   "tags": [
+    "ナポレオン",
+    "俗説",
+    "身長",
+    "フランス尺",
+    "インチ"
+   ],
+   "hook": 5,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "einstein"
+   ],
+   "source_hint": "フランス尺とイギリスのインチの換算（一次の記録確認が必要）",
+   "gate_blockers": []
+  },
+  {
+   "id": "edo_literacy",
+   "title": "江戸時代の日本は、識字率が世界一だった？",
+   "cat": "history",
+   "tags": [
+    "江戸",
+    "寺子屋",
+    "識字率",
+    "教育"
+   ],
+   "hook": 5,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "ninja",
+    "koku"
+   ],
+   "source_hint": "数字の出どころが論者で割れる。一次資料の確認が難所",
+   "gate_blockers": [
+    "骨格の数字が推計で、一次資料での確認が難しい"
+   ]
+  },
+  {
+   "id": "flat_earth_medieval",
+   "title": "中世の人は、地球が平らだと信じていた？",
+   "cat": "history_sci",
+   "tags": [
+    "中世",
+    "地球球体説",
+    "コロンブス",
+    "天文"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "scurvy",
+    "compass"
+   ],
+   "source_hint": "中世の教科書（サクロボスコ『天球論』）など。研究者名つきの主張が多く、原著確認が要る",
+   "gate_blockers": []
+  },
+  {
+   "id": "fuji_height",
+   "title": "富士山の高さは、測り直して変わった？",
+   "cat": "earth",
+   "tags": [
+    "富士山",
+    "標高",
+    "測量",
+    "国土地理院"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 4,
+   "rights": 4,
+   "season": [
+    8,
+    2
+   ],
+   "ties": [
+    "compass",
+    "gm"
+   ],
+   "source_hint": "国土地理院",
+   "gate_blockers": []
+  },
+  {
+   "id": "leap_second",
+   "title": "うるう秒は、なぜ入れて、なぜやめる？",
+   "cat": "calendar",
+   "tags": [
+    "うるう秒",
+    "原子時計",
+    "地球の自転",
+    "NICT"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    6,
+    12
+   ],
+   "ties": [
+    "drain",
+    "calendar",
+    "koku"
+   ],
+   "source_hint": "NICT、国立天文台、国際度量衡総会の決議",
+   "gate_blockers": []
+  },
+  {
+   "id": "cow_red",
+   "title": "牛は、赤い布を見て興奮する？",
+   "cat": "body",
+   "tags": [
+    "色覚",
+    "牛",
+    "俗説",
+    "闘牛"
+   ],
+   "hook": 5,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "vein"
+   ],
+   "source_hint": "色覚の研究論文（一次の確認が要る）",
+   "gate_blockers": []
+  },
+  {
+   "id": "one_yen_cost",
+   "title": "1円玉は、作るのに1円以上かかる？",
+   "cat": "economy",
+   "tags": [
+    "1円玉",
+    "製造コスト",
+    "造幣局",
+    "貨幣"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    4
+   ],
+   "ties": [
+    "gdp"
+   ],
+   "source_hint": "造幣局の公表資料（製造費の数字の年次を確認）",
+   "gate_blockers": []
+  },
+  {
+   "id": "galileo_eppur",
+   "title": "ガリレオは、「それでも地球は動く」と言った？",
+   "cat": "person",
+   "tags": [
+    "ガリレオ",
+    "宗教裁判",
+    "俗説",
+    "天文"
+   ],
+   "hook": 5,
+   "source": 3,
+   "visual": 3,
+   "rights": 4,
+   "season": [],
+   "ties": [
+    "einstein",
+    "scurvy"
+   ],
+   "source_hint": "初出の記録を確認する必要（研究者名つきの主張が多い）",
+   "gate_blockers": []
+  },
+  {
+   "id": "edo_two_meals",
+   "title": "江戸時代の人は、1日2食だった？",
+   "cat": "history",
+   "tags": [
+    "江戸",
+    "食事",
+    "一日二食",
+    "行灯"
+   ],
+   "hook": 4,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "koku"
+   ],
+   "source_hint": "一次史料が散在。骨格を確かめにくい",
+   "gate_blockers": [
+    "一次史料の所在が不明確（Wikipedia系の孫引きになりやすい）"
+   ]
+  },
+  {
+   "id": "mercator_greenland",
+   "title": "メルカトル図法で、面積は何倍に見える？",
+   "cat": "earth",
+   "tags": [
+    "地図",
+    "メルカトル",
+    "面積",
+    "歪み"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "gm",
+    "compass"
+   ],
+   "source_hint": "既存の世界地図動画と重複気味",
+   "gate_blockers": []
+  },
+  {
+   "id": "sea_level_blue",
+   "title": "海が青いのは、空が映っているから？",
+   "cat": "earth",
+   "tags": [
+    "海",
+    "青",
+    "光の吸収",
+    "レイリー散乱"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    7,
+    8
+   ],
+   "ties": [
+    "vein",
+    "season"
+   ],
+   "source_hint": "NOAA『Why is the ocean blue?』",
+   "gate_blockers": []
+  },
+  {
+   "id": "vitamin_c_cold",
+   "title": "ビタミンCは、風邪に効く？",
+   "cat": "body",
+   "tags": [
+    "ビタミンC",
+    "風邪",
+    "コクラン",
+    "俗説"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    11,
+    12,
+    1
+   ],
+   "ties": [
+    "scurvy"
+   ],
+   "source_hint": "Cochrane review（Hemilä & Chalker 2013 など。原著確認が要る）",
+   "gate_blockers": []
+  },
+  {
+   "id": "islands",
+   "title": "日本の島は、本当に2倍に増えた？",
+   "cat": "earth",
+   "tags": [
+    "島",
+    "国土地理院",
+    "地図",
+    "計数"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "compass",
+    "gm"
+   ],
+   "source_hint": "国土地理院『我が国の島を数えました』（6,852→14,125）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "rain30",
+   "title": "降水確率30％は、地域の30％で雨が降るという意味？",
+   "cat": "science",
+   "tags": [
+    "降水確率",
+    "気象庁",
+    "天気",
+    "確率"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    10,
+    11,
+    6
+   ],
+   "ties": [
+    "season"
+   ],
+   "source_hint": "気象庁『予報の名称』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "arpanet",
+   "title": "インターネットの祖先は、最初から世界中につながっていた？",
+   "cat": "tech",
+   "tags": [
+    "ARPANET",
+    "インターネット",
+    "DARPA",
+    "1969"
+   ],
+   "hook": 3,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    10
+   ],
+   "ties": [],
+   "source_hint": "DARPA『ARPANET』。初通信は1969年10月29日",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "gps",
+   "title": "GPS衛星は、あなたが今どこにいるかを知っている？",
+   "cat": "tech",
+   "tags": [
+    "GPS",
+    "衛星",
+    "位置情報",
+    "測位"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "compass"
+   ],
+   "source_hint": "GPS.gov『Trilateration』『GPS Location Privacy』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "expiry",
+   "title": "賞味期限を1日過ぎた食品は、危険なの？",
+   "cat": "food",
+   "tags": [
+    "賞味期限",
+    "消費期限",
+    "食品ロス",
+    "消費者庁"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [],
+   "source_hint": "消費者庁『食品ロス削減ガイドブック』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "rice",
+   "title": "日本人が食べるお米は、昔の半分以下になった？",
+   "cat": "food",
+   "tags": [
+    "米",
+    "消費量",
+    "農林水産省",
+    "統計"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    10,
+    11
+   ],
+   "ties": [
+    "gdp"
+   ],
+   "source_hint": "農林水産省『お米の1人当たりの消費量』（1962年度118.3kg→2024年度53.4kg）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "yakubusoku",
+   "title": "「役不足」は、自分の能力が足りないという意味？",
+   "cat": "language",
+   "tags": [
+    "役不足",
+    "国語",
+    "文化庁",
+    "世論調査"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 4,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "zenzen"
+   ],
+   "source_hint": "文化庁『国語に関する世論調査』（平成18年度）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "cold_virus",
+   "title": "寒い場所にいるだけで、風邪をひく？",
+   "cat": "body",
+   "tags": [
+    "風邪",
+    "寒さ",
+    "ウイルス",
+    "CDC"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    10,
+    11,
+    12
+   ],
+   "ties": [
+    "vein"
+   ],
+   "source_hint": "CDC『About Common Cold』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "river_len",
+   "title": "日本一長い川は、雨を集める面積も日本一？",
+   "cat": "earth",
+   "tags": [
+    "川",
+    "信濃川",
+    "利根川",
+    "流域面積"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "gm"
+   ],
+   "source_hint": "国土交通省『なるほど信濃川』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "magnitude",
+   "title": "マグニチュードが1増えると、地震は10倍強くなる？",
+   "cat": "earth",
+   "tags": [
+    "地震",
+    "マグニチュード",
+    "震度",
+    "エネルギー"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [],
+   "source_hint": "国土交通省・USGS（Mが1増えるとエネルギーは約32倍）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "railway",
+   "title": "日本最初の鉄道は、最初から新橋駅を出発していた？",
+   "cat": "history",
+   "tags": [
+    "鉄道",
+    "新橋",
+    "品川",
+    "国立公文書館",
+    "1872"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    10
+   ],
+   "ties": [
+    "koku",
+    "calendar"
+   ],
+   "source_hint": "国立公文書館『新橋横浜間鉄道之図』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "cpi",
+   "title": "物価が2％上がったら、どの家庭の生活費も2％増える？",
+   "cat": "economy",
+   "tags": [
+    "物価",
+    "消費者物価指数",
+    "家計",
+    "総務省統計局"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "gdp"
+   ],
+   "source_hint": "総務省統計局『消費者物価指数のしくみと見方』",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "moon_rotation",
+   "title": "月は同じ面を見せるから、自転していない？",
+   "cat": "science",
+   "tags": [
+    "月",
+    "自転",
+    "公転",
+    "同期自転",
+    "NASA"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "season",
+    "drain"
+   ],
+   "source_hint": "NASA Science（自転・公転とも約27.3日）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "venus_day",
+   "title": "金星では、1日が1年より長い？",
+   "cat": "science",
+   "tags": [
+    "金星",
+    "自転",
+    "公転",
+    "太陽日",
+    "NASA"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "season"
+   ],
+   "source_hint": "NASA Science（自転約243日・公転約225日。太陽日との区別が要る）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "food_self",
+   "title": "日本の食料自給率37％なら、食べ物の63％は輸入？",
+   "cat": "food",
+   "tags": [
+    "食料自給率",
+    "カロリーベース",
+    "農林水産省",
+    "統計"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "gdp",
+    "rice"
+   ],
+   "source_hint": "農林水産省（カロリーベース37％、生産額ベース約66％）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "typhoon_eye",
+   "title": "台風は、中心に近いほど風が強い？",
+   "cat": "science",
+   "tags": [
+    "台風",
+    "台風の目",
+    "壁雲",
+    "気象庁"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    8,
+    9,
+    10
+   ],
+   "ties": [
+    "drain"
+   ],
+   "source_hint": "気象庁",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "eclipse",
+   "title": "満月のたびに、月食が起きる？",
+   "cat": "science",
+   "tags": [
+    "月食",
+    "満月",
+    "白道",
+    "国立天文台"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "moon_rotation",
+    "season"
+   ],
+   "source_hint": "国立天文台",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "seafloor",
+   "title": "海の底の地形は、ほとんど調べ終わっている？",
+   "cat": "earth",
+   "tags": [
+    "海底",
+    "地形",
+    "NOAA",
+    "測量"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "gm"
+   ],
+   "source_hint": "NOAA Ocean Exploration（高解像度の測量済みは約27％。年次は要確認）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "forest_rate",
+   "title": "日本は、森林の少ない国？",
+   "cat": "earth",
+   "tags": [
+    "森林率",
+    "林野庁",
+    "国土",
+    "統計"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "islands"
+   ],
+   "source_hint": "林野庁（国土の約67％）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "lightning",
+   "title": "雷は、夏にしか起きない？",
+   "cat": "science",
+   "tags": [
+    "雷",
+    "冬季雷",
+    "気象庁",
+    "日本海"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    11,
+    12,
+    1
+   ],
+   "ties": [
+    "rain30"
+   ],
+   "source_hint": "気象庁",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "foodloss",
+   "title": "食品ロスは、飲食店やスーパーがほとんど？",
+   "cat": "food",
+   "tags": [
+    "食品ロス",
+    "家庭",
+    "事業者",
+    "環境省"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    10
+   ],
+   "ties": [
+    "expiry"
+   ],
+   "source_hint": "環境省（2024年度の数字は要確認）",
+   "gate_blockers": [],
+   "origin": "chatgpt"
+  },
+  {
+   "id": "yamazaki",
+   "title": "山崎の戦いは、本当に「天王山」で決まったのか？",
+   "cat": "history",
+   "tags": [
+    "山崎の戦い",
+    "天王山",
+    "秀吉",
+    "光秀",
+    "戦況解説"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    6,
+    7
+   ],
+   "ties": [
+    "honnoji",
+    "sekigahara"
+   ],
+   "source_hint": "『兼見卿記』『惟任退治記』ほか、Wikipedia「山崎の戦い」。本能寺30分版が「別の動画で扱う」と予告済み",
+   "gate_blockers": []
+  },
+  {
+   "id": "shizugatake",
+   "title": "賤ヶ岳の戦いで、秀吉の「大返し」は本当に速かったのか？",
+   "cat": "history",
+   "tags": [
+    "賤ヶ岳",
+    "秀吉",
+    "柴田勝家",
+    "戦況解説"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    4
+   ],
+   "ties": [
+    "honnoji",
+    "sekigahara"
+   ],
+   "source_hint": "秀吉の書状、Wikipedia「賤ヶ岳の戦い」",
+   "gate_blockers": []
+  },
+  {
+   "id": "komaki",
+   "title": "小牧・長久手の戦いは、どちらが勝ったのか？",
+   "cat": "history",
+   "tags": [
+    "小牧長久手",
+    "家康",
+    "秀吉",
+    "戦況解説"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    3,
+    4
+   ],
+   "ties": [
+    "sekigahara",
+    "nagashino"
+   ],
+   "source_hint": "Wikipedia「小牧・長久手の戦い」、家康・秀吉の書状",
+   "gate_blockers": []
+  },
+  {
+   "id": "anegawa",
+   "title": "姉川の戦いは、徳川軍が勝敗を決めたのか？",
+   "cat": "history",
+   "tags": [
+    "姉川",
+    "家康",
+    "浅井朝倉",
+    "戦況解説"
+   ],
+   "hook": 4,
+   "source": 3,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    6
+   ],
+   "ties": [
+    "nagashino"
+   ],
+   "source_hint": "Wikipedia「姉川の戦い」、『信長公記』",
+   "gate_blockers": []
+  },
+  {
+   "id": "itsukushima",
+   "title": "厳島の戦いは、本当に奇襲で決まったのか？",
+   "cat": "history",
+   "tags": [
+    "厳島",
+    "毛利元就",
+    "陶晴賢",
+    "戦況解説"
+   ],
+   "hook": 4,
+   "source": 3,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    10
+   ],
+   "ties": [
+    "sekigahara"
+   ],
+   "source_hint": "Wikipedia「厳島の戦い」、毛利家文書",
+   "gate_blockers": []
+  },
+  {
+   "id": "osaka_summer",
+   "title": "大坂夏の陣で、家康は本当に討たれかけたのか？",
+   "cat": "history",
+   "tags": [
+    "大坂の陣",
+    "真田信繁",
+    "家康",
+    "戦況解説"
+   ],
+   "hook": 5,
+   "source": 3,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    5
+   ],
+   "ties": [
+    "sekigahara"
+   ],
+   "source_hint": "Wikipedia「大坂の陣」、『大坂御陣覚書』は後世史料なので要注意",
+   "gate_blockers": [
+    "骨格の逸話の多くが後世の軍記・覚書由来。一次史料の確認が難しい"
+   ]
+  },
+  {
+   "id": "mochi_choke",
+   "title": "お正月のお餅で窒息するのは、高齢者だけ？",
+   "cat": "body",
+   "tags": [
+    "餅",
+    "窒息",
+    "消費者庁",
+    "年末年始"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    12,
+    1
+   ],
+   "ties": [
+    "expiry"
+   ],
+   "source_hint": "消費者庁・厚生労働省の人口動態統計「不慮の窒息」",
+   "gate_blockers": []
+  },
+  {
+   "id": "shinkansen_delay",
+   "title": "新幹線の遅延は、平均で何秒？",
+   "cat": "tech",
+   "tags": [
+    "新幹線",
+    "遅延",
+    "JR東海",
+    "定時運行"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    12,
+    1
+   ],
+   "ties": [
+    "railway"
+   ],
+   "source_hint": "JR東海の公表値（年間平均遅延時分）",
+   "gate_blockers": []
+  },
+  {
+   "id": "freq_50_60",
+   "title": "日本の電気は、なぜ東と西で周波数が違う？",
+   "cat": "tech",
+   "tags": [
+    "周波数",
+    "50Hz",
+    "60Hz",
+    "電力"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    1,
+    2
+   ],
+   "ties": [
+    "jst_akashi"
+   ],
+   "source_hint": "電気事業連合会・資源エネルギー庁",
+   "gate_blockers": []
+  },
+  {
+   "id": "happy_monday",
+   "title": "成人の日は、なぜ1月15日ではなくなった？",
+   "cat": "calendar",
+   "tags": [
+    "成人の日",
+    "祝日法",
+    "ハッピーマンデー",
+    "内閣府"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    1
+   ],
+   "ties": [
+    "calendar"
+   ],
+   "source_hint": "内閣府「国民の祝日」・国民の祝日に関する法律",
+   "gate_blockers": []
+  },
+  {
+   "id": "jyoya_108",
+   "title": "除夜の鐘は、なぜ108回？ 数え方に決まりはある？",
+   "cat": "calendar",
+   "tags": [
+    "除夜の鐘",
+    "108",
+    "煩悩",
+    "年末年始"
+   ],
+   "hook": 5,
+   "source": 3,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    12
+   ],
+   "ties": [],
+   "source_hint": "寺院・仏教書（二次情報が中心。要確認）",
+   "gate_blockers": []
+  },
+  {
+   "id": "snow_crystal",
+   "title": "雪の結晶は、一つとして同じ形がない？",
+   "cat": "science",
+   "tags": [
+    "雪の結晶",
+    "中谷宇吉郎",
+    "気象",
+    "冬"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    12,
+    1,
+    2
+   ],
+   "ties": [
+    "rain30"
+   ],
+   "source_hint": "中谷宇吉郎・気象庁・気象研究所",
+   "gate_blockers": []
+  },
+  {
+   "id": "hatsuyume",
+   "title": "初夢は、元日の夜と2日の夜、どちらの夢？",
+   "cat": "calendar",
+   "tags": [
+    "初夢",
+    "元日",
+    "江戸",
+    "年始"
+   ],
+   "hook": 4,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    1
+   ],
+   "ties": [
+    "koku"
+   ],
+   "source_hint": "辞典・民俗学の資料（要確認）",
+   "gate_blockers": [
+    "一次史料の所在が不明確"
+   ]
+  },
+  {
+   "id": "oshogatsu_ocean",
+   "title": "年末年始に、日本の人口は何人移動する？",
+   "cat": "economy",
+   "tags": [
+    "帰省",
+    "交通",
+    "人流",
+    "統計"
+   ],
+   "hook": 3,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    12,
+    1
+   ],
+   "ties": [
+    "cpi"
+   ],
+   "source_hint": "国土交通省・NEXCO各社の公表値",
+   "gate_blockers": []
+  }
+ ]
+}

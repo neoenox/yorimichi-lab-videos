@@ -1,0 +1,35 @@
+__NOTOC__<templatestyles src="Ruby/styles.css" />
+{{:信長公記/我自刊我書|ヘッダー=1|title=信長公記|section=新字版|notes={{Textquality|50%}}{{nop}}* Webブラウザ上でキーワード検索しやすくするために、「龍」を除く旧字を新字に変換し、いくつかの異体字を常用漢字に変換している。もとの旧字版は「[[信長公記/我自刊我書]]」を参照のこと。}}
+<div style="margin-left:80pt">
+<!-- 扉 -->
+{{#Invoke:Remix|conjure|index=信長公記/我自刊我書|showlink=0|bindCJK=rs,一,二,レ|kanji_old2new=1|oldnew={{:信長公記/我自刊我書|oldnew=1}}|exclude=龍
+|rplptn1=^.*(｛｛仮題｜ここから＝扉｝｝.+｛｛仮題｜ここまで＝扉｝｝).*$|rplfmt1=%1|rplhan1=1|rplerr1=error
+|rplptn10=｛｛仮題｜|rplfmt10=｛｛:信長公記/我自刊我書｜|rplhan10=1
+}}
+----
+<!-- 目次を自動生成 -->
+{{#Invoke:Remix|conjure|index=信長公記/我自刊我書|showlink=0|bindCJK=rs,一,二,レ|kanji_old2new=1|oldnew={{:信長公記/我自刊我書|oldnew=1}}|exclude=龍
+|rplptn1=^.*(｛｛仮題｜ここから＝首｝｝.+｛｛仮題｜ここまで＝奥書｝｝).*$|rplfmt1=%1|rplhan1=1|rplerr1=error
+|rplptn2=[^錨]-(｛｛仮題｜投錨＝［＾｝］＋｝｝)|rplfmt2=%1|rplhan2=1|rplerr2=error
+|rplptn3=(｛｛仮題｜投錨＝［＾｝］＋｝｝)[^錨]-$|rplfmt3=%1|rplhan3=1|rplerr3=error
+|rplptn5=｛｛仮題｜投錨＝|rplfmt5=｛｛仮題｜目次＝|rplhan5=1|rplerr5=error
+|rplptn9=＾|rplfmt9=信長公記目錄<br/>|rplhan9=1|rplerr9=error
+|rplptn10=｛｛仮題｜|rplfmt10=｛｛:信長公記/我自刊我書｜|rplhan10=1
+}}
+{{dhr|4em}}
+----
+<!-- 本編 -->
+{{#Invoke:Remix|conjure|index=信長公記/我自刊我書|showlink=0|bindCJK=rs,一,二,レ|kanji_old2new=1|oldnew={{:信長公記/我自刊我書|oldnew=1}}|exclude=龍
+|rplptn1=^.*(｛｛仮題｜ここから＝首｝｝.+｛｛仮題｜ここまで＝奥書｝｝).*$|rplfmt1=%1|rplhan1=1|rplerr1=error
+|rplptn2=｛｛［Ｒｒ］｜|rplfmt2=｛｛rs｜|rplhan2=1|rplerr2=error
+|rplptn3=&#x0A;&#x0A;一|rplfmt3=&#x0A;&#x0A;<span style="display:inline-block; text-indent:-1em;">一</span>|rplhan3=1|rplerr3=error
+|rplptn4=(｛｛仮題｜投錨＝［＾｝］＋｝｝)&#x0A;一|rplfmt4=%1<span style="display:inline-block; text-indent:-1em;">一</span>|rplhan4=1
+|rplptn5=(｛｛仮題｜投錨＝［＾｝］＋｝｝)&#x0A;|rplfmt5=%1|rplhan5=1|rplerr5=error
+|rplptn6=&#x0A;(｛｛仮題｜頁＝［＾｝］＋｝｝)&#x0A;一|rplfmt6=%1<span style="display:inline-block; text-indent:-1em;">一</span>|rplhan6=1
+|rplptn7=&#x0A;(｛｛仮題｜頁＝［＾｝］＋｝｝)&#x0A;|rplfmt7=%1|rplhan7=1|rplerr7=error
+|rplptn8=(｛｛仮題｜ここから＝)|rplfmt8=｛｛ｄｈｒ｜3ｅｍ｝｝%1|rplhan8=1|rplerr8=error
+|rplptn9=(｛｛仮題｜ここまで＝)|rplfmt9=｛｛ｄｈｒ｜5ｅｍ｝｝&#x0A;－－－－&#x0A;%1|rplhan9=1|rplerr9=error
+|rplptn10=｛｛仮題｜|rplfmt10=｛｛:信長公記/我自刊我書｜|rplhan10=1
+}}
+</div>
+{{:信長公記/我自刊我書|フッター=1}}

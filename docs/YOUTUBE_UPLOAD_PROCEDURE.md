@@ -85,3 +85,5 @@ http.server.ThreadingHTTPServer(('127.0.0.1',8765),H).serve_forever()
 - 使い方: `python scripts/yt_api.py upload <パック名> [--dry] [--new-version]`、`list`、`whoami`。作り直した動画は `--new-version` で別IDに上げ、旧IDは `data/youtube_ids.json` の `superseded` に残す（YouTubeは動画ファイルの差し替え不可）。
 - 審査前のAPIプロジェクトの動画は非公開に固定される。公開・スケジュールは Studio で行う。
 - Codexの通し視聴: `python scripts/codex_watch.py <slug> [<テーマ>]`。静止画は**フレーム番号**で切り出す（fpsフィルタは時刻が約2秒ずれ、字幕のずれの偽の指摘が出た）。Codexは音を聞けない。
+
+- OAuthトークンの更新手順と本番切り替えの検討: docs/YOUTUBE_OAUTH_RENEWAL.md（2026-10-25）

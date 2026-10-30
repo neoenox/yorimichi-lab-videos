@@ -1,0 +1,3967 @@
+JOHANNES DE SACRO BOSCO
+TRACTATUS DE SPHÆRA
+TRATADO DA ESFERA
+[Veneza]: [Adam de Rottweil], [circa 1478]
+Editado e traduzido por Roberto de Andrade Martins
+CAMPINAS
+UNIVERSIDADE ESTADUAL DE CAMPINAS
+2006
+IOHANNIS DE SACRO BOSCO
+TRACTATUS DE SPHÆRA
+Esta edição foi preparada a partir da cópia digital do livro,
+disponível através da Bibliothèque Nationale, de Paris (projeto
+Gallica). A obra não possui folha de rosto, nem colofão, pois é
+parte de um volume maior, que contém também o Theorica
+planetarum. Foi publicada em  Veneza, por Adam de Rottwseil,
+provavelmente em 1478.
+O original tem 55 páginas sem número. Cada página tem 16
+cm de altura e 12 cm de largura. O texto impresso ocupa apenas
+6,3 cm de largura e 10,5 cm de altura, com 25 linhas por página.
+Há títulos marginais ao longo de todo o texto. Como o texto não
+possuía numeração de páginas, foram acrescentados nesta edição
+os números correspondentes, utilizando a convenção usual (por
+exemplo, 13r indica a página anterior – recto – da folha 13, e 13v
+indica a página posterior – verso – da folha 13).
+ Na presente edição, as divisões de páginas foram mantidas,
+mas não foram reproduzidas as quebras de linha do original. A
+pontuação segue o original, mas a ortografia foi alterada, pois o
+texto de 1478 contém muitas abreviações, símbolos especiais e
+peculiaridades ortográficas que os interessados podem consultar
+na versão facsimilar eletrônica da Bibliothèque Nationale.
+Foram utilizadas as figuras originais, bem como as letras
+ornamentadas no início de cada capítulo. No caso da tradução
+para o português, foram adicionadas letras ornamentadas de estilo
+semelhante ao original. Esta edição possuía apenas 3 figuras, das
+quais a última (fol. 27v) estava muito escura no original
+facsimilar. Foi editada para exibir a estrutura básica da ilustração,
+mas os detalhes foram perdidos.
+Esta edição segue a ortografia padrão do latim (clássico),
+fazendo uso do símbolo especial æ para o ditongo correspondente
+(representado no original pelo símbolo 
+  e substituindo “&”
+por “et”. Como usual, utilizamos aqui “z” no lugar de “ç”. No
+original, tanto a vogal “u” quanto a consoante “v” são
+representadas por “u” (ou por “V”, no caso de maiúsculas), mas
+nesta edição introduzimos a diferença usual entre “v” e “u”. No
+original, existe uma distinção entre o “s” final e o “s” no início ou
+no meio das palavras (representado, neste caso, por um símbolo
+semelhante à letra “f”). Essa distinção não foi mantida na
+presente edição. Foram corrigidos alguns erros do original ; e
+utilizou-se a forma usual “sphæra” em vez de “spera”. Foram
+utilizadas letras maiúsculas para Luna, Solis, Cancer, etc.
+Exceto por essas distinções formais, o presente texto
+reproduz fielmente o conteúdo da edição de 1478.
+Esta edição eletrônica do Tractatus de sphæra com a
+tradução para o português está disponível no seguinte endereço
+http://ghtc.ifi.unicamp.br/download/Sacrobosco-1478-trad.pdf
+Este livro eletrônico pode ser copiado e distribuído
+livremente, em sua forma completa (incluindo estes
+esclarecimentos). Quem quiser introduzir alguma alteração ou
+ditribuir o livro sob alguma outra forma deve entrar em contato
+com o editor. Muito obrigado.
+Roberto de Andrade Martins
+Grupo de História e Teoria da Ciência
+Universidade Estadual de Campinas (Unicamp)
+http://www.ifi.unicamp.br/~ghtc/
+Rmartins@ifi.unicamp.br
+[Fol. 1r]
+Ractatum de Sphæra quattuor
+capitulis distinguimus. Dicturi
+primo  quid  sit  sphæra:   quid
+ividimos o tratado da esfera em
+quatro capítulos. No primeiro
+será dito o que é a
+eius centrum: quid axis sphæræ: quid sit
+polus mundi: quot sint sphæræ: et quæ
+sit forma mundi. 
+ In secundo d e
+circulis ex q uibus s phæra materialis
+componitur: et illa supercælestis quæ per
+istam imaginatur componi i ntelligitur.
+In tertio de ortu et occasu signorum:
+et de diversitate dierum et noctium quæ
+fit habitantibus in d iversis locis: et de
+divisione climatum. 
+ In qu arto d e
+circulis et motibus planetarum: et de
+causis eclipsium.
+Capitulum primum
+esfera, o que é o seu centro, o que é o eixo
+da e sfera, o  q ue é o pólo do mundo,
+quantas são as esferas, e qual é a forma do
+mundo. 
+ No segundo, sobre os círculos
+dos quais se compõe a esfera material, e a
+supraceleste, por cuja imagem
+compreendemos que esta é c omposta.
+No terceiro sobre o n ascimento e o
+ocaso dos signos e sobre a diversidade dos
+dias e das noites que ocorrem para os que
+habitam em diversos lugares; e sobre a
+divisão dos climas. 
+ No quarto, sobre os
+círculos e movimentos dos planetas, e
+sobre as causas dos eclipses.
+Capítulo primeiro
+Phæra igitur ab Euclide sic
+describitur. Sphæra est transi-
+tus circumferentiæ dimidii cir-
+Euclides. Sphæra
+quid sit.
+esfera a ssim é descrita por
+Euclides. Esfera é  a passagem
+da circunferência de meio
+Euclides. O que é a
+esfera.
+culi: quotiens fixa diametro quousque ad
+locum suum redeat circumducitur. Id est
+sphæra e st t ale rotundum et solidum
+quod d escribitur ab arcu semicirculi
+circumducto. Sphæra etiam a Theodosio
+sic describitur. Sphæra est solidum
+Theodosius.
+círculo, cujo diâmetro é fixo, conduzida
+circularmente até voltar ao seu lugar. Ou
+seja, esfera é o sólido redondo descrito
+pelo arco de semicírculo que gira. A esfera
+segundo Teodósio é assim descrita. Esfera
+é um sólido
+Teodósio.
+[Fol. 1v]
+quoddam una superficie c ontentum in
+cuius medio pun ctus est: a quo o mnes
+lineæ ductæ ad circumferentiam sunt
+æquales. Et ille punctus dicitur centrum
+sphæræ. Linea vero recta transiens per
+centrum sphæræ applicans extremitates
+suas ad circumferentiam ex u traque
+parte  dicitur axis sphæræ. Duo quidem
+puncta a xem terminantia dicuntur poli
+mundi. 
+ Sphæra a utem dupliciter
+dividitur secundum substantiam: et
+secundum accidens. Secundum
+substantiam ub sphæras novem scilicet
+in sphæram nonam quæ primus motus
+sive primum m obile dicitur. Et i n
+sphæram stellarum fixarum quæ
+firmamentum nuncupatur. Et i n septem
+sphæras s eptem planetarum: quarum
+quædam sunt maiores: quædam minores
+secundum quod p lus accedunt vel
+recedunt a firmamento. Unde inter illas
+sphæra Saturni maxima est. Sphæra vero
+Lunæ minima: prout i n sequenti
+figuratione continetur.
+Centrum sphæræ
+Axis sphæræ
+Poli mundi
+Sphæræ divisio
+secundum
+substantiam
+que é contido por uma superfície e m
+cujo meio há um ponto tal que todas as
+linhas conduzidas até a sua
+circunferência são iguais. E esse ponto é
+chamado centro da e sfera. A linha reta
+que passa pelo centro da esfera e  cujas
+extremidades tocam a c ircunferência de
+cada uma das partes é chamada de eixo
+da esfera. Esses dois pontos pelos quais
+o eixo termina são chamados de pólos do
+mundo. 
+ A esfera se divide de dois
+modos, segundo a substância e segundo
+o acidente. Segundo a substância e m
+nove esferas, a saber: na esfera nona que
+é c hamada de primeiro movimento ou
+primeiro móvel; e na esfera das estrelas
+fixas que é denominada firmamento; e
+em sete esferas dos sete planetas que são
+maiores ou menores conforme se
+aproximem ou se a fastem do
+firmamento. Entre elas, a esfera de
+Saturno é a  maior; a e sfera da Lua é  a
+menor, conforme e stá c ontido n a figura
+seguinte.
+Centro da esfera.
+Eixo da esfera.
+Pólos do mundo
+Divisão da esfera
+segundo a
+substância.
+[Fol. 2r]
+Secundum accidens autem dividitur
+in sphæram rectam et sphæram
+obliquam. Illi enim dicuntur habere
+sphæram rectam: qui manent sub
+æquinoctiali: si aliquis ibi manere possit.
+Et dicitur recta quoniam neuter polorum
+magis altero illis elevatur. Vel quoniam
+illorum horizon intersecat
+æquinoctialem
+Divisio sphæra
+secundum accidens.
+De sphæra recta.
+Por acidente, por outro lado, é
+dividida em esfera reta e esfera oblíqua.
+Diz-se que a queles que moram sob a
+equinocial possuem a e sfera reta, se
+alguém pode morar lá. E é c hamada de
+reta porque nenhum pólo se eleva mais
+do que o outro para eles. Ou porque seu
+horizonte corta e equinocial
+Divisão da esfera
+segundo acidente.
+Da esfera reta.
+[Fol. 2v]
+et intersecatur ab eodem ad angulos
+rectos s phærales. Illi vero d icuntur
+habere sphæram obliquam quicunque
+habitant citra æquinoctialem vel ultra.
+Illis enim supra horizontem alter
+polorum semper elevatur: reliquus vero
+semper deprimitur. Vel quoniam illorum
+horizon artificialis intersecat
+æquinoctialem et i ntersecatur ab eodem
+ad angulos impares et obliquos.
+Quæ sit forma mundi.
+Universalis autem m undi machina in
+duo d ividitur: i n ætheream scilicet: et
+elementarem regionem. Elementaris
+quidem alterationi continuæ pervia
+existens in quattuor dividitur. Est enim
+terra tamquam mundi centrum in medio
+omnium sita: circa quam acqua: circa
+aquam aer: circa aerem ignis illic purus
+et non turbidus orbem Lunæ attingens.
+Ut ait Aristoteles in libro Metheororum.
+Sic enim ea disposuit Deus gloriosus et
+sublimis. Et hæc quattuor elementa
+dicuntur quæ vicissim a semetipsis
+alterantur corrumpuntur et generantur.
+Sunt autem elementa c orpora simplicia:
+quæ in partes diversarum formarum
+minime dividi possunt: Ex qu orum
+commixtione diversæ generatiorum
+species fiunt. Quorum trium quodlibet
+terram orbiculariter
+De sphæra obliqua
+Elementaris regio in
+quot dividatur
+Elementa quid sint.
+e é interceptada por ela em ângulos retos
+esféricos. Diz-se que têm esfera oblíqua
+todos aqueles que habitam deste lado da
+equinocial ou além dela. Para e les
+realmente um pólo sempre se eleva sobre
+o ho rizonte: o o utro sempre se abaixa.
+Ou po rque seu ho rizonte a rtificial
+intercepta a equinocial e é interceptado
+por ela em ângulos diferentes e oblíquos.
+Qual é a forma do mundo.
+A máquina do mundo un iversal é
+dividida em duas, a saber: regiões etérea
+e elementar. A elementar, onde ocorrem
+alterações contínuas, é dividida em
+quatro. Realmente a  terra e stá colocada
+no meio de tudo, como se fosse o centro
+do mundo; em volta dela a  água; em
+volta da água, ar; em volta do ar, fogo, o
+qual é puro e não túrbido, e que atinge o
+orbe da Lua, como d iz Aristóteles no
+livro sobre os M eteoros. Assim
+realmente o dispôs Deus, glorioso e
+sublime. E esses são chamados de quatro
+elementos porque mutuamente se
+alteram, corrompem e geram. Além
+disso o s elementos são corpos simples,
+que não pod em ser divididos em partes
+com formas diferentes. E por sua mistura
+são feitas diversas espécies de gerações.
+Três deles envolvem esfericamente a
+Terra por todos os lados
+Sobre a esfera
+oblíqua.
+Em que se divide a
+região elementar
+O que são os
+elementos.
+[Fol. 3r]
+undique circumdat: nisi quantum siccitas
+terræ humori aquæ obsistit ad vitam
+animantium tuendam. Omnia e tiam
+præter terram m obilia e xistunt: quæ ut
+centrum m undi ponderositate sui
+magnum extremorum m otum undique
+æqualiter fugiens rotundæ sphæræ
+medium possidet. 
+ Circa
+elementarem quidem regionem ætherea
+regio lucida a variatione omni sua
+immutabili essentia immunis existens:
+motu continuo circulariter incedit: et
+hæc a philosophis quinta nuncupatur
+essentia. Cuius novem sunt sphæræ sicut
+in p roximo p ertractatum est scilicet
+Lunæ: Mercurii: Veneris: Solis: Martis:
+Iovis: Saturni: stellarum fixarum: et cæli
+ultimi. Istarum autem quælibet
+inferiorem sphærice circumdat. Quarum
+quidem duo sunt motus. Unus est enim
+cæli ultimi super duas axis extremitates
+scilicet polum arcticum: et antarcticum
+ab o riente per occidentem in o rientem
+iterm rediens: quem æquinoctialis
+circulus per medium dividit. Est etiam
+alius inferiorum sphærarum m otus per
+obliquum huic oppositus super axes suos
+distantes a primis 23 gradibus: et 33
+minutis. Sed p rimus omnes alias
+sphæras s ecum impetu suo rapit infra
+diem et noctem circa terram semel:
+Æthereæ regionis
+divisio.
+Motus cæli ultimi
+Motus firmamenti et
+planetarum
+exceto quando a secura da terra se separa
+do líquido da água para proteger a vida
+dos animais. Todos eles s ão móveis
+exceto a terra, que e stá no centro do
+mundo p elo seu g rande peso, fugindo
+igualmente ao movimento para ambos os
+extremos, po ssuindo o  meio d a esfera
+redonda. 
+ Em torno d essa região
+elementar há a região etérea lúcida, com
+essência imutável permanece imune a
+toda variação, com um m ovimento
+circular contínuo; e ela é c hamada pelos
+filósofos de quinta e ssência. Da qual
+existem nove e sferas, como acabou se
+ser dito, a saber: da Lua, de Mercúrio, de
+Vênus, do Sol, de Marte, de Júpiter, de
+Saturno, das estrelas fixas, e último céu.
+Cada uma destas circunda esfericamente
+a que lhe é  inferior. E dois são os
+movimentos delas. Um é realmente o do
+último céu sobre as duas extremidades
+do eixo, a saber, pólo ártico e antártico,
+do o riente para o ocidente e  retornando
+para o oriente, e que é dividido ao meio
+pelo círculo equinocial. Existe ainda o
+outro movimento d as esferas inferiores,
+oblíquo e oposto a este, sobre seus eixos
+que distam do primeiro por 23 graus e 33
+minutos. Mas o primeiro arrasta pelo seu
+ímpeto todas as outras inferiores em
+torno da terra no dia e noite
+Divisão da região
+etérea.
+Movimento do
+último céu.
+Movimento do
+firmamento e dos
+planetas.
+[Fol. 3v]
+illis tamen contra nitentibus: ut octava
+sphæra in 1 00 annis gradu uno.  Hunc
+siquidem m otum secundum dividit per
+medium Zodiacus: sub qu o quilibet
+septem planetarum sphæram habet
+propriam in qu a defertur motu p roprio
+contra cæli ultimi motum: et in diversis
+spatiis temporum ipsum m etitur: ut
+Saturnus in 30 annis. Iupiter in 12. Mar
+in duo bus. Sol in 365 diebus et fere 6
+horis. Venus et Mercurius fere similiter.
+Luna vero in 27 diebus et 8 horis.
+De cæli revolutione
+Quod autem cælum evoluatur ab oriente
+in o ccidentem signum est. Stellæ quæ
+oriuntur in oriente semper elevantur
+paulatim et successive quousque in
+medium cæli veniant: et sunt semper in
+eadem propinquitate et remotione a d
+inuicem: et i ta semper se habentes
+tendunt i n o ccasum continue et
+uniformiter. 
+ Est et aliud signum.
+Stellæ quæ sunt i uxta polum arcticum:
+quæ nobis nunquam occidunt moventur
+continue e t uniformiter circa polum
+describendo circulos suos: et semper
+sunt i n æquali distantia ad inuicem et
+propinquitate. Unde per istos duos
+motus continuos stellarum tam
+tendentium ad occasum quam non: patet
+quod firmamentum m ovetur ab oriente
+in occidentem.
+Quod cælum
+moveatur ab oriente
+in occidentem:
+primum signum
+Aliud signum
+apesar de lutarem contra isso, como no
+caso da oitava e sfera um grau em 100
+anos. Esse segundo movimento é dividido
+ao meio pelo Zodíaco, sob o qual cada um
+dos sete planetas tem sua própria esfera na
+qual é transportado po r seu movimento
+próprio contra o movimento do ú ltimo
+céu.  E eles s ão medidos por diversos
+espaços de tempo, como Saturno em 30
+anos, Júpiter em 12, Marte e m dois, Sol
+em 365 d ias e quase 6 h oras, Vênus e
+Mercúrio quase iguais, e a Lua realmente
+em 27 dias e 8 horas.
+Sobre a revolução dos céus
+Além disso, que o céu gira do oriente para
+o o cidente é  indicado: as estrelas que
+surgem no o riente sempre sobem
+gradualmente e  sucessivamente a té que
+chegam ao meio do céu, e estão sempre na
+mesma proximidade ou distância das
+outras, e sempre assim se mantendo
+tendem continua e uniformemente para o
+ocaso. 
+ E há outro indício. As estrelas
+que e stão p róximas ao p ólo ártico, qu e
+para nós nunca se põem, movem-se
+continua e  u niformemente e m torno do
+pólo, descrevendo seus círculos, e e stão
+sempre a iguais distâncias e proximidades
+umas das outras. Portanto p or esses dois
+movimentos contínuos das estrelas, tanto
+das que tendem ao o caso qu anto das que
+não, fica claro que o firmamento se move
+do oriente para o ocidente.
+Que o céu se
+move do oriente
+para o ocidente:
+primeiro indício
+Outro indício.
+[Fol. 4r]
+De cæli rotunditate
+Quod autem sit cælum rotundum triplex
+est ratio: similitudo: commoditas: et
+necessitas. Similitudo enim: quoniam
+mundus s ensibilis factus est ad
+similitudinem m undi archetypi: i n quo
+non est principium neque finis. Unde ad
+huius s imilitudinem m undus s ensibilis
+habet formam rotundam: in qua non est
+assignare principium neque finem.
+Commoditas: quia omnium corporum
+isoperimetrorum sphæra maximum est:
+omnium etiam formarum rotunda est
+capacissima: quoniam igitur maximum
+et rotundum ideo capacissimum: unde
+cum mundus omnia contineat talis forma
+fuit illi utilis et commoda. Necessitas:
+quoniam si mundus esset alterius formæ
+quam rotundæ scilicet t rilateræ vel
+quadrilateræ vel multilateræ sequerentur
+duo imposibilia scilicet quod aliquis
+locus esset vacuus: et corpus sine loco:
+quorum utrumque falsum est: sicut patet
+in angulis elevatis et circunvolutis.
+Item sicut dicit Alfraganus. Si
+cælum esset planum aliqua pars cæli
+esset nobis propinquior alia. Illa scilicet
+quæ esset supra ca put nostrum: i gitur
+stella ibi existens esset nobis
+propinquior quam existens in ortu v el
+occasu: sed quæ nobis propinquiora sunt
+Cælum esse
+rotundum probatur
+tripici ratione.
+Alfraganus
+Sobre a redondeza do céu
+Há três razões pelas quais o céu é
+redondo: semelhança, comodidade e
+necessidade. Semelhança, po rque o
+mundo sensível é feito à semelhança do
+mundo arquetípico, no qu al não existe
+princípio nem fim. Portanto, para ser-lhe
+semelhante, o mundo sensível tem forma
+redonda, n a qual não se pode assinalar
+princípio nem fim. Comodidade, porque
+de todos os corpos isoperimétricos a
+esfera é  a maior; de todas as formas, a
+redonda é  a de maior capacidade,
+portanto, como o mundo contém tudo,
+tal forma lhe é útil e c ômoda.
+Necessidade: porque se o mundo tivesse
+outra forma diferente da redonda, a
+saber, trilátera ou quadrilátera ou
+multilátera, seguir-se-iam dois
+impossíveis, a saber, que em algum lugar
+haveria o vácuo, e que haveria c orpo
+sem lugar – o qu ais são ambos falsos –
+como aparece e m ângulos elevados e
+girados. 
+ Além disso, como d isse
+Alfragano, se o céu fosse plano alguma
+parte do céu estaria mais próxima de nós
+do qu e outras, a saber, aquela que
+estivesse sobre nossa cabeça; portanto a
+estrela que e stivesse aí estaria mais
+próxima de nós do que a  qu e estivesse
+nascendo ou se pondo; mas as que estão
+mais próximas de nós
+Que o céu é
+redondo é provado
+por uma razão
+tripla.
+Alfragano.
+[Fol. 4v]
+maiora videntur. Ergo Sol existens in
+medio cæli maior videri deberet quam
+existens in ortu vel i n o ccasu: cuius
+contrarium videmus contingere: maior
+enim apparet Sol vel alia stella existens
+in o riente vel occidente quam in medio
+cæli. Sed cum rei veritas ita non sit:
+huius apparentiæ causa e st: quod in
+tempore hyemali vel pluviali quidam
+vapores  ascendunt i nter aspectum
+nostrum et Solem vel aliam stellam: et
+cum illi vapores s int corpus
+diaphanorum disgregant radios nostros
+visuales ita quod non  comprehendunt
+rem in sua naturali et vera quantitate:
+sicut patet de denario p roiecto in fundo
+aquæ limpidæ: qui propter similem
+disgregationem radiorum apparet
+maioris quam suæ veræ quantitatis.
+Quod terra sit rotunda
+Quod etiam terra sit rotunda sic patet.
+Signa et stellæ non æqualiter oriuntur et
+occidunt omnibus hominibus ubique
+existentibus: sed prius oriuntur et
+occidunt i llis qui sunt vel versus
+orientem: et quod citius et t ardius
+oriuntur et occidunt quibusdam: causa
+est tumor terræ: quod bene patet per ea
+quæ fiunt in sublimi. Una enim et eadem
+eclipsis Lunæ numero quæ apparet nobis
+in p rima hora noctis: apparet
+orientalibus circa
+Adverte
+Terræ rotunditas
+probatur multis
+modis.
+parecem ser maiores. Assim, o Sol que
+está no meio do céu d everia ser visto
+maior do que quando está nascendo ou se
+pondo; e vemos acontecer o contrário
+disso; realmente, o Sol ou ou tra estrela
+parece maior quando está no oriente ou no
+ocidente, do que no meio do céu. Mas isso
+não é uma coisa verdadeira. A causa dessa
+aparência é que no tempo de inverno ou de
+chuvas certos vapores s obem entre nossa
+posição e o Sol ou o utra e strela: e c omo
+esses vapores s ão corpos diáfanos,
+desagregam os nossos raios visuais, e por
+isso n ão captamos as coisas em sua
+quantidade natural e verdadeira; como
+aparece com o dinheiro lançado no fundo
+da á gua límpida, qu e por causa de uma
+desagregação semelhante dos raios,
+aparece maior do q ue sua verdadeira
+quantidade.
+Que a terra seja redonda
+Que a terra também é redonda a parece
+assim. Os signos e as estrelas não surgem
+e se põem igualmente para todos os
+homens que e stão em todos os lugares;
+mas primeiramente surgem e se põem para
+aqueles que estão para o oriente, e surgem
+e se põem m ais tarde para os outros. A
+causa é a tumefação da terra, o que é bem
+aparente para a queles que e stão acima.
+Pois um m esmo eclipse da Lua que nos
+aparece na primeira hora da noite, aparece
+para os orientais perto
+Adverte.
+A redondeza da
+Terra é provada
+de muitos modos.
+[Fol. 5r]
+horam noctis tertiam. Unde constat quod
+prius fuit i llis nox: et Sol prius eis
+occidit quam nobis. Cuius rei causa est
+tantum tumor terræ. 
+ Quod terra
+etiam habeat t umorositatem a
+septentrione in austrum: et contra sic
+patet. Existentibus versus septentrionem
+quædam stellæ sunt sempiternæ
+apparitionis s cilicet quæ propinquæ
+accedunt ad p olum arcticum. Aliæ vero
+sunt sempiternæ occultationis s icut i llæ
+quæ sunt propinquæ polo antarctico. Si
+igitur aliquis procederet a septentrione
+versus austrum: i n tantum posset
+procedere quod stellæ quæ prius erant ei
+sempiternæ apparitionis: ei iam
+tenderent i n o ccasum: et quanto magis
+accederet ad austrum: t anto p lus
+moverentur in occasum. Ille iterum idem
+homo po sset videre stellas quæ prius
+fuerant ei sempiternæ occultationis. Et e
+converso contingeret alicui procedenti
+ab austro versus s eptentrionem. Huius
+autem rei causa est tumor terræ. 
+ Item
+si terra esset plana ab oriente in
+occidentem: t am cito orirentur stellæ
+occicentalibus quam orientalibus: quod
+patet esse falsum. 
+ Item si terra esset
+plana a septentrione in austrum et
+econtra stellæ quæ essent alicui
+sempiternæ apparitionis: semper
+apparerent ei quocunque procederet:
+quod
+Alia probatio
+rotunditatis terræ
+Item alia probatio
+eiusdem.
+Alia probatio ad
+idem.
+da terceira hora da noite, o  qu e mostra
+que a noite ocorreu primeiro para eles, e
+o Sol se pôs primeiro p ara e les do que
+para nós. A causa disso é a tumefação da
+terra. 
+ Que a  terra tem também uma
+tumefação do  n orte para o sul e vice-
+versa é mostrado assim. Para aqueles que
+vivem para o no rte, certas estrelas s ão
+sempre a parentes, a saber, as que estão
+mais próximas do pólo ártico. Outras
+estão sempre ocultas, como aquelas que
+estão mais próximas do p ólo antártico.
+Se, então, alguém caminhar do n orte
+para o sul, po de se a fastar tanto q ue
+aquelas estrelas que antes lhe eram
+sempre aparentes tendam para o ocaso. E
+quanto mais se aproximar do sul, mais se
+moverão p ara o o caso. I também lhe
+ocorrerá que o ho mem poderá ver
+estrelas que a ntes lhe e stavam sempre
+ocultas. E inversamente aconteceria se
+alguém procedesse do sul para o norte. E
+a ca usa disso é a  tumefação d a terra.
+Além disso, se a terra fosse plana do
+oriente para o ocidente, as estrelas
+surgiriam tão cedo p ara os orientais
+quanto para os ocidentais, o que é falso.
+Além disso, se a terra fosse plana do
+norte para o sul e vice-versa, as estrelas
+que fossem para alguém sempre visíveis
+seriam aparentes para ele, para onde quer
+que fosse; o que
+Outra prova da
+redondeza da terra.
+Ainda outra prova
+do mesmo.
+Outra prova do
+mesmo.
+[Fol. 5v]
+falsum est. Sed quod plana sit præ nimia
+eius quantitate hominum visui apparet.
+Quod acqua sit rotunda
+Quod autem aqua habeat t umorem et
+accedat ad rotunditatem sic patet.
+Ponatur signum in littore maris: et exeat
+navis a portu: et i n tantum elongetur
+quod oculus existentis iuxta pedem mali
+non po ssit videret signum. Stante vero
+navi oculus eiusdem existentis in
+summitate mali bene videbit signum
+illud. Sed oculus existentis iuxta pedem
+mali melius deberet videre signum quam
+qui est i n summitate: sicut patet per
+lineas ductas ab u troque a d signum: et
+nulla alia huius rei causa est quam tumor
+aquæ. Excludantur enim omnia a lia
+impedimenta: sicut nebulæ et vapores
+ascendentes. 
+ Item cum acqua sit
+corpus homogeneum totum cum partibus
+eiusdem erit rationis: sed p artes aquæ
+sicut in guttulis et roribus herbarum
+accidit: rotundam naturaliter appetunt
+formam: ergo et totum cuius sunt partes.
+Quod terra sit centrum mundi
+Quod autem terra sit i n medio
+firmamenti sita. sic patet. Existentibus in
+superficie terræ stellæ apparent eiusdem
+quantitatis: sive sint in medio cæli: sive
+Aquam esse
+rotundam probat
+primo sic
+Alio probatio.
+Terram esse
+centrum mundi
+probatur
+multipliciter.
+é falso. Mas parece plana a o olhar dos
+homens por causa de sua grande quantidade.
+Que a água é redonda
+Que a água também tem uma tumefação e se
+aproxima da forma redonda a parece a ssim.
+Seja colocado um sinal no litoral do mar, e
+que um navio saia do p orto; e que e le se
+afaste tanto que o olho que está junto ao pé
+do mastro não possa ver o sinal. No entanto,
+parando o navio, o mesmo o lho estando no
+topo do mastro veria bem aquele sinal, mas
+o o lho qu e está junto ao p é do mastro
+deveria ser o sinal melhor do que aquele que
+está no topo; como é a parente pela linha
+conduzida de ambos ao sinal. E a causa não
+é nenhuma outra senão a tumefação da água.
+Pois realmente podem ser excluídos todos os
+outros impedimentos, como as nuvens e os
+vapores ascendentes. 
+ Além disso, como
+a água é um corpo homogêneo, o todo segue
+a mesma razão que as partes; mas as partes
+da á gua naturalmente desejam a forma
+redonda, como acontece e m gotinhas e no
+orvalho das ervas. Portanto igualmente o
+todo do qual são partes.
+Que a terra é o centro do mundo
+Além disso, que a terra está situada no meio
+do firmamento é mostrado assim. Para os
+que vivem na superfície da terra a s estrelas
+lhes parecem da mesma quantidade, tanto no
+meio do céu, quanto
+Ser a água
+redonda prova
+primeiramente
+assim.
+Outra prova.
+É provado de
+muitas formas
+que a terra é o
+centro do mundo
+[Fol. 6r]
+iuxta ortum: sive iuxta occasum. Et hoc
+quia terra æqualiter distat ab eis. Si enim
+terra magis accederet ad firmamentum in
+una parte quam in alia: aliquis existens
+in illa parte superficiei terræ quæ magis
+accederet ad firmamentum non videret
+cæli medietatem: sed hoc e st contra
+Ptolomæum et omnes philosophos
+dicentes quod ub icumque e xistat homo
+sex signa oriuntur ei et sex occidunt: et
+medietas cæli semper apparet ei: medie-
+tas vero o ccultatur. 
+ Illud item est
+signum quod terra sit tamquam centrum
+et punctus respectu firmamenti: quia si
+terra esset alicuius quantitatis respectu
+firmamenti non contingeret medietatem
+cæli videri. 
+ Item si i ntelligatur
+superficies plana super centrum terræ
+dividens eam in duo æqualia: et per
+consequens ipsum firmamentum. Oculus
+igitur existens in centro terræ videret
+medietatem firmamenti: i dem quæ
+existens in superficie terræ videret
+eandem m edietatem. Ex h is colligitur
+quod insensibilis est quantitas terræ quæ
+est a superficie a d centrum: et per
+consequens quantitas totius terræ
+insensibilis est respectu firmamenti.
+Dicit etiam Alfraganus quod minima
+stellarum fixarum visu notabilium maior
+est t ota terra: sed ipsa stella respectu
+firmamenti est quasi punctus:
+Alia ratio
+Alia ratio.
+Corelatium
+Alfraganus
+perto do nascente, quanto perto do poente. E
+isso porque a terra está igualmente distante
+deles. Portanto, se a  terra se a proximasse
+mais do firmamento em uma parte do qu e
+em outra, aquele que estivesse naquela parte
+da superfície da terra que se a proximasse
+mais do firmamento n ão veria a  metade do
+céu; mas isso é contra Ptolomeu e todos os
+filósofos que dizem que seja onde for que
+esteja um homem, seis signos nascem e seis
+se põem para e le, e aparece-lhe sempre a
+metade do céu, e metade realmente se
+oculta. 
+ Isso também é um sinal de que a
+terra é como u m centro e um ponto com
+relação ao firmamento; pois se a terra tivesse
+alguma quantidade e m relação ao
+firmamento, n ão aconteceria que a metade
+do céu fosse vista. 
+ Também se
+pensarmos em uma superfície plana sobre o
+centro da terra dividindo-a em duas iguais; e
+consequentemente o próprio firmamento;
+aquele olho que estivesse no centro da terra
+veria a metade do firmamento, assim como o
+que e stivesse na superfície da terra veria a
+mesma metade. Daí se c onclui que a
+quantidade da terra que e stá e ntre a
+superfície e o centro é insensível, e
+consequentemente toda a quantidade da terra
+é insensível com relação ao firmamento.
+Disse realmente Alfragano qu e a  menor
+estrela fixa visível é maior do q ue toda a
+terra; mas essa mesma e strela é quase um
+ponto com relação ao firmamento;
+Outra razão.
+Outra razão.
+Correlação.
+Alfragano.
+[Fol. 6v]
+multo igitur fortius terra: cum sit minor
+ea.
+De immobilitate terræ
+Quod autem terra in medio o mnium
+immobiliter teneatur: cum sit summe
+gravis: sic persuaderi videtur esse eius
+gravitas. Omne e nim grave tendit
+naturaliter ad centrum. Centrum quidem
+punctus est i n medio firmamenti: t erra
+igitur cum sit summe gravis: ad punctum
+illum naturaliter tendit. Item quicquid a
+medio movetur versus circumferentiam
+cæli ascendit: terra a  medio movetur.
+Ergo ascendit. Quod pro impossibili
+relinquitur.
+De quantitate absoluta terræ
+Totius autem terræ ambitus auctoritate
+Ambrosii Theodosii Macrobii et
+Euristenis philosophorum 252000 stadia
+continere diffinitur. Unicuique quidem
+360 p artium zodiaci 700 d eputando
+stadia. Sumpto enim astrolabio in
+stellatæ noctis claritate per utrunque
+mediclinii foramen po lo perspecto
+notetur graduum m ultitudo in q ua
+steterit mediclinium: deinde procedat
+cosmimetra directe contra septentrionem
+a meridie donec in alterius noctis
+claritate viso ut prius polo steterit altius
+uno gradu mediclinium. Post hoc
+mensus s it huius itineris s patium: et
+invenietur 700 stadiorum. Deinde datis
+Terra est imobilis
+Terræ quantitas
+muito mais ainda a  terra, pois é menor do
+que ela.
+Sobre a imobilidade da terra
+Que além disso a terra se mantém imóvel no
+meio d e tudo, embora seja extremamente
+pesada, assim se pode persuadir sendo visto
+o que é sua gravidade. Realmente todo grave
+tende naturalmente para o centro, centro esse
+que é um ponto no meio do firmamento.
+Portanto a terra, sendo extremamente
+pesada, tende naturalmente para esse ponto.
+Além disso, qualquer coisa que se mova do
+meio para a circunferência do céu sobe. Se a
+terra se movesse do centro, ela portanto
+subiria, o q ue se a bandona por ser
+impossível.
+Sobre a quantidade absoluta da terra
+O circuito total da terra, segundo a
+autoridade dos filósofos Ambrósio,
+Teodósio, Macróbio e Eratóstenes é definido
+como contendo 252.0 00 estádios. Isso
+corresponde a atribuir 700 estádios para cada
+uma das 360 partes do zodíaco. Tome-se um
+astrolábio em uma noite clara e strelada e
+olhando o p ólo p or ambos os furos do
+mediclinium, seja anotado o  nú mero d e
+graus em que está o mediclinium. Então que
+o medidor do cosmo caminhe diretamente
+do sul para o n orte até que e m outra noite
+clara, olhando como antes, o pólo esteja um
+grau mais alto no mediclinium. Depois disso,
+seja medido o espaço de seu itinerário; e se
+encontrarão 700 estádios. Então, dando
+A terra é imóvel.
+Quantidade da
+terra.
+[Fol. 7r]
+unicuique 360 graduum tot stadiis
+terreni orbis ambitus inventus erit. Ex
+his autem iuxta circuli et diametri
+regulam: t erræ diameter sic inveniri
+poterit. Aufer vigesimam secundam
+partem de c ircuitu terræ: et remanentis
+tertia pars hoc est 80181 stadia et semis
+et tertia unius stadii erit terreni orbis
+diameter sive spissitudo.
+Capitulum secundum de c irculis ex
+quibus s phæra c omponitur: et illa
+supercælestis quæ per istam imaginatur
+componi intelligitur.
+o mesmo número de estádios para cada um
+dos 360 graus, é determinado o âmbito do
+orbe terrestre. Além disso, pela regra do
+círculo e do d iâmetro pod e-se a ssim
+determinar o diâmetro da terra. Tire a
+vigésima segunda parte do circuito da
+terra, e a terça parte do remanescente que é
+80.181 estádios e meio e um terço de um
+estádio, é o diâmetro ou espessura do orbe
+terrestre.
+ Capítulo segundo. Sobre os círculos
+de que é composta a esfera, e sobre aqueles
+supracelestes pelos quais s e c ompreende
+ser composta esta sua imagem.
+Orum autem circulorum qui-
+dam sunt maiores: quidam
+minores: ut sensui patet.
+esses círculos alguns s ão
+maiores, o utros s ão menores,
+como os sentidos mostram. Pois
+Maior enim circulus in sphæra dicitur
+qui descriptus in superficie sphæræ
+super eius centrum: dividit sphæram in
+duo æqualia. Minor vero qu i descriptus
+in superficie sphæræ eam non dividit in
+duo æqualia sed in portiones inæquales.
+Inter circulos vero maiores: primo
+dicendum est de æquinoctiali. Est igitur
+æquinoctialis circulus quidam dividens
+sphæram in duo æqualia secundum
+quamlibet sui partem æquidistans ab
+utroque polo. Et dicitur æquinoctialis
+quoniam quando Sol t ransit per illum:
+quod est bis in anno in principio Arietis
+scilicet et in
+chama-se de círculo maior da esfera aquele
+que é descrito n a superfície da e sfera e m
+torno do seu centro e que divide a e sfera
+em duas iguais. Menor, realmente, aquele
+que é descrito na superfície da esfera e que
+não a divide e m duas iguais, mas em
+porções desiguais. Dentre os círculos
+maiores, primeiro d evemos falar sobre o
+equinocial. Equinocial é e sse círculo qu e
+divide a  esfera e m duas iguais e que e m
+todas as suas partes tem a mesma distância
+de a mbos os pólos. E é c hamado d e
+equinocial porque quando o Sol passa por
+ele – o  qu e ocorre duas vezes no ano, a
+saber, no princípio de Áries e no
+[Fol. 7v]
+principio Libræ est æquinoctium in
+universa terra. Unde e tiam appellatur
+æquator diei et noctis: quia adæquat
+diem artificialem nocti. Et dicitur
+cingulus primi motus. Unde sciendum
+quod p rimus motus dicitur motus primi
+mobilis: hoc est nonæ sphæræ sive cæli
+ultimi: qui est ab oriente per occidentem
+rediens iterum in orientem qui etiam
+dicitur motus rationalis: ad
+similitudinem motus rationis  qui est i n
+microcosmo. Id est in ho mine scilicet
+quando fit consideratio a c reatore per
+creaturas in creatorem ibi sistendo.
+Secundus motus firmamenti et
+planetarum contrarius huic ab occidente
+per orientem iterum rediens in
+occidentem. Qui motus dicitur
+irrationalis sive sensualis: ad similitu-
+dinem m otus microcosmi. Qui est a
+corruptibilibus ad creatorem iterum
+rediens ad corruptibilia. Dicitur ergo
+cingulus primi motus: quia c ingit sive
+dividit primum mobile scilicet sphæram
+nonam in duo æqualia æquidistans a
+polis mundi. Unde notandum quod polus
+mundi qui nobis semper apparet: dicitur
+polus s eptentrionalis: arcticus: vel
+borealis. Septentrionalis dicitur a septen-
+trione: hoc est a minori Ursa: qui dicitur
+a septem et trion: quod est bos: quia
+Primus motus primi
+mobilis.
+Secundum motus
+firmamenti et
+planetarum.
+Cingulus primi
+motus.
+Polus arcticus.
+princípio de Libra – é e quinócio em toda a
+terra. E por isso é chamado d e e quador do
+dia e da noite, pois iguala o dia artificial e a
+noite. E é chamado de cinturão do primeiro
+movimento. Deve-se saber que se chama de
+primeiro movimento o  movimento do
+primeiro móvel, qu e é a nona e sfera ou
+último céu, qu e é  trazido do o riente para
+ocidente e de volta para o o riente, que
+também é chamado de movimento racional,
+pela semelhança com o movimento da razão
+que está no microcosmo, ou seja, no homem,
+quando seu pensamento vai para o criador,
+pelas criaturas até o criador, e aí para. O
+segundo movimento do firmamento e dos
+planetas é contrário a esse, do ocidente para
+o o riente e voltando p ara o ocidente. Esse
+movimento é c hamado d e irracional ou
+sensual, por semelhança c om o movimento
+do microcosmo, qu e vai das coisas
+corruptíveis ao criador e de novo retorna aos
+corruptíveis. Ele é  chamado p ortanto
+cinturão do primeiro movimento, pois cinge
+ou divide o primeiro móvel – ou seja, a nona
+esfera – em dois iguais, e é eqüidistante dos
+pólos do mundo. Deve-se notar que o p ólo
+do mundo qu e é sempre visível para nós é
+chamado d e pólo setentrional, ártico ou
+boreal. Diz-se setentrional de septentrione,
+ou seja, da Ursa Menor, que é denominada a
+partir de septem e trion, que é boi; pois
+Primeiro
+movimento do
+primeiro móvel.
+Segundo
+movimento do
+firmamento e dos
+planetas
+Cinturão do
+primeiro
+movimento.
+Pólo ártico.
+[Fol. 8r]
+septem stellæ quæ sunt i n Ursa tarde
+moventur ad modum bovis: cum sint
+propinquæ polo. Vel dicuntur illæ
+septem stellæ septentriones: quasi
+septem teriones eo qu od terunt partes
+circa polum. Arcticus quidem dicitur ab
+arctos quod est maior Ursa. Est enim
+iuxta maiorem Ursam. Borealis vero
+dicitur quia est i n illa parte a qua venit
+boreas. Polus vero oppo situs dicitur
+antarcticus: quasi contra arcticum
+positus. Dicitur et meridionalis quia e x
+parte meridiei est: dicitur etiam australis:
+quia est in illa parte a qua venit auster.
+Ista igitur duo pu ncta in firmamento
+stabilia: dicuntur poli mundi: quia
+sphæræ axem terminant: et ad illos
+volvitur mundus: quorum unus semper
+nobis apparet: reliquus vero semper
+occultatur. Unde Virgilius in primo
+Georgicorum. Hic vertex n obis semper
+sublimis: at illum Sub pedibus Styx atra
+vident manesque profundi.
+De zodiaco circulo
+Est alius circulus in sphæra qui
+intersecat æquinoctialem: et intersecatur
+ab eodem in duas partes æquales: et una
+eius medietas declinat versus
+septentrionem: alia versus austrum: et
+dicitur iste circulus zodiacus a zoe quod
+est vita: quia secundum m otum
+planetarum sub illo est omnis vita in
+Polus antarcticus
+Virgilius
+Zodiacus circulus
+as s ete e strelas que estão n a Ursa se movem
+lentamente c omo o s bois, p orque e stão
+próximas do pólo. Ou essas s ete e strelas são
+chamadas de setentrionais, como septe
+teriones, p orque ca minham [terunt] nas
+regiões perto do pólo. É chamado de ártico a
+partir de arctos, que é a Ursa Maior, pois ele
+está perto da Ursa Maior. É chamado
+realmente de boreal porque está na direção de
+onde vem [o vento] boreas. O pólo oposto é
+chamado d e a ntártico, por estar colocado
+quase c ontra o ártico. E é c hamado d e
+meridional, p orque está na direção do  sul
+[meridie]. Também é chamado austral, porque
+está na direção de onde vem o [vento] auster.
+Esses dois pontos no firmamento são ambos
+imóveis; são chamados de pólos do mundo,
+porque terminam o eixo d a esfera. O mundo
+gira sobre eles. Um deles sempre nos é
+visível, o o utro realmente sempre é ocultado.
+Por isso Virgílio, no  p rimeiro [livro] das
+Geórgicas: “Seu v értice sempre a cima para
+nós; mas aquele / sob os pés do negro Styx é
+visto pelos manes das profundezas.”
+Sobre o círculo do zodíaco
+Existe outro círculo na esfera que intercepta a
+equinocial e é  interceptado p or ela e m duas
+partes iguais; e uma dessas duas metades se
+inclina para o norte, a outra para o sul; e ele é
+chamado de círculo do zodíaco a partir de zoe,
+que é  vida; pois segundo o movimento do s
+planetas sob ele ocorre toda a vida nas
+Pólo antártico.
+Virgílio.
+Círculo do
+zodíaco.
+[Fol. 8v]
+rebus inferioribus. Vel dicitur a zodion
+quod est animal: quia c um dividatur in
+12 p artes æquales quælibet pars
+appellatur signum: et nomen h abet
+speciale a nomine a licuius animalis
+propter proprietatem aliquam
+convenientem tam ipsi quam animali:
+vel propter dispositinem stellarum
+fixarum in illis partibus ad modum
+huiusmodi animalium. Iste vero circulus
+latine dicitur signifer: quia fert signa: vel
+quia dividitur in ea. Ab Aristotele vero
+in libro d e generatione et corruptione
+dicitur circulus obliquus: ubi dicit quod
+secundum accessum et recessum Solis in
+circulo obliquo fiunt generationes et
+corruptiones in rebus inferioribus.
+Nomina a utem signorum ordinatio et
+numerus in his patent versibus. Sunt
+Aries Taurus Gemini Cancer Leo Virgo.
+Libraque Scorpius Architenens Caper
+Amphora Pisces. Quodlibet autem
+signum dividitur in 30 gradus. Unde
+patet quod in toto zodiaco sunt 360
+gradus. Secundum autem astronomos
+iterum quilibet gradus dividitur in 60
+minuta: quodlibet minutum in 60
+secunda: quodlibet secundum in 60
+tertia. Et sic deinceps usque a d 10.  Et
+sicut dividitur zodiacus ab astronomo.
+Ita e t quilibet circulus in sphæra sive
+maior sive minor in partes
+Aristoteles.
+Nomina ordo et
+numerus signorum
+Signorum in gradus
+et graduum in
+minuta divisio.
+coisas inferiores. Ou é derivado de zodion,
+que significa animal: porque é dividido em
+12 p artes iguais, cada uma das quais é
+chamada de signo; e tem seu no me
+particular do nome de a lgum animal, po r
+causa de alguma propriedade que c onvém
+tanto a ele quanto ao animal; ou por causa
+da disposição d as estrelas fixas em suas
+partes como aquele tipo d e animal. Esse
+círculo é denominado signifer em latim
+porque transporta os s ignos, ou  p orque é
+dividido neles. Aristóteles no livro Sobre a
+geração e corrupção o  chama de círculo
+oblíquo, o nde diz que, conforme a
+aproximação e afastamento do Sol no
+círculo oblíquo, são produzidas as gerações
+e c orrupções nas coisas inferiores. Os
+nomes, o rdem e número são colocados
+nesses versos: “São Áries, Touro, Gêmeos,
+Câncer, Leão, Virgem, / Libra e Escorpião,
+Architenens, Cabra, Ânfora, Peixes.” Além
+disso, cada signo é dividido em 30 graus.
+Fica assim claro que no zodíaco inteiro há
+360 graus. Também, d e ac ordo com os
+astrônomos, qu alquer um dos graus é
+dividido em 60 minutos; qualquer minuto
+em 60 segundos, qualquer segundo em 60
+terços; e assim por diante até 10. E assim
+como o zodíaco é dividido pelo astrônomo,
+da mesma forma qualquer círculo da
+esfera, seja ele maior ou menor, [é
+dividido] em partes
+Aristóteles
+Nomes, ordem e
+número dos
+signos
+Divisão dos
+signos em graus,
+e dos graus em
+minutos.
+[Fol. 9r]
+consimiles. Cum omnis etiam circulus in
+sphæra præter zodiacum intelligatur
+sicut linea vel circumferentia: solus
+zodiacus intelligatur ut superficies
+habens in latitudine sua 12 gradus de
+cuiusmodi gradibus iam locuti sumus.
+Unde patet quod quidam m entiuntur in
+astrologia dicentes s igna esse quadrata:
+nisi abutentes nomine idem appellent
+quadratum et quadrangulum. Signum
+enim habet 30 gradus in longitudine 12
+vero in latitudine. Linea autem dividens
+zodiacum in circuitu ita quod ex una
+parte sui relinquat sex gradus: et ex alia
+parte alios s ex d icitur linea ecliptica:
+quoniam quando Sol et Luna sunt
+linealiter sub illa contingit eclipsis Solis
+aut Lunæ. Solis: ut si fiat novilunium et
+Luna interponatur recte inter aspectus
+nostros et corpus s olare. Lunæ: ut in
+plenilunio quando Sol Lunæ opponitur
+diametrialiter. Unde eclipsis Lunæ nihil
+aliud est quam interpositio terræ inter
+corpus Solis et Lunæ. Sol quidem
+semper decurrit sub ecliptica omnes alii
+planetæ declinant vel versus
+septentrionem: vel versus austrum.
+Quandoque a utem sunt sub ecliptica.
+Pars vero zodiaci quæ declinat ab
+æquinoctiali versus s eptentrionem
+dicitur septentrionalis: vel borealis: vel
+arctica. Et illa
+Longitudo et
+latitudo signorum.
+Linea ecliptica
+Eclipsis solis.
+Eclipsis lunæ.
+semelhantes. Todos os círculos da esfera,
+exceto o  zodíaco, são compreendidos
+como uma linha ou circunferência: só o
+zodíaco é c ompreendido como uma
+superfície tendo 12 graus de largura, graus
+do tipo q ue a cabamos de mencionar.
+Portanto, é claro qu e a lguns mentem na
+astrologia quando dizem que os signos são
+quadrados: a menos que a busem da
+palavra c hamando qu adrado e
+quadrângulo do mesmo modo. Pois cada
+signo tem realmente 30 graus de
+comprimento e 12 de largura. Por outro
+lado, a linha que divide o zodíaco em seu
+circuito, de modo que de um lado deixa 6
+graus e do outro lado outros 6, é chamada
+de e clíptica: pois quando o Sol e a Lua
+estão alinhados sob ela, ocorre um eclipse
+do Sol ou da Lua. Do Sol, se ocorrer Lua
+nova e a Lua se interpuser diretamente
+entre nosso olhar e o corpo solar. Da Lua,
+se na Lua c heia, qu ando o Sol se opõe
+diametralmente à Lua. Portanto o  eclipse
+da Lua nada mais é do que a interposição
+da Terra entre o corpo do Sol e a Lua. O
+Sol sempre se move sob a e clíptica, mas
+todos os outros planetas se desviam para o
+norte ou sul. Algumas vezes, no  entanto,
+eles estão sob a e clíptica. A parte do
+zodíaco que se desvia da equinocial para o
+norte é chamada de norte, ou boreal, ou
+ártica. E aqueles
+Comprimento e
+largura dos
+signos.
+Linha eclíptica
+Eclipse do Sol.
+Eclipse da Lua.
+[Fol. 9v]
+sex signa quæ sunt a principio Arietis
+usque ad finem Virginis: dicuntur signa
+septentrionalia. Alia pars zodiaci quæ
+declinat ab æquinoctiali versus
+meridiem dicitur merionalis: vel
+australis: vel antarctica. Et sex signa
+quæ sunt a principio Libræ usque in fine
+Piscium dicuntur meridionalia vel
+australia. Cum autem dicitur quod in
+Ariete est Sol: vel i n alio signo:
+sciendum quod h aec præpositio in
+sumitur por sub. Secundum quod nun c
+accipimus s ignum. In alia a utem
+significatione dicitur signum pyramis
+quadrilatera: cuius basis est i lla
+superficies quam appellamus s ignum:
+vertex vero eius est in centro terræ. Et
+secundum hoc proprie loquendo
+possumus dicere planetas esse in signis.
+Tertio modo d icitur signum ut
+intelligantur sex circuli transeuntes
+super polos zodiaci: et per principia 12
+signorum. Illi sex circuli dividunt totam
+superficiem sphæræ in 12 partes latas in
+medio: arctiores vero iuxta polos
+zodiaci: et quælibet pars talis dicitur
+signum. Et nomen h abet speciale a
+nomine illius signi: quod intercipitur
+inter suas duas lineas. Et secundum hanc
+acceptionem stellæ quæ sunt iuxta polos
+dicuntur esse in signis. 
+ Item
+intelligatur corpus quoddam: cuius basis
+sit signum: secundum quod nunc ultimo
+accipimus signum: acumen vero
+Quæ dicuntur signa
+septentionalia.
+Quæ meridionalia
+In ponitur per sub.
+Esse in signo dicitur
+multis modis.
+seis signos que estão do início de Áries até o
+fim de Virgem são chamados signos
+setentrionais. A outra parte do zodíaco qu e
+se inclina da equinocial para o sul é chamada
+de meridional, ou austral, ou antártica. E os
+seis signos que estão do início de Libra até o
+fim de Peixes são chamados de meridionais
+ou austrais. Por outro lado, q uando se diz
+que o Sol está em Áries, ou em outro signo,
+deve-se saber que essa preposição em é
+tomada no lugar de abaixo, segundo o  qu e
+agora ac eitamos s er um signo. Em outro
+significado d iferente, é chamado d e signo
+uma pirâmide quadrilátera, cuja base é
+aquela superfície que c hamamos de signo;
+seu vértice e stá realmente no centro da
+Terra. E nesse sentido pod emos dizer
+propriamente que os planetas estão n os
+signos. Em um terceiro modo, são chamados
+de signos como p roduzido p or seis círculos
+que passam pelos pólos do zodíaco, e pelo
+início dos 12 signos. Esses s eis círculos
+dividem toda a  superfície da e sfera e m 12
+partes, largas no meio, porém mais estreitas
+perto do s pólos do zodíaco, e c ada uma
+dessas partes é chamada de signo. E tem um
+nome particular pelo nome daquele signo
+que é interceptado entre suas duas linhas. E
+segundo essa acepção, as estrelas que estão
+próximas dos pólos são ditas estarem nos
+signos. 
+ E pense em um corpo assim: cuja
+base é  u m signo n esse último sentido qu e
+aceitamos, mas cuja borda
+Quais são
+chamados signos
+setentrionais.
+Quais meridionais.
+Em colocado no
+lugar de abaixo.
+Estar no signo é
+dito de muitos
+modos.
+[Fol. 10r]
+eius s it super axem zodiaci. Tale igitur
+corpus in qu arta significatione dicitur
+signum: secundum quam acceptionem
+totus mundus dividitur in 12 partes
+æquales quæ dicuntur signa: et sic
+quicquid est in mundo est i n aliquo
+signo.
+De duobus coluris
+Sunt autem alii duo circuli maiores in
+sphæra: qui dicuntur coluri: quorum
+officium est distinguere solstitia e t
+æquinoctia. Dicitur autem colurus a
+colon Græcæ quod est membrum: et
+uros quod est bos silvester: quia
+quemadmodum cauda bovis s ilvestris
+erecta: quæ est eius membrum facit
+semicirculum: et non perfectum: i ta
+colurus s emper apparet nobis
+imperfectus quoniam solum una e ius
+medietas apparet: alias vero nob is
+occultatur. Colurus igitur distinguens
+solstitia transit per polos mundi: et per
+polos zodiaci: et maximas Solis
+declinationes. Hoc est per primos gradus
+Cancri et Capricorni. Unde primus
+punctus Cancri ubi colurus iste
+intersecat zodiacum dicitur punctus
+solstitii æstivalis: quia quando Sol est in
+eo est solstitium æstivale: et non p otest
+Sol magis accedere a d zenith capitis
+nostri. Est autem zenith pun ctus in
+firmamento d irecte suprapositus
+capitibus nostris. Arcus vero coluri qui
+intercipitur inter punctum
+Colurus unde.
+Zenith quid sit
+esteja no eixo do zodíaco. Tal corpo é
+chamado de signo em um quarto sentido,
+de acordo com cujo uso o mundo inteiro
+é dividido em doze partes iguais, que são
+chamadas de signos, e assim tudo o q ue
+está no mundo está em algum signo.
+Sobre os dois coluros
+Além disso h á outros dois círculos
+maiores na e sfera que são chamados
+coluros, cuja função é distinguir
+solstícios e e quinócios. Coluro é
+denominado do grego colon, q ue é
+membro, e uros, que é boi selvagem;
+porque, assim como a ca uda erguida de
+um boi selvagem, qu e é seu membro,
+descreve um semicírculo, e não u m
+círculo completo, d a mesma forma o
+coluro sempre parece a  nó s imperfeito
+porque só uma de suas metades aparece;
+a outra realmente é ocultada de nós.
+Aquele coluro que distingue os solstícios
+passa pelos pólos do mundo e pelos
+pólos do zodíaco; e pela maior
+declinação do Sol; ou seja, pelo primeiro
+grau de Câncer e Capricórnio. Assim, o
+primeiro pon to d e Câncer, on de e sse
+coluro intercepta o zodíaco, é c hamado
+de ponto do  solstício d e verão; porque,
+quando o Sol está nele, é solstício de
+verão; e o Sol não pode se a proximar
+mais de nosso zênite. O zênite é um
+ponto no firmamento diretamente acima
+de nossas cabeças. O arco do coluro que
+é interceptado entre o ponto
+O que é coluro.
+O que é zênite.
+[Fol. 10v]
+solstitii æstivalis: et æquinoctialem
+appellatur maxima Solis declinatio. Et
+est secundum Ptolomæum 23 graduum:
+et 51 minutorum. Secundum Almeonem
+vero 23  graduum et 33 minutorum.
+Similiter primus punctus Capricorni: ubi
+idem colurus ex alia parte intersecat
+zodiacum dicitur punctus s olstitii
+hyemalis: et arcus coluri i nterceptus
+inter punctum illum et æquinoctialem
+dicitur alia maxima Solis declinatio. Et
+est æqualis priori. Alter quidem colurus
+transit per polos mundi: et per prima
+puncta Arietis et Libræ: ubi sunt duo
+æquinoctia: unde a ppellatur colurus
+distinguens æquinoctia. Isti autem duo
+coluri i ntersecant sese super polos
+mundi ad angulos rectos s phærales.
+Signa quidem solstitiorum et
+æquinoctiorum patent his versibus. Hæc
+duo solstitia faciunt Cancer Capricornus.
+Sed noctes æquant Aries et Libra diebus.
+De meridiano et horizonte
+Sunt iterum duo alii circuli in maiores
+sphæra scilicet meridianus: et horizon.
+Est autem m eridianus circulus quidam
+transiens per polos mundi: et per zenith
+capitis nostri. Et dicitur meridianus: quia
+ubicumque sit homo: et in quo cumque
+tempore a nni quando Sol motu
+firmamenti pervenit ad suum
+Maxima solis
+declinatio.
+Ptolomæus.
+Almeon
+Signa solsticiorum
+et æquinoctiorum.
+Meridianus circulus.
+do solstício d e verão e a  equinocial é
+chamado de declinação máxima do Sol. E,
+segundo Ptolomeu, é de 23 graus e 51
+minutos. De acordo com Almeon, 23 graus
+e 33 minutos. De modo semelhante, o
+primeiro pon to do Capricórnio, ond e o
+mesmo coluro intercepta o zodíaco n o
+outro lado, é c hamado po nto do solstício
+do inverno; e o arco do coluro interceptado
+entre esse ponto e a equinocial é chamado
+de declinação máxima do Sol. E é igual ao
+anterior. Aquele outro coluro p assa pelos
+pólos do mundo e pelos primeiros pontos
+de Áries e Libra, o nde estão os dois
+equinócios; por isso é chamado d e c oluro
+que identifica os equinócios. Além disso
+esses dois coluros se interceptam sobre os
+pólos do mundo em ângulos retos
+esféricos. Os s ignos dos solstícios e
+equinócios são apresentados nestes versos:
+“Estes dois, Câncer e Capricórnio, fazem
+os solstícios, / Mas Áries e Libra igualam
+as noites aos dias.”
+Sobre o meridiano e o horizonte
+Existem ainda dois outros círculos maiores
+na e sfera, a saber, o meridiano e o
+horizonte. O meridiano é o círculo qu e
+passa pelos pólos do mundo e pelo zênite
+de nossas cabeças. E é c hamado d e
+meridiano po rque, seja onde for que um
+homem esteja e em qualquer tempo do ano,
+quando o Sol pelo movimento do
+firmamento atinge seu
+Declinação
+máxima do Sol.
+Ptolomeu.
+Almeon.
+Signos dos
+solstícios e
+equinócios.
+Círculo meridiano
+[Fol. 11r]
+meridianum est i lli meridies. Consimili
+ratione dicitur circulus mediæ diei. Et
+notandum quod civitates quarum una
+magis accedit ad orientem quam alia
+habent diversos meridianos. Arcus vero
+æquinoctialis interceptus inter duos
+meridianos dicitur longitudo civitatum.
+Si autem duæ civitates eundem habeant
+meridianum: t unc æqualiter distant ab
+oriente et occidente. Horizon vero est
+circulus dividens inferius hemisphærium
+a superiori. Unde a ppellatur horizon id
+est t erminator visus. Dicitur etiam
+horizon circulus hemisphærii. Est autem
+duplex horizon: rectus et obliquus sive
+declivis. Rectum horizontem: et
+sphæram rectam habent illi quorum
+zenith est i n æquinoctiali: quia illorum
+horizon est circulus transiens per polos
+mundi dividens æquinoctialem ad
+angulos rectos sphærales. Unde dicitur
+horizon rectus: et sphæra recta.
+Obliquum horizontem: sive declivem
+habent illi quibus polus mundi elevatur
+supra horizontem: quoniam illorum
+horizon intersecat æquinoctialem ad
+angulos impares et obliquos. Unde
+dicitur horizon o bliquus: et sphæra
+obliqua sive declivis. Zenith autem
+capitis nostri semper est polus
+horizontis. Unde ex h is patet quod
+quanta e st elevatio p oli mundi supra
+horizontem: tanta
+Longitudo civitatum
+Horizon
+Duplex est horizon.
+meridiano, é meio-dia para ele. Por razão
+semelhante é chamado d e c írculo do  meio-
+dia. E deve ser notado q ue a s cidades das
+quais uma e stá mais próxima do o riente do
+que a outra possuem meridianos diferentes.
+O arco da equinocial interceptado entre dois
+meridianos é chamado d e longitude das
+cidades. Além disso, se duas cidades
+possuem o mesmo meridiano, elas estão
+igualmente distantes do o riente e  do
+ocidente. O horizonte é  realmente um
+círculo que divide o h emisfério inferior do
+superior. Por isso é c hamado d e horizonte,
+isto é, limitador da visão. O horizonte é
+também chamado d e c írculo d o hemisfério.
+Além disso, o horizonte é de dois tipos: reto
+e oblíquo ou  inclinado. Possuem um
+horizonte reto e e sfera reta a queles cujo
+zênite está na equinocial; pois seu horizonte
+é um círculo q ue passa pelos pólos do
+mundo d ividindo a e quinocial em ângulos
+retos esféricos. E por isso é chamado d e
+horizonte reto e e sfera reta. Aqueles para
+quem o pó lo do mundo se e leva acima do
+horizonte possuem horizonte oblíquo ou
+inclinado; pois s eu ho rizonte intercepta a
+equinocial em ângulos desiguais e oblíquos.
+Por isso é chamado d e horizonte oblíquo e
+de esfera oblíqua ou inclinada. Além disso, o
+zênite sobre nossas cabeças é sempre o pólo
+do horizonte. A partir disso é evidente que a
+elevação do  p ólo do  mundo sobre o
+horizonte é tão grande quanto
+Longitude das
+cidades.
+Horizonte.
+O horizonte é de
+dois tipos.
+[Fol. 11v]
+est distantia zenith ab æquinoctiali.
+Quod sic patet. Cum in quo libet die
+naturali uterque c olurus bis iungatur
+meridiano: sive idem sit quod
+meridianus: quicquid de uno probatur et
+de reliquo. Sumatur igitur quarta pars
+coluri distinguentis s olstitia quæ est ab
+æquinoctiali usquæ ad p olum m undi.
+Sumatur iterum quarta pars eiusdem
+coluri: quæ est a zenith u sque a d
+horizontem: cum zenith sit polus
+horizontis: istæ duæ quartæ cum sint
+quartæ eiusdem circuli i nter se sunt
+æquales: sed si ab æqualibus æqualia
+demantur: vel idem commune residua
+erunt æqualia. Dempto igitur communi
+arcu scilicet qui est inter zenith et polum
+mundi residua erunt æqualia scilicet
+elevatio poli mundi supra horizontem: et
+distantia zenith ab æquinoctiali.
+De quattuor circulis minoribus
+Dicto d e sex circulis maioribus:
+dicendum est de quattuor minoribus.
+Notandum igitur quod Sol existens in
+primo pun cto Cancri: sive in p uncto
+solstitii æstivalis raptu firmamenti
+describit quendam circulum: qui ultimo
+descriptus est a Sole ex parte poli arctici.
+Unde a ppellatur circulus s olstitii
+æstivalis ratione superius dicta: vel
+tropicus æstivalis a tropos quod est
+conversio: quoniam tunc Sol incipit se
+convertere ad inferius hemisphærium
+Circulus solsticii
+æstivalis
+a distância do zênite à equinocial, o que se
+vê desta maneira. Como em qualquer dia
+natural cada um dos coluros se junta ou se
+torna idêntico ao meridiano duas vezes, tudo
+o que for provado para um vale para o outro.
+Some, então, a quarta parte do coluro que
+identifica os solstícios, qu e está da
+equinocial até o pólo do mundo. Some outra
+quarta parte do mesmo coluro, qu e e stá do
+zênite a té o h orizonte. Como o  zênite é o
+pólo do horizonte, esses dois quartos, como
+são q uartos do mesmo círculo, são iguais
+entre si. Mas se de iguais forem subtraídos
+iguais, ou a mesma c oisa comum a a mbos,
+os restos s erão iguais. Portanto, se
+subtrairmos o arco comum, a saber, aquele
+que está entre o zênite e o pólo do mundo, os
+restos s erão iguais, a saber, a elevação do
+pólo d o mundo acima do ho rizonte, e a
+distância do zênite à equinocial.
+Sobre os quatro círculos menores
+Tendo falado sobre os seis grandes círculos,
+devem ser descritos os quatro menores.
+Note-se, então, qu e o Sol, quando está no
+primeiro pon to d e Câncer ou n o ponto do
+solstício d e verão, p elo arrastamento do
+firmamento d escreve o círculo, qu e é  o
+último d escrito pelo Sol perto do p ólo
+Ártico. Por isso é chamado d e c írculo do
+solstício d e verão pela razão mencionada
+acima, ou trópico de verão, de tropos, que é
+volta, p orque e ntão o Sol começa a voltar
+para o hemisfério inferior
+Círculo do solstício
+de verão
+[Fol. 12r]
+et recedere a nobis. Sol i terum existens
+in primo puncto Capricorni sive solstitii
+hyemalis: raptu firmamenti describit
+quendam circulum qui ultimo describitur
+a Sole e x parte poli antarctici. Unde
+appellatur circulus s olstitii hyemalis:
+sive tropicus hyemalis: quia tunc Sol
+convertitur ad nos. Cum autem zodiacus
+declinat ab æquinoctiali: et polus zodiaci
+declinabit a polo mundi. Cum igitur
+moveatur octava sphæra: et zodiacus qui
+est pars octavæ sphæræ movebitur circa
+axem mundi: et polus zodiaci movebitur
+circa polum m undi. Iste igitur circulus
+quem describit polus zodiaci circa
+polum m undi arcticum dicitur circulus
+arcticus. Ille vero circulus quem
+describit alter polus zodiaci circa polum
+mundi antarcticum dicitur circulus
+antarcticus. Quanta e st etiam m axima
+Solis declinatio scilicet ab æquinoctiali:
+tanta est distantia poli mundi ad po lum
+zodiaci: quod sic patet. Sumatur colurus
+distinguens solstitia qui transit per polos
+mundi: et per polos zodiaci. Cum igitur
+omnes quartæ unius et eiusdem circuli
+inter se sint æquales quarta huius coluri:
+quæ est ab æquinoctiali usque ad polum
+mundi erit æqualis quartæ eiusdem
+Circulus solsticii
+hyemalis
+Circulus arcticus
+Circulus antarcticus
+e a se afastar de nós. Por outro lado, quando o
+Sol está no primeiro ponto do Capricórnio ou
+no solstício d e inverno, arrastado p elo
+firmamento d escreve outro círculo q ue é o
+último d escrito pelo Sol perto do p ólo
+Antártico. Por isso é chamado d e c írculo do
+solstício d e inverno, o u trópico d e inverno;
+porque então o Sol se volta para nós. Como o
+zodíaco se inclina em relação à equinocial, o
+pólo do zodíaco se afastará do pólo do mundo.
+Portanto, como a oitava e sfera e o zodíaco,
+que é uma parte da oitava e sfera, se movem
+em torno do eixo do mundo, o pó lo do
+zodíaco, também, se moverá em torno do pólo
+do mundo. Este círculo que o pólo do zodíaco
+descreve em torno do pólo Ártico do mundo é
+chamado d e círculo Ártico. E aquele c írculo
+que o o utro pólo do zodíaco descreve e m
+torno do pólo Antártico do mundo é chamado
+de círculo Antártico. A declinação máxima do
+Sol, a saber, em relação à equinocial, é igual à
+distância do p ólo do mundo ao p ólo do
+zodíaco, o que é mostrado da seguinte forma.
+Some o coluro que distingue os solstícios, que
+passa pelos pólos do mundo e pelos pólos do
+zodíaco. Como todos os quartos de um mesmo
+círculo são iguais entre si, o  qu arto deste
+coluro q ue e stá da e quinocial até o pó lo do
+mundo é igual ao quarto do mesmo
+Círculo do
+solstício de
+inverno.
+Círculo Ártico
+Círculo Antártico.
+[Fol. 12v]
+coluri: quæ est a primo pun cto Cancri
+usque a d p olum zodiaci. Igitur ab illis
+æqualibus dempto communi arcu qui est
+a primo pun cto Cancri usque a d polum
+mundi residua erunt æqualia scilicet
+maxima Solis declinatio: et distantia poli
+mundi ad po lum zodiaci. Cum autem
+circulus arcticus secundum quamlibet
+sui partem æquidistet a polo mundi patet
+quod illa pars coluri quæ est i nter
+primum punctum Cancri: et circulum
+arcticum fere est dupla a d maximam
+Solis declinationem: sive a d arcum
+eiusdem coluri qui i ntercipitur inter
+circulum arcticum et polum m undi
+arcticum: qui etiam arcus æqualis est
+maximæ Solis declinationi. Cum enim
+colurus iste sicut alii circuli in sphæra sit
+360 graduum: quarta e ius erit 90
+graduum. Cum igitur maxima Solis
+declinatio secundum Ptolomæum sit 23
+graduum et 51 minutorum: et t otidem
+graduum sit arcus qui est inter circulum
+arcticum: et polum m undi arcticum: si
+ista duo simul i uncta: quæ fere faciunt
+48 gradus subtrahantur a 90 residuum
+erunt 42 gradus: quantus est arcus
+coluri: qui est inter primum punctum
+Cancri et circulum arcticum. Et sic patet
+quod ille a rcus fere duplus est ad
+maximam Solis declinationem. 
+ No-
+tandum quod æquinoctialis cum quattuor
+circulis minoribus dicuntur
+Ptolomæus
+coluro q ue vai do primeiro ponto d e
+Câncer até o p ólo do zodíaco. Então, se
+subtrairmos desses iguais o arco comum
+que vai do primeiro ponto de Câncer até o
+pólo d o mundo, o s restos s erão iguais, a
+saber, a declinação máxima do Sol e a
+distância do p ólo do mundo ao p ólo do
+zodíaco. Além disso, como o círculo
+Ártico é eqüidistante segundo qualquer de
+suas partes ao p ólo do  mundo, é e vidente
+que e ssa parte do coluro que está entre o
+primeiro pon to d e Câncer e o círculo
+Ártico é quase o do bro da declinação
+máxima do Sol, ou  o  arco do mesmo
+coluro interceptado entre o círculo Ártico e
+o pólo Ártico do mundo, po is esse arco é
+igual à declinação máxima do Sol. Como
+esse c oluro, como o s outros círculos da
+esfera, tem 360 graus, um quarto dele terá
+90 graus. Então, como a declinação
+máxima do Sol, segundo Ptolomeu, é de 23
+graus e 51 minutos; e como igual número
+de graus tem o arco que está entre o círculo
+Ártico e o pólo Ártico do mundo, se esses
+dois forem unidos, o  qu e faz
+aproximadamente 48 graus, e subtraído de
+90, o resto será de 42 graus, que é o arco
+do coluro que está entre o p rimeiro p onto
+de Câncer e o círculo Ártico. Assim, é
+claro q ue e sse arco é quase o dobro d a
+declinação máxima do Sol. 
+  Deve ser
+notado que a equinocial juntamente com os
+quatro círculos menores são chamados
+Ptolomeu.
+[Fol. 13r]
+quinque paralleli quasi æquidistantes:
+non qu ia quantum primus distat a
+secundo: tantum secundus distat a tertio:
+quia hoc falsum est sicut iam patuit: sed
+quia quilibet duo circuli simul i uncti
+secundum quamlibet sui partem
+æquidistant ab invicem et dicuntur
+parallelus æquinoctialis: parallelus
+solstitii æstivalis: parallelus s olstitii
+hyemalis: parallelus arcticus: et
+parallelus antarcticus. 
+ Notandum
+etiam quod qu attuor paralleli minores
+scilicet duo tropici: et parallelus
+arcticus: et parallelus antarcticus
+distinguunt in cælo quinque zonas s ive
+regiones. Unde Virgilius in Georgicis.
+Quinque tenent cælum zone: quarum
+una c orusco Semper Sole rubens: et
+torrida semper ab igni. Distinguuntur
+etiam totidem plagæ in terra directe
+prædictis zonis supposite. Unde Ovidius
+primo Metamorphoseon. Totidemque
+plagæ telluræ præmuntur in orbem:
+Quarum quæ media e st: non est
+habitabilis æstu. Nix tenet alta duas:
+totidemque inter utrasque locavit.
+Temperiem dedit mixta c um frigore
+flamma. 
+ Illa igitur zona quæ est inter
+duos tropicos dicitur inhabitabilis
+propter calorem Solis discurrentis
+semper inter tropicos. Similiter plaga
+terræ illi directe supposita dicitur
+inhabitabilis propter calorem Solis
+discurrentis super illam. Illæ vero duæ
+Virgilius
+Ovidius
+de cinco paralelos quase eqüidistantes; não
+porque o p rimeiro diste tanto do  segundo
+quanto o segundo dista do terceiro, porque
+isso é falso, como foi mostrado; mas
+porque dois círculos quaisquer tomados
+juntos são eqüidistantes em todas as s uas
+partes. E são chamados de paralelo
+equinocial, p aralelo do solstício de verão,
+paralelo do  solstício d e inverno, p aralelo
+Ártico e paralelo Antártico. 
+  Deve ser
+notado ainda que os quatro paralelos
+menores, a saber, o s dois trópicos, o
+paralelo Ártico e o p aralelo Antártico,
+distinguem no céu cinco zonas ou regiões.
+Por isso, Virgílio, nas Geórgicas: “O céu
+tem cinco zonas, das quais uma pelo ardor
+/ do Sol está sempre vermelha, e sempre
+tórrida pelo fogo.” São distinguidas
+também igual número de regiões na Terra,
+diretamente a baixo das ditas zonas. Por
+isso, Ovídio, no p rimeiro d as
+Metamorfoses: “E zonas em igual número
+são marcadas na terra. / Delas, a que e stá
+no meio não é habitável por causa do calor;
+/ a neve recobre as duas superiores; e entre
+elas ele c olocou o utras / t emperadas,
+dando-lhe uma mistura de frio com fogo.”
+Aquela zona que fica entre os trópicos
+é dita inabitável por causa do calor do Sol,
+que está sempre correndo entre os trópicos.
+De modo semelhante, a região d a terra
+diretamente a baixo dela é dita inabitável
+por causa do calor do Sol, q ue sempre
+corre acima dela. Mas essas duas
+Virgílio
+Ovídio
+[Fol. 13v]
+zonæ quæ circumscribuntur a circulo
+arctico: et circulo antarctico circa polos
+mundi inhabitabiles sunt propter nimiam
+frigiditatem: quia Sol ab eis maxime
+removetur. Similiter intelligendum est
+de plagis terræ illis directe suppositis.
+Illæ autem duæ zonæ: quarum una e st
+inter tropicum  æstivalem et circulum
+arcticum: et reliqua quæ est inter
+tropicum hyemalem et circulum
+antarcticum: habitabiles s unt: et
+temperatæ a c aliditate torridæ zonæ
+existentis inter tropicos: et frigiditate
+zonarum extremarum quæ sunt circa
+polos mundi. Idem intellige de plagis
+terræ illis directe suppositis.
+Capitulum tertium de ortu et ocasu
+signorum: de diversitate dierum et
+noctium: et de diversitate climatum.
+zonas que são d elimitadas pelo círculo
+Ártico e pelo círculo Antártico em torno
+dos pólos do mundo são inabitáveis por
+causa do frio excessivo, po is o Sol está
+mais distante delas. O mesmo d eve ser
+entendido das regiões da terra que lhes
+estão d iretamente abaixo. Mas essas
+duas zonas, d as quais uma e stá e ntre o
+trópico d e verão e o círculo Ártico e a
+outra e ntre o trópico de inverno e o
+círculo Antártico, são h abitáveis e
+temperadas pelo calor da zona tórrida
+que está entre os trópicos e pelo frio das
+zonas extremas que e stão em torno do s
+pólos do mundo. O mesmo se
+compreende das partes da Terra
+diretamente abaixo delas.
+Capítulo terceiro, sobre o nascimento
+e o ocaso dos signos; sobre a diversidade
+dos dias e das noites; e sobre a
+diversidade dos climas
+Ignorum autem ortus et
+occasus dupliciter accipitur:
+quoniam quantum ad poetas: Triplex est ortus et
+s nascimentos e ocasos dos
+signos s ão compreendidos
+de dois modos: segundo os O nascimento
+et quantum ad astronomos. Est i gitur
+ortus et occasus signorum quo ad poetas
+triplex scilicet cosmicus: chronicus: et
+heliacus. Cosmicus enim ortus sive
+mundanus est quando signum vel stella
+supra horizontem ex parte orientis de die
+ascendit. Et l icet i n qu alibet die
+artificiali sex signa sic oriantur: t amen
+antono-mastice signum
+occasus signorum
+secundum poetas
+Ortus cosmicus
+poetas e segundo o s astrônomos. O
+nascimento e ocaso dos signos de acordo
+com os poetas é de três tipos, a saber,
+cósmico, crônico e helíaco. O
+nascimento é c ósmico ou mundano
+quando o signo ou estrela se ergue acima
+do horizonte, no oriente, durante o dia. E
+embora e m qualquer dia artificial seis
+signos nasçam assim, no  entanto, p or
+antonomásia, o signo
+e o ocaso dos
+signos é tríplice.
+Nascimento
+cósmico.
+[Fol. 14r]
+illud dicitur cosmice oriri cum quo et in
+quo Sol mane oritur. Et hic ortus
+proprius et principalis et quotidianus
+dicitur. De hoc ortu exemplum in
+Georgicis habetur: ubi docetur satio
+fabarum et milii in vere Sole existente in
+Tauro: sic. Candidus auratis aperit cum
+cornibus annum Taurus: et adverso
+cedens canis occidit astro. Occasus vero
+cosmicus est respectu oppo sitionis
+scilicet quando Sol oritur cum aliquo
+signo cuius signi oppositum occidit
+cosmice. De hoc occasu d icitur in
+Georgicis: ubi docetur satio frumenti i n
+fine autumni Sole e xistente in
+Scorpione: qui cum oritur cum Sole
+Taurus signi eius oppositum  ubi sunt
+Pleiades occidit: sic. Ante tibi Eoe
+Atlantides abscondantur. Debita: quam
+sulcis committas s emina. Chronicus
+ortus sive temporalis est quando signum
+vel stella post Solis occasum supra
+horizontem ex p arte orientis emergit
+chronice scilicet de nocte. Et dicitur
+temporalis: quia tempus
+mathematicorum nascitur cum Solis
+occasu. De hoc ortu habemus in Ovidio
+de Ponto u bi conqueritur moram exilii
+sui dicens. Quattuor autumnos Pleias
+orta facit. Significans per quattuor
+autumnos quadraginta [sic] quattuor
+annos transisse postquam missus erat in
+exilium. Sed Virgilius voluit in autumno
+Pleiades occidere: ergo contrarii viden-
+tur. Sed ratio huius est quod secundum
+Virgilius.
+Occasus cosmicus
+Virgilius
+Pleiades.
+Ortus chronicus
+Ovidius.
+com o qual e no qual o Sol nasce na manhã diz-
+se que nasce cosmicamente. E este nascimento
+é dito p róprio e principal e quotidiano. Temos
+um exemplo d esse nascimento n as Geórgicas,
+onde é  ensinada a plantação d as favas e do
+milho alvo no tempo d a primavera, q uando o
+Sol está em Touro, assim: “O touro branco com
+chifres brilhantes abre o ano, / e o cão, cedendo
+à estrela adversa, se põe.” O ocaso cósmico diz
+respeito à oposição, a saber, qu ando o Sol se
+ergue com um signo, cujo signo oposto se põe
+cosmicamente. Esse ocaso é citado n as
+Geórgicas, onde é ensinado o semear do trigo
+no final do o utono, qu ando o Sol está e m
+Escorpião. Pois quando ele se ergue com o Sol,
+o Touro, signo que lhe é oposto, onde estão as
+Plêiades, se põe. Assim: “Quando diante de ti as
+Atlântidas s e escondem, / entregue a semente,
+como é devido, ao sulco.” O nascimento é
+crônico ou temporal quando u m signo ou
+estrela, d epois do ocaso do  Sol, surge sobre o
+horizonte no lado do oriente de forma crônica, a
+saber, à noite. É chamado de temporal, porque o
+tempo dos matemáticos nasce c om o o caso do
+Sol. Sobre esse nascimento temos em Sobre o
+Ponto de Ovídio, o nde ele lamenta seu exílio
+prolongado, d izendo: “O nascimento d as
+Plêiades faz quatro ou tonos”, indicando
+pelos quatro outonos os quatro anos que tinham
+passado d esde que fora e nviado para o exílio.
+Mas Virgílio quer que as Plêiades se ponham no
+outono: portanto parecem contraditórios. Mas a
+razão disso é que segundo
+Virgílio.
+Ocaso cósmico.
+Virgílio.
+Plêiades.
+Nascimento
+crônico.
+Ovídio.
+[Fol. 14v]
+Virgilium occidunt cosmice: secundum
+Ovidium oriuntur chronice quod bene
+potest contingere e odem die. Sed
+differenter tamen: quia cosmicus
+occasus est respectu temporis matutini.
+Chronicus vero ortus respectu vespertini
+est. Chronicus occasus est respectu
+oppositionis. Unde Lucanus sic inquit.
+Tunc nox Thessalicas urgebat parva
+sagittas. Heliacus ortus: sive solaris est
+quando signum vel stella videri potest
+per elongationem Solis ab illo: quod
+prius videri non poterat Solis
+propinquitate. Exemplum huius ponit
+Ovidius in livro de Fastes sic. Iam levis
+obliqua subsedit Aquarius urna. Et
+Virgilius in Georgicis. Gnosiaque
+ardentis descendit stella c oronæ. Quæ
+iuxta Scorpionem existens non
+videbatur: dum Sol erat i n Scorpione.
+Occasus heliacus est: quando Sol ad
+signum accedit: et illud sua presentia et
+luminositate videri non p ermittit. Huius
+exemplum est i n versu p ræmisso
+scilicet. Taurus et adverso cedens canis
+occidit astro.
+De ortu et occasu signorum
+secundum astrologos.
+Sequitur de ortu et occasu signorum
+prout sumunt astronomi: et prius in
+sphæra recta.
+Lucanus
+Ortus heliacus
+Ovidius
+Virgilius
+Occasus heliacus
+De ortu et occasu
+signorum in sphæra
+recta.
+Virgílio elas s e põem cosmicamente, e
+segundo Ovídio elas nascem cronicamente, o
+que pode bem ocorrer no mesmo dia; mas de
+modos diferentes, po is o o caso cósmico se
+refere a o tempo do amanhecer, mas o
+nascimento crônico se refere ao anoitecer. O
+ocaso crônico é uma questão de oposição.
+Por isso Lucano assim diz: “Então a noite
+curta atirou flechas da Tessália”. O
+nascimento é helíaco ou  solar quando o
+signo ou estrela pode ser visto por causa da
+distância do Sol até ele; enquanto
+previamente não po dia ser visto pela
+proximidade do Sol. Ovídio coloca um
+exemplo d isso no  livro do s Fastos, assim:
+“Agora o Aquário idoso assenta-se a baixo
+com a urna inclinada”. E Virgílio, nas
+Geórgicas: “E a estrela de Gnosos da coroa
+flamejante desce.” A qual, estando perto de
+Escorpião, n ão era visível enquanto o Sol
+estava e m Escorpião. O ocaso é helíaco
+quando o Sol se aproxima de um signo e por
+sua presença e  luminosidade não permite
+que e ste seja visto. Um exemplo d isso está
+no verso citado, a saber: “E o cão, cedendo à
+estrela adversa, se põe”.
+Sobre o nascimento e o ocaso dos signos
+segundo os astrólogos
+Em seguida o nascimento e ocaso dos signos
+de ac ordo com os astrônomos; e
+primeiramente na esfera reta.
+Lucano.
+Nascimento
+helíaco.
+Ovídio.
+Virgílio.
+Ocaso helíaco.
+Sobre o nascimento
+e ocaso dos signos
+na esfera reta
+[Fol. 15r]
+Sciendum est quod tam in sphæra recta
+quam obliqua ascendit æquinoctialis
+circulus semper uniformiter scilicet i n
+temporibus æqualibus æquales arcus
+ascendunt. Motus enim cæli uniformis
+est: et angulus quem facit æquinoctialis
+cum horizonte obliquo non diversificatur
+in aliquibus horis. Partes vero zodiaci
+non d e necessitate habent æquales
+ascensiones in utraque sphæra: quia
+quanto aliqua zodiaci pars rectius oritur
+tanto p lus temporis ponitur in suo ortu.
+Huius signum est: quia sex signa
+oriuntur in longa vel brevi die artificiali
+similiter et i n nocte. 
+ Notandum
+igitur quod ortus vel occasus alicuius
+signi nihil aliud est quam illam partem
+æquinoctialis oriri quæ oritur cum illo
+signo oriente: vel ascendente supra hori-
+zontem: vel il lam partem æquinoctialis
+occidere quæ occidit cum illo signo
+occidente id est tendente a d o ccasum
+sub h orizontem. Signum autem recte
+oriri dicitur cum quo maior pars
+æquinoctialis oritur: oblique vero cum
+quo minor. Similiter etiam intelligendum
+est de occasu. 
+ Et est sciendum quod
+in sphæra recta quattuor quartæ zodiaci
+inchoatæ quattuor punctis: duobus scili-
+cet solstitialibus et duobus æquinoctia-
+libus adæquantur suis ascensionibus. Id
+est quantum temporis
+Ortus vel occasus
+signorum quid sit.
+Signum recte vel
+oblique oriri quod
+sit
+Deve-se saber que tanto n a esfera reta
+quanto na oblíqua, o círculo equinocial sobe
+sempre uniformemente, a saber, em tempos
+iguais sobem arcos iguais. Realmente, o
+movimento do céu é uniforme; e o ângulo
+que a equinocial faz com o ho rizonte
+oblíquo não se altera em qualquer hora. No
+entanto, as partes do zodíaco não têm
+necessariamente iguais ascensões em ambas
+esferas; pois quanto mais reta nascer aquela
+parte do zodíaco, tanto maior tempo gastará
+no seu nascimento. Um sinal disso é que seis
+signos nascem igualmente nos dias artificiais
+longos ou breves, e nas noites. 
+ Deve-se
+notar que o nascimento e ocaso de qualquer
+signo n ada mais é do que o nascimento
+daquela parte da e quinocial que nasce c om
+aquele signo no o riente, quando ele aparece
+acima do horizonte, ou o  ocaso aquela parte
+da e quinocial que se põe c om aquele signo
+quando ele se põe, isto é, q uando tende a o
+ocaso sob o horizonte. Diz-se que um signo
+nasce reto q uando u ma grande parte da
+equinocial nasce c om ele; obliquamente
+quanto uma menor. O mesmo d eve ser
+compreendido do ocaso. 
+ Deve-se saber
+que na e sfera reta os quatro qu artos do
+zodíaco começando com os quatro pontos, a
+saber, os dois solstícios e os dois equinócios,
+são iguais em suas ascenções; ou seja, o
+mesmo tempo
+O que é o
+nascimento ou
+ocaso dos signos.
+O que é o
+nascimento reto ou
+oblíquo do signo.
+[Fol. 15v]
+consumitur quarta zodiaci in suo ortu in
+tanto tempore quarta æquinoctialis illi
+conterminalis peroritur. Sed tamen
+partes illarum quartarum variantur:
+neque habent æquales ascensiones: sicut
+iam patebit. Est enim regula. Quilibet
+duo arcus zodiaci æquales et æqualiter
+distantes ab aliquo qu attuor punctorum
+iam dictorum æquales habent ascen-
+siones. Et ex h oc sequitur quod signa
+opposita æquales habent ascensiones. Et
+hoc e st quod d icit Lucanus loquens de
+processu Catonis in Libyam versus
+æquinoctialem. Non obliqua meant: nec
+Tauro rectior exit Scorpius: aut Aries
+donat sua tempora Libræ: Aut Astræa
+iubet lentos descendere Pisces. Par
+Geminis Chiron: et i dem quod
+Charcinus ardens. Humidus Ægloceros:
+nec plus Leo tollitur Urna. Hic dicit
+Lucanus quod existentibus sub
+æquinoctiali signa opposita æquales
+habent ascensiones et occasus. Oppositio
+autem signorum habetur per hunc
+versum. Est li . ari. scor. tau. sa. gemi.
+capri. can. a. le. p is. v ir. 
+ Et
+notandum quod non valet talis
+argumentatio. Isti duo arcus s unt
+æquales: et simul i ncipiunt oriri: et
+semper maior pars oritur de uno qu am
+de reliquo: ergo ille arcus citius peroritur
+cuius maior pars semper oriebatur.
+Instantia huius argumentationis
+Lucanus
+Oppositio signorum
+que um quarto do zodíaco gasta e m seu
+nascimento, será o tempo gasto p elo q uarto
+da e quinocial que lhe c orresponde para
+erguer-se. Mas as partes desses quartos
+variam e não po ssuem ascensões iguais,
+como aparecerá agora. Eis realmente a regra
+regra: dois arcos quaisquer do zodíaco,
+iguais e igualmente distantes de um dos
+quatro po ntos já mencionados, p ossuem
+iguais ascensões. Daí se segue que signos
+opostos possuem ascensões iguais. E isso é o
+que Lucano diz falando sobre a marcha de
+Cato na Líbia, perto da equinocial: “Eles não
+se movem obliquamente, nem Escorpião sai
+mais reto do  q ue Touro, / nem Áries cede
+seu tempo a Libra, / nem Astrea pede a
+Peixes para descer lentamente. / Chiron é par
+com Gêmeos, e o Carcino ardente é  igual /
+ao úmido Aegloceros, nem o Leão se move
+mais do que a Urna”. Aqui Lucano diz que
+para os que e stão sob a e quinocial, signos
+opostos possuem igual ascensão e ocaso.
+Além disso, a oposição do s signos é dada
+por este verso: “São Libra, Áries, Escorpião,
+Touro, Sagitário, Gêmeos, Capricórnio,
+Câncer, Aquário, Leão, Peixes, Virgem”.
+E deve-se notar que tal argumentação
+não vale: estes dois arcos s ão iguais e
+começam a se e rguer juntos e sempre se
+ergue uma parte maior de um do qu e do
+outro; portanto, ergue-se mais rapidamente o
+arco d aquele do qu al se ergue uma parte
+maior. Um exemplo deste argumento
+Lucano.
+Oposição dos
+signos.
+[Fol. 16r]
+manifesta e st i n p artibus prædictarum
+quartarum. Si enim sumatur quarta pars
+zodiaci: quæ est a principio Arietis
+usque a d finem Geminorum: semper
+maior pars oritur de quarta zodiaci:
+quam de quarta æquinoctialis s ibi
+conterminali: et t amen illæ duæ quartæ
+simul peroriuntur. Idem intellige de
+quarta zodiaci quæ est a principio Libræ
+usque a d finem Sagittarii. 
+ Item si
+sumatur quarta zodiaci quæ est a
+principio Cancri usque ad finem
+Virginis: semper maior pars oritur de
+quarta æquinoctialis: quam de quarta
+zodiaci i lli conterminali: et tamen illæ
+duæ quartæ simul peroriuntur. Idem
+intellige de quarta zodiaci quæ est a
+primo pun cto Capriorni usque in finem
+Piscium. 
+ In sphæra a utem obliqua
+sive declivi duæ medietates zodiaci
+adequantur suis ascensionibus. Medie-
+tates dico quæ sumuntur a duobus
+punctis æquinoctialibus: quia medietas
+zodiaci: quæ est a principio Arietis
+usque in finem Virginis oritur cum
+medietate æquinoctialis sibi
+conterminali. Similiter alia medietas
+zodiaci oritur cum reliqua medietate
+æquinoctialis. Partes autem illarum
+medietatum variantur secundum suas
+ascensiones: quoniam in illa medietate
+zodiaci: quæ est a principio Arietis
+usque in finem Virginis s emper maior
+pars oritur de zodiaco qu am de
+æquinoctiali:
+De ortu et occasu
+signorum in sphæra
+obliqua.
+é mostrado no caso das partes dos quartos
+acima mencionados. Pois se for somada a
+quarta parte do zodíaco qu e está do
+princípio de Áries até o fim de Gêmeos,
+sempre se ergue uma parte maior do quarto
+do zodíaco do que do quarto da equinocial
+que lhe c orresponde. No entanto, esses
+quartos nascem simultaneamente. O
+mesmo d eve ser entendido do  qu arto do
+zodíaco que está do princípio de Libra até
+o fim de Sagitário. 
+ Também, se for
+tomado o quarto do zodíaco que se estende
+do início d e Câncer até o fim de Virgem,
+sempre se erguerá uma parte maior do
+quarto d a e quinocial do q ue do quarto d o
+zodíaco q ue lhe c orresponde. No entanto,
+esses dois quartos nascem
+simultaneamente. O mesmo se e ntende
+para o qu arto do  zodíaco qu e está do
+primeiro ponto de Capricórnio até o fim de
+Peixes. 
+  Na esfera oblíqua ou inclinada,
+as metades do zodíaco têm ascensões
+iguais. Quero dizer as metades que são
+tomadas a partir dos dois pontos
+equinociais, po rque a metade do zodíaco
+que e stá do início d e Áries até o fim de
+Virgem ergue-se c om a metade da
+equinocial que lhe corresponde. De modo
+semelhante, a outra metade do zodíaco
+ergue-se com a outra metade da equinocial.
+Mas as partes dessas metades variam
+segundo suas ascensões; pois na metade do
+zodíaco q ue e stá do início d e Áries até o
+fim de Virgem, sempre se ergue uma parte
+maior do zodíaco do que da equinocial;
+Sobre o nascimento
+e o ocaso dos
+signos na esfera
+oblíqua.
+[Fol. 16v]
+et tamen illæ medietates s imul
+peroriuntur. E converso contingit i n
+reliqua medietate zodiaci: quæ est a
+principio Libræ usque ad finem Piscium:
+semper enim m aior pars oritur de
+æquinoctiali quam de zodiaco: et tamen
+illæ medietates s imul peroriuntur. Unde
+hic patet i nstantia facta manifestior
+contra argumentationem superius
+dictam: arcus autem qui succedunt Arieti
+usque a d finem Virginis in sphæra
+obliqua minuunt ascensiones suas supra
+ascensiones eorundem arcuum in sphæra
+recta: quia minus oritur de æquinoctiali.
+Et arcus qui succedunt Libræ usque ad
+finem Piscium in sphæra obliqua augent
+ascensiones s uas supra ascensiones
+eorundem arcuum in sphæra recta: quia
+plus oritur de æquinoctiali. Augent dico
+secundum tantam quantitatem in q uanta
+arcus s uccedentes Arieti minuunt. Ex
+hoc patet quod duo  arcus æquales: et
+oppositi i n sphæra declivi habent
+ascensiones s uas iunctas æquales
+ascensionibus eorundem arcuum in
+sphæra recta simul sumptis: quia quanta
+est diminutio ex un a parte: tanta e st
+additio ex altera. Licet enim arcus inter
+se æquales: tamen qu antum unus minor
+est t antum recuperat alius: et sic patet
+adæquatio. Regula quidem est in sphæra
+no entanto, essas metades nascem
+simultaneamente. O oposto ocorre na outra
+metade do zodíaco, que está do princípio de
+Libra até o fim de Peixes: pois sempre se
+ergue uma parte maior da equinocial do que
+do zodíaco; no entanto, essas metades
+completam seus nascimentos
+simultaneamente. Assim, este e xemplo é
+claramente c ontrário ao argumento acima
+mencionado. Além disso, o s arcos que
+sucedem Áries até o fim de Virgem na esfera
+oblíqua diminuem sua ascensão comparados
+com as ascensões dos mesmos arcos na
+esfera reta; pois s obem m enos do qu e a
+equinocial. E os arcos que sucedem Libra até
+o fim de Peixes na esfera oblíqua aumentam
+sua ascensão em relação à a scensão do s
+mesmos arcos na e sfera reta; pois s obem
+mais do que a equinocial. Aumentam, digo,
+pela mesma quantidade que os arcos que
+seguem Áries diminuem. Disso fica evidente
+que dois arcos iguais e opostos na e sfera
+inclinada têm a soma de suas ascensões
+igual às ascensões dos mesmos arcos
+somados na esfera reta; porque o mesmo que
+é diminuído por um lado, é adicionado p or
+outro. Embora realmente os arcos s ejam
+iguais entre si, entretanto aquilo que um tem
+de menor o outro tem de maior, e assim se
+mantém a adequação. A regra, realmente, é
+que na esfera
+[Fol. 17r]
+obliqua quod quilibet duo arcus zodiaci
+æquales et æqualiter distantes ab
+alterutro punctorum æquinoctialium
+æquales habent ascensiones. Ex predictis
+etiam patet quod dies naturales s unt
+inæquales. Est enim dies naturalis
+revolutio æquinoctialis circa terram
+semel cum tanta zodiaci parte quanta
+interim Sol pertransit motu p roprio
+contra firmamentum. Sed cum ascen-
+siones illorum arcuum sint inæquales: ut
+patet per prædicta tam in sphæra recta
+quam in ob liqua: et penes additamenta
+illarum ascensionum considerentur: dies
+naturales illi de necessitate erunt i næ-
+quales. In sphæra recta propter unicam
+causam scilicet propter obliquitatem
+zodiaci: in sphæra vero obliqua propter
+duas causas scilicet propter obliquitatem
+zodiaci: et obliquitatem horizontis obli-
+qui. Tertia solet assignari causa eccentri-
+citas circuli Solis. 
+ Notandum etiam
+quod Sol tendens a primo pun cto
+Capricorni per Arietem usque a d
+primum punctum Cancri raptu
+firmamenti describit 182 p arallelos qui
+etiam paralleli: et si non o mnino sint
+circuli sed spiræ: cum tamen non sit i n
+hoc error sensibilis: i n ho c vis non
+constituatur: si circuli appellentur: de
+numero quo rum circulorum sunt duo
+tropici: et unus æquinoctialis. Item iam
+dictos circulos
+oblíqua dois arcos quaisquer do zodíaco que
+são iguais e igualmente distantes de
+qualquer dos pontos equinociais possuem
+ascensões desiguais. A partir do que foi dito
+é também claro q ue os dias naturais s ão
+desiguais. Pois um dia natural é a revolução
+da e quinocial em torno d a Terra c om uma
+parte do zodíaco igual à que o Sol percorre
+durante e sse tempo po r seu próprio
+movimento contra o firmamento. Mas, como
+as ascensões desses arcos s ão d esiguais,
+como é e vidente pelo qu e foi dito antes,
+tanto na esfera reta quanto na oblíqua, e os
+dias naturais s ão considerados de ac ordo
+com o aumento dessas ascensões, eles serão
+necessariamente desiguais. Na e sfera reta
+por uma única razão, a saber, pela
+obliqüidade do zodíaco; na e sfera oblíqua
+por duas causas, a saber, a obliqüidade do
+zodíaco e a  o bliqüidade do horizonte
+oblíquo. Além disso, deve-se a ssinalar uma
+terceira causa, a excentricidade do círculo do
+Sol. 
+  Deve ser também notado que o Sol,
+movendo-se do p rimeiro po nto de
+Capricórnio através de Áries até o primeiro
+ponto de Câncer, arrastado pelo firmamento,
+descreve 182 paralelos, paralelos aos quais,
+embora não sejam realmente círculos mas
+espirais, já que não h á erro sensível nisso,
+não se faz nenhuma violência se forem
+chamados de círculos, entre c ujos círculos
+estão o s dois trópicos e uma e quinocial.
+Além disso, os ditos círculos
+[Fol. 17v]
+describit Sol raptu firmamenti
+descendens a primo pun cto Cancri per
+Libram usque a d primum punctum
+Capricorni. Et isti circuli dierum
+naturalium circuli appellantur. Arcus
+autem qui sunt supra horizontem sunt
+arcus dierum artificialium. Arcus vero
+qui sunt sub h orizonte sunt arcus
+noctium. In sphæra igitur r ecta c um
+horizon sphæræ rectæ transeat per polos
+mundi dividit omnes circulos istos in
+partes æquales. Unde tanti sunt arcus
+dierum: quanti sunt arcus noctium apud
+existentes sub æquinoctiali. Unde patet
+quod existentibus s ub æquinoctiali i n
+quacunque parte firmamenti sit Sol est
+semper æquinoctium. In sphæra a utem
+declivi horizon o bliquus dividit solum
+æquinoctialem in du as partes æquales.
+Unde quando Sol est i n alterutro
+punctorum æquinoctialium tunc arcus
+diei æquatur arcui noctis: et est
+æquinoctium in un iversa terra. Omnes
+vero alios circulos dividit horizon
+obliquus in partes inæquales: ita quod in
+omnibus circulis qui sunt ab
+æquinoctiali usque ad tropicum Cancri:
+et in ipso tropico Cancri maior est arcus
+diei quam noctis. Id est arcus s uper
+horizontem quam sub horizonte. Unde in
+toto tempore quo Sol movetur a prin-
+são d escritos pelo Sol arrastado pelo
+firmamento d escendo do  p rimeiro ponto d e
+Câncer, através de Libra, até o p rimeiro
+ponto de Capricórnio. E esses círculos s ão
+chamados de círculos dos dias naturais. Mas
+os arcos que estão acima do horizonte são os
+arcos dos dias artificiais; e os arcos que
+estão abaixo do  h orizonte são o s arcos das
+noites. Na esfera reta, como o ho rizonte da
+esfera reta passa pelos pólos do mundo,
+divide todos esses círculos em partes iguais.
+Portanto o s arcos dos dias s ão iguais aos
+arcos da noite para os que e stão sob a
+equinocial. Portanto é e vidente que para
+aqueles que estão sob a equinocial, sejam em
+qual parte do firmamento que esteja o Sol, é
+sempre equinócio. Mas na esfera inclinada o
+horizonte oblíquo divide apenas a equinocial
+em duas partes iguais. Portanto, q uando o
+Sol está em qualquer dos pontos equinociais,
+então o arco do dia é igual ao arco da noite;
+e há e quinócio na Terra toda. Mas o
+horizonte oblíquo divide realmente todos os
+outros círculos em partes desiguais; de modo
+que e m todos os círculos que e stão da
+equatorial até o trópico d e Câncer, e no
+próprio trópico d e Câncer, o  arco do  d ia é
+maior do que o da noite. Isto é, o arco acima
+do ho rizonte do qu e a baixo d o horizonte.
+Portanto, em todo o tempo em que o Sol é
+movido do
+[Fol. 18r]
+cipio Arietis per Cancrum usque in
+finem Virginis maiorantur dies supra
+noctes: et t anto plus quanto magis
+accedit Sol ad Cancrum: et tanto minus
+quanto magis recedit. E converso autem
+se habet de diebus et noctibus dum Sol
+est in signis australibus. In omnibus aliis
+circulis: quos Sol describit i nter
+æquinoctialem et t ropicum Capricorni
+maior est arcus sub h orizonte: et minor
+supra. Unde arcus diei est minor quam
+arcus noctis. Et secundum proportionem
+arcuum minorantur dies supra noctes. Et
+quanto circuli sunt propinquiores tropico
+hyemali: t anto magis minorantur dies.
+Unde videtur quod si sumantur duo
+circuli æquidistantes ab æquinoctiali ex
+diversis partibus quantus est arcus diei
+in uno tantus est arcus noctis in reliquo.
+Ex ho c sequi videtur quod si duo dies
+naturales s umantur in anno æqualiter
+remoti ab alterutro æquinoctialium in
+oppositis partibus quanta e st dies
+artificialis unius: t anta e st nox alterius:
+et e c onverso. Sed h oc e st quantum ad
+vulgi sensibilitatem in ho rizontis
+fixione. Ratio enim per ademptionem
+Solis contra firmamentum in obliquitate
+zodiaci verius diiudicat. Quanto quidem
+polus mundi magis elevatur supra
+horizontem tanto maiores sunt dies
+início de Áries através de Câncer até o fim
+de Virgem, os dias são mais longos do que
+as noites e tanto mais quanto mais o Sol se
+aproxime de Câncer. Em todos os outros
+círculos que e stão entre a  equinocial e o
+trópico d e Capricórnio, o arco é maior
+abaixo do h orizonte do qu e acima.
+Portanto, o arco do dia é menor do que o
+arco d a noite; e, conforme a proporção
+entre os arcos, os dias se tornam menores
+do que as noites, e quanto mais os círculos
+se aproximam do trópico de inverno, mais
+os dias encolhem. Vê-se portanto qu e se
+forem tomados dois círculos eqüidistantes
+da e quinocial para os dois lados, o
+tamanho do arco do dia em um será igual
+ao tamanho do  arco d a noite no outro. A
+partir daí é visto como conseqüência que
+se forem tomados dois dias naturais no
+ano, igualmente remotos de qualquer dos
+pontos equinociais em direções opostas, o
+dia artificial de um será tão longo, quanto
+a noite no outro, e vice-versa. Mas isso
+quanto à observação o rdinária fixando o
+horizonte. Pois a razão determina de modo
+mais exato d escontando o  movimento do
+Sol, contrário ao firmamento, no zodíaco
+obliquo. Quanto mais o pó lo se e leva
+sobre o h orizonte, tanto maiores s ão os
+dias
+[Fol. 18v]
+æstatis quando Sol est i n signis
+septentionalibus. Sed est e c onverso
+quando est i n signis australibus: tanto
+enim m agis minorantur dies supra
+noctes.
+Notandum etiam quod sex signa quæ
+sunt a principio Cancri per Libram
+usque in finem Sagittarii habent
+ascensiones s uas in sphæra obliqua
+simul iunctas maiores ascensionibus sex
+signorum quæ sunt a principio
+Capricorni per Arietem usque a d finem
+Geminorum. Unde illa sex signa prius
+dicta dicuntur recte oriri. Ista vero sex
+oblique. Unde Virgilius. Recta meant:
+obliqua cadunt a sidere Cancri donec
+finitur Chiron: sed cætera signa
+nascuntur prono: descendunt t ramite
+recto. Et quando est nobis maxima dies
+in æstate scilicet Sole e xistente in
+principio Cancri tunc oriuntur de die sex
+signa directe orientia: de nocte a utem
+sex o blique. E converso quando nobis
+est minimus dies in anno scilicet Sole
+existente in principio Capricorni tunc de
+die oriuntur sex signa oblique orientia:
+de nocte vero sex directe. Quando autem
+Sol est i n alterutro pun ctorum
+æquinoctialium tunc de die orintur tria
+signa directe orientia: et tria oblique. Et
+de nocte similiter. Est enim regula.
+Quantumcumque brevis vel prolixa sit
+dies vel nox sex signa oriuntur
+Nota his de signis
+recte vel oblique
+orientibus.
+do verão q uando o Sol está nos s ignos
+setentrionais. Inversamente, qu ando está nos
+signos austrais, os dias são mais curtos do que
+as noites.
+Deve-se notar que os seis signos que estão
+do início de Câncer passando por Libra até o
+fim de Sagitário po ssuem suas ascensões na
+esfera oblíqua combinadas maiores do que as
+ascensões dos seis signos que estão do início
+de Capricórnio p assando po r Áries até o fim
+de Gêmeos. Por isso se diz que esses s eis
+signos previamente mencionados se erguem
+retos, mas os outros s eis obliquamente. Por
+isso Virgílio: “Eles s e erguem retos, caem
+oblíquos da estrela de Câncer / até o final de
+Chiron, mas os outros s ignos / são n ascidos
+inclinados, d escem por um caminho reto”. E
+quando para nós é o dia mais longo do verão,
+a saber, quando o Sol está no início de Câncer,
+então erguem-se seis s ignos verticalmente
+durante o d ia no oriente, mas s eis
+obliquamente durante a  n oite. Inversamente,
+quando para nós é o menor dia do ano, a
+saber, qu ando o  Sol está no início de
+Capricórnio, então o s s eis s ignos que se
+erguem durante o d ia o fazem obliquamente,
+mas de noite seis verticalmente. Quando, além
+disso, o Sol está e m qualquer dos pontos
+equinociais, então durante o dia três signos se
+erguem verticalmente e  três obliquamente. E
+de noite de modo semelhante. Pois a regra é:
+por mais curto ou longo que sejam o d ia e a
+noite, seis signos se erguem
+Nota sobre os
+signos que se
+erguem retos ou
+oblíquos.
+[Fol. 19r]
+de die e t sex d e nocte. Nec propter
+prolixitatem vel brevitatem diei vel
+noctis plura vel pauciora signa oriuntur.
+Ex his colligitur quod cum hora naturalis
+sit spatium temporis in quo medietas
+signi peroritur in qualibet die artificiali:
+similiter et i n nocte sunt 12 horæ
+naturales. In o mnibus autem aliis
+circulis qui sunt a latere æquinoctialis:
+vel ex p arte australi vel septentionali
+maiorantur vel minorantur dies vel
+noctes secundum quod plura vel
+pauciora de signis directe orientibus: vel
+oblique de die: vel de nocte oriuntur.
+De diversitate dierum et noctium quæ
+sit habitantibus in diversis locis terræ
+Notandum autem quod illis quorum
+zenith est in æquinoctiali circulo Sol bis
+in anno transit per zenith capitis eorum
+scilicet quando est in principio Arietis et
+in principio Libræ. Et tunc sunt illis duo
+alta solsticia quoniam Sol directe transit
+supra capita eorum. Sunt iterum illis duo
+ima solstitia: quando Sol est i n primis
+punctis Cancri et Capricorni: et dicuntur
+ima: quia tunc Sol maxime removetur a
+zenith capitis eorum. Unde ex prædictis
+patet: cum semper habeant æquinoctium
+in anno quattuor habebunt solstitia:
+durante o dia e seis durante a noite. Pela maior
+duração ou  b revidade do d ia ou d a noite não
+nascem mais ou menos s ignos. A partir daí se
+capta que, como uma hora natural é o espaço de
+tempo no qu al metade de um signo sobe, em
+qualquer dia artificial, e na noite, há doze horas
+naturais. Além disso, em todos os círculos
+paralelos à e quinocial, p ara o lado austral ou
+para o setentrional, os dias ou noites se alongam
+ou encurtam segundo o maior ou menor número
+de signos que se erguem retos ou oblíquos
+durante o dia, ou à noite.
+Sobre a diversidade dos dias e das noites que há
+para os que habitam em diversos lugares da
+Terra
+Além disso, deve-se notar que para aqueles cujo
+zênite e stá no círculo equinocial, o Sol passa
+duas vezes por ano pelo zênite de suas cabeças,
+a saber, q uando está no início d e Áries e no
+início de Libra. E portanto há para eles dois
+solstícios elevados quando o Sol passa
+diretamente sobre suas cabeças. Além disso, há
+para e les dois solstícios baixos: quando o  Sol
+está nos primeiros pontos de Câncer e
+Capricórnio; e são chamados de “ baixos”
+porque então o Sol está mais distante do zênite
+de suas cabeças. Daquilo qu e foi dito torna-se
+claro q ue, embora sempre tenham equinócio,
+terão no ano quatro solstícios:
+[Fol. 19v]
+duo alta: et duo ima. Patet etiam quod
+duas habent æstates Sole scilicet
+existente in alterutro pun ctorum
+æquinoctialium: vel prope. Duas etiam
+habent hyemes scilicet Sole existente in
+primis punctis Cancri et Capricorni vel
+prope. Et hoc est quod d icit Alfraganus
+quod æstas et hyems scilicet nostræ sunt
+illis unius et eiusdem complexionis:
+quoniam duo tempora quæ sunt nobis
+æstas et hyems s unt i llis duæ hyemes.
+Unde e x illis versibus Lucani patet
+expositio. Deprensum est hunc e sse
+locum quo circulus alti Solstitii medium
+signorum percutit orbem. Ibi enim
+appellat Lucanus circulum alti solstitii
+æquinoctialem: in quo contigunt duo alta
+solstitia sub æquinoctiali existentibus.
+Orbem signorum appellat zodiacum:
+quem m edium id est mediatum hoc e st
+divisum in duo media æquinoctialis:
+percutit id est dividit. Illis etiam in anno
+contingit habere quattuor umbras. Cum
+enim Sol sit i n alterutro pun ctorum
+æquinoctialium tunc mane iacitur umbra
+eorum versus occidentem: i n vespere
+vero e c onverso. In meridie e st illis
+umbra perpendicularis: cum Sol sit supra
+caput eorum. Cum autem Sol est i n
+signis septentrionalibus
+Alfraganus
+Lucanus.
+dois altos e dois baixos. Também é
+evidente que têm dois verões, a saber,
+quando o Sol está em qualquer dos pontos
+equinociais ou perto deles. E também têm
+dois invernos, a saber, quando os Sol está
+nos primeiros pontos de Câncer e
+Capricórnio, ou n as s uas proximidades. E
+isso é o que diz Alfragano, que para eles o
+verão e o inverno são de uma igual
+compleição: pois esses dois tempos, qu e
+para nós são inverno e verão, são d ois
+invernos para eles. E a diferença fica clara
+nesses versos de Lucano: “Entende-se que
+este é o lugar onde o círculo / do alto
+solstício atinge o meio do o rbe dos
+signos”. Aqui Lucano chama a e quinocial
+de c írculo d o alto solstício, sobre o qu al
+ocorrem dois s olstícios elevados para
+aqueles que estão sob a e quinocial. Ele
+chama o zodíaco de orbe dos signos, o qual
+é dividido em duas metades ou cortado ao
+meio pela equinocial; atinge, isto é, divide.
+Para eles, durante o ano, ocorrem também
+quatro sombras. Pois quando o Sol está em
+qualquer dos pontos equinociais, sua
+sombra de manhã cai para o ocidente, e ao
+anoitecer na direção oposta. No meio dia a
+sombra é perpendicular para eles, p ois o
+Sol está acima de suas cabeças. Quando o
+Sol está nos signos setentrionais,
+Alfragano
+Lucano
+[Fol. 20r]
+tunc iacitur umbra eorum versus
+austrum. Quando est in australibus tunc
+iacitur versus septentrionem. Illis autem
+oriuntur et occidunt stellæ: quæ sunt
+iuxta polos s icut et quibusdam aliis
+habitantibus circa æquinoctialem. Unde
+Lucanus sic inquit. Tunc furor extremos
+movit Romanus Horestas. Carmenosque
+duces: quorum iam flexus in austrum.
+Æther non totam m ergi t amen aspicit
+Arcton. Lucet et exigua velox ubi nocte
+Boetes. Ergo mergitur et parum lucet.
+Item Ovidius de ea dem stella. Tingitur
+oceano custos Erimanthidos ursæ.
+Æquoreasque suo sidere turbat aquas. In
+situ autem nostro nu mquam occidunt
+illæ stellæ. Unde Virgilius. Hic vertex
+nobis s emper sublimis at i llum sub
+pedibus Styx atra vident manesque
+produndi. Et Lucanus. Axis inocciduus
+gemina clarissimus Arcto. Item Virgilius
+in Georgicis s ic inquit. Arctos oceani
+metuentes æquore tingi.
+Quorum zenith est inter
+æquinoctialem et tropicum Cancri.
+Illis autem quorum zenith est i nter
+æquinoctialem et t ropicum Cancri
+contingit bis in anno quod Sol
+Lucanus
+Virgilius
+sua sombra cai para o sul; mas quando está
+nos do sul, então cai para o no rte. Para eles,
+também, as estrelas que e stão próximas dos
+pólos nascem e põem, e igualmente para
+outros que habitam perto da e quinocial.
+Portanto Lucano assim diz: “Então a fúria
+romana moveu as Orestas remotas, / e os
+líderes Carmanios, cujo éter agora girava /
+para o Sul, no  entanto não vêem Arcton
+bastante submerso, / e o veloz Bootes brilha
+na noite e scassa”. Portanto está se ponto e
+brilha pouco. Ovídio, também, sobre a mesma
+estrela: “O guardião d a ursa de Erimanto
+mergulha no o ceano / e c om sua estrela
+perturba as águas do mar”. Ou seja, ela se põe
+verticalmente. Mas em nosso localidade, essas
+estrelas nunca se põem. Por isso Virgílio:
+“Este vértice está sempre acima de nós / mas o
+outro é visto pelos manes profundos do Styx
+sob nossos pés”. E Lucano: “Eixo que nunca
+se põe, brilhando com as Ursas gêmeas”.
+Também Virgílio nas Geórgicas assim diz:
+“Arctos temerosa de tocar a onda do oceano”.
+Aqueles cujo zênite está entre a equinocial e o
+trópico de Câncer
+Para a queles cujo zênite está e ntre a
+equinocial e o Trópico de Câncer, ocorre que
+duas vezes por ano o Sol
+Lucano
+Virgílio
+[Fol. 20v]
+transit per zenith capitis eorum: quod sic
+patet. Intelligatur circulus parallelus
+æquinoctiali transiens per zenith capitis
+eorum: i lle c irculus intersecabit
+zodiacum in duob us locis
+æquidistantibus a principio Cancri. Sol
+igitur existens in illis duobus punctis
+transit per zenith capitis eorum. Unde
+duas habent æstates: et duas hyemes:
+quattuor solstitia: et quattuor umbras.
+Sicut existentes sub æquinoctiali. In tali
+situ d icunt quidam Arabiam esse. Unde
+Lucanus loquens de Arabibus
+venientibus Romam in auxilium
+Pompeio d icit. Ignotum vobis Arabes
+venistis in o rbem. Umbras mirati
+nemorum non ire sinistras. Quonian in
+partibus s uis quandoque erant illis
+umbræ dextræ: quandoque sinistræ:
+quandoque perpendiculares: quandoque
+orientales: quandoque occidentales: sed
+quando venerant Romam circa tropicum
+Cancri t unc semper habebant umbras
+septentrionales.
+Quorum zenith est in tropico Cancri
+Illis s iquidem quorum zenith est i n
+tropico Cancri contingit quod semel i n
+anno transit Sol per zenith capitis eorum
+scilicet quando est in p rimo pun cto
+Cancri: et t unc in una hora diei unius
+totius anni est illis umbra
+passa pelo zênite de suas cabeças, o que é
+mostrado assim. Suponha um círculo
+paralelo à equinocial passando pelo zênite de
+suas cabeças. Esse c írculo interceptará o
+zodíaco em dois lugares eqüidistantes do
+início de Câncer. Portanto, quando o Sol está
+nesses dois pontos, ele passa pelo zênite de
+suas cabeças; portanto eles têm dois verões e
+dois invernos, qu atro solstícios e quatro
+sombras, como o s que vivem sob a
+equinocial. E alguns dizem que a Arábia está
+em tal situação. Por isso Lucano, falando
+sobre os Árabes que vieram a Roma a judar
+Pompeu, d iz: “Vocês, árabes, vieram a um
+mundo qu e lhes era desconhecido / e se
+maravilharam porque a sombra das árvores
+nunca fica para a  esquerda”, pois em seu
+lugar as s ombras ficavam algumas vezes
+para sua direita, algumas vezes para sua
+esquerda, algumas vezes perpendicular,
+algumas vezes orientais, algumas vezes
+ocidentais. Mas quando vieram a Roma, que
+está além do Trópico de Câncer, então suas
+sombras estavam sempre setentrionais.
+Aqueles cujo zênite está no Trópico de
+Câncer
+Para aqueles cujo zênite está no Trópico de
+Câncer, acontece que o Sol passa uma vez
+por ano pelo zênite de suas cabeças, a saber,
+quando está no primeiro ponto de Câncer; e
+então, em uma hora de um dia do ano todo,
+sua sombra é
+[Fol. 21r]
+perpendicularis. In tali situ dicitur Syene
+civitas. Unde Lucanus. Umbras
+nusquam flectente Syene. Hoc intellige
+in meridie unius diei: et per r esiduum
+totius anni iacitur illis umbra
+septentrionalis.
+Quorum zenith est inter tropicum
+Cancri et circulum arcticum.
+Illis vero qu orum zenith est inter
+tropicum Cancri: et circulum arcticum
+contingit quod Sol i n sempiternum non
+transit per zenith capitis eorum: et i llis
+semper iacitur umbra versus
+septentrionem. Talis est situs noster.
+Notandum etiam quod Æthiopia vel
+aliqua pars eius est circa tropicum
+Cancri. Unde Lucanus. Æthiopumque
+solum quod non præmeretur ab u lla.
+Signiferi regiones poli nisi: poplite
+lapso. Ultima c urvati procederet ungula
+Tauri. Dicunt enim quidam quod ibi
+sumitur signum æquivoce pro
+duodecima parte zodiaci: et pro forma
+animalis: quod secundum m aiorem
+partem sui est in signo quod d enominat.
+Unde Taurus cum sit i n zodiaco
+secundum m aiorem sui partem: tamen
+extendit pedem suam ultra tropicum
+Cancri: et i ta premit Æthiopiam: licet
+nulla pars zodiaci premat eam. Si enim
+pes Tauri de quo loquitur autor
+extenderetur
+Syene civitas
+Lucanus
+Lucanus
+Signum sumitur
+æquivoce.
+perpendicular. Diz-se que a cidade de
+Syene e stá situada assim. Por isso
+Lucano: “A sombra de Syene que nunca
+se inclina”. Deve-se e ntender isso ao
+meio d ia de um único d ia; para todo o
+resto do ano, para eles a sombra cai para
+o norte.
+Aqueles cujo zênite está entre o Trópico
+de Câncer e o círculo Ártico
+Mas para aqueles cujo zênite está entre o
+Trópico d e Câncer e o círculo Ártico,
+ocorre que o Sol nunca passa pelo zênite
+de suas cabeças; e para eles a sombra
+sempre cai para o norte. Essa é  a nossa
+situação. Também se deve notar que a
+Etiópia, ou uma parte dela, está além do
+Trópico de Câncer. Por isso Lucano: “E
+a Etiópia que sozinha não é tocada / por
+nenhuma região do  pó lo qu e transporta
+os s ignos, / exceto a ponta do casco d e
+Taurus saltitante”. Pois dizem realmente
+que o signo é aqui considerado de forma
+equívoca, tanto como um doze a vos do
+zodíaco quanto como a forma do animal
+que, em sua maior parte, está dentro do
+signo ao q ual dá o no me. Portanto
+Taurus, embora e steja, em sua maior
+parte, dentro do zodíaco, estende seu pé
+além do Trópico de Câncer e assim toca
+a Etiópia, embora nenhuma parte do
+zodíaco a toque. Pois se o pé de Taurus
+de que fala o autor se estendesse
+Cidade de Syene.
+Lucano
+Lucano
+Signo
+compreendido de
+forma equívoca.
+[Fol. 21v]
+versus æquinoctialem: ut esset in directo
+Arietis: vel alterius s igni: t unc
+premeretur ab Ariete et Virgine: et aliis
+signis: quod p atet per circulum
+æquinoctialem parallelum cicunductum
+per zenith capitis ipsorum Æthiopum: et
+Arietem et Virginem vel alia signa. Sed
+cum ratio physica huic contrarietur: non
+enim ita essent denigrati si in temperata
+nascerentur habitabili. Dicendum quod
+illa pars Æthiopiæ: de qua loquitur
+Lucanus est sub æquinoctiali circulo: et
+quod p es Tauri de quo loquitur
+extenditur versus æquinoctialem: sed
+distinguitur tunc in signa cardinalia e t
+regiones. Nam signa cardinalia dicuntur
+duo signa in quibus contingunt solstitia:
+et duo in quibus contingunt æquinoctia.
+Regiones autem appellantur signa
+intermedia. Et secundum hoc patet quod
+cum Æthiopia sit sub æquinoctiali non
+premitur ab aliqua regione: sed a duobus
+signis tantum cardinalibus scilicet Aries
+et Libra.
+Quorum zenith est in circulo arctico.
+Illis autem quorum zenith est i n circulo
+arctico contingit in qu olibet die e t
+tempore anni quod zenith capitis eorum
+est i dem cum polo zodiaci: et t unc
+habent zodiacum sive ec lipticam pro
+horizonte: et hoc est quod d icit
+Alfraganus
+Lucanus
+Quæ dicunt signa
+cardinalia: et quæ
+regiones.
+Alfraganus.
+para a equinocial de modo que estivesse na
+direção de Aries ou d e outro signo, então
+ele seria tocado p or Aries e Virgem ou
+outros signos. O que é  evidente porque o
+círculo paralelo à e quinocial gira pelo
+zênite da c abeça dos próprios Etíopes: e
+assim Áries e Virgem ou ou tros signos.
+Mas como a razão filosófica se opõe a isso,
+pois eles não seriam tão n egros se
+nascessem na região temperada habitável,
+deve-se dizer que a quela parte da Etiópia
+sobre a qual Lucano está falando está sob o
+círculo equinocial e a quele pé de Taurus,
+sobre o qu al ele fala, se e stende para a
+equinocial. Mas existe uma distinção entre
+os signos cardeais e as regiões. Pois signos
+cardeais são os nomes dos dois signos nos
+quais ocorrem os s olstícios e os dois em
+que ocorrem os equinócios, enquanto o s
+signos intermediários s ão chamados de
+regiões. E desse modo se torna claro qu e,
+embora a  Etiópia esteja sob a e quinocial,
+não é tocada por nenhuma região, mas
+apenas pelos dois signos cardeais, a saber,
+Aries e Libra.
+Aqueles cujo zênite está no círculo Ártico
+Para a queles cujo zênite está no círculo
+Ártico ocorre em todos os dias e tempos do
+ano que o zênite de suas cabeças é idêntico
+ao pó lo do  zodíaco, e então eles têm o
+zodíaco ou eclíptica como seu horizonte. E
+isso é o que Alfraganus diz,
+Lucano
+Quais signos são
+chamados cardeais,
+e quais regiões
+Alfragano
+[Fol. 22r]
+quod ibi circulus zodiaci flectitur supra
+circulum hemisphærii. Sed cum
+firmamentum continue moveatur
+circulus horizontis intersecabit zodiacum
+in instanti: et cum sint maximi circuli in
+sphæra intersecabunt se in partes
+æquales. Unde statim m edietas una
+zodiaci emergit supra horizontem et
+reliqua deprimitur sub ho rizonte subito.
+Et hoc e st quod dicit Alfraganus quod
+ibi occidunt repente sex signa: et reliqua
+sex oriuntur cum toto æquinoctiali. Cum
+autem ecliptica sit horizon illorum erit
+tropicus Cancri totus supra horizonta: et
+totus tropicus Capricorni sub horizonte.
+Et sic Sole e xistente in primo pun cto
+Cancri erit illis una dies viginti quattuor
+horarum: et quasi instans pro nocte: quia
+in instanti Sol transit horizonta: et statim
+emergit: et ille contactus est pro nocte. E
+converso contingit illis Sole existente in
+primo puncto Capricorni. Est enim tunc
+illis una nox viginti quattuor horarum: et
+quasi instans pro die.
+Quorum zenith est inter circulum
+arcticum et polum mundi
+Illis autem quorum zenith est i nter
+circulum arcticum: et polum m undi
+arcticum contingit
+que lá o círculo do zodíaco se dobra sobre
+o círculo do  hemisfério. Mas, como o
+firmamento está e m m ovimento contínuo,
+o círculo do  horizonte interceptará o
+zodíaco em um instante e , como são
+círculos máximos da e sfera, eles s e
+interceptarão em partes iguais. Portanto
+uma metade do zodíaco se ergue acima do
+horizonte, e a  o utra mergulha a baixo do
+horizonte subitamente. E isso é o que
+Alfraganus diz, q ue seis s ignos se põem
+repentinamente lá, e os outros seis s e
+erguem com toda a equinocial. E como a
+eclíptica é seu h orizonte, o trópico de
+Câncer está todo acima do h orizonte. E
+quando o Sol está no primeiro po nto d e
+Câncer eles terão u m dia de 24 h oras e
+quase um instante para noite, po is o Sol
+passa pelo h orizonte por um instante e
+imediatamente se ergue, e e sse contato é
+sua noite. O oposto acontece quando o Sol
+está no primeiro pon to d e Capricórnio,
+pois então eles têm uma noite de 24 horas
+e quase um instante como dia.
+Aqueles cujo zênite está entre o círculo
+Ártico e o pólo do mundo
+Para a queles cujo zênite está e ntre o
+círculo Ártico e o p ólo ártico do mundo,
+ocorre
+[Fol. 22v]
+quod h orizon illorum intersecat
+zodiacum in duob us punctis
+æquidistantibus a principio Cancri: et in
+revolutione firmamenti contingit quod
+illa portio zodiaci i ntercepta semper
+relinquitur supra horizontem. Unde patet
+quod qu amdiu Sol est i n illa portione
+intercepta e rit unus dies continuus sine
+nocte: ergo si i lla portio fuerit ad
+quantitatem signi unius erit ibi dies
+continuus unius mensis s ine nocte: ad
+quantitatem duorum signorum erit
+duorum m ensium: et i ta deinceps. Item
+contingit eisdem quod po rtio zodiaci
+intercepta a b illis duobus punctis
+æquidistantibus a principio Capricorni
+semper r elinquitur sub horizonte: unde
+cum Sol est i n illa portione intercepta
+erit una nox continua sine die brevis: vel
+magna secundum quantitatem interceptæ
+portionis. Signa a utem reliqua: quæ eis
+oriuntur: et occidunt præpostere oriuntur
+et occidunt. Oriuntur præpostere sicut
+Taurus ante Arietem: Aries ante Pisces:
+Pisces ante Aquarium: et t amen signa
+his opposita oriuntur r ecto ordine: et
+occidunt præpostere: ut Scorpius ante
+Libram: Libra a nte Virginem: et tamen
+signa his opposita occidunt directe illa
+scilicet quæ oriebantur præpostere: ut
+Taurus.
+Ubi sit dies sine
+nocte.
+Ubi nox sine die
+De ortu et occasu
+præpostero
+signorum
+que seu ho rizonte interceptará o zodíaco em
+dois pontos eqüidistantes do início de Câncer.
+E na rotação do firmamento, ocorre que essa
+porção interceptada do zodíaco sempre
+permanece acima do h orizonte. Portanto é
+claro que, enquanto o Sol está naquela porção,
+haverá um dia c ontínuo sem noite. Portanto,
+se e ssa porção for do tamanho d e um signo,
+haverá um dia contínuo sem noite durante um
+mês. Se for do tamanho de dois signos, será de
+dois meses, e a ssim por diante. Ocorre da
+mesma forma que a porção do zodíaco
+interceptada entre dois pontos eqüidistantes do
+início de Capricórnio é sempre deixada abaixo
+do ho rizonte. Portanto, q uando o Sol está
+naquela porção interceptada, haverá uma noite
+contínua sem dia, curta ou longa segundo a
+quantidade da porção interceptada. Além
+disso, o s s ignos restantes que se erguem e
+põem para eles, erguem-se e  põ em-se de
+modo p repóstero. Erguem-se de modo
+prepóstero, pois Touro v em antes de Aries,
+Aries antes de Peixes, Peixes antes de
+Aquário. No entanto os signos opostos a esses
+se erguem na ordem correta. Eles se põem de
+modo p repóstero, como Escorpião antes de
+Libra, Libra antes de Virgem, Virgem antes de
+Leão. No entanto, os signos opostos a esses se
+põem verticalmente, a saber, aqueles que se
+erguem de forma prepóstera, como Touro.
+Quando há um
+dia sem noite.
+Quando há uma
+noite sem dia.
+[Fol. 23r]
+Quorum zenith est in polo arctico
+Illis autem quorum zenith est i n polo
+arctico contingit quod illorum horizon
+est idem quod æquinoctialis. Unde cum
+æquinoctialis intersecet zodiacum in
+duas partes æquales: sic et i llorum
+horizon relinquit medietatem zodiaci
+supra: et reliquam infra. Unde c um Sol
+decurrat per illam medietatem: quæ est a
+principio Arietis usque a d finem
+Virginis unus erit dies continuus s ine
+nocte: et cum Sol decurrit i n illa
+medietate quæ est a principio Libræ
+usque in finem Piscium erit nox u ma
+continua sine die. Quare et una medietas
+totius anni est uma dies artificialis: et
+alia medietas est una nox. Unde totus
+annus est i bi unus dies naturalis. Sed
+cum ibi nunquam magis 23 gradibus Sol
+sub h orizonte deprimatur videtur quod
+illis sit dies continuus sine nocte. Nam et
+nobis dies dicitur ante Solis ortum supra
+horizontem. Hoc a utem est quantum ad
+vulgarem sensibilitatem. Non enim est
+dies artificialis quantum ad ph ysicam
+rationem nisi ab o rtu Solis usque a d
+occasum eius s ub ho rizonte. Ad hoc
+iterum quod lux videtur ibi esse
+perpetua: quonian dies est antequam Sol
+levetur super terram per 18 gradus ut
+dicit Ptolemæus. Alii vero magistri Ptolemæus
+Aqueles cujo zênite está no pólo Ártico
+Para a queles cujo zênite está no p ólo
+Ártico, o corre que o seu ho rizonte é
+idêntico à equinocial. Portanto, como a
+equinocial intercepta o zodíaco em partes
+iguais, da mesma forma seu ho rizonte
+deixa metade do zodíaco acima e o
+restante abaixo. Portanto, qu ando o Sol
+está percorrendo aquela metade que e stá
+do início d e Aries até o fim de Virgem,
+haverá um dia c ontínuo sem noite; e
+quando o Sol percorre aquela metade que
+está do início de Libra até o fim de Peixes,
+haverá uma noite c ontínua sem dia.
+Portanto, metade do ano todo será um dia
+artificial e a  ou tra metade é uma noite.
+Portanto lá o ano todo é um dia natural.
+Mas como lá o Sol nunca está mais do que
+23 graus s ob o h orizonte, p areceria que
+para e les há um dia c ontínuo sem noite;
+pois dizemos que é dia para nós antes que
+o Sol surja acima do horizonte. Mas isso é
+de acordo com o sentido vulgar. Quanto à
+razão física, não é dia a rtificial exceto a
+partir do surgimento do Sol acima do
+horizonte até seu o caso abaixo do
+horizonte. Além disso, q uanto a esse
+argumento d e que lá deve haver luz
+perpétua, porque é dia antes que o Sol se
+eleve sobre a Terra por 18 graus, como diz
+Ptolomeu; enquanto outros mestres Ptolomeu
+[Fol. 23v]
+dicunt 30 scilicet per quantitatem unius
+signi: dicendum quod aer est i bi
+nubilosus et spissus. Radius enim solaris
+ibi existens debilis virtutis magis de
+vaporibus elevat quam possit
+consumere: unde ae rem non serenat: et
+non est dies.
+De divisione climatum.
+Imaginetur autem quidam circulus in
+superficie terræ directe suppositus
+æquinoctiali. Intelligatur alius circulus
+in superficie terræ transiens per orientem
+et occidentem: et per polos mundi. Isti
+duo circuli i ntersecant sese in duob us
+locis ad angulos rectos s phærales: et
+dividunt t otam terram in qu attuor
+quartas: quarum una e st nostra
+habitabilis illa scilicet quæ intercipitur
+inter semicirculum ductum ab oriente in
+occidentem* p er polum arcticum. Nec
+tamen illa quarta tota e st habitabilis.
+Quoniam partes illius propinquæ
+æquinoctiali inhabitabiles sunt propter
+nimium calorem. Similiter partes eius
+propinquæ polo arctico inhabitabiles
+sunt propter nimiam frigiditatem.
+Intelligatur ergo un a linea æquidistans
+ab æquinoctiali dividens partes quartæ
+inhabitabiles propter calorem a partibus
+habitabilibus: quæ sunt versus
+septentrionem. Intelligatur etiam alia
+linea æquidistans a polo arctico dividens
+dizem 30, ou seja, a quantidade de um
+signo; deve-se dizer que o ar lá é
+enevoado e denso, pois os raios do Sol lá
+são fracos e levantam m ais vapores do
+que c onseguem consumir, d e modo qu e
+o ar não é claro.
+Sobre a divisão dos climas
+Imagine-se um círculo sobre a superfície
+da Terra, diretamente sob a equinocial. E
+suponha um outro círculo n a superfície
+da Terra, passando pelo oriente e  p elo
+ocidente, e pelos pólos do mundo. Esses
+dois círculos se interceptam em dois
+lugares em ângulos retos esféricos; e
+dividem toda a Terra em quatro quartos,
+dos quais um é nosso habitável, a saber,
+aquela que é  interceptada e ntre o
+semicírculo traçado do oriente para o
+ocidente na superfície equinocial, e o
+semicírculo do  o riente para o  ocidente
+pelo pólo Ártico. Porém esse quarto não
+é totalmente habitável; pois partes dele
+próximas à e quinocial são inabitáveis
+por causa do calor extremo. De modo
+semelhante, suas partes próximas ao
+pólo Ártico são inabitáveis por causa do
+frio extremo. Suponha, então, uma linha
+eqüidistante da e quinocial dividindo as
+partes desse quarto inabitáveis por causa
+do calor das partes habitáveis, que estão
+para o no rte. E suponha outra linha
+eqüidistante do pólo Ártico dividindo
+                                                
+* Omission: in superficie æquinoctialis et semicirculum ductum ab oriente in occidentem.
+[Fol. 24r]
+partes quartæ inhabitabiles: quæ sunt
+versus s eptentrionem: propter f rigus a
+partibus habitabilibus quæ sunt versus
+æquinoctialem. Inter istas etiam duas
+lineas extremas intelligatur sex lineæ
+parallelæ æquinoctiali: quæ cum duobus
+prioribus dividunt partem totalem
+quartæ habitabilem in septem portiones
+quæ dicunt septem climata: prout i n
+præsenti patet figura.
+as partes do quarto que estão para o
+norte, qu e são inabitáveis pelo frio, d as
+partes habitáveis, qu e e stão p ara o lado
+da e quinocial. Entre e ssas duas linhas
+extremas suponha seis linhas paralelas àz
+equinocial; as quais, com as duas
+anteriores, d ividem toda a parte
+habitável do quarto em sete partes que
+são chamadas de sete climas, como
+aparece na figura presente.
+Dicitur autem clima tantum spatium
+terræ per quantum sensibiliter variatur
+horologium. Idem nanque dies æstiuus
+ali quantus: qui est i n un a regione: et
+sensibiliter est minor in regione
+propinquiori austro. Spatium igitur
+tantum quantum incipit dies idem
+sensibiliter variari dicitur clima. Nec est
+idem horologium cum principio: et
+Clima quid sit. E é chamado de clima o espaço da Terra
+no qu al varia sensivelmente o relógio.
+Igualmente, qu ando a duração d ia do
+verão em uma região é sensivelmente
+menor do que na região mais próxima do
+sul. Aquele espaço no qual a quantidade
+do d ia c omeça a variar sensivelmente é
+chamado d e clima. E o relógio não é
+igual no princípio e
+O que é clima.
+[Fol. 24v]
+fine huius spatii observatum. Horæ enim
+diei sensibiliter variantur: quare e t
+horologium. 
+ Medium igitur primi
+climatis est ubi maioris diei prolixitas
+est 13 ho rarum: et elevatio poli mundi
+supra circulum hemisphærii gradibus 16
+et dicitur clima dia Meroes. Initium eius
+est ubi diei maioris prolixitas est 12
+horarum: et dimidiæ et quartæ unius
+horæ: et elevatur polus supra horizontem
+gradibus 12 et dimidiæ et quartæ unius
+gradus. Et extenditur eius latitudo usque
+ad locum ubi l ongitudo prolixioris diei
+est 13 ho rarum: et quartæ unius: et
+elevatur polus s upra horizontem
+gradibus 20 et dimidio: quod spatium
+terræ est 440 milliaria. 
+ Medium
+autem secundi climatis est ubi maior
+dies est 13 h orarum: et dimidiæ: et
+elevatio p oli supra horizontem 24
+graduum: et quartæ partis unius gradus.
+Et dicitur clima dia Syenes. Latitudo
+vero eius est ex termino p rimi climatis
+usque ad locum: ubi est dies prolixior 13
+horarum et dimidiæ: et quartæ partis
+unius horæ: et elevatur polus 27
+gradibus et dimidio: et spatium terræ est
+400 milliariorum. 
+ Medium tertii
+climatis est ubi sit l ongitudo prolixioris
+diei 14 horarum: et elevatio poli supra
+Medium primi
+climatis.
+Medium secundi
+climatis.
+Medium tertii
+climatis.
+no fim desse e spaço. Realmente as
+horas do dia variam sensivelmente, e
+também o relógio. 
+ O meio do
+primeiro clima é onde a duração do dia
+mais longo é 13 horas; e a elevação do
+pólo d o mundo sobre o círculo dos
+hemisférios é 16 graus, e é chamado
+clima de Meroe. Seu início é onde a
+duração do  d ia mais longo é de 12
+horas e meia e um quarto de uma hora;
+e o pó lo está e levado acima do
+horizonte 12 graus e meio e um quarto
+de um grau. E sua largura se estende
+até o lugar onde a duração do dia mais
+longo é 13 horas e um quarto; e o pólo
+se eleva sobre o horizonte 20 graus e
+meio; cuja distância é  d e 440 milhas.
+O meio do segundo clima é onde o
+maior dia é  13 h oras e meia; e a
+elevação do  p ólo sobre o h orizonte é
+24 graus e um quarto de um grau; e é
+chamado clima de Syene. Sua largura é
+do final do primeiro clima a té o lugar
+onde o dia mais longo é de 13 horas e
+meia e um quarto de hora; e o pólo está
+elevado 27 graus e meio; e o espaço de
+terra é de 400 milhas. 
+ O meio do
+terceiro clima é onde a duração do dia
+mais longo é 14 horas; e a elevação do
+pólo sobre
+Meio do primeiro
+clima.
+Meio do segundo
+clima.
+Meio do terceiro
+clima.
+[Fol. 25r]
+horizontem 30 graduum et dimidii: et
+quartæ unius partis. Et dicitur clima dia
+Alexandrias. Latitudo eius est ex
+termino secundi climatis usque ubi
+prolixior dies est 14 horarum. et quartæ
+unius et altitudo po li 33 graduum et
+duarum tertiarum. Quod spatium terræ
+est 350 milliariorum. 
+ Medium quarti
+climatis est ubi maioris dies prolixitas
+est 14 ho rarum et dimidiæ: et axis
+latitudo [sic] 36 graduum et duarum
+quintarum. Et dicitur dia Rhodos.
+Latitudo vero eius est ex termino tertii
+climatis usque ubi prolixitas maioris diei
+est 14 ho rarum et dimidiæ: et quartæ
+partis unius. Elevatio autem poli 39
+graduum. Quod spatium terræ est 300
+milliariorum. 
+ Medium quinti
+climatis est ubi maior dies est 15
+horarum: et elevatio poli 41 graduum: et
+tertiæ unius. Et dicitur clima dia Romes.
+Latitudo vero eius est ex termino quarti
+climatis usque ubi prolixitas diei sit 15
+horarum: et quartæ unius. Et elevatio
+axis 43 graduum et dimidii. Quod
+spatium terræ est 255 milliariorum.
+Medium sexti climatis est ubi
+prolixior dies est 15 horarum et dimidiæ:
+et elevatur polus s uper horizontem 45
+gradibus: et duabus quintis unius. Et
+dicitur clima dia Borysthenes.
+Medium quarti
+climatis.
+Medium quinti
+climatis.
+Medium sexti
+climatis.
+o ho rizonte é 30 graus e meio e um
+quarto d e uma parte; e é  chamado
+clima de Alexandria. Sua largura é do
+final do segundo clima até onde o dia
+mais longo é de 14 horas e um
+quarto, e a altura do pólo é 33 graus e
+dois terços; e o espaço de terra é  d e
+350 milhas. 
+ O meio do qu arto
+clima é onde a duração do maior dia é
+de 14 h oras e meia; e a  largura do
+eixo é 36 graus e dois quintos; e é
+chamado clima de Rhodes. Sua
+largura é do final do terceiro clima
+até onde a duração do maior dia é 14
+horas e meia e um quarto d e uma
+parte; e a elevação do p ólo é 39
+graus; cujo espaço d e terra é 300
+milhas. 
+ O meio do quinto clima é
+onde o maior dia é  15 horas; e a
+elevação do pólo 41 graus e um terço;
+e é c hamado clima de Roma. Sua
+largura é do fim do qu arto clima a té
+onde a duração do d ia é 15 horas e
+um quarto; e a elevação do eixo é 43
+graus e meio; cujo espaço d e terra é
+255 milhas. 
+ O meio do sexto
+clima é onde o dia mais longo é 15
+horas e meia; e o pólo se eleva sobre
+o horizonte 45 graus e dois quintos; e
+é chamado clima de Borístenes.
+Meio do quarto
+clima.
+Meio do quinto
+clima.
+Meio do sexto
+clima.
+[Fol. 25v]
+Latitudo vero eius est ex termino quinti
+climatis usque ubi l ongitudo diei
+prolixior est 15 h orarum et dimidiæ: et
+quartæ unius: et axis elevatio 47
+graduum: et quartæ unius. Quæ distantia
+terræ est 212 milliariorum. 
+ Medium
+autem septimi climatis est ubi maior
+prolixitas diei est 16 h orarum: et
+elevatio p oli supra horizontem 48
+graduum: et duarum tertiarum. Et dicitur
+clima dia Ripheos. Latitudo vero eius est
+ex termino sexti climatis usque ubi
+maxima dies est 16 h orarum et quartæ
+unius: et elevatur polus mundi supra
+horizontem 50 gradibus et dimidio.
+Quod spatium terræ est 185
+milliariorum. Ultra autem huius septimi
+climatis terminum: li cet plures s int
+insulæ: et hominum habitationes:
+quicquid tamen sit: quoniam pravæ est
+habitationis sub climate non computatur.
+Omnis itaque inter terminum initialem
+climatum et finalem eorundem diversitas
+est t rium horarum et dimidiæ. Et ex
+elevatione poli supra horizontem 38
+graduum. Sic igitur patet uniuscuisque
+climatis latitudo a principio ipsius versus
+æquinoctialem usque in finem eiusdem
+versus polum arcticum: et quod primi
+climatis latitudo est maior latitudine
+Medium septimi
+climatis.
+Sua largura é  do  fim do qu into
+clima a té onde a duração do  d ia
+mais longo é 15 h oras e 3/4 e a
+elevação do  eixo 4 6 g raus e 1/4,
+cuja distância é 212 milhas. 
+ O
+meio do sétimo clima é onde o dia
+mais longo é 16 horas e a elevação
+do pólo sobre o horizonte é 48 graus
+e 2/3, e é  chamado clima de
+Ripheon. Sua largura é do fim do
+sexto clima até onde o dia máximo
+é 16 h oras e 1/4 e o pólo se eleva
+sobre o h orizonte 50 graus e 1/2,
+cujo espaço d e terra é  1 85 milhas.
+Além do fim deste sétimo clima
+pode haver um certo número d e
+ilhas e de habitações humanas, no
+entanto seja o que houver lá, como
+as condições de vida são ruins, não
+é c ontado como clima. Portanto, a
+diferença total entre o limite inicial
+dos climas e seu fim é 3 ho ras e
+meia, e de elevação do pólo sobre o
+horizonte de 38 graus. Assim
+tornamos clara a  largura de cada
+clima do seu início perto do
+equador até seu fim perto do  p ólo
+Ártico, e que a largura do primeiro
+clima é maior do que a latitude do
+Meio do sétimo
+clima
+[Fol. 26r]
+secundi et sic deinceps. Longitudo
+autem climatis potest appellari l inea
+ducta ab oriente in o ccidentem
+æquidistans ab æquinoctiali. Unde
+longitudo p rimi climatis est maior
+longitudine secundi: et sic deinceps:
+quod contingit propter angustias
+sphæræ.
+Capitulum quartum de circulis et
+motibus planetarum: et de causis
+eclipsium solis et lunæ.
+segundo, e assim por diante. O
+comprimento d e um clima pode ser
+considerado como a linha traçada de
+leste até oeste paralela ao equador;
+portanto o comprimento d o primeiro
+clima é maior do que o comprimento do
+segundo e assim por diante, o  qu e
+acontece porque a  esfera se torna mais
+estreita para baixo.
+Capítulo quarto: sobre os círculos e
+movimentos planetárfios e sobre as
+causas dos eclipses do Sol e da Lua.
+Otandum quod Sol habet
+unicum circulum per quem
+movetur in superficie lineæ
+eve-se notar que o Sol t em
+um único círculo no qual ele
+é movido no plano da linha
+eclipticæ: et est eccentricus. Eccentricus
+quidem circulus dicitur non o mnis
+circulus: sed solum talis qui dividens
+terram in duas partes æquales non habet
+centrum suum cum centro terræ sed
+extra. Punctus autem in eccentrico q ui
+maxime acce dit ad firmamentum
+appellatur aux: quod interpretatur
+elevatio. Punctus vero op positus qui
+maximæ remotionis est a firmamento
+dicitur oppositio augis. Solis autem ab
+occidente in o rientem duo sunt motus:
+quorum unus est ei proprius in circulo
+suo eccentrico: quo movetur in omni die
+ac nocte 60 minutis fere. Alius vero
+tardior est motus s phæræ ipsius s upra
+polos axis circuli signorum
+Eccentricus circulus.
+Aux.
+Oppositio augis
+eclíptica, e é e xcêntrico. Qualquer
+círculo é chamado de excêntrico quando,
+como o do  Sol, dividindo a Terra e m
+partes iguais, n ão tem o mesmo centro
+da Terra mas um que e stá fora dele.
+Além disso, o ponto do excêntrico que se
+aproxima mais do firmamento é
+chamado d e aux ou  augis, significando
+elevação. O ponto oposto, que está mais
+distante do firmamento, é c hamado d e
+oposto ao aux. Além disso, h á dois
+movimentos do Sol de oeste para leste,
+um dos quais é seu próprio sobre seu
+excêntrico, p elo qu al se move todos os
+dias e noites aproximadamente 60
+minutos. O outro é o movimento mais
+lento da própria esfera sobre os pólos do
+eixo do círculo dos signos,
+Círculo excêntrico.
+Auge
+Oposição ao auge
+[Fol. 26v]
+et est æqualis motui sphæræ stellarum
+fixarum scilicet i n 1 00 anni gradu uno.
+Ex h is itaque duobus motibus colligitur
+cursus eius in circulo signorum ab
+occidente in orientem: per quem abscidit
+circulum signorum in 363 [sic] diebus et
+quarta unius diei fere præter rem
+modicam quæ nullius est sensibilitatis.
+Quilibet autem planeta tres habet
+circulos præter Solem scilicet æquantem
+deferentem et epicyclum. Æquans
+quidem Lunæ est circulus concentricus
+cum terra: et in superficie eclipticæ. Eius
+vero d eferens est circulus eccentricus
+nec est in superficie eclipticæ immo una
+eius medietas declinat versus
+septentrionem: altera versus austrum. Et
+intersecat deferens æquantem in duobus
+locis. Et figura intersectionis appellatur
+Draco: quoniam lata e st in medio et
+angustior versus finem. Intersectio igitur
+illa per quam m ovetur Luna a b austro
+versus aquilonem appellatur caput
+Draconis. Reliqua vero intersectio p er
+quam movetur a septentrione in austrum
+dicitur cauda Draconis. Deferentes
+quidem et æquantes cuiuslibet planetæ
+sunt æquales. 
+ Et sciendum quod tam
+deferens quam æquans Saturni: Iovis:
+Martis: Veneris: et Mercurii sunt
+eccentrici
+Æquans Lunæ
+Deferens Lunæ
+Draco
+Caput Draconis
+Cauda Draconis
+e é igual ao movimento d a esfera das
+estrelas fixas, a saber, um grau em cem
+anos. Por esses dois movimentos,
+portanto, é contado o caminho do Sol no
+círculo dos s ignos de oeste para leste,
+pelo qual ele c orta o círculo do s signos
+em 365 d ias e um quarto de um dia,
+exceto p or uma pequena fração qu e é
+imperceptível. Todos os planetas exceto
+o Sol possuem três círculos, a saber,
+equante, deferente e epiciclo. O equante
+da Lua é um círculo concêntrico com a
+Terra e no p lano d a e clíptica. Seu
+deferente é um círculo excêntrico qu e
+não está no plano da eclíptica - de fato,
+metade dele se inclina para o norte e  a
+outra para o sul - e o deferente intercepta
+o equante e m dois lugares e a  figura
+dessa interseção é c hamada de dragão
+porque é larga no meio e e streita nas
+extremidades. Essa interseção, p ortanto,
+através da qual a Lua se move do sul
+para o no rte é  chamada cabeça do
+dragão, enquanto a outra interseção
+através da qual se move do norte para o
+sul é c hamada c auda do d ragão.
+Deferente e equante de cada planeta são
+iguais. 
+  E saiba que tanto o deferente
+quanto o equante de Saturno, Júpiter,
+Marte, Vênus e Mercúrio são excêntricos
+Equante da Lua
+Deferente da Lua
+Dragão
+Cabeça do dragão
+Cauda do dragão
+[Fol. 27r]
+et extra superficiem eclipticæ: et tamen
+illi duo sunt i n eadem superficie.
+Quilibet etiam planeta præter Solem
+habet epicyclum. Et est epicyclus
+circulus parvus per cuius
+circumferentiam defertur corpus
+planetæ: et centrum epicycli semper
+defertur in circumferentia deferentis. Si
+igitur duæ lineæ ducantur a centro terræ
+ita quod includant epicyclum ailuius
+planetæ: una ex parte orientis: reliqua ex
+parte occidentis punctus contactus ex
+parte orientis dicitur statio prima:
+punctus vero contactus ex parte
+occidentis dicitur statio secunda. Et
+quando planeta e st in alterutra illarum
+stationum dicitur stationarius. Arcus
+vero epicycli superior inter duas
+stationes interceptus dicitur directio: et
+quando planeta e st in illo tunc dicitur
+directus. Arcus vero epicycli i nferior
+inter duas stationes interceptus dicitur
+retrogradatio: et planeta ibi existens
+dicitur retrogradus. Lunæ autem non
+assignatur statio directio ver
+retrogradatio. Unde non dicitur Luna
+stationaria directa vel retrograda propter
+velocitatem motus eius in epicyclo.
+De eclipsi Lunæ.
+Cum autem sit Sol maior terra: necesse
+est quod medietas s phæræ terræ ad
+minus a Sole semper
+Epicyclus quid sit.
+Statio prima
+Statio secunda
+Directio
+Retrogradatio
+e fora do plano da eclíptica, e no entanto
+esses dois estão no mesmo plano. Além
+disso, todo planeta exceto o Sol tem um
+epiciclo. Um epiciclo é um pequeno
+círculo sobre cuja c ircunferência é
+transportado o corpo do  planeta, e o
+centro do epiciclo é sempre carregado ao
+longo da circunferência do deferente. Se,
+então, forem traçadas duas linhas do
+centro da Terra para incluir um epiciclo,
+uma para o leste e a outra para o oeste, o
+ponto de contato no leste é chamado de
+primeira parada, enquanto o po nto d e
+contanto no oeste é chamado de segunda
+parada. E quando o  p laneta e stá e m
+qualquer dessas paradas ele é  chamado
+de e stacionário. O arco superior do
+epiciclo interceptado entre e ssas duas
+paradas é chamado d ireção, e quando o
+planeta está lá ele é chamado direto. Mas
+o arco inferior do epiciclo entre duas
+paradas é chamado retrogradação, e um
+planeta que esteja lá é  chamado
+retrógrado. Mas a Lua não fica
+estacionária, d ireta ou retrógrada, p or
+causa da rapidez de seu movimento em
+seu epiciclo.
+Sobre o eclipse da Lua
+Como o  Sol é maior do q ue a  Terra, é
+necessário que metade da esfera da Terra
+esteja sempre
+O que é o epiciclo.
+Primeira parada
+Segunda parada
+Direto
+Retrogradação
+[Fol. 27v]
+Illuminetur: et umbra terræ extensa in
+aere tornatilis minuatur in rotunditate:
+donec deficiat i n superficie circuli
+signorum inseparabilis a nadir Solis. Est
+autem nadir Solis punctus directe
+oppositus Soli in firmamento. Unde cum
+in plenilunio Luna fuerit in capite vel in
+cauda Draconis s ub nadir Solis tunc
+terra interponetur Soli et Lunæ: et conus
+umbræ terræ cadet super corpus Lunæ.
+Unde cum Luna lumen non habeat nisi a
+Sole in rei veritate deficit a lumine. Et
+est eclipsis generalis in omni terra si ipsa
+fuerit in capite vel cauda Draconis
+directe: particularis vero eclipsis si fuerit
+prope infra metas determinatas eclipsi.
+Et semper in p lenilunio vel circa
+continget eclipsis. Unde cum in qualibet
+oppositione hoc est in plenilunio non sit
+Luna in capite vel in cauda Draconis nec
+supposita nadir Solis non est necesse in
+quolibet plenilunio Lunam pati eclipsim:
+ut patet in præsenti figura.
+Nadir Solis
+Eclipsis generalis
+Lunæ.
+Eclipsis particularis
+Lunæ.
+iluminada pelo Sol e que a sombra da
+Terra, estendida no ar como u m cone,
+diminua e m circunferência a té que
+termine no plano do  círculo d os s ignos,
+inseparável do nadir do Sol. O nadir é
+um ponto no firmamento d iretamente
+oposto ao Sol. Portanto, quando a Lua
+cheia está na cabeça ou cauda do dragão
+sob o n adir do Sol, então a Terra está
+interposta entre o Sol e a Lua, e o cone
+da sombra da Terra cai sobre o corpo da
+Lua. Portanto, como a Lua não possui
+luz exceto do  Sol, ela é  realmente
+privada de luz e há um eclipse geral, se
+estiver diretamente na ca beça ou cauda
+do d ragão, o u parcial, se estiver quase
+dentro d os limites determinados para o
+eclipse. E sempre ocorre na Lua cheia,
+ou p róximo d ela. Mas, como em toda
+oposição, ou seja, n a Lua c heia, a Lua
+não está na cabeça ou cauda do dragão,
+ou sob o n adir do Sol, não é necessário
+que a Lua sofra e clipse e m cada Lua
+cheia. Como aparece na presente figura.
+Nadir do Sol
+Eclipse geral da
+Lua.
+Eclipse particular
+da Lua.
+Cum autem fuerit Luna in capite vel i n
+cauda Draco-
+Quando a Lua e stá na cabeça ou cauda
+do dragão
+[Fol. 28r]
+nis vel prope vel infra metas supradictas
+et in coniunctione cum Sole tunc corpus
+Lunæ interponetur inter aspectum
+nostrum et corpus s olare. Unde
+obumbrabit nobis claritatem Solis: et ita
+Sol patietur eclipsim: non qu ia deficiat
+lumine: sed d eficit nobis propter
+interpositionem Lunæ inter aspectum
+nostrum et Solem. Ex his patet quod non
+semper est eclipsis Solis in
+coniunctione: sive in novilunio.
+Notandum etiam quod qu ando est
+eclipsis Lunæ est eclipsis in omni terra:
+sed quando est eclipsis Solis nequaquam
+immo in uno climate est eclipsis Solis: et
+in alio non.  Quod contingit propter
+diversitatem aspectus in diversis
+climatibus. Unde Virgilius elegantissime
+naturas utriusque ec lipsis s ub
+compendio tetigit dicens. Defectus Lunæ
+varios Solisque labores. Ex prædictis
+patet quod cum eclipsis Solis esset in
+passione Domini: et eadem passio esset
+in p lenilunio illa eclipsis Solis non fuit
+naturalis immo miraculosa [et] contraria
+naturæ: quia e clipsis Solis in no vilunio
+vel circa debet contingere. Propter quod
+legitur Dionysium Areopagita in eadem
+passione dixisse. Aut Deus naturæ
+patitur: aut mundi machina dissolvetur.
+   Iohannis de Sacrobusto explicitum
+anglici viri clarissimi Sphæra mundi
+feliciter explicit.
+Virgilius.
+Dionysius
+areopagita.
+ou p róxima dentro d os s eus limites e e m
+conjunção com o Sol, então o corpo da Lua
+está interposto entre nossa visão e o corpo
+do Sol. Portanto, ela obscurecerá o brilho do
+Sol para nós, e assim o Sol sofrerá eclipse -
+não que ele cesse de brilhar mas porque ele
+nos falta, pela interposição da Luz entre
+nossa visão e o Sol. Disso é claro q ue um
+eclipse solar deveria sempre ocorrer no
+instante de c onjunção, ou Lua nova. 
+ E
+deve ser notado qu e quando o corre um
+eclipse da Lua, ele é visível em todos os
+lugares na Terra. Mas quando ocorre um
+eclipse do Sol, isso não é assim. Realmente,
+ele pode ser visível em um clima e não em
+outro, o q ue ac ontece por causa dos
+diferentes pontos de vista nos diferentes
+climas. Por isso Virgílio exprime de forma
+muito apta e c oncisa a natureza de c ada
+eclipse: “Defeitos variados da Lua, e dos
+trabalhos do Sol”. Do que foi dito acima é
+também evidente que, q uando o  Sol foi
+eclipsado d urante a  Paixão e a  mesma
+Paixão ocorreu n a Lua c heia, esse eclipse
+não foi natural - realmente, ele foi
+milagroso e c ontrário à natureza, p ois um
+eclipse solar deveria ocorrer na Lua nova ou
+próximo d ela. Por isso se c onta que
+Dionísio o Areopagita disse durante a
+mesma Paixão: ou o Deus da natureza sofre,
+ou o mecanismo do universo se dissolve.
+   A Esfera do mundo do esclarecido senhor
+inglês Johannes de Sacrobosco termina de
+forma auspiciosa.
+Virgílio.
+Dionísio, o
+Aeropagita.
+JOHANNES DE SACROBOSCO
+TRACTATUS DE SPHÆRA /
+TRATADO DA ESFERA
+Formato bibliográfico padrão, para citações:
+SACRO BOSCO, Johannes de. Tractatus de sphæra / Tratado da
+esfera [1478]. Editado e traduzido por Roberto de Andrade Martins.
+Campinas: Universidade Estadual de Campinas, 2006. Edição
+eletrônica. Home page on-line. Disponível em:
+<http://ghtc.ifi.unicamp.br/download/Sacrobosco-1478-trad.pdf>;
+accesso em Dia/Mês/Ano.
+[acrescente a data em que copiou o arquivo, ou seja, a própria data
+do arquivo em seu computador]

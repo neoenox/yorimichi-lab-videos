@@ -7,23 +7,32 @@
   "book": {
    "file": "assets/scurvy/art_book.png"
   },
+  "deck": {
+   "file": "assets/scurvy/art_deck.png"
+  },
   "harbor": {
    "file": "assets/scurvy/art_harbor.png"
-  },
-  "barrels": {
-   "file": "assets/scurvy/art_barrels.png"
-  },
-  "sea": {
-   "file": "assets/scurvy/art_sea.png"
   },
   "sickbay": {
    "file": "assets/scurvy/art_sickbay.png"
   },
+  "barrels": {
+   "file": "assets/scurvy/art_barrels.png"
+  },
   "office": {
    "file": "assets/scurvy/art_office.png"
   },
-  "deck": {
-   "file": "assets/scurvy/art_deck.png"
+  "sea": {
+   "file": "assets/scurvy/art_sea.png"
+  },
+  "why": {
+   "file": "assets/scurvy/art_why.png"
+  },
+  "myth": {
+   "file": "assets/scurvy/art_myth.png"
+  },
+  "end": {
+   "file": "assets/scurvy/art_end.png"
   }
  },
  "bgm": [
@@ -510,6 +519,31 @@
      "alpha": 0.66
     },
     {
+     "t": "art",
+     "name": "why",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 5,
+     "dim": 0.8,
+     "dir": -1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 5,
+     "alpha": 0.66
+    },
+    {
      "t": "panel",
      "box": [
       60,
@@ -639,6 +673,31 @@
      "alpha": 0.66
     },
     {
+     "t": "art",
+     "name": "myth",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 5,
+     "dim": 0.8,
+     "dir": 1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 5,
+     "alpha": 0.66
+    },
+    {
      "t": "panel",
      "box": [
       60,
@@ -753,6 +812,31 @@
      "alpha": 0.66
     },
     {
+     "t": "art",
+     "name": "end",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 5,
+     "dim": 0.8,
+     "dir": -1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 5,
+     "alpha": 0.66
+    },
+    {
      "t": "cols2",
      "size": 31,
      "xm": 940,
@@ -823,8 +907,7 @@
   ],
   "credit_lines": [
    "・図・表:ミルン氏の論文の記述を基に自作(外部画像は使用していません)",
-   "・サムネイルの背景:Codex(OpenAI)による生成イラスト(18世紀の帆船と柑橘のイメージ。史実の再現ではありません)",
-   "・場面のイラスト:Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
+   "・サムネイルの背景と場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
   ],
   "notes": [
    "この動画は、主にミルン氏の1本の論文に基づいています。論文が紹介する他の研究(Baron 2009、Hughes 1975、Rodger 2004)や、リンドの著書の原文は、確認していません。",

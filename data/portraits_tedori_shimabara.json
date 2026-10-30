@@ -1,0 +1,38 @@
+[
+  {
+    "id": "kenshin",
+    "name": "上杉謙信",
+    "file": "assets\\portraits\\kenshin.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Uesugi Kenshin Portrait from Uesugi Shrine.png",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "Portrait of Uesugi Kenshin (1530-1578). He was a Sengoku daimyo of Echigo province (now Niigata prefecture). From the Uesugi Shrine collection (Uesugi Jinja).",
+    "date": "17th centurydate QS:P,+1650-00-00T00:00:00Z/7",
+    "credit": "Uesugi Jinja - https://www.uesugi-jinja.or.jp/about/",
+    "sha256": "866d1306d6cbd5070bb468e12328ce1d92e6730320c33b6552eaee9b2e953c19"
+  },
+  {
+    "id": "itakura",
+    "name": "板倉重昌",
+    "file": "assets\\portraits\\itakura.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Itakura Shigemasa.jpg",
+    "license": "Public domain",
+    "artist": "Unknown",
+    "desc": "",
+    "date": "Late Edo period",
+    "credit": "The Japanese book \"近世大名家の名品展―奥州板倉家を中心として―\", Haramachi City Museum, 1999",
+    "sha256": "23a263a3a64e1d956ca8daf055649b6e03d3f99bae72fed1e22fbe6cc2329052"
+  },
+  {
+    "id": "amakusa",
+    "name": "天草四郎",
+    "file": "assets\\portraits\\amakusa.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Amakusa Shiro.jpg",
+    "license": "Public domain",
+    "artist": "Yoshitoshi",
+    "desc": "Amakusa Shirō, from the series Biographies of Valiant Drunken Tigers (Keisei suikoden / 竸勢醉虎傳), Woodblock print",
+    "date": "明治7年出版",
+    "credit": "[1] 東京都立図書館",
+    "sha256": "05490f0d5de87b3359a9526ba763217bccf949b231144e3f0dbca13ded3a2cb7"
+  }
+]

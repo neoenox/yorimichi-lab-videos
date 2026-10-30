@@ -4,11 +4,8 @@
  "pack": "08_zenzen_affirm",
  "header_sub": "「全然」の使われ方を確かめる",
  "images": {
-  "cafe": {
-   "file": "assets/zenzen/art_cafe.png"
-  },
-  "dict": {
-   "file": "assets/zenzen/art_dict.png"
+  "novel": {
+   "file": "assets/zenzen/art_novel.png"
   },
   "edo": {
    "file": "assets/zenzen/art_edo.png"
@@ -16,11 +13,17 @@
   "press": {
    "file": "assets/zenzen/art_press.png"
   },
+  "dict": {
+   "file": "assets/zenzen/art_dict.png"
+  },
   "study": {
    "file": "assets/zenzen/art_study.png"
   },
-  "novel": {
-   "file": "assets/zenzen/art_novel.png"
+  "cafe": {
+   "file": "assets/zenzen/art_cafe.png"
+  },
+  "c": {
+   "file": "assets/zenzen/art_c.png"
   }
  },
  "bgm": [
@@ -232,6 +235,31 @@
       850
      ],
      "at": 0,
+     "alpha": 0.66
+    },
+    {
+     "t": "art",
+     "name": "c",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 6,
+     "dim": 0.8,
+     "dir": -1,
+     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+    },
+    {
+     "t": "shade",
+     "box": [
+      60,
+      170,
+      1860,
+      850
+     ],
+     "at": 6,
      "alpha": 0.66
     },
     {
@@ -721,7 +749,7 @@
   "credit_lines": [
    "・用例:青空文庫(夏目漱石『坊っちゃん』『吾輩は猫である』、芥川龍之介『羅生門』。いずれも著作権保護期間満了の作品の短い引用)",
    "・図・表:自作",
-   "・サムネイルの背景と場面のイラスト:Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
+   "・サムネイルの背景と場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
   ],
   "notes": [
    "この動画は、「全然」の使い方の正誤を判定するものではありません。",

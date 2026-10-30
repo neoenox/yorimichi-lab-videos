@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ikeda",
+    "name": "池田恒興",
+    "file": "assets\\portraits\\ikeda.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Ikeda_Tsuneoki.jpg",
+    "license": "Public domain",
+    "artist": "Kanō Naonobu",
+    "desc": "Image of Ikeda Tsuneoki",
+    "date": "Middle Edo period",
+    "credit": "Tottori Prefectural Museum, Tottori, Tottori, Japan. The picture is of the Osaka Castle tower storehouse",
+    "sha256": "54efcfc67e273151e16089ea035af1346f052fa68eaf0ddf3711a3ce106ec1c1"
+  },
+  {
+    "id": "takayama",
+    "name": "高山右近",
+    "file": "assets\\portraits\\takayama.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Takayama-Ukon.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Yoshiiku",
+    "desc": "Takayama Ukon was a Japanese Catholic kirishitan daimyō and samurai who lived during the Sengoku period. He wields a naginata.",
+    "date": "1867",
+    "credit": "[1] Tokyo Metropolitan Library (東京都立図書館)",
+    "sha256": "45e84640f37a1da56b6881d3a24ec0d132e4790836588f7bdc1b122ec44a8e50"
+  },
+  {
+    "id": "nakagawa",
+    "name": "中川清秀",
+    "file": "assets\\portraits\\nakagawa.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Portｒait_of_Nakagawa_Kiyohide.jpg",
+    "license": "Public domain",
+    "artist": "ブレイズマン 06:59, 30 May 2008 (UTC) 投稿者がファイル作成",
+    "desc": "中川清秀像,［説明］梅林寺所蔵",
+    "date": "2008-05-30",
+    "credit": "[1] Diffworlds DAIMYO of BUNGO PROVINCE",
+    "sha256": "ea2667f44e491a3146bbe7a07f250d43efe39c80da81c2acd0f1702af11d5aa9"
+  },
+  {
+    "id": "nobutaka",
+    "name": "織田信孝",
+    "file": "assets\\portraits\\nobutaka.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Oda_Nobutaka.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Kuniyoshi",
+    "desc": "『太平記英勇傳：丹部侍従平春高』",
+    "date": "1849",
+    "credit": "[1]",
+    "sha256": "144e97f2c909e960137a8ce1ada53917479570798a3faf73b724db83c9d88a65"
+  },
+  {
+    "id": "niwa",
+    "name": "丹羽長秀",
+    "file": "assets\\portraits\\niwa.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Niwa_Nagahide2.jpg",
+    "license": "Public domain",
+    "artist": "Unknown (Inscription by Nichien)",
+    "desc": "",
+    "date": "Original: Momoyama period",
+    "credit": "The Japanese book \"Shibata Katsuie\", Fukui City History Museum, 2006",
+    "sha256": "298013eecb53803afa01f721e5426c907ef758a92567716697bd309a78b937b0"
+  },
+  {
+    "id": "hori",
+    "name": "堀秀政",
+    "file": "assets\\portraits\\hori.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Hori_Hidemasa01.jpg",
+    "license": "Public domain",
+    "artist": "Unknown authorUnknown author",
+    "desc": "堀秀政の肖像。",
+    "date": "2013-01-01",
+    "credit": "『雑賀衆と織田信長』和歌山市立博物館　長慶寺所蔵",
+    "sha256": "93384b55dcb18741d919a6a17d466ea6bc8cfd8f8beae6c3f72aa3b6ff611a87"
+  },
+  {
+    "id": "saito_t",
+    "name": "斎藤利三",
+    "file": "assets\\portraits\\saito_t.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Saito_Kuranosuke.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Yoshiiku",
+    "desc": "「太平記英勇伝五十四：齋藤内蔵助利三」",
+    "date": "2015-05-11",
+    "credit": "[1] 東京都立図書館",
+    "sha256": "8fec54eb42ee255747af3d2a68d4381ddfe82ee0f68ecf71d8b25d0c9c52fe15"
+  },
+  {
+    "id": "mitsuharu",
+    "name": "明智秀満",
+    "file": "assets\\portraits\\mitsuharu.jpg",
+    "page": "https://commons.wikimedia.org/wiki/File:Akechi_Mituharu.jpg",
+    "license": "Public domain",
+    "artist": "Utagawa Yoshiiku",
+    "desc": "太平記英勇伝四十九：明智左馬助光春（明智秀満）",
+    "date": "2015-01-08",
+    "credit": "[1] 東京都立図書館",
+    "sha256": "e08639526ef258cb9e275e3e33a98f2345cd97a2e77618c2385d707f67c60e07"
+  }
+]

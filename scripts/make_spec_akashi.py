@@ -1,0 +1,91 @@
+"""Writes data/akashi_spec.json（日本の標準時は、なぜ明石の時刻？）。台本：docs/themes/20261112_akashi_time/09_script_v2.md"""
+import json, shutil, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from specart import inject
+R = Path(__file__).resolve().parents[1]
+TOP = [60, 170, 1860, 235]
+# サムネイル用の絵を、終章の背景にも使う（art_<name>.png の名前にそろえる）
+_src = R / 'assets' / 'akashi' / 'thumb_art.png'; _dst = R / 'assets' / 'akashi' / 'art_clockglobe.png'
+if _src.exists() and not _dst.exists(): shutil.copy(_src, _dst)
+spec = dict(slug='akashi', theme_dir='20261112_akashi_time', pack='24_akashi', header_sub='日本標準時の線を、国立天文台などの説明で確かめる',
+ images={},
+ bgm=[['intro', 'japan', 'piano36'], ['akashi', 'two', 'piano12'], ['end', 'end', 'piano40']],
+ chapters=[
+ dict(key='intro', title='日本の標準時は、なぜ明石の時刻？', chapter_title='導入：日本の標準時は、明石の時刻？', opener='日本の標準時は、明石の時刻？', opener_until=1, scene=[
+   dict(t='big', text='日本の標準時は、明石の時刻？', y=270, at=0, size=60, col='gold'),
+   dict(t='panel', box=[120, 450, 1800, 570], text='明石を通る線が基準なのは、本当。でも、明石が選ばれたわけではない', at=2, size=42, hi=True),
+   dict(t='panel', box=[120, 620, 1800, 700], text='資料：国立天文台・明石市立天文科学館などの説明', at=4, size=34)]),
+ dict(key='world', title='世界の基準', chapter_title='世界の基準', scene=[
+   dict(t='panel', box=TOP, text='1884年 国際子午線会議：経度0度は、グリニッジを通る線', at=0, until=1, size=40, hi=True),
+   dict(t='panel', box=TOP, text='地球は、およそ1日で1周', at=1, until=2, size=44),
+   dict(t='panel', box=TOP, text='360° ÷ 24時間 ＝ 15°／1時間（自作の計算）', at=2, until=3, size=44, col='gold'),
+   dict(t='panel', box=TOP, text='太陽を基準にした時刻は、経度15度で、1時間の差', at=3, until=4, size=42, hi=True),
+   dict(t='panel', box=TOP, text='国立天文台：基準の線は、グリニッジから15度刻みの経線が、選ばれることが多い', at=4, size=38),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='anim', name='zones24', box=[60, 250, 1860, 850], at=0, s_a=1, s_b=2, s_c=3, s_d=4)]),
+ dict(key='japan', title='日本が選んだ線', chapter_title='日本が選んだ線', scene=[
+   dict(t='panel', box=TOP, text='日本の近くで、15の倍数の線は、東経120度・135度・150度の3本', at=0, until=1, size=38, hi=True),
+   dict(t='panel', box=TOP, text='1886年7月13日 勅令：東経135度の時刻を、日本の標準時と定める', at=1, until=2, size=40, hi=True),
+   dict(t='panel', box=TOP, text='135度：国土のほぼ真ん中を通り、グリニッジとの時差がちょうど9時間', at=2, until=3, size=38, hi=True),
+   dict(t='panel', box=TOP, text='東京は約140度。国土の東西の真ん中は約138度（報道の数値）：どちらも15の倍数ではない', at=3, until=6, size=34),
+   dict(t='panel', box=TOP, text='使い始めたのは、1888年（明治21年）1月1日から', at=6, size=42, col='gold'),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='anim', name='meridians', mode='japan', box=[60, 250, 1100, 850], at=0, s_a=0, s_b=2, s_c=3, s_d=4),
+   dict(t='panel', box=[1130, 260, 1860, 340], text='東京：約140度（15の倍数ではない）', at=3, size=34),
+   dict(t='panel', box=[1130, 360, 1860, 440], text='東西の真ん中：約138度（報道の数値）', at=4, size=34),
+   dict(t='panel', box=[1130, 460, 1860, 540], text='標準時の線：135度（15×9）', at=5, size=32, col='gold', hi=True)]),
+ dict(key='akashi', title='では、明石は', chapter_title='では、明石は', scene=[
+   dict(t='panel', box=TOP, text='東経135度の線は、兵庫県明石市を通る', at=0, until=1, size=44, hi=True),
+   dict(t='panel', box=TOP, text='明石市立天文科学館の学芸員：明石があったから135度が選ばれたのではない', at=1, until=3, size=36, hi=True),
+   dict(t='panel', box=TOP, text='たまたま、その線の上に明石があった（学芸員の説明）', at=3, until=4, size=42, col='gold'),
+   dict(t='panel', box=TOP, text='今も、明石には、この線を示す標識と、天文科学館の塔がある', at=4, until=5, size=40),
+   dict(t='panel', box=TOP, text='今の日本標準時：NICTが、複数の原子時計をもとに、つくって送り出している', at=5, until=6, size=38, hi=True),
+   dict(t='panel', box=TOP, text='明石の時計で、日本中の時刻を決めているわけではない', at=6, size=42, col='gold'),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='flow', y=420, h=200, size=36, nodes=[dict(at=5, text='複数の原子時計'), dict(at=5, text='NICTが時刻をつくる'), dict(at=5, text='9時間を加えて日本標準時に', hi=True), dict(at=5, text='全国へ送り出す')]),
+   dict(t='anim', name='meridians', mode='akashi', box=[460, 250, 1460, 850], at=0, until=5, lon=(131.0, 142.0), lat=(32.0, 38.5), lines=[135], s_a=0, s_e=0)]),
+ dict(key='two', title='かつて、二つあった', chapter_title='かつて、二つあった', scene=[
+   dict(t='table', box=[60, 200, 1860, 520], cols=['呼び名', '基準の経度', '使われた場所・期間'], colw=[520, 460, 780], size=36, rows=[
+     dict(at=0, cells=['西部標準時', '東経120度', '台湾・澎湖列島・八重山・宮古（1896年〜1937年）']),
+     dict(at=2, cells=['中央標準時', '東経135度', '従来の日本の標準時の呼び名になった'], col='gold')]),
+   dict(t='panel', box=[60, 570, 1860, 680], text='西部標準時は、1937年10月1日に廃止', at=3, size=42, hi=True),
+   dict(t='panel', box=[60, 710, 1860, 810], text='「中央標準時」という名前は、今も法令に残っている', at=4, size=42, col='gold')]),
+ dict(key='end', title='分かること、決められないこと', chapter_title='結論：分かること、決められないこと', scene=[
+   dict(t='cols2', size=36, xm=940, xm2=980, left=dict(title='分かること', title_at=0, items=[
+      dict(at=1, text='日本の標準時の線は、東経135度'),
+      dict(at=2, text='グリニッジとの時差が9時間で、国土の真ん中に近い線が選ばれた'),
+      dict(at=3, text='明石は、その線の上に、たまたまあった')]),
+     right=dict(title='決められないこと', title_at=4, items=[
+      dict(at=5, text='当時の政府が、候補をどう比べて135度に決めたか。その詳しい経緯は、今回確かめた資料では断定できない')]))])
+ ],
+ desc=dict(title_main='日本の標準時は、なぜ明石の時刻なのか', title_no=1,
+  titles=['日本の標準時は、なぜ明石の時刻？ 東経135度の理由を確かめる', '日本標準時はなぜ明石？ 15度の線と西部標準時の歴史を確かめる', '明石の子午線は、なぜ日本の標準時の基準？ 国立天文台などの説明で確かめる'],
+  intro='「日本の標準時は、兵庫県の明石の時刻」。そう聞いたことはありませんか。明石を通る線が基準なのは本当です。でも、明石が選ばれたわけではありません。この動画では、国立天文台や明石市立天文科学館などの説明から、日本標準時の線がどう決まったかを確かめます。世界の基準、日本が選んだ線、明石との関係、かつて二つあった標準時、を分けて見ていきます。分かることと決められないことを分けて、各機関の説明に帰属して述べます。',
+  points=['1884年の国際子午線会議では、グリニッジを通る線が経度0度の基準に選ばれました。地球は約1日で1周するため、360度÷24時間＝15度で1時間(自作の計算)。国立天文台は、標準時の基準の線には、グリニッジから15度の整数倍の線が選ばれることが多い、と説明しています(国立天文台 暦Wiki「標準時」)。会議が15度刻みの標準時を決めたわけではありません(最終議定書)。', '日本では、1886年7月13日の勅令第51号で、東経135度の時刻を日本の標準時と定め、1888年(明治21年)1月1日から使い始めました。東京は東経140度あたり、国土の東西の真ん中は約138度で、どちらも15の倍数ではありません(神戸新聞の報道に基づく数値)。', '明石市立天文科学館の学芸員は、明石があったから135度が標準時になったわけではなく、たまたま明石が線の上にあった、と説明しています(神戸新聞)。', '1896年から、台湾・澎湖列島・八重山・宮古では、東経120度の西部標準時が使われ、135度の時刻は「中央標準時」と呼ばれるようになりました。西部標準時は1937年10月1日に廃止されましたが、「中央標準時」の名は今も法令に残っています。'],
+  refs=['国立天文台 暦Wiki「標準時」:https://eco2.mtk.nao.ac.jp/koyomi/wiki/C9B8BDE0BBFE.html', '神戸新聞「なぜ東経135度が日本の標準時? 中間でも東京でもなく明石に…鍵は15の倍数」:https://www.kobe-np.co.jp/news/sougou/202108/0014615441.shtml', '1884年国際子午線会議 議事録(Project Gutenberg):https://www.gutenberg.org/files/17759/17759-h/17759-h.htm', '情報通信研究機構(NICT)「日本標準時」:https://www.nict.go.jp/sts/jst.html', '明石市立天文科学館「明石と子午線」:https://www.am12.jp/akashi-shigosen/'],
+  credit_lines=['・図:自作(各機関の説明をもとにした表です。実際の地図・観測値ではありません)', '・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実際の風景・建物・時計の再現ではありません)'],
+  notes=['東京の経度(約140度)と国土の東西の真ん中(約138度)は、神戸新聞の報道にある数値で、算定の範囲・方法は確認していません。', '当時の政府が135度を選んだ詳しい経緯は、この動画では確認していません(国立国会図書館のレファレンスに、関連資料「本初子午線并計時法審査委員申報」の紹介があります)。', '「360度÷24時間＝15度」は、自作の計算です。'],
+  tags='日本標準時, 明石, 東経135度, 標準時, 子午線, 西部標準時, 中央標準時, 国立天文台, 歴史, 雑学, 検証',
+  checks=['勅令第51号・第167号・第529号の原典(国立公文書館・e-Gov)で、日付と条文を確認する', 'NICT「日本標準時」(https://www.nict.go.jp/sts/jst.html)と明石市立天文科学館(https://www.am12.jp/akashi-shigosen/)の該当箇所を、公開前にもう一度確認する(`docs/themes/20261112_akashi_time/08_fact_check.md`)']),
+ thumb=dict(bg='assets/akashi/thumb_art.png', lines=[['日本の標準時は', 84, 'white'], ['なぜ明石？', 130, 'gold']], sub='東経135度の理由を確かめる', shade_col=[8, 14, 30], accent=[230, 180, 100], bar_col=[230, 180, 100], y0=14, bar_y=470, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
+
+
+def _fit(o):
+    if isinstance(o, dict):
+        if o.get('t') == 'panel' and not o.get('title') and o['box'][3] - o['box'][1] <= 70: o['size'] = min(o.get('size', 40), 40)
+        if o.get('t') == 'panel' and o.get('title'):
+            h = o['box'][3] - o['box'][1]
+            if h < 112:
+                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
+                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
+                else: o['size'] = min(o.get('size', 40), 30)
+            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
+        for v in o.values(): _fit(v)
+    elif isinstance(o, list):
+        for v in o: _fit(v)
+
+
+_fit(spec)
+inject(spec, dict(intro='seaside', world='globe', japan='map_desk', akashi='watch', two='two_clocks', end='clockglobe'))
+(R / 'data' / 'akashi_spec.json').write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf8'); print('spec written')
