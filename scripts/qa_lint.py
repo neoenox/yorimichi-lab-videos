@@ -332,9 +332,11 @@ def main():
 
     if not want_all:
         # ラベル完全一致（`calendar` は長尺だけ、Short は `short_calendar` と書く）
+        all_labels = [t[0] for t in targets]
         targets = [t for t in targets if t[0] in args]
         if not targets:
-            print('対象が見つからない。候補: ' + ', '.join(t[0] for t in sorted(OUT.glob("*_video.mp4"))[:5]))
+            print(f'対象が見つからない: {", ".join(args)}')
+            print('候補: ' + (', '.join(all_labels[:10]) if all_labels else '（out に動画がありません）'))
             return 2
 
     REPORT.parent.mkdir(parents=True, exist_ok=True)

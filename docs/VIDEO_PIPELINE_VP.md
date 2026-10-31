@@ -112,3 +112,40 @@ python scripts\preflight_replace.py calendar moon   # 指定した本だけ
 - **実績**：2026-10-22 の実行分（calendar・einstein・moon・islands / 8,816 ユニット）は **NG 0 / WARN 0**（`out/codex/preflight_replace.txt`）。負のテスト（`preflight_replace.py gm hn nj`）では、hn の概要欄がパックで古い（章ラベルが現行「運命の五月／六月一日の夜」に対しパックは「5月／6月1日」）＝NG、gm・nj のパックに `video.mp4` が無い＝WARN を検出。`python scripts\make_upload_pack.py` で旧3本のパックを作り直し、いまは **NG 0 / WARN 7**（未公開で公開日時が無い・`pending_replace` 未登録・nj の3行キュー＝いずれも想定内）。記録は `out/codex/preflight_legacy_test.txt`。
 - **運用**：16:05 の自動実行の前に `python scripts\preflight_replace.py` を1回回し、NG があればその本を差し替え対象から外す（もしくは直してから回す）。
 
+## 差し替え用の作り直し（2026-10-31 追加）
+
+`out/<slug>_video.mp4` と `upload/<pack>/video.mp4` が無いと `replace_versions.replace()` は `out に作り直した動画が無い` で見送る。音声（`<slug>_narration.wav`）と `audio_report.json` が残っていれば、**音声合成はやり直さずに** `bgm` → `build` → `pack` だけで戻せる。
+
+```
+python scripts\rebuild_for_replace.py yakubusoku oke     # 字幕の息継ぎ同期は既にある
+python scripts\rebuild_for_replace.py --audio venus      # cue_times が古い／無い回
+python scripts\rebuild_for_replace.py --dry yakubusoku   # 段取りの確認だけ
+```
+
+- **順番**：`bgm`（`data/<slug>_timeline.json` から魔王魂BGMを組む）→ `build`（part 並列レンダリング → 無BGM版 → 声でBGMをダッキング → `-14 LUFS` で最終書き出し。最後に `stage_qa` で尺・デコード・LUFS・黒区間を確認）→ `pack`（`upload/<pack>/` へ複製）→ `qa_lint`。
+- **`--audio` は字幕の息継ぎ同期を当て直す**。`cue_times` が全セグメントに揃っていれば省略する（`vp.py audio` は音声キャッシュを使うので合成しないが、字幕が変わるので `build` は必須）。
+- **旧3本（gm/hn/nj）は対象外**：`data/<slug>_spec.json` が無いので、`scripts\rebuild_old_compose.py gm` を使う（公開済み動画の音声をそのまま使う別経路）。
+- **最後に中身を確認**：`out` とパックの `video.mp4` が **sha256 で一致**しないと失敗にする（mtime は再パックで動くので当てにしない）。`replace_versions.same_file()` を使う。
+- **ログ**：`out/codex/rebuild_<slug>.log`。1本でも失敗したらそこで止まる（GPU を無駄に回さない）。終了コード 0 で全部成功。
+- **`qa_lint.py` の「対象が見つからない」**：引数の slug が見つからないときは候補を出して終了コード 2（以前は `Path` を添字アクセスして `TypeError` で落ちていた）。
+- **字幕の指紋**：`vp.py build` は `out/<slug>_build.json` に**焼き込んだ srt の sha256** を残す。`preflight_replace.py` はこれと比べるので、`replace()` がアップロード直前に srt を書き直しても「字幕が動画より新しい」と誤検知しない（無い回だけ従来の mtime 判定）。導入前の動画は `python scripts\stamp_build.py <slug>` で指紋を付けられる（`audio_report` と `spec` が動画より古いことを確認してから書く）。
+
+## 差し替えが途中で落ちたとき（2026-10-31 追加）
+
+差し替えは「アップロード（1,600）→ サムネ（50）→ 字幕（400）→ 予約（51）→ 旧ID削除（50）」の順に進む。**クォータは 1本 2,204 ユニット**なので、残りが中途半端だと**アップロードだけ成功して字幕で止まる**。この状態は放っておくと悪化する：
+
+- 台帳（`data/youtube_ids.json`）はアップロード直後に新IDへ書き換わる（`yt_api.cmd_upload`）。旧IDは `superseded` に退避。
+- 新IDは **private・公開予約なし**、旧IDは**予約が残ったまま**。
+- 次の日から `replace()` は新IDを見て `公開予約が無い` でスキップし続ける＝**永久に差し替わらない**。
+
+そこで `replace()` の先頭でこの状態を検出し、`finish_replace()` に切り替える（2026-10-31 追加）。
+
+- 条件：台帳の現IDが **private・予約なし**、かつ `superseded` が空でない。
+- 動作：旧ID（`superseded` の末尾）の予約日時を引き継ぎ、**アップロードをやり直さず**メタ情報・サムネ・字幕・予約・Shortリンク・旧ID削除まで行う（約600ユニット。やり直すと 2,204）。
+- 安全弁：パックの `video.mp4` が今の書き出しと **sha256 で違えば中止**（アップロード済みの映像は差し替えられないため、作り直しからやり直す）。
+- 検証：API を叩かないスタブで3ケース（正常／中断／新規）を確認済み。
+
+**教訓（クォータの共有）**：この Google Cloud プロジェクトのクォータは**別の制作（新しい動画のアップロード）と共有**している。2026-10-31 は venus Short（2,102）＋ yakubusoku のアップロード（1,650）で残りが尽き、字幕（400）で `quotaExceeded` になった。`daily_quota_run --budget 9400` は「自分だけが使う」前提なので、**他の制作者が動いている日は当てにならない**。対策は (a) 別プロジェクトのAPIキーに分ける、(b) 予算を下げる（例 6,000）、(c) 落ちても `finish_replace()` で安く復帰する（実装済み）。
+
+
+

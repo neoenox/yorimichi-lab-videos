@@ -307,6 +307,8 @@ def render_scene(im,d,cx):
         ITEMS[it['t']](im,d,cx,it) if it['t']!='image' else it_image(im,d,cx,it)
         d=ImageDraw.Draw(im,'RGBA')
 def header(d,ci):
+    if SPEC.get('style')=='pop':
+        import vp_anim_pop as PP;PP.bind(globals());return PP.header(d,ci)
     d.text((48,16),SPEC['chapters'][ci].get('title',''),font=FB[60],fill=WHITE,stroke_width=5,stroke_fill=(5,10,16));d.text((48,94),SPEC['header_sub'],font=F[28],fill=(200,210,214),stroke_width=4,stroke_fill=(5,10,16))
 # ---------------------------------------------------------------- subtitles / frames
 def split_clauses(txt,maxc=42):
@@ -342,7 +344,10 @@ def sub_lines(d,seg,f,t):
     return _SUBP[k][-1][0]
 def _base_frame(ci,t,with_header=True):
     """字幕なしの 1 コマ（ヘッダー＋シーン＋章の見出し）。"""
-    im=Image.new('RGBA',(1920,1080),NAVY+(255,));d=ImageDraw.Draw(im,'RGBA')
+    if SPEC.get('style')=='pop':
+        import vp_anim_pop as PP;PP.bind(globals());im=PP.background(ci,t)
+    else:im=Image.new('RGBA',(1920,1080),NAVY+(255,))
+    d=ImageDraw.Draw(im,'RGBA')
     if with_header:header(d,ci)
     render_scene(im,d,Ctx(ci,t));return im
 def _subs_layer(ci,t,alpha):
@@ -351,8 +356,11 @@ def _subs_layer(ci,t,alpha):
     cx=Ctx(ci,t);active=next((x for x in cx.segl if x['start']<=t<x['end']),None)
     if not active:return None
     lay=Image.new('RGBA',(1920,1080),(0,0,0,0));d=ImageDraw.Draw(lay,'RGBA')
-    f=FSUB[52];lines=sub_lines(d,active,f,t);d.rounded_rectangle((60,850,1860,1008),12,fill=(5,18,29,242))
-    for j,txt in enumerate(lines):
+    if SPEC.get('style')=='pop':
+        import vp_anim_pop as PP;PP.bind(globals());PP.subs_shade(lay);f=PP.heavy(60);lines=sub_lines(d,active,f,t);PP.subs(d,lines,f,rich)
+    else:
+      f=FSUB[52];lines=sub_lines(d,active,f,t);d.rounded_rectangle((60,850,1860,1008),12,fill=(5,18,29,242))
+      for j,txt in enumerate(lines):
         assert tw(d,txt,f)<1760
         rich.draw_center(d,960,862+j*70,txt,f,'#fffcef',(255,208,122))
     if alpha<1:lay.putalpha(lay.getchannel('A').point(lambda v:int(v*alpha)))
@@ -373,7 +381,7 @@ def render_frame(i):
     for k,a in layers:
         lay=_subs_layer(k,t,a)
         if lay:im.alpha_composite(lay)
-    d=ImageDraw.Draw(im);d.rectangle((48,1012,48+1824*(i+1)/N,1018),fill=(201,173,112));return im
+    d=ImageDraw.Draw(im);yb=1066 if SPEC.get('style')=='pop' else 1012;d.rectangle((48,yb,48+1824*(i+1)/N,yb+6),fill=(255,226,40) if SPEC.get('style')=='pop' else (201,173,112));return im
 def render_part(a,b):
     stills=[int(x) for x in os.environ['STILLS'].split(',')] if os.environ.get('STILLS') else None
     out=P(f'cache/{SLUG}_part_{a}_{b}.mp4');(P('logs')).mkdir(exist_ok=True);log=P(f'logs/{SLUG}_enc_{a}.log').open('wb')
@@ -560,6 +568,16 @@ def stage_build(chunk=2000,bgm_db=-6.0):
     subprocess.run(['ffmpeg','-y','-v','warning','-i',str(wav),'-i',str(bgm),'-filter_complex',fc,'-map','[m]','-c:a','pcm_s16le',str(mix)],check=True)
     af2,j2=loud_args(mix);out=P(f'out/{SLUG}_video.mp4')
     subprocess.run(['ffmpeg','-y','-v','warning','-i',str(nob),'-i',str(mix),'-map','0:v','-map','1:a','-c:v','copy','-af',af2,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(out)],check=True)
+    # 焼き込んだ字幕の指紋を残す（あとで「字幕だけ直して焼き直していない」を中身で判定するため）
+    srt=P(f'out/{SLUG}_subtitles.srt')
+    if srt.exists():
+        import hashlib,datetime as _dt
+        P(f'out/{SLUG}_build.json').write_text(json.dumps({
+            'srt_sha256': hashlib.sha256(srt.read_bytes()).hexdigest(),
+            'srt_mtime': srt.stat().st_mtime,
+            'video_mtime': out.stat().st_mtime,
+            'at': _dt.datetime.now().isoformat(timespec='seconds'),
+        }, ensure_ascii=False, indent=1), encoding='utf8')
     stage_qa()
 def stage_qa():
     load_runtime();v=P(f'out/{SLUG}_video.mp4');r=subprocess.run(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',str(v)],capture_output=True,text=True);dur=float(r.stdout.strip())

@@ -14,6 +14,11 @@ def bind(g):
     global F, FB, get_img
     F, FB = g['F'], g['FB']
     get_img = g.get('get_img')
+    try:
+        import vp_anim_pop as _pp
+        _pp.bind(g)
+    except ImportError:
+        pass
 
 
 def lerp(a, b, t):
@@ -1247,3 +1252,15 @@ try:
     DRAW.update(_br.DRAW_BRAIN)
 except ImportError as _e:
     print('vp_anim_brain not loaded:', _e)
+
+try:
+    import vp_anim_shibuya as _sb
+    DRAW.update(_sb.DRAW_SHIBUYA)
+except ImportError as _e:
+    print('vp_anim_shibuya not loaded:', _e)
+
+try:
+    import vp_anim_pop as _pop
+    DRAW.update(_pop.DRAW_POP)
+except ImportError as _e:
+    print('vp_anim_pop not loaded:', _e)
