@@ -29,3 +29,7 @@ upload/
 
 # YouTube API の認証情報（絶対にコミットしない）
 secrets/
+
+# ローカルツール（インストール物）
+.kilo/
+
