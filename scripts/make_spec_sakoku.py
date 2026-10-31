@@ -1,68 +1,83 @@
-"""Writes data/sakoku_spec.json。台本：docs/themes/20270602_sakoku/09_script_v2.md
-at / until は『章内の行番号（0始まり）』。spec_common.finalize が文の番号に直す。"""
+"""Writes data/sakoku_spec.json（ポップスタイル・地図つき）。台本：docs/themes/20270602_sakoku/09_script_v2.md
+at / until は『章内の行番号（0始まり）』。素材は scripts/make_sakoku_assets.py（国土地理院のタイルから地図を作る）。"""
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from spec_common import finalize, TOP
-spec = dict(slug='sakoku', theme_dir='20270602_sakoku', pack='77_sakoku', header_sub='解説記事で、鎖国と四つの窓口を確かめる',
- images={},
- bgm=[['intro', 'yotsu', 'piano36'], ['yukiki', 'wakaranai', 'piano12'], ['wakaranai', 'end', 'piano40']],
- chapters=[{'key': 'intro',
-  'title': '江戸時代の日本は、鎖国をして、長崎でしか外国と付き合わなかった？',
-  'chapter_title': '導入：江戸時代の日本は、鎖国をして、長崎でしか外国と付き合わなかった？',
-  'opener': '江戸時代の日本は、鎖国をしていた？',
-  'opener_until': 1,
-  'scene': [{'t': 'big', 'text': '鎖国で、窓口は長崎だけ？', 'y': 270, 'at': 0, 'size': 44, 'col': 'gold'},
-            {'t': 'panel', 'box': [120, 450, 1800, 570], 'text': '教科書でおなじみの、鎖国の話', 'at': 1, 'size': 40, 'hi': True},
-            {'t': 'panel', 'box': [120, 620, 1800, 700], 'text': '確かめる材料：荒野泰典さんの解説記事', 'at': 3, 'size': 38},
-            {'t': 'panel', 'box': [120, 750, 1800, 860], 'text': '答え：国を閉ざしたとは言えず、窓口は四つ', 'at': 4, 'size': 32, 'col': 'gold'}]},
- {'key': 'kotoba',
-  'title': '鎖国という言葉',
-  'chapter_title': '鎖国という言葉',
-  'scene': [{'t': 'panel', 'box': TOP, 'text': 'まず、鎖国という言葉', 'at': 0, 'size': 40, 'until': 1},
-            {'t': 'panel', 'box': TOP, 'text': '解説：国を閉ざす意味のオランダ語の訳語', 'at': 1, 'size': 34, 'until': 2, 'hi': True},
-            {'t': 'panel', 'box': TOP, 'text': '志筑忠雄が、1801年の『鎖国論』で作った、とされる', 'at': 2, 'size': 32, 'until': 3},
-            {'t': 'panel', 'box': TOP, 'text': '完成の目安は、1641年のオランダ人の出島移転', 'at': 3, 'size': 34, 'until': 4},
-            {'t': 'panel', 'box': TOP, 'text': '一方、記事：国を閉ざした史実はない', 'at': 4, 'size': 34, 'col': 'gold'}]},
- {'key': 'yotsu',
-  'title': '四つの口',
-  'chapter_title': '四つの口',
-  'scene': [{'t': 'panel', 'box': TOP, 'text': '次に、海外との窓口', 'at': 0, 'size': 40, 'until': 1},
-            {'t': 'panel', 'box': TOP, 'text': '解説：窓口は四つ。長崎・対馬・薩摩・松前', 'at': 1, 'size': 34, 'until': 2, 'hi': True},
-            {'t': 'panel', 'box': TOP, 'text': '長崎＝オランダ・中国／対馬＝朝鮮／薩摩＝琉球／松前＝蝦夷地', 'at': 2, 'size': 28, 'until': 3},
-            {'t': 'panel', 'box': TOP, 'text': '長崎が唯一の窓口、という話は成り立たない', 'at': 3, 'size': 34, 'until': 4},
-            {'t': 'panel', 'box': TOP, 'text': '「四つの口」は、荒野さんが1978年に提唱', 'at': 4, 'size': 34, 'col': 'gold'},
-            {'t': 'table',
-             'box': [60, 300, 1860, 640],
-             'cols': ['窓口（解説記事）', '相手'],
-             'colw': [900, 900],
-             'size': 32,
-             'rows': [{'at': 1, 'cells': ['長崎', 'オランダ・中国']}, {'at': 2, 'cells': ['対馬／薩摩／松前', '朝鮮／琉球／蝦夷地']}, {'at': 4, 'cells': ['この見方を提唱', '荒野泰典さん（1978年）']}]}]},
- {'key': 'yukiki',
-  'title': '行き来と禁止',
-  'chapter_title': '行き来と禁止',
-  'scene': [{'t': 'panel', 'box': TOP, 'text': '数字でも、見てみる', 'at': 0, 'size': 40, 'until': 1},
-            {'t': 'panel', 'box': TOP, 'text': '朝鮮通信使：1609〜1811年に12回来日', 'at': 1, 'size': 34, 'until': 2, 'hi': True},
-            {'t': 'panel', 'box': TOP, 'text': '琉球の使節：1634〜1850年に18回来日', 'at': 2, 'size': 34, 'until': 3},
-            {'t': 'panel', 'box': TOP, 'text': '1635年：中国人の来航地は長崎に限定。1639年：ポルトガルと断交', 'at': 3, 'size': 28, 'until': 4},
-            {'t': 'panel', 'box': TOP, 'text': '禁じたことと、続けたことの、両方があった（自作）', 'at': 4, 'size': 32, 'col': 'gold'}]},
- {'key': 'wakaranai',
-  'title': '分からないこと',
-  'chapter_title': '分からないこと',
-  'scene': [{'t': 'panel', 'box': TOP, 'text': '分からないことも、整理する', 'at': 0, 'size': 40, 'until': 1},
-            {'t': 'panel', 'box': TOP, 'text': '読んだのは、荒野さんの解説記事の一本だけ', 'at': 1, 'size': 34, 'until': 2, 'hi': True},
-            {'t': 'panel', 'box': TOP, 'text': '今の教科書の書き方は、確認できていない', 'at': 2, 'size': 34, 'until': 3},
-            {'t': 'panel', 'box': TOP, 'text': '『鎖国論』の原文や、言葉を作った経緯は、未確認', 'at': 3, 'size': 34, 'until': 4},
-            {'t': 'panel', 'box': TOP, 'text': '四つの口の見方が、どこまで共有されているかも不明', 'at': 4, 'size': 34, 'col': 'gold'}]},
- {'key': 'end',
-  'title': 'まとめ',
-  'chapter_title': 'まとめ',
-  'scene': [{'t': 'cols2',
-             'size': 32,
-             'xm': 940,
-             'xm2': 980,
-             'left': {'title': '分かったこと', 'title_at': 1, 'items': [{'at': 1, 'text': '「鎖国」は、1801年の志筑忠雄による訳語とされる'}, {'at': 2, 'text': '窓口は、長崎・対馬・薩摩・松前の四つ'}, {'at': 3, 'text': '禁じたことと、続けたことの両方があった'}]},
-             'right': {'title': '分からないこと・言い方', 'title_at': 4, 'items': [{'at': 4, 'text': '教科書の今の書き方。『鎖国論』の原文'}, {'at': 4, 'text': '「国を閉ざしたとは言えず、窓口は四つあった、と解説される」'}]}}]}],
+IMAGES = {n: dict(file=f'assets/sakoku/{n}.png') for n in ('art_intro', 'art_gate', 'art_scroll', 'map_s0', 'map_s1', 'map_s2', 'map_s3', 'map_s4')}
+
+
+def pop(name, **kw):
+    return dict(t='anim', name=name, **kw)
+
+
+def tel(text, x, y, size, **kw):
+    return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+
+
+def rows(items, **kw):
+    return dict(t='anim', name='pop_rows', items=items, **kw)
+
+
+def card(inner, box, **kw):
+    kw.setdefault('at', 0)
+    return dict(t='anim', name='pop_card', inner=inner, box=box, **kw)
+
+
+MAPBOX = [60, 120, 900, 860]
+
+
+def mapcard(n, at, until=None):
+    kw = dict(img=f'map_s{n}', at=at, rot=-1.5)
+    if until is not None:
+        kw['until'] = until
+    return card('img', MAPBOX, **kw)
+
+
+spec = dict(slug='sakoku', theme_dir='20270602_sakoku', pack='77_sakoku', header_sub='解説記事と地図で、鎖国と四つの窓口を確かめる',
+ images=IMAGES,
+ bgm=[['intro', 'mado', 'piano36'], ['yuiitsu', 'kinshi', 'piano12'], ['wakaranai', 'end', 'piano40']],
+ style='pop',
+ chapters=[
+ {'key': 'intro', 'title': '江戸時代の日本は、鎖国をして、長崎でしか外国と付き合わなかった？', 'chapter_title': '導入：鎖国で、外国との窓口は長崎だけ？',
+  'scene': [pop('pop_bgimg', img='art_intro', at=0, dim=.5, blur=3),
+            tel('鎖国で\n窓口は[[長崎だけ]]？', 960, 470, 170, at=0, until=1, rot=-3),
+            tel('答え：窓口は[[4つ]]あった！', 960, 470, 130, at=1, until=2, plate='green', rot=-2),
+            tel('荒野泰典さんの解説記事 ×', 960, 330, 80, at=2, plate='blue', rot=1),
+            tel('[[地図]]で確かめる！', 960, 600, 150, at=2, rot=-2)]},
+ {'key': 'mado', 'title': '四つの窓口', 'chapter_title': '四つの窓口',
+  'scene': [pop('pop_bgimg', img='map_s0', at=0, dim=.4, blur=12),
+            mapcard(0, 0, 1), mapcard(1, 1, 2), mapcard(2, 2, 3), mapcard(3, 3, 4), mapcard(4, 4),
+            tel('窓口は\n[[4つ]]！', 1400, 300, 130, at=0, until=1, rot=-3),
+            rows([dict(at=1, tag='長崎', text='オランダ・中国', col='orange'),
+                  dict(at=2, tag='対馬', text='朝鮮', col='blue'),
+                  dict(at=3, tag='薩摩', text='琉球', col='green'),
+                  dict(at=4, tag='松前', text='蝦夷地', col='purple')], x0=950, x1=1860, y0=190, size=60, gap=26),
+            tel('出典：荒野泰典「「四つの口」と長崎貿易」（nippon.com）', 1400, 810, 36, at=1)]},
+ {'key': 'yuiitsu', 'title': '唯一の窓口ではない', 'chapter_title': '唯一の窓口ではない',
+  'scene': [pop('pop_bgimg', img='art_gate', at=0, dim=.5, blur=4),
+            tel('長崎だけ？\n[[成り立たない]]', 960, 420, 150, at=0, until=1, plate='red', rot=-2),
+            tel('と、記事は述べる', 960, 720, 80, at=0, until=1, plate='yellow', rot=1.5),
+            rows([dict(at=1, tag='提唱', text='「四つの口」＝荒野泰典さん（1978年）', col='orange')], x0=110, x1=1810, y0=330, size=64, gap=34),
+            tel('朝鮮通信使 [[12回]]\n琉球使節 [[18回]]', 960, 700, 110, at=2, plate='blue', rot=-1.5)]},
+ {'key': 'kinshi', 'title': '禁じたことと、鎖国という言葉', 'chapter_title': '禁じたことと、鎖国という言葉',
+  'scene': [pop('pop_bgimg', img='art_scroll', at=0, dim=.5, blur=4),
+            tel('でも、[[禁じたこと]]も！', 960, 250, 110, at=0, until=1, rot=-2),
+            rows([dict(at=0, tag='1635年', text='中国人の来航地は、長崎だけに', col='red', until=1),
+                  dict(at=0, tag='1639年', text='ポルトガルとの関係を断つ', col='red', until=1)], x0=110, x1=1810, y0=430, size=62, gap=40),
+            tel('では、「鎖国」って\nどこから来た言葉？', 960, 470, 110, at=1, until=2, rot=2),
+            tel('[[1801年]]\n志筑忠雄『鎖国論』', 960, 440, 130, at=2, until=3, plate='yellow', rot=-2),
+            tel('国を閉ざした史実は…\n[[ない]]、と記事は述べる', 960, 460, 110, at=3, plate='pink', rot=2)]},
+ {'key': 'wakaranai', 'title': '分からないこと', 'chapter_title': '分からないこと',
+  'scene': [pop('pop_bgimg', img='art_intro', at=0, dim=.55, blur=6),
+            tel('分からないこと', 960, 250, 120, at=0, rot=-2),
+            rows([dict(at=0, tag='教科書', text='今の書き方は、未確認', col='orange'),
+                  dict(at=0, tag='原文', text='『鎖国論』の原文は、未確認', col='red'),
+                  dict(at=1, tag='研究者', text='四つの口の見方が、どこまで共有されているか', col='purple')], x0=110, x1=1810, y0=420, size=60, gap=34)]},
+ {'key': 'end', 'title': 'まとめ', 'chapter_title': 'まとめ',
+  'scene': [tel('窓口は[[4つ]]！\n鎖国は1801年の訳語', 960, 400, 130, at=0, until=1, rot=-2),
+            tel('国を閉ざした史実は[[ない]]、と解説', 960, 700, 66, at=0, until=1, plate='green', rot=1.5),
+            tel('[[国を閉ざした]]とは言えず、\n窓口は[[4つ]]あった', 960, 480, 120, at=1, plate='yellow', rot=-1.5)]}],
  desc={'title_main': '江戸時代の日本は鎖国をしていたのか',
  'title_no': 1,
  'titles': ['江戸時代の日本は、鎖国で外国は長崎だけだった？ 解説記事で確かめる', '鎖国は、1801年の訳語だった？ 窓口は四つあった？', '「鎖国」は本当に国を閉ざしていた？ 荒野泰典さんの解説で確かめる'],
@@ -76,4 +91,4 @@ spec = dict(slug='sakoku', theme_dir='20270602_sakoku', pack='77_sakoku', header
  'tags': '江戸時代, 鎖国, 四つの口, 長崎, 志筑忠雄, 荒野泰典, 検証',
  'checks': ['現在の教科書での「鎖国」の書き方を確認する', '『鎖国論』(1801年)の成立の事情を確認する', '朝鮮通信使・琉球使節の回数を別の資料で確認する']},
  thumb=dict(bg='assets/sakoku/thumb_art.png', lines=[['鎖国で、窓口は', 80, 'white'], ['長崎だけ？', 130, 'gold']], sub='解説記事で、確かめる', shade_col=[10, 24, 44], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-finalize(spec, {'intro': 'intro', 'kotoba': 'scroll', 'yotsu': 'gate', 'yukiki': 'intro', 'wakaranai': 'scroll', 'end': 'intro'})
+finalize(spec, {})
