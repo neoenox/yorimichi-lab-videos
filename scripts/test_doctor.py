@@ -2,6 +2,7 @@
 import json
 from collections import namedtuple
 
+import pytest
 from scripts import doctor as d
 
 
@@ -38,3 +39,24 @@ def test_doctor_writes_diagnostics_without_optional_dependencies(tmp_path, monke
     assert report['disk']['E:\\']['error'] == 'unavailable'
     assert report['gpu']['returncode'] == 127
     assert report['ffmpeg'] == 'tool unavailable'
+
+
+def test_monitor_creates_log_directory_on_fresh_checkout(tmp_path, monkeypatch):
+    class StopAfterOneSample(Exception):
+        pass
+
+    monkeypatch.setattr(d, 'ROOT', tmp_path)
+    monkeypatch.setattr(d.psutil, 'process_iter', lambda attrs: iter(()))
+    monkeypatch.setattr(d, 'command', lambda args: {'returncode': 127, 'output': 'tool unavailable'})
+    monkeypatch.setattr(d.time, 'sleep', lambda seconds: (_ for _ in ()).throw(StopAfterOneSample()))
+
+    with pytest.raises(StopAfterOneSample):
+        d.monitor()
+
+    output = tmp_path / 'logs' / 'resources.jsonl'
+    assert output.is_file()
+    records = output.read_text(encoding='utf8').splitlines()
+    assert len(records) == 1
+    sample = json.loads(records[0])
+    assert sample['processes'] == []
+    assert sample['gpu'] == 'tool unavailable'
