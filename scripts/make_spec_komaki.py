@@ -34,29 +34,73 @@ FUJIGANE = (137.0480, 35.1830)     # 富士ヶ根（推定）
 MID1 = (136.9780, 35.3120); MID2 = (136.9950, 35.2850)   # 中入り隊の経路（模式）
 
 
-def pn(text, at, until=None, size=40, hi=True, col=None):
-    d = dict(t='panel', box=TOP, text=text, at=at, size=size, hi=hi)
-    if until is not None: d['until'] = until
-    if col: d['col'] = col
-    return d
-
-
-def unit(**k): return k
-def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label=txt, kind='spot', at=at, side='r', col=GOLD, lsize=28)
-def amap(img='theatre', **k): return dict(t='anim', name='battle_map', img=img, box=BOX, at=0, **k)
-
 
 NOTE_IMG = 'イメージ（生成画像）。実際の場面の再現ではありません'
 NOTE_GUNKI = '※資料の推定図と軍記による。実際の経路・順序は確定しない'
-ART_BOX = [60, 170, 1860, 850]
+
+def pn(text, at, until=None, size=40, hi=True, col=None):
+    """旧パネルの代わり：右側の白いカード（ポップ）。"""
+    it = dict(at=at, text=text, col='orange')
+    if until is not None: it['until'] = until
+    return dict(t='anim', name='pop_rows', items=[it], x0=1010, x1=1880, y0=230, size=62, gap=0)
+
+
+def tel(text, x, y, size, **kw): return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+def rows(items, **kw): return dict(t='anim', name='pop_rows', items=items, **kw)
+def bgimg(img, **kw): return dict(t='anim', name='pop_bgimg', img=img, **kw)
+
+
+def unit(**k): return k
+def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label='※推定', kind='spot', at=at, side='r', col=GOLD, lsize=28, _note=True)
+
+
+MAPBOX = [30, 120, 1000, 880]
+
+
+def _big(k):
+    for pl in k.get('places', []):
+        if not pl.get('_note'): pl['lsize'] = int(pl.get('lsize', 24) * 2.0)
+        pl.pop('_note', None)
+    for u in k.get('units', []):
+        u['lsize'] = int(u.get('lsize', 26) * 2.0); u['head'] = int(u.get('head', 26) * 1.5)
+        if 'lab_off' in u: u['lab_off'] = (int(u['lab_off'][0] * 2.0), int(u['lab_off'][1] * 2.0))
+    for ln in k.get('lines', []): ln['lsize'] = int(ln.get('lsize', 26) * 2.0)
+    for mk in k.get('marks', []): mk['lsize'] = int(mk.get('lsize', 24) * 1.5)
+
+
+def amap(img='theatre', **k):
+    _big(k)
+    return dict(t='anim', name='battle_map', img=img, box=MAPBOX, at=0, **k)
+
+_MAPCH = {'before', 'standoff', 'nakairi', 'chase', 'apr9', 'after9'}
+_MAPCH_ORDER = ['before', 'standoff', 'nakairi', 'chase', 'apr9', 'after9']
+DROP = {'before': {0, 1, 2, 4}, 'standoff': {2, 4, 6}, 'nakairi': {3, 4, 5, 6, 7, 9, 12, 13, 14}, 'chase': {1, 2, 4, 6, 7}, 'apr9': {2, 3, 5, 8, 9, 11, 13}, 'after9': {3, 6, 8, 10, 11, 12, 13}}
 
 chapters = [
- dict(key='intro', title='小牧・長久手の戦い', chapter_title='導入：小牧・長久手の戦い', opener='小牧・長久手の戦い', opener_until=2, scene=[
-   dict(t='art', name='hill', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.5),
-   pn('小牧・長久手の戦いで、家康は、本当に秀吉に勝ったのか', 0, 1, 40, col='gold'), pn('2026年8月、戦いの最中の秀吉の書状が、2通見つかったと報じられた', 1, 2, 36, col='gold'),
-   pn('天正12年4月9日（グレゴリオ暦1584年5月18日）', 2, 3, 40), pn('尾張・長久手：羽柴秀吉の軍の一部 対 徳川家康の軍', 3, 4, 42),
-   pn('「家康が勝った」（通説）', 4, 5, 42), pn('「池田恒興が、三河への『中入り』を秀吉に願い出た」（通説）', 5, 6, 38),
-   pn('のちに、家康は秀吉に従った（通説）', 6, 7, 42), pn('地図の上で追い、記録を確かめる', 7, None, 42)]),
+ dict(key='intro', title='小牧・長久手の戦い', chapter_title='導入：家康は、本当に勝ったのか', scene=[
+   bgimg('docs', at=0, dim=.5, blur=4),
+   tel('家康は\n本当に[[勝った]]？', 960, 470, 160, at=0, until=1, rot=-3),
+   tel('2026年\n[[秀吉の朱印状]]\n2通 発見！', 960, 470, 130, at=1, until=2, rot=2),
+   tel('秀吉は[[動揺していなかった]]', 960, 400, 92, at=2, until=3, plate='green', rot=-2),
+   tel('池田・森が討ち死にしても…', 960, 640, 60, at=2, until=3, plate='blue', rot=1.5),
+   tel('和議を申し入れたのは\n[[家康の側]]？（説）', 960, 470, 110, at=3, until=4, plate='yellow', rot=-2),
+   tel('ただし、味方への手紙。\n[[有利に書いた]]可能性も', 960, 470, 100, at=4, until=5, plate='red', rot=2),
+   tel('地図で追って、確かめる！', 960, 470, 120, at=5, plate='pink', rot=-2)]),
+
+ dict(key='letters', title='新しく見つかった朱印状', chapter_title='新しく見つかった朱印状', scene=[
+   bgimg('docs', at=0, dim=.55, blur=6),
+   tel('朱印状\n[[2通]]発見！', 960, 470, 170, at=0, until=1, rot=-3),
+   rows([dict(at=1, tag='発表', text='たつの市・龍野歴史文化資料館。8月発表、10/24から公開', col='blue', until=3),
+         dict(at=2, tag='注意', text='以下は報道の要約。朱印状の原文ではない', col='red', until=3)], x0=110, x1=1810, y0=250, size=54, gap=34),
+   rows([dict(at=3, tag='①4/21付', text='一通目：池田恒興・森長可の討死に触れる', col='orange', until=7),
+         dict(at=5, tag='内容', text='陣地の普請を固めているので、心配するな', col='blue', until=7),
+         dict(at=6, tag='専門家', text='局地戦では負けたが、秀吉側は動揺していなかった（村井准教授・説）', col='green', until=7)], x0=110, x1=1810, y0=210, size=50, gap=30),
+   rows([dict(at=7, tag='②9/6付', text='二通目', col='orange', until=11),
+         dict(at=8, tag='内容', text='西へ回り込み、火を放ち、砦を築いた。さらに戦うつもりだった', col='blue', until=11),
+         dict(at=9, tag='和議', text='そこへ、信雄と家康から、人質を出すので和議を、と申し入れ', col='red', until=11),
+         dict(at=10, tag='専門家', text='申し入れたのは家康の側だと、はっきりした（説）', col='green', until=11)], x0=110, x1=1810, y0=210, size=50, gap=30),
+   tel('秀吉が[[家臣に宛てた]]手紙\n自分に有利に書いた可能性も', 960, 470, 96, at=11, until=12, plate='yellow', rot=-2),
+   tel('以上は、報道で紹介された内容', 960, 470, 90, at=12, plate='blue', rot=1.5)]),
  dict(key='before', title='賤ヶ岳のあと', chapter_title='賤ヶ岳のあと', scene=[
    pn('天正11年　賤ヶ岳の戦い：羽柴秀吉が柴田勝家を倒す', 0, 1, 40), pn('織田信雄（信長の次男）は、このとき秀吉と協力していた', 1, 2, 40),
    pn('しかし、信雄と秀吉の関係は悪化していく（説）', 2, 3, 40, col='gold'), pn('天正12年3/6　信雄が、秀吉と通じたとして三人の家老（津川・岡田・浅井）を殺す', 3, 4, 36),
@@ -69,17 +113,6 @@ chapters = [
                         dict(xy=W(*KOMAKI), label='小牧山', kind='spot', at=7, side='r', col=GOLD, lsize=22)],
         units=[unit(label='織田信雄', col=RED, portrait='p_nobukatsu', pts=[W(*NAGASHIMA)], at=1, head=24, lab_off=(36, -4), lsize=22),
                unit(label='徳川家康', sub='→ 清洲へ', col=RED, portrait='p_ieyasu', pts=[W(*OKAZAKI), W(*KIYOSU)], legs=[[6, 7]], at=5, head=26, lab_off=(36, 10), lsize=22, dashed=True)])]),
- dict(key='forces', title='両軍の顔ぶれ', chapter_title='両軍の顔ぶれ', scene=[
-   pn('秀吉の側：池田恒興（織田信長の乳兄弟。犬山城を奪った）', 0, 1, 38), pn('森長可：恒興の娘婿。「鬼武蔵」と呼ばれた猛将（軍記）', 1, 2, 38),
-   pn('羽柴秀次（秀吉の甥）、堀秀政', 2, 3, 40), pn('信雄・家康の側：家康のもとに、榊原康政・井伊直政・本多忠勝ら', 3, 4, 36),
-   pn('兵力：『当代記』は、秀吉方8万6千・信雄家康方1万弱と記すという（軍記）', 4, 5, 34, col='gold'), pn('後世の数字。実際の人数は分かっていない', 5, None, 40),
-   amap(places=[NOTE_POS(0, '※位置は概略の推定（資料・案内にもとづく）')],
-        units=[unit(label='池田恒興', sub='犬山城', col=BLUE, portrait='p_ikeda', pts=[T(*INUYAMA)], at=0, head=24, lab_off=(36, -20), lsize=22),
-               unit(label='森長可', col=BLUE, portrait='p_mori', pts=[T(*HAGURO)], at=1, head=22, lab_off=(36, -4), lsize=22),
-               unit(label='羽柴秀次', col=BLUE, portrait='p_hidetsugu', pts=[T(RAKUDEN[0] + 0.004, RAKUDEN[1] - 0.003)], at=2, head=22, lab_off=(36, 6), lsize=20),
-               unit(label='堀秀政', col=BLUE, portrait='p_hori', pts=[T(RAKUDEN[0] - 0.012, RAKUDEN[1] + 0.001)], at=2, head=22, lab_off=(-36, 6), lsize=20),
-               unit(label='徳川家康', sub='小牧山', col=RED, portrait='p_ieyasu', pts=[T(*KOMAKI)], at=3, head=26, lab_off=(-36, -4), lsize=22),
-               unit(label='織田信雄', col=RED, portrait='p_nobukatsu', pts=[T(KOMAKI[0] - 0.010, KOMAKI[1] + 0.012)], at=3, head=22, lab_off=(-36, -10), lsize=20)])]),
  dict(key='standoff', title='小牧山と楽田', chapter_title='小牧山と楽田', scene=[
    pn('3/13　池田恒興が秀吉方に寝返り、犬山城を奪う（小牧市の年表）', 0, 1, 38), pn('3/17　羽黒の戦い：徳川軍が森長可の隊を破る（小牧市の年表）', 1, 2, 38),
    pn('3/18　家康が小牧山城の改修を命じる。数日で防御工事が整う（小牧市の年表）', 2, 3, 36), pn('3月末　秀吉が楽田城に入る（小牧市の年表）', 3, 4, 40),
@@ -164,56 +197,28 @@ chapters = [
         units=[unit(label='羽柴秀吉', sub='楽田 → 龍泉寺 → 楽田', col=BLUE, portrait='p_hideyoshi', pts=[T(*RAKUDEN), T(*RYUSEN), T(*RAKUDEN)], legs=[[0, 1], [3, 4]], at=0, head=26, lab_off=(36, -20), lsize=20, dashed=True),
                unit(label='徳川家康', sub='小幡城 → 小牧山', col=RED, portrait='p_ieyasu', pts=[T(*OBATA), T(*KOMAKI)], legs=[[2, 3]], at=1, head=26, lab_off=(-36, 6), lsize=20, dashed=True),
                unit(label='本多忠勝', sub='『東照宮御実紀』では秀吉の前に', col=RED, portrait='p_honda', pts=[T(RYUSEN[0] - 0.012, RYUSEN[1] + 0.008)], at=5, head=20, lab_off=(-36, -4), lsize=18)])]),
- dict(key='months', title='六月から、十二月まで', chapter_title='六月から、十二月まで', scene=[
-   pn('5月はじめ　秀吉は尾張を離れ、美濃の鵜沼から富田へ陣を移す（小牧市の年表）', 0, 1, 34), pn('6月　蟹江城をめぐる戦い（小牧市の年表）', 1, 2, 42),
-   pn('8/26　秀吉の軍が木曽川を越え、小牧山の西北へ進む（小牧市の年表）', 2, 3, 38), pn('9/2　和睦の交渉が始まるが、決裂（小牧市の年表）', 3, 4, 40),
-   pn('10月　秀吉は大坂に戻り、のち北伊勢へ（小牧市の年表）', 4, 5, 40), pn('11月　信雄が伊勢で秀吉と会見し、和睦（小牧市の年表）', 5, 6, 40, col='gold'),
-   pn('同盟の大義を失った家康は、兵を引いた（通説）', 6, 7, 40), pn('12月　家康が次男・於義丸を秀吉の養子として送る（説）', 7, 8, 38),
-   pn('『東照宮御実紀』は、これを秀吉の方から望まれた養子として書く（軍記）', 8, 9, 34, col='gold'), pn('天正14年　家康が上洛し、秀吉に臣従（通説）', 9, None, 40),
-   amap('wide', places=[NOTE_POS(0, '※位置は概略の推定'),
-                        dict(xy=W(*KANIE), label='蟹江城', kind='castle', at=1, side='r', col=RED, lsize=22),
-                        dict(xy=W(*KOMAKI), label='小牧山', kind='castle', at=2, side='l', col=RED, lsize=22),
-                        dict(xy=W(*NAGASHIMA), label='長島（信雄の居城）', kind='castle', at=5, side='b', col=RED, lsize=22),
-                        dict(xy=W(*KIYOSU), label='清洲', kind='spot', at=0, side='l', col=GOLD, lsize=20)],
-        units=[unit(label='羽柴秀吉', sub='木曽川を越える', col=BLUE, portrait='p_hideyoshi', pts=[W(*INUYAMA), W(KOMAKI[0] - 0.02, KOMAKI[1] + 0.03)], legs=[[2, 3]], at=0, head=24, lab_off=(36, -12), lsize=20, dashed=True),
-               unit(label='織田信雄', sub='11月、秀吉と和睦', col=RED, portrait='p_nobukatsu', pts=[W(*NAGASHIMA)], at=5, head=22, lab_off=(36, -4), lsize=20)])]),
- dict(key='letters', title='新しく見つかった朱印状', chapter_title='新しく見つかった朱印状', scene=[
-   dict(t='art', name='docs', box=ART_BOX, at=0, dim=0.8, dir=-1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=29, xm=940, xm2=980, until=9, left=dict(title='見つかったもの', title_at=0, items=[
-        dict(at=0, text='2026年5月　兵庫県たつの市の旧家で、秀吉の朱印状2通が見つかる'), dict(at=1, text='8月、市立龍野歴史文化資料館が発表。10/24から公開'),
-        dict(at=2, text='たつの市は、脇坂安治に宛てた書状と案内'), dict(at=3, text='以下は、報道が伝える現代語の要約。原文の文言ではない')]),
-        right=dict(title='①4月21日付（グレゴリオ暦5月30日）', title_at=4, items=[
-        dict(at=5, text='池田恒興・森長可の討死に触れる'), dict(at=6, text='陣地の普請を固めているので心配するな、という趣旨'),
-        dict(at=7, text='伊賀で後方を支える安治に、材木を川端まで出すよう指示'),
-        dict(at=8, text='村井祐樹准教授（東大史料編纂所）：局地戦では負けたが、秀吉側は動揺していなかったと読み取れる（説）')])),
-   dict(t='cols2', size=29, xm=940, xm2=980, at=9, left=dict(title='②9月6日付', title_at=9, items=[
-        dict(at=10, text='報道の要約：小牧の西へ回り、国中に火を放ち、砦を数か所築かせた。さらに戦うつもりだった'),
-        dict(at=11, text='そこへ、信雄と家康から、人質を出すので和議を、と申し入れ'),
-        dict(at=12, text='返事を渋ると、信長の弟や家康の家臣まで人質に出すと言ってきた'), dict(at=13, text='村井准教授：和議を申し入れたのは家康の側だと、はっきりした（説）')]),
-        right=dict(title='注意', title_at=14, items=[
-        dict(at=14, text='同趣旨は、既知の脇坂安治宛の秀吉書状にもある（日本語版Wikipedia）'),
-        dict(at=15, text='秀吉が自分の家臣に宛てた手紙。味方に向けて、自分に有利に書いた可能性も'), dict(at=16, text='以上は、報道で紹介された内容')]))]),
  dict(key='views', title='評価は、分かれる', chapter_title='評価は、分かれる', scene=[
-   dict(t='art', name='dusk', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=32, xm=940, xm2=980, until=4, left=dict(title='長久手の戦い', title_at=1, items=[
-        dict(at=1, text='長久手だけを見れば、徳川方の勝ち（通説）')]),
-        right=dict(title='戦争の全体', title_at=2, items=[dict(at=2, text='信雄が秀吉と和睦し、家康は戦う大義を失った（通説）'), dict(at=3, text='研究者の見方は分かれる（日本語版Wikipediaが紹介する見方。原典は未確認）')])),
-   dict(t='cols2', size=29, xm=940, xm2=980, at=4, until=9, left=dict(title='軸①　臣従はいつか', title_at=4, items=[
-        dict(at=4, text='1584年の講和は形式的。1586年の上洛で、やっと服従（説）'), dict(at=5, text='1584年に人質を出した時点で、すでに服従の姿勢（説）'),
-        dict(at=6, text='1586年の天正地震のあと、秀吉の家康征伐が中止され、家康が臣従を表明（説）')]),
-        right=dict(title='軸②　軍事の優劣', title_at=7, items=[
-        dict(at=7, text='秀吉は家康を軍事的に屈服させ切れず、完全な服従は1590年の小田原征伐の時（説）'), dict(at=8, text='何をもって「服従」と見るかで、答えが変わる')])),
-   dict(t='cols2', size=31, xm=940, xm2=980, at=9, left=dict(title='新しい朱印状', title_at=9, items=[
-        dict(at=9, text='「家康が優位」の通説を見直し、秀吉側を優勢とする最近の研究を補強する、と専門家は話す（説）')]),
-        right=dict(title='見方', title_at=10, items=[dict(at=10, text='局地戦と戦争全体を分けて考える、材料の一つ')]))]),
+   bgimg('dusk', at=0, dim=.55, blur=6),
+   tel('結局、[[誰の勝ち]]？', 960, 470, 150, at=0, until=1, rot=-3),
+   rows([dict(at=1, tag='長久手', text='長久手だけ見れば、徳川方の勝ち（通説）', col='green', until=4),
+         dict(at=2, tag='戦争全体', text='信雄が秀吉と和睦。家康は戦う大義を失った（通説）', col='red', until=4),
+         dict(at=3, tag='研究者', text='見方は、いくつかに分かれる（説）', col='purple', until=4)], x0=110, x1=1810, y0=250, size=54, gap=36),
+   rows([dict(at=4, tag='①', text='1584年の講和は形式的。1586年の上洛で、やっと服従', col='orange', until=9),
+         dict(at=5, tag='②', text='1584年に人質を出した時点で、すでに服従の姿勢', col='blue', until=9),
+         dict(at=6, tag='③', text='1586年の天正地震のあと、家康が臣従を表明', col='green', until=9),
+         dict(at=7, tag='④', text='完全な服従は、1590年の小田原征伐の時', col='purple', until=9)], x0=110, x1=1810, y0=170, size=46, gap=24),
+   tel('何を[[服従]]と見るかで、答えが変わる', 960, 840, 62, at=8, until=9, plate='yellow', rot=-1.5),
+   tel('朱印状は、秀吉側を優勢とする\n最近の研究を[[補強]]（専門家・説）', 960, 470, 84, at=9, until=10, plate='blue', rot=2),
+   tel('局地戦と、戦争全体を\n[[分けて]]考える材料', 960, 470, 110, at=10, plate='green', rot=-2)]),
  dict(key='check', title='分かること、決められないこと', chapter_title='分かること、決められないこと', scene=[
-   dict(t='art', name='dusk', box=ART_BOX, at=0, dim=0.8, dir=-1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.62),
-   dict(t='cols2', size=33, xm=940, xm2=980, until=6, left=dict(title='分かること', title_at=0, items=[
-        dict(at=0, text='天正12年4/9、長久手で、池田恒興と森長可が討死した'), dict(at=1, text='11月に信雄と秀吉が和睦。のちに家康も秀吉に従った')]),
-        right=dict(title='決められないこと', title_at=2, items=[
-        dict(at=2, text='中入りを言い出したのは誰か'), dict(at=3, text='長久手の死者の数'), dict(at=4, text='本多忠勝が秀吉の前に立った日付'), dict(at=5, text='誰が勝った、と言うべきか。基準で答えが変わる')])),
-   dict(t='cols2', size=33, xm=940, xm2=980, at=6, left=dict(title='見方', title_at=6, items=[
-        dict(at=6, text='通説・軍記・公的機関の資料・同時代の書状。分けて見ると、見え方が変わる')]), right=dict(title='', title_at=6, items=[]))]),
+   bgimg('dusk', at=0, dim=.55, blur=6),
+   rows([dict(at=0, tag='分かる', text='1584年4/9、長久手で、池田恒興と森長可が討死', col='green'),
+         dict(at=1, tag='分かる', text='11月に信雄と秀吉が和睦。のちに家康も秀吉に従った', col='green'),
+         dict(at=2, tag='不明', text='中入りを言い出したのは誰か', col='red'),
+         dict(at=3, tag='不明', text='長久手の死者の数（5千余〜2万余）', col='red'),
+         dict(at=4, tag='不明', text='本多忠勝が秀吉の前に立った日付', col='red'),
+         dict(at=5, tag='不明', text='誰が勝ったと言うべきか（基準で変わる）', col='red')], x0=110, x1=1810, y0=170, size=50, gap=26),
+   tel('通説・軍記・公的資料・同時代の書状。\n分けて見ると、[[見え方が変わる]]', 960, 850, 56, at=6, plate='yellow', rot=-1.2)]),
 ]
 
 images = dict(
@@ -244,26 +249,51 @@ def _line_to_sentence_starts():
     return out
 
 
-def _remap(o, st):
-    f = lambda i: None if i is None else st[min(i, len(st) - 1)]
+def _remap(o, st, drop=()):
+    sh = lambda i: i - sum(1 for d in drop if d < i)
+    f = lambda i: None if i is None else st[min(sh(i), len(st) - 1)]
     if isinstance(o, dict):
         for k, v in list(o.items()):
             if k in ('at', 'until', 'title_at') and isinstance(v, int): o[k] = f(v)
             elif k == 'legs': o[k] = [[f(a), f(b)] for a, b in v]
-            else: _remap(v, st)
+            else: _remap(v, st, drop)
     elif isinstance(o, list):
-        for v in o: _remap(v, st)
+        for v in o: _remap(v, st, drop)
 
 
 _S = _line_to_sentence_starts()
 assert len(_S) == len(chapters), (len(_S), len(chapters))
 for _ch, _st in zip(chapters, _S):
-    _remap(_ch['scene'], _st)
+    _remap(_ch['scene'], _st, DROP.get(_ch['key'], ()))
+    if _ch['key'] in ('check', 'summary'):
+        _tels = [e for e in _ch['scene'] if e.get('name') == 'pop_telop' and e.get('y', 0) >= 800]
+        if _tels:
+            _t0 = _tels[0]
+            for _e in _ch['scene']:
+                if _e.get('name') == 'pop_rows':
+                    _e['size'] = 44; _e['y0'] = 150; _e['gap'] = 18
+                    for _it in _e['items']: _it.setdefault('until', _t0['at'])
+            _t0['y'] = 470; _t0['size'] = int(_t0['size'] * 1.5)
+    _wide = False
+    if _ch['key'] in _MAPCH:
+        _ART = ['hill', 'docs', 'dusk']
+        _ch['scene'].insert(0, bgimg(_ART[_MAPCH_ORDER.index(_ch['key']) % len(_ART)], at=0, dim=.6, blur=9))
+        _bm = next((e for e in _ch['scene'] if e.get('name') == 'battle_map'), None)
+        if _bm is not None:
+            from PIL import Image as _Im
+            _w, _h = _Im.open(Path(__file__).resolve().parents[1] / images[_bm['img']]['file']).size
+            if _w / _h > 1.7:
+                _wide = True
+                _bm['box'] = [30, 110, 1890, 690]
+                for _e in _ch['scene']:
+                    if _e.get('name') == 'pop_rows': _e['x0'] = 60; _e['x1'] = 1860; _e['y0'] = 705; _e['size'] = 46
+        _ch['scene'].append(tel('※位置・経路は概略の推定（資料の推定図と軍記による）', 1500 if _wide else 1440, 140 if _wide else 835, 28, at=0))
     if 'opener_until' in _ch: _ch['opener_until'] = _st[min(_ch['opener_until'], len(_st) - 1)]
 
 spec = dict(slug='komaki', theme_dir='20261226_komaki_nagakute', pack='32_komaki', header_sub='小牧・長久手の戦いを、地図の上で、通説・軍記・新しく見つかった朱印状に分けて確かめる',
  images=images,
- bgm=[['intro', 'standoff', 'piano36'], ['nakairi', 'after9', 'piano12'], ['months', 'check', 'piano40']],
+ bgm=[['intro', 'standoff', 'piano36'], ['nakairi', 'after9', 'piano12'], ['views', 'check', 'piano40']],
+ style='pop',
  chapters=chapters,
  desc=dict(title_main='小牧・長久手の戦い「家康の勝ち」は本当か？ 新しく見つかった秀吉の朱印状と、記録で確かめる', title_no=1,
   titles=['小牧・長久手の戦いを地図で解説 池田恒興の中入り・長久手の戦い・新発見の秀吉朱印状', '小牧・長久手の戦い 本当に家康の勝ち？ 新発見の秀吉朱印状から読み直す', '小牧・長久手の戦いの流れ 三河中入りから和睦まで、軍記と記録を分けて確かめる'],

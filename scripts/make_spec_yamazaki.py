@@ -44,29 +44,77 @@ AKECHI_YODO = A(135.7040, 34.9030)    # 淀川沿いの明智方（推定）
 EAST_EDGE = A(135.7515, 34.9100)
 
 
+
 def pn(text, at, until=None, size=40, hi=True, col=None):
-    d = dict(t='panel', box=TOP, text=text, at=at, size=size, hi=hi)
-    if until is not None: d['until'] = until
-    if col: d['col'] = col
-    return d
+    """旧パネルの代わり：右側の白いカード（ポップ）。"""
+    it = dict(at=at, text=text, col='orange')
+    if until is not None: it['until'] = until
+    return dict(t='anim', name='pop_rows', items=[it], x0=1010, x1=1880, y0=230, size=62, gap=0)
+
+
+def tel(text, x, y, size, **kw): return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+def rows(items, **kw): return dict(t='anim', name='pop_rows', items=items, **kw)
+def bgimg(img, **kw): return dict(t='anim', name='pop_bgimg', img=img, **kw)
 
 
 def unit(**k): return k
-def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label=txt, kind='spot', at=at, side='r', col=GOLD, lsize=28)
-def amap(img='area', **k): return dict(t='anim', name='battle_map', img=img, box=BOX, at=0, **k)
+def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label='※推定', kind='spot', at=at, side='r', col=GOLD, lsize=28, _note=True)
+
+
+MAPBOX = [30, 120, 1000, 880]
+
+
+def _big(k):
+    for pl in k.get('places', []):
+        if not pl.get('_note'): pl['lsize'] = int(pl.get('lsize', 24) * 2.0)
+        pl.pop('_note', None)
+    for u in k.get('units', []):
+        u['lsize'] = int(u.get('lsize', 26) * 2.0); u['head'] = int(u.get('head', 26) * 1.5)
+        if 'lab_off' in u: u['lab_off'] = (int(u['lab_off'][0] * 2.0), int(u['lab_off'][1] * 2.0))
+    for ln in k.get('lines', []): ln['lsize'] = int(ln.get('lsize', 26) * 2.0)
+    for mk in k.get('marks', []): mk['lsize'] = int(mk.get('lsize', 24) * 1.5)
+
+
+def amap(img='area', **k):
+    _big(k)
+    return dict(t='anim', name='battle_map', img=img, box=MAPBOX, at=0, **k)
 
 
 NOTE_IMG = 'イメージ（生成画像）。実際の場面の再現ではありません'
 NOTE_GUNKI = '※軍記による描写。実際の経路・順序は確定しない'
-ART_BOX = [60, 170, 1860, 850]
+
+_MAPCH = {'start', 'tondoubt', 'day12', 'finish', 'terrain', 'after', 'return'}
+_MAPCH_ORDER = ['tondoubt', 'return', 'terrain', 'day12', 'start', 'finish', 'after']
+DROP = {'return': {1, 2, 3, 6, 8}, 'terrain': {3, 4, 5}, 'day12': {1, 3}, 'start': {9, 10, 4}, 'finish': {2, 3, 4}, 'after': {1, 2, 3, 4}, 'tondoubt': {8, 11, 12, 13}}
 
 chapters = [
- dict(key='intro', title='山崎の戦い', chapter_title='導入：山崎の戦い', opener='山崎の戦い', opener_until=2, scene=[
-   dict(t='art', name='rain', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.5),
-   pn('天正10年6月13日（ユリウス暦1582年7月2日／グレゴリオ暦7月12日）', 0, 1, 38), pn('京都の南・山崎：羽柴秀吉の軍 対 明智光秀の軍', 1, 2, 42),
-   pn('本能寺の変から、10日あまり後', 2, 3, 42), pn('「天王山を先に押さえた秀吉が勝った」と語られてきた（通説）', 3, 4, 38, col='gold'),
-   pn('「中国大返しで戻り、全軍を指揮して光秀を破った」（通説）', 4, 5, 38), pn('2026年、新しい書状が、この通説に問いを投げかけた', 5, 6, 40, col='gold'),
-   pn('地図の上で動きを追い、史料ごとの違いを確かめる', 6, None, 40)]),
+ dict(key='intro', title='山崎の戦い', chapter_title='導入：秀吉は、間に合ったのか', scene=[
+   bgimg('rain', at=0, dim=.5, blur=4),
+   tel('山崎の戦い\n天王山を押さえて\n[[秀吉が勝った]]？', 960, 470, 120, at=0, until=1, rot=-3),
+   tel('通説：天王山を先に押さえた秀吉が\n全軍を指揮して勝った', 960, 470, 80, at=1, until=2, plate='blue', rot=2),
+   tel('2026年の新説：\n秀吉は開戦に[[間に合わなかった]]？', 960, 470, 100, at=2, until=3, plate='red', rot=-2),
+   tel('手がかり：新しく見つかった[[書状]]\nと、[[フロイス]]の記録', 960, 470, 90, at=3, until=4, plate='yellow', rot=1.5),
+   tel('地図で追って、確かめる！', 960, 470, 120, at=4, plate='pink', rot=-2)]),
+ dict(key='tondoubt', title='秀吉は、間に合ったのか', chapter_title='秀吉は、間に合ったのか', scene=[
+   pn('ここまでは、通説に近い流れ。ここから史料を確かめる', 0, 1, 40), pn('通説：秀吉は宝積寺に本陣を置き、全軍を指揮した', 1, 2, 40, col='gold'),
+   pn('2026年3月に報じられた説：秀吉は合戦に遅参したのではないか', 2, 3, 38), pn('中京大学・馬部隆弘氏の見方', 3, 4, 42),
+   pn('新出書状が直接示すのは、13日の摂津の武将の動きと、14日の進軍予定', 4, 5, 36, col='gold'),
+   pn('10/18付の秀吉書状（後に書かれた回顧）：13日午前、約12km後方の富田にいたと読める', 5, 6, 34),
+   pn('馬部説：摂津の武将だけで開戦、秀吉は間に合わず。ただし推論に留まる部分あり', 6, 7, 34), pn('フロイスの記録：秀吉・信孝の軍は、疲れて到着できなかった（時刻は他の史料と合わず、解釈が必要）', 7, 8, 32),
+   pn('従来は、高山右近を持ち上げる書き方として、重く見られなかった', 8, 9, 38),
+   pn('異論：呉座勇一氏　秀吉本人は遅れても、秀長・黒田孝高の部隊は戦場にいた（10/18付書状の持ち場）', 9, 10, 32, col='gold'),
+   pn('フロイスは、主に前哨戦を書いたのではないか（呉座氏）', 10, 11, 38), pn('福島克彦氏：書状を合戦の前と後で分けて読む視点は受け継ぐべき', 11, 12, 36),
+   pn('池田恒興ら摂津の武将の戦功が、清洲会議にも影響した可能性（福島氏）', 12, 13, 36), pn('馬部氏：後の書状では、書き方が変わっている', 13, None, 38),
+   amap('approach', places=[NOTE_POS(0, '※位置は概略の推定。直線距離は約12km'),
+                            dict(xy=X(135.5914, 34.8353), label='富田（高槻市）', kind='camp', at=5, side='b', col=BLUE, lsize=24),
+                            dict(xy=X(135.6800, 34.8960), label='山崎（大山崎）', kind='spot', at=4, side='t', col=GOLD, lsize=24),
+                            dict(xy=X(135.6787, 34.8958), label='宝積寺（通説の本陣）', kind='spot', at=1, side='l', col=(245, 243, 232), lsize=22),
+                            dict(xy=X(135.7007, 34.9181), label='勝龍寺城', kind='castle', at=4, side='r', col=RED, lsize=22)],
+        lines=[dict(pts=[X(135.5914, 34.8353), X(135.6800, 34.8960)], label='約12km', at=5, col=GOLD, dash=True, lab=[0.34, 0.74])],
+        units=[unit(label='摂津の武将', sub='13日に前線（大山崎）', col=BLUE, portrait='p_ikeda', pts=[X(135.6800, 34.8960)], at=4, head=24, lab_off=(30, 28), lsize=22),
+               unit(label='羽柴秀吉', sub='13日午前：富田（10/18付書状）', col=BLUE, portrait='p_hideyoshi', pts=[X(135.5914, 34.8353)], at=1, head=28, lab_off=(34, -4), lsize=22),
+               unit(label='羽柴秀長', sub='呉座説：部隊は戦場にいた', col=BLUE, pts=[X(135.6730, 34.9030)], at=9, head=18, lab_off=(-34, -30), lsize=20),
+               unit(label='黒田孝高', sub='10/18付書状の持ち場', col=BLUE, portrait='p_kuroda', pts=[X(135.6760, 34.8990)], at=9, head=22, lab_off=(-34, 34), lsize=20)])]),
  dict(key='return', title='本能寺のあと', chapter_title='本能寺のあと', scene=[
    pn('6/2　織田信長、本能寺で明智光秀に討たれる', 0, 1, 40), pn('羽柴秀吉は、備中高松城で毛利方と対陣中', 1, 2, 40),
    pn('秀吉が変を知った日：6/3〜6/4（史料で1日の差）', 2, 3, 38, col='gold'), pn('毛利方と和議。6/4　清水宗治が自刃', 3, 4, 40),
@@ -82,16 +130,6 @@ chapters = [
                         dict(xy=W(135.768, 35.012), label='京', kind='castle', at=0, side='t', col=RED)],
         units=[unit(label='羽柴秀吉', sub='備中高松 → 富田', col=BLUE, portrait='p_hideyoshi', pts=[W(133.8235, 34.6907), W(134.6938, 34.8379), W(135.4064, 34.7333), W(135.5914, 34.8353)], legs=[[3, 4], [4, 5], [5, 6]], at=1, head=30, lab_off=(36, -10), dashed=True),
                unit(label='明智光秀', sub='京・近江', col=RED, portrait='p_mitsuhide', pts=[W(135.768, 35.012)], at=8, head=26, lab_off=(-30, 44), lsize=22)])]),
- dict(key='forces', title='両軍の兵力', chapter_title='両軍の兵力', scene=[
-   pn('兵力は、史料によって違う', 0, 1, 42), pn('『太閤記』（江戸初期）：羽柴軍 約4万／明智軍 約1万6千', 1, 2, 38, col='gold'),
-   pn('2〜3倍の差と説明されるが、後世の叙述で、実際の人数は分かっていない', 2, 3, 36), pn('羽柴軍の前線：池田恒興・高山右近・中川清秀ら（摂津の武将）', 3, 4, 38),
-   pn('明智軍：斎藤利三・伊勢貞興らと伝わる', 4, 5, 40), pn('光秀の本陣は「御坊塚」と伝わる。場所には諸説', 5, None, 38, col='gold'),
-   amap(places=[NOTE_POS(0, '※位置は概略の推定（軍記・伝承にもとづく）')],
-        units=[unit(label='池田恒興', col=BLUE, portrait='p_ikeda', pts=[IKEDA_P], at=3, head=22, lab_off=(-30, 44), lsize=22),
-               unit(label='高山右近', col=BLUE, portrait='p_takayama', pts=[TAKAYAMA_P], at=3, head=22, lab_off=(30, 6), lsize=22),
-               unit(label='中川清秀', col=BLUE, portrait='p_nakagawa', pts=[NAKAGAWA_P], at=3, head=22, lab_off=(-30, -36), lsize=22),
-               unit(label='斎藤利三', sub='浮世絵（想像図）', col=RED, portrait='p_saito', pts=[SAITO_P], at=4, head=22, lab_off=(30, 6), lsize=22),
-               unit(label='明智光秀', sub='本陣＝御坊塚（候補地）', col=RED, portrait='p_mitsuhide', pts=[EGE], at=5, head=26, lab_off=(36, -4), lsize=22)])]),
  dict(key='terrain', title='山崎の地形', chapter_title='山崎の地形', scene=[
    pn('山崎は、京都盆地の南西の端', 0, 1, 42), pn('北に天王山、南に淀川。その間は、狭い平地', 1, 2, 42),
    pn('当時は沼地が広がっていたと言われる。大軍が通れる所は限られた', 2, 3, 38), pn('この道が西国街道。山崎は、西国と京を結ぶ要所', 3, 4, 40),
@@ -155,46 +193,22 @@ chapters = [
                        dict(xy=E(135.768, 35.012), label='京', kind='spot', at=2, side='l', col=GOLD, lsize=22)],
         units=[unit(label='明智光秀', col=RED, portrait='p_mitsuhide', pts=[E(135.7007, 34.9181), E(135.8067, 34.9519)], legs=[[0, 1]], at=0, head=26, lab_off=(36, -4), lsize=22, dashed=True),
                unit(label='堀秀政', col=BLUE, portrait='p_hori', pts=[E(135.768, 35.012), E(135.8774, 35.0049)], legs=[[2, 3]], at=2, head=22, lab_off=(-30, 44), lsize=20, dashed=True)])]),
- dict(key='tondoubt', title='秀吉は、間に合ったのか', chapter_title='秀吉は、間に合ったのか', scene=[
-   pn('ここまでは、通説に近い流れ。ここから史料を確かめる', 0, 1, 40), pn('通説：秀吉は宝積寺に本陣を置き、全軍を指揮した', 1, 2, 40, col='gold'),
-   pn('2026年3月に報じられた説：秀吉は合戦に遅参したのではないか', 2, 3, 38), pn('中京大学・馬部隆弘氏の見方', 3, 4, 42),
-   pn('新出書状が直接示すのは、13日の摂津の武将の動きと、14日の進軍予定', 4, 5, 36, col='gold'),
-   pn('10/18付の秀吉書状（後に書かれた回顧）：13日午前、約12km後方の富田にいたと読める', 5, 6, 34),
-   pn('馬部説：摂津の武将だけで開戦、秀吉は間に合わず。ただし推論に留まる部分あり', 6, 7, 34), pn('フロイスの記録：秀吉・信孝の軍は、疲れて到着できなかった（時刻は他の史料と合わず、解釈が必要）', 7, 8, 32),
-   pn('従来は、高山右近を持ち上げる書き方として、重く見られなかった', 8, 9, 38),
-   pn('異論：呉座勇一氏　秀吉本人は遅れても、秀長・黒田孝高の部隊は戦場にいた（10/18付書状の持ち場）', 9, 10, 32, col='gold'),
-   pn('フロイスは、主に前哨戦を書いたのではないか（呉座氏）', 10, 11, 38), pn('福島克彦氏：書状を合戦の前と後で分けて読む視点は受け継ぐべき', 11, 12, 36),
-   pn('池田恒興ら摂津の武将の戦功が、清洲会議にも影響した可能性（福島氏）', 12, 13, 36), pn('馬部氏：後の書状では、書き方が変わっている', 13, None, 38),
-   amap('approach', places=[NOTE_POS(0, '※位置は概略の推定。直線距離は約12km'),
-                            dict(xy=X(135.5914, 34.8353), label='富田（高槻市）', kind='camp', at=5, side='b', col=BLUE, lsize=24),
-                            dict(xy=X(135.6800, 34.8960), label='山崎（大山崎）', kind='spot', at=4, side='t', col=GOLD, lsize=24),
-                            dict(xy=X(135.6787, 34.8958), label='宝積寺（通説の本陣）', kind='spot', at=1, side='l', col=(245, 243, 232), lsize=22),
-                            dict(xy=X(135.7007, 34.9181), label='勝龍寺城', kind='castle', at=4, side='r', col=RED, lsize=22)],
-        lines=[dict(pts=[X(135.5914, 34.8353), X(135.6800, 34.8960)], label='約12km', at=5, col=GOLD, dash=True, lab=[0.34, 0.74])],
-        units=[unit(label='摂津の武将', sub='13日に前線（大山崎）', col=BLUE, portrait='p_ikeda', pts=[X(135.6800, 34.8960)], at=4, head=24, lab_off=(30, 28), lsize=22),
-               unit(label='羽柴秀吉', sub='13日午前：富田（10/18付書状）', col=BLUE, portrait='p_hideyoshi', pts=[X(135.5914, 34.8353)], at=1, head=28, lab_off=(34, -4), lsize=22),
-               unit(label='羽柴秀長', sub='呉座説：部隊は戦場にいた', col=BLUE, pts=[X(135.6730, 34.9030)], at=9, head=18, lab_off=(-34, -30), lsize=20),
-               unit(label='黒田孝高', sub='10/18付書状の持ち場', col=BLUE, portrait='p_kuroda', pts=[X(135.6760, 34.8990)], at=9, head=22, lab_off=(-34, 34), lsize=20)])]),
  dict(key='tennozan', title='天王山と、成句', chapter_title='天王山と、成句', scene=[
-   dict(t='art', name='docs', box=ART_BOX, at=0, dim=0.8, dir=-1, note='イメージ（生成画像）。実際の資料の再現ではありません'), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=32, xm=940, xm2=980, left=dict(title='天王山をめぐる話', title_at=0, items=[
-        dict(at=1, text='「天王山を先に押さえた方が勝つ」は、江戸時代の軍記（『太閤記』『川角太閤記』）に見える'),
-        dict(at=2, text='同時代の良質な史料では、争奪戦は確かめられないとされてきた'),
-        dict(at=3, text='近年、『乙夜之書物』など江戸前期の書物から、小さな戦いも含め見直す動き'),
-        dict(at=4, text='山のあたりに部隊がいたことと、争奪戦が勝敗を決めたことは、別の話')]),
-        right=dict(title='成句と本陣', title_at=5, items=[
-        dict(at=5, text='「天王山」は、勝敗の分かれ目という意味の成句になった'),
-        dict(at=6, text='宝積寺の秀吉本陣：同時代の史料には見当たらないとされる'),
-        dict(at=7, text='「洞ヶ峠」：筒井順慶が洞ヶ峠で日和見した逸話は、確かめられない。順慶は郡山城で軍議を重ねたと説明される')]))]),
+   bgimg('docs', at=0, dim=.55, blur=6),
+   tel('[[天王山]]の争奪戦で\n勝敗が決まった？', 960, 470, 120, at=0, until=1, rot=-2),
+   rows([dict(at=1, tag='軍記', text='『太閤記』など江戸時代の軍記に見られる', col='orange', until=4),
+         dict(at=2, tag='同時代', text='良質な史料では、争奪戦は確かめられない', col='red', until=4),
+         dict(at=3, tag='注意', text='部隊がいたことと、勝敗を決めたことは別の話', col='purple', until=4)], x0=110, x1=1810, y0=250, size=54, gap=36),
+   tel('「天王山」＝勝敗の分かれ目（成句）', 960, 400, 80, at=4, until=5, plate='yellow', rot=-1.5),
+   rows([dict(at=5, tag='洞ヶ峠', text='筒井順慶が日和見をした逸話も、確かめられない', col='red')], x0=110, x1=1810, y0=560, size=54, gap=30)]),
  dict(key='check', title='分かること、決められないこと', chapter_title='分かること、決められないこと', scene=[
-   dict(t='art', name='dusk', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.62),
-   dict(t='cols2', size=34, xm=940, xm2=980, until=2, left=dict(title='分かること', title_at=0, items=[
-        dict(at=0, text='6/13　山崎で羽柴軍と明智軍が戦い、羽柴軍が勝った'), dict(at=0, text='光秀は、そのあとに命を落とした')]),
-        right=dict(title='決められないこと', title_at=1, items=[
-        dict(at=1, text='秀吉は、いつ戦場に着いたのか'), dict(at=1, text='天王山の争奪戦が、勝敗を決めたのか'), dict(at=1, text='両軍の、実際の兵数')])),
-   dict(t='cols2', size=34, xm=940, xm2=980, at=2, left=dict(title='研究の現在', title_at=2, items=[
-        dict(at=2, text='新しい書状をきっかけに、通説の見直しが進んでいる'), dict(at=2, text='ただし、研究者の間でも、見方は分かれている')]),
-        right=dict(title='見方', title_at=3, items=[dict(at=3, text='通説・軍記・同時代の書状を、分けて見ると、見え方が変わる')]))]),
+   bgimg('dusk', at=0, dim=.55, blur=6),
+   rows([dict(at=0, tag='分かる', text='6/13、山崎で羽柴軍と明智軍が戦い、羽柴軍が勝った。光秀はそのあと命を落とした', col='green'),
+         dict(at=1, tag='不明', text='秀吉がいつ戦場に着いたのか', col='red'),
+         dict(at=1, tag='不明', text='天王山の争奪戦が、勝敗を決めたのか', col='red'),
+         dict(at=1, tag='不明', text='両軍の実際の兵数', col='red'),
+         dict(at=2, tag='今', text='新しい書状をきっかけに、通説の見直しが進む。研究者の間でも見方は分かれる', col='blue')], x0=110, x1=1810, y0=170, size=50, gap=26),
+   tel('通説・軍記・同時代の書状。\n分けて見ると、[[見え方が変わる]]', 960, 850, 56, at=3, plate='yellow', rot=-1.2)]),
 ]
 
 images = dict(
@@ -227,26 +241,51 @@ def _line_to_sentence_starts():
     return out
 
 
-def _remap(o, st):
-    f = lambda i: None if i is None else st[min(i, len(st) - 1)]
+def _remap(o, st, drop=()):
+    sh = lambda i: i - sum(1 for d in drop if d < i)
+    f = lambda i: None if i is None else st[min(sh(i), len(st) - 1)]
     if isinstance(o, dict):
         for k, v in list(o.items()):
             if k in ('at', 'until', 'title_at') and isinstance(v, int): o[k] = f(v)
             elif k == 'legs': o[k] = [[f(a), f(b)] for a, b in v]
-            else: _remap(v, st)
+            else: _remap(v, st, drop)
     elif isinstance(o, list):
-        for v in o: _remap(v, st)
+        for v in o: _remap(v, st, drop)
 
 
 _S = _line_to_sentence_starts()
 assert len(_S) == len(chapters), (len(_S), len(chapters))
 for _ch, _st in zip(chapters, _S):
-    _remap(_ch['scene'], _st)
+    _remap(_ch['scene'], _st, DROP.get(_ch['key'], ()))
+    if _ch['key'] in ('check', 'summary'):
+        _tels = [e for e in _ch['scene'] if e.get('name') == 'pop_telop' and e.get('y', 0) >= 800]
+        if _tels:
+            _t0 = _tels[0]
+            for _e in _ch['scene']:
+                if _e.get('name') == 'pop_rows':
+                    _e['size'] = 44; _e['y0'] = 150; _e['gap'] = 18
+                    for _it in _e['items']: _it.setdefault('until', _t0['at'])
+            _t0['y'] = 470; _t0['size'] = int(_t0['size'] * 1.5)
+    _wide = False
+    if _ch['key'] in _MAPCH:
+        _ART = ['rain', 'march', 'docs', 'dusk']
+        _ch['scene'].insert(0, bgimg(_ART[_MAPCH_ORDER.index(_ch['key']) % len(_ART)], at=0, dim=.6, blur=9))
+        _bm = next((e for e in _ch['scene'] if e.get('name') == 'battle_map'), None)
+        if _bm is not None:
+            from PIL import Image as _Im
+            _w, _h = _Im.open(Path(__file__).resolve().parents[1] / images[_bm['img']]['file']).size
+            if _w / _h > 1.7:
+                _wide = True
+                _bm['box'] = [30, 110, 1890, 690]
+                for _e in _ch['scene']:
+                    if _e.get('name') == 'pop_rows': _e['x0'] = 60; _e['x1'] = 1860; _e['y0'] = 705; _e['size'] = 46
+        _ch['scene'].append(tel('※位置・経路は概略の推定（資料の推定図と軍記による）', 1500 if _wide else 1440, 140 if _wide else 835, 28, at=0))
     if 'opener_until' in _ch: _ch['opener_until'] = _st[min(_ch['opener_until'], len(_st) - 1)]
 
 spec = dict(slug='yamazaki', theme_dir='20261212_yamazaki', pack='28_yamazaki', header_sub='山崎の戦いを、地図の上で、書状と軍記を分けて確かめる',
  images=images,
- bgm=[['intro', 'forces', 'piano36'], ['terrain', 'finish', 'piano12'], ['after', 'check', 'piano40']],
+ bgm=[['intro', 'tondoubt', 'piano36'], ['return', 'finish', 'piano12'], ['after', 'check', 'piano40']],
+ style='pop',
  chapters=chapters,
  desc=dict(title_main='山崎の戦いは、「天王山」と秀吉の指揮で決まったのか', title_no=2,
   titles=['山崎の戦いを地図で解説 秀吉は間に合った？ 天王山は本当？ 書状で確かめる', '山崎の戦い 秀吉は遅参した？ 2026年の新説と異論を比べる', '山崎の戦いの流れ 摂津衆の前線・光秀の最期・天王山と洞ヶ峠の真相'],

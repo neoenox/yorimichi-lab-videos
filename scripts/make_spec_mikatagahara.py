@@ -28,29 +28,57 @@ IWAI = (137.672, 34.812)           # 祝田の坂（推定）
 SHIRASUKA = (137.5054, 34.6958)    # 白須賀（織田の援軍の分散配置の西端）
 
 
+
 def pn(text, at, until=None, size=40, hi=True, col=None):
-    d = dict(t='panel', box=TOP, text=text, at=at, size=size, hi=hi)
-    if until is not None: d['until'] = until
-    if col: d['col'] = col
-    return d
+    """旧パネルの代わり：右側の白いカード（ポップ）。"""
+    it = dict(at=at, text=text, col='orange')
+    if until is not None: it['until'] = until
+    return dict(t='anim', name='pop_rows', items=[it], x0=1010, x1=1880, y0=230, size=62, gap=0)
+
+
+def tel(text, x, y, size, **kw): return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+def rows(items, **kw): return dict(t='anim', name='pop_rows', items=items, **kw)
+def bgimg(img, **kw): return dict(t='anim', name='pop_bgimg', img=img, **kw)
 
 
 def unit(**k): return k
-def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label=txt, kind='spot', at=at, side='r', col=GOLD, lsize=28)
-def amap(img='area', **k): return dict(t='anim', name='battle_map', img=img, box=BOX, at=0, **k)
+def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label='※推定', kind='spot', at=at, side='r', col=GOLD, lsize=28, _note=True)
+
+
+MAPBOX = [30, 120, 1000, 880]
+
+
+def _big(k):
+    for pl in k.get('places', []):
+        if not pl.get('_note'): pl['lsize'] = int(pl.get('lsize', 24) * 2.0)
+        pl.pop('_note', None)
+    for u in k.get('units', []):
+        u['lsize'] = int(u.get('lsize', 26) * 2.0); u['head'] = int(u.get('head', 26) * 1.5)
+        if 'lab_off' in u: u['lab_off'] = (int(u['lab_off'][0] * 2.0), int(u['lab_off'][1] * 2.0))
+    for ln in k.get('lines', []): ln['lsize'] = int(ln.get('lsize', 26) * 2.0)
+    for mk in k.get('marks', []): mk['lsize'] = int(mk.get('lsize', 24) * 1.5)
+
+
+def amap(img='area', **k):
+    _big(k)
+    return dict(t='anim', name='battle_map', img=img, box=MAPBOX, at=0, **k)
 
 
 NOTE_IMG = 'イメージ（生成画像）。実際の場面の再現ではありません'
 NOTE_GUNKI = '※軍記による描写。実際の経路・順序は確定しない'
-ART_BOX = [60, 170, 1860, 850]
+
+_MAPCH = {'night', 'after', 'why', 'flee', 'battle', 'terrain', 'saijo'}
+_MAPCH_ORDER = ['saijo', 'terrain', 'why', 'battle', 'flee', 'night', 'after']
+DROP = {'saijo': {8, 3, 4, 7}, 'terrain': {3, 4}, 'why': {2, 6, 7}, 'battle': {4, 9, 10, 11, 12}, 'flee': {5, 7}, 'night': {2, 3, 6}, 'after': {4, 6, 7}}
 
 chapters = [
- dict(key='intro', title='三方ヶ原の戦い', chapter_title='導入：三方ヶ原の戦い', opener='三方ヶ原の戦い', opener_until=2, scene=[
-   dict(t='art', name='plateau', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.5),
-   pn('家康は、なぜ、浜松城から出て、信玄と戦ったのか', 0, 1, 40, col='gold'), pn('元亀3年12月22日（ユリウス暦1573年1月25日）', 1, 2, 40),
-   pn('グレゴリオ暦では、2月4日', 2, 3, 42), pn('遠江・三方ヶ原：武田信玄の軍 対 徳川家康の軍', 3, 4, 40),
-   pn('家康は大敗した（通説）', 4, 5, 42, col='gold'), pn('「犀ヶ崖の夜襲」「空城の計」は、有名な話（通説）', 5, 6, 38, col='gold'),
-   pn('同時代の記録は、この戦いを、どう書いているのか', 6, 7, 38), pn('地図の上で追い、記録を確かめる', 7, None, 42)]),
+ dict(key='intro', title='三方ヶ原の戦い', chapter_title='導入：家康は、なぜ出陣したのか', scene=[
+   bgimg('plateau', at=0, dim=.5, blur=4),
+   tel('家康は、なぜ\n浜松城を[[出た]]？', 960, 470, 140, at=0, until=1, rot=-3),
+   tel('三方ヶ原：武田信玄 対 徳川家康\n家康は[[大敗]]（通説）', 960, 470, 100, at=1, until=2, plate='blue', rot=2),
+   tel('犀ヶ崖の夜襲・空城の計\n『信長公記』には[[書かれていない]]', 960, 470, 92, at=2, until=3, plate='red', rot=-2),
+   tel('出陣の理由も、[[はっきりしない]]', 960, 470, 100, at=3, until=4, plate='yellow', rot=1.5),
+   tel('地図で追って、確かめる！', 960, 470, 120, at=4, plate='pink', rot=-2)]),
  dict(key='saijo', title='信玄の西上', chapter_title='信玄の西上', scene=[
    pn('元亀3年10月　武田信玄が甲府を出陣', 0, 1, 40), pn('目指したのは遠江と三河。徳川領を攻めるため', 1, 2, 38),
    pn('信玄の本隊は、およそ2万2千とされる', 2, 3, 40), pn('『東照宮御実紀』は、「4万5千余」と書く（軍記）', 3, 4, 38, col='gold'),
@@ -64,17 +92,6 @@ chapters = [
                         dict(xy=W(*ICHIGON), label='一言坂', kind='spot', at=5, side='r', col=GOLD, lsize=22)],
         units=[unit(label='武田信玄', sub='甲府 → 遠江', col=RED, portrait='p_shingen', pts=[W(*KOFU), W(*INA), W(*FUTAMATA)], legs=[[0, 1], [5, 6]], at=0, head=26, lab_off=(36, -4), lsize=22, dashed=True),
                unit(label='徳川家康', sub='浜松城', col=BLUE, portrait='p_ieyasu', pts=[W(*HAMAMATSU)], at=1, head=24, lab_off=(-36, 10), lsize=22)])]),
- dict(key='forces', title='両軍の顔ぶれ', chapter_title='両軍の顔ぶれ', scene=[
-   dict(t='art', name='docs', box=ART_BOX, at=0, dim=0.8, dir=-1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=31, xm=940, xm2=980, until=2, left=dict(title='武田方', title_at=0, items=[
-        dict(at=0, text='武田信玄（本隊）'), dict(at=0, text='山県昌景・馬場信春・内藤昌豊'), dict(at=0, text='四郎勝頼')]),
-        right=dict(title='徳川方', title_at=1, items=[dict(at=1, text='徳川家康'), dict(at=1, text='酒井忠次・本多忠勝・大久保忠世・榊原康政ほか')])),
-   dict(t='cols2', size=29, xm=940, xm2=980, at=2, left=dict(title='織田の援軍', title_at=2, items=[
-        dict(at=2, text='『信長公記』：大将は、佐久間信盛・平手汎秀・水野信元')]),
-        right=dict(title='書物で違う', title_at=3, items=[
-        dict(at=4, text='『松平記』：平手・水野・林・佐久間（軍記）'), dict(at=4, text='『総見記』：佐久間・平手に、林・水野・毛利・美濃三人衆（軍記）'),
-        dict(at=5, text='数：『総見記』3千／『明智軍記』5千'), dict(at=5, text='『佐久間軍記』約1万5千／『甲陽軍鑑』約1万9千／『前橋酒井家旧蔵聞書』2万（軍記）'), dict(at=6, text='2万とみる研究者も。ただし岡崎〜白須賀に分散（説）'),
-        dict(at=7, text='実際に戦場にいた数は、分かっていない')]))]),
  dict(key='terrain', title='地形と、浜松城', chapter_title='地形と、浜松城', scene=[
    pn('徳川家康の本拠は、浜松城', 0, 1, 42), pn('北西に広がる台地が、三方ヶ原', 1, 2, 42),
    pn('台地には祝田へ下る坂。武田軍は、この坂を下ろうとしていた、といわれる', 2, 3, 34, col='gold'), pn('台地を西へ進めば、浜名湖近くの堀江城へ向かう', 3, 4, 38),
@@ -134,16 +151,19 @@ chapters = [
                 dict(xy=A(SAIGA[0], SAIGA[1] + 0.012), label='犀ヶ崖（城の北）', kind='spot', at=4, side='l', col=GOLD, lsize=22)],
         units=[unit(label='大久保忠世ら', sub='夜襲（軍記）', col=BLUE, pts=[A(*HAMAMATSU), A(SAIGA[0], SAIGA[1] + 0.012)], legs=[[5, 7]], at=5, head=20, lab_off=(-36, 10), lsize=20, dashed=True),
                unit(label='武田軍', sub='陣', col=RED, portrait='p_baba', pts=[A(SAIGA[0] - 0.005, SAIGA[1] + 0.02)], at=4, head=20, lab_off=(-36, -20), lsize=20)])]),
+
  dict(key='check', title='有名な逸話を、確かめる', chapter_title='有名な逸話を、確かめる', scene=[
-   dict(t='art', name='ravine', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=29, xm=940, xm2=980, until=5, left=dict(title='「味噌」の話', title_at=0, items=[
-        dict(at=0, text='家康が、恐怖で失禁し、「これは味噌だ」と言い張った（通説）'), dict(at=1, text='出典が判明していない（説）'),
-        dict(at=2, text='類似の話は『三河後風土記』にあるが、一言坂の戦いの後の話（説）')]),
-        right=dict(title='「酒井の太鼓」', title_at=3, items=[dict(at=4, text='酒井忠次が櫓で太鼓を打ち、武田軍に伏兵を疑わせた（通説）')])),
-   dict(t='cols2', size=29, xm=940, xm2=980, at=5, left=dict(title='「酒井の太鼓」の出どころ', title_at=5, items=[
-        dict(at=5, text='明治6年に初演された歌舞伎で広まった。『三河後風土記』にも記述はない、とされる（説）')]),
-        right=dict(title='「小山田信茂の投石隊」', title_at=6, items=[
-        dict(at=7, text='『信長公記』：投石隊は「水股之者」。信茂の名はない'), dict(at=8, text='『総見記』の書き方が誤読され、明治の参謀本部の本で信茂が率いたとされて広まった、とされる（説）')]))]),
+   bgimg('ravine', at=0, dim=.55, blur=6),
+   rows([dict(at=0, tag='味噌', text='家康が恐怖で失禁し、「これは味噌だ」と言い張った（通説）', col='orange', until=3),
+         dict(at=1, tag='出典', text='この話の出典は、判明していない（説）', col='red', until=3),
+         dict(at=2, tag='類似', text='似た話は『三河後風土記』にあるが、一言坂の戦いの後の話（説）', col='purple', until=3)], x0=110, x1=1810, y0=240, size=52, gap=36),
+   rows([dict(at=3, tag='酒井の太鼓', text='酒井忠次が櫓で太鼓を打ち、武田軍に伏兵を疑わせた（通説）', col='orange', until=6),
+         dict(at=4, tag='広まり', text='明治6年初演の歌舞伎で広まった。『三河後風土記』にも記述がないとされる（説）', col='red', until=6),
+         dict(at=5, tag='注意', text='同時代の記録では、確かめられない', col='purple', until=6)], x0=110, x1=1810, y0=240, size=52, gap=36),
+   rows([dict(at=6, tag='投石隊', text='「小山田信茂の投石隊」も有名（通説）', col='orange'),
+         dict(at=7, tag='信長公記', text='投石隊は「水股之者」。小山田信茂の名はない', col='blue'),
+         dict(at=8, tag='広まり', text='『総見記』の書き方が誤読され、明治の参謀本部の本で広まった（説）', col='red')], x0=110, x1=1810, y0=240, size=52, gap=36)]),
+
  dict(key='after', title='その後', chapter_title='その後', scene=[
    pn('近年の説では、戦いの翌日から信玄は堀江城を攻めた（説）', 0, 1, 34, col='gold'), pn('しかし、4日ほどで引き返したといわれる（説）', 1, 2, 38),
    pn('続いて、東三河の野田城を攻める（説）', 2, 3, 40), pn('信玄は、元亀4年4/12、信濃の波合で亡くなった、と『東照宮御実紀』は書く（軍記）', 3, 4, 32, col='gold'),
@@ -155,26 +175,22 @@ chapters = [
                        dict(xy=M(*NODA), label='野田城', kind='castle', at=2, side='r', col=RED, lsize=24)],
         units=[unit(label='武田軍', sub='堀江城 → 野田城', col=RED, portrait='p_shingen', pts=[M(*HORIE), M(*NODA)], legs=[[1, 3]], at=0, head=24, lab_off=(36, -20), lsize=20, dashed=True)])]),
  dict(key='source', title='史料を、分けて見る', chapter_title='史料を、分けて見る', scene=[
-   dict(t='art', name='docs', box=ART_BOX, at=0, dim=0.8, dir=1, note='イメージ（生成画像）。実際の資料の再現ではありません'), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=30, xm=940, xm2=980, until=6, left=dict(title='『信長公記』に書かれていること', title_at=1, items=[
-        dict(at=2, text='織田の援軍、武田の投石隊、討死した人々、家康の弓の働き')]),
-        right=dict(title='書かれていないこと', title_at=3, items=[
-        dict(at=3, text='犀ヶ崖の夜襲・城門を開けた話・夏目吉信の身代わり・味噌・酒井の太鼓'),
-        dict(at=4, text='『当代記』の三方ヶ原の条にも、犀ヶ崖の夜襲は見えない（軍記）'),
-        dict(at=5, text='犀ヶ崖は江戸幕府の編纂物、酒井の太鼓は明治の歌舞伎、味噌は出典不明（説）')])),
-   dict(t='cols2', size=30, xm=940, xm2=980, at=6, left=dict(title='『信長公記』', title_at=6, items=[
-        dict(at=6, text='信長の側の記録。家康の戦いの全体を書くことが目的ではない')]),
-        right=dict(title='『東照宮御実紀』', title_at=7, items=[
-        dict(at=7, text='江戸幕府が、徳川家の事績をまとめた記録'), dict(at=8, text='どちらにも視点がある。分けて見るのが、確かめる第一歩')]))]),
+   bgimg('docs', at=0, dim=.55, blur=6),
+   tel('同時代に近い記録＝\n[[『信長公記』]]', 960, 470, 130, at=0, until=1, rot=-2),
+   rows([dict(at=1, tag='書かれている', text='織田の援軍、武田の投石隊、討死した人々、家康の弓の働き', col='green', until=3),
+         dict(at=2, tag='書かれていない', text='犀ヶ崖の夜襲、城門を開けた話、夏目吉信の身代わり、味噌、酒井の太鼓', col='red', until=3)], x0=110, x1=1810, y0=250, size=52, gap=36),
+   rows([dict(at=3, tag='当代記', text='三方ヶ原の条にも、犀ヶ崖の夜襲は見えない（軍記）', col='orange', until=4),
+         dict(at=4, tag='出どころ', text='犀ヶ崖＝江戸幕府の編纂物／酒井の太鼓＝明治の歌舞伎／味噌＝出典不明（説）', col='purple', until=5)], x0=110, x1=1810, y0=250, size=52, gap=36),
+   tel('どちらも[[視点]]がある。\n分けて見るのが、確かめる第一歩', 960, 470, 100, at=5, plate='yellow', rot=-1.5)]),
  dict(key='summary', title='分かること、決められないこと', chapter_title='分かること、決められないこと', scene=[
-   dict(t='art', name='castle', box=ART_BOX, at=0, dim=0.8, dir=-1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.62),
-   dict(t='cols2', size=32, xm=940, xm2=980, until=6, left=dict(title='分かること', title_at=0, items=[
-        dict(at=0, text='元亀3年12/22、三方ヶ原で、武田軍が徳川・織田の軍に勝った'), dict(at=1, text='平手汎秀らが討死し、家康は浜松城へ逃げ帰った')]),
-        right=dict(title='決められないこと', title_at=2, items=[
-        dict(at=2, text='家康は、なぜ出陣したのか'), dict(at=3, text='織田の援軍の顔ぶれと数。両軍の兵力と死者の数'),
-        dict(at=4, text='犀ヶ崖の夜襲や空城の計は、実際にあったのか'), dict(at=5, text='主戦場の正確な場所')])),
-   dict(t='cols2', size=33, xm=940, xm2=980, at=6, left=dict(title='見方', title_at=6, items=[
-        dict(at=6, text='通説・軍記・同時代の記録。分けて見ると、見え方が変わる')]), right=dict(title='', title_at=6, items=[]))]),
+   bgimg('castle', at=0, dim=.55, blur=6),
+   rows([dict(at=0, tag='分かる', text='1572年12/22、三方ヶ原で武田軍が徳川・織田の軍に勝った', col='green'),
+         dict(at=1, tag='分かる', text='平手汎秀らが討死。家康は浜松城へ逃げ帰った', col='green'),
+         dict(at=2, tag='不明', text='家康が、なぜ出陣したのか', col='red'),
+         dict(at=3, tag='不明', text='織田の援軍の顔ぶれと数。両軍の兵力、死者の数', col='red'),
+         dict(at=4, tag='不明', text='犀ヶ崖の夜襲や空城の計が、実際にあったのか', col='red'),
+         dict(at=5, tag='不明', text='主戦場の正確な場所', col='red')], x0=110, x1=1810, y0=170, size=50, gap=26),
+   tel('通説・軍記・同時代の記録。\n分けて見ると、[[見え方が変わる]]', 960, 850, 56, at=6, plate='yellow', rot=-1.2)]),
 ]
 
 images = dict(
@@ -201,26 +217,51 @@ def _line_to_sentence_starts():
     return out
 
 
-def _remap(o, st):
-    f = lambda i: None if i is None else st[min(i, len(st) - 1)]
+def _remap(o, st, drop=()):
+    sh = lambda i: i - sum(1 for d in drop if d < i)
+    f = lambda i: None if i is None else st[min(sh(i), len(st) - 1)]
     if isinstance(o, dict):
         for k, v in list(o.items()):
             if k in ('at', 'until', 'title_at') and isinstance(v, int): o[k] = f(v)
             elif k == 'legs': o[k] = [[f(a), f(b)] for a, b in v]
-            else: _remap(v, st)
+            else: _remap(v, st, drop)
     elif isinstance(o, list):
-        for v in o: _remap(v, st)
+        for v in o: _remap(v, st, drop)
 
 
 _S = _line_to_sentence_starts()
 assert len(_S) == len(chapters), (len(_S), len(chapters))
 for _ch, _st in zip(chapters, _S):
-    _remap(_ch['scene'], _st)
+    _remap(_ch['scene'], _st, DROP.get(_ch['key'], ()))
+    if _ch['key'] in ('check', 'summary'):
+        _tels = [e for e in _ch['scene'] if e.get('name') == 'pop_telop' and e.get('y', 0) >= 800]
+        if _tels:
+            _t0 = _tels[0]
+            for _e in _ch['scene']:
+                if _e.get('name') == 'pop_rows':
+                    _e['size'] = 44; _e['y0'] = 150; _e['gap'] = 18
+                    for _it in _e['items']: _it.setdefault('until', _t0['at'])
+            _t0['y'] = 470; _t0['size'] = int(_t0['size'] * 1.5)
+    _wide = False
+    if _ch['key'] in _MAPCH:
+        _ART = ['plateau', 'docs', 'ravine', 'castle']
+        _ch['scene'].insert(0, bgimg(_ART[_MAPCH_ORDER.index(_ch['key']) % len(_ART)], at=0, dim=.6, blur=9))
+        _bm = next((e for e in _ch['scene'] if e.get('name') == 'battle_map'), None)
+        if _bm is not None:
+            from PIL import Image as _Im
+            _w, _h = _Im.open(Path(__file__).resolve().parents[1] / images[_bm['img']]['file']).size
+            if _w / _h > 1.7:
+                _wide = True
+                _bm['box'] = [30, 110, 1890, 690]
+                for _e in _ch['scene']:
+                    if _e.get('name') == 'pop_rows': _e['x0'] = 60; _e['x1'] = 1860; _e['y0'] = 705; _e['size'] = 46
+        _ch['scene'].append(tel('※位置・経路は概略の推定（資料の推定図と軍記による）', 1500 if _wide else 1440, 140 if _wide else 835, 28, at=0))
     if 'opener_until' in _ch: _ch['opener_until'] = _st[min(_ch['opener_until'], len(_st) - 1)]
 
 spec = dict(slug='mikatagahara', theme_dir='20261128_mikatagahara', pack='33_mikatagahara', header_sub='三方ヶ原の戦いを、地図の上で、『信長公記』と後世の逸話に分けて確かめる',
  images=images,
  bgm=[['intro', 'terrain', 'piano36'], ['why', 'night', 'piano12'], ['check', 'summary', 'piano40']],
+ style='pop',
  chapters=chapters,
  desc=dict(title_main='【家康はなぜ出陣した？】三方ヶ原の戦い 犀ヶ崖の夜襲は本当か｜地図と『信長公記』で検証', title_no=1,
   titles=['【家康はなぜ出陣した？】三方ヶ原の戦い 犀ヶ崖の夜襲は本当か｜地図と『信長公記』で検証', '三方ヶ原の戦いを地図で解説 空城の計・犀ヶ崖・味噌の話は同時代の記録にある？', '三方ヶ原の戦い 家康の大敗と有名な逸話を、『信長公記』と軍記で分けて確かめる'],
