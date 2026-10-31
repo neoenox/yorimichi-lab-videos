@@ -126,6 +126,77 @@ def clear_pending(slug, log=print):
         log(f'  差し替え待ちから外した {slug}')
 
 
+def _status(yt, vid):
+    """動画の status（無ければ None）。1ユニット。"""
+    items = yt.videos().list(part='status', id=vid).execute().get('items') or []
+    return items[0]['status'] if items else None
+
+
+def finish_replace(slug, log=print):
+    """中断した差し替えを仕上げる（新IDはアップロード済みで、字幕か予約で落ちた状態）。
+
+    アップロード(1,600ユニット)をやり直さず、メタ情報・サムネ・字幕・予約・旧ID削除だけを行う（約600）。
+    台帳の現IDが private で予約なし、かつ superseded の末尾（旧ID）に予約が残っているときだけ動く。
+    """
+    pack = PACK[slug]
+    ids = yt_api.load_ids()
+    rec = ids[pack]
+    new = rec['video_id']
+    prev = list(rec.get('superseded') or [])
+    if not prev:
+        raise Skip('中断した差し替えが見つからない（superseded が空）')
+    old = prev[-1]
+    yt = yt_api.service()
+    new_st = _status(yt, new)
+    if not new_st:
+        raise Skip(f'新ID {new} が YouTube に無い')
+    if new_st['privacyStatus'] == 'public' or new_st.get('publishAt'):
+        raise Skip('新IDはすでに予約/公開済み')
+    old_st = _status(yt, old)
+    if not old_st:
+        raise Skip(f'旧ID {old} が YouTube に無い')
+    publish = old_st.get('publishAt')
+    if not publish:
+        raise Skip('旧IDに公開予約が無い（差し替え先が分からない）')
+    at = jst_str(publish)
+    left = dt.datetime.strptime(publish, '%Y-%m-%dT%H:%M:%SZ') - dt.datetime.utcnow()
+    if left < MIN_LEAD:
+        raise Skip(f'公開まで{left}しかない（{at}）')
+
+    # アップロード済みの映像は差し替えられないので、パックが今の書き出しと違えば中止（作り直しから）
+    built = R / 'out' / f'{slug}_video.mp4'
+    if not built.exists() or not same_file(built, R / 'upload' / pack / 'video.mp4'):
+        raise Skip('パックの動画が今の書き出しと違う（作り直してから回す）')
+
+    log(f'  中断した差し替えを再開 新ID {new} / 旧ID {old} / 公開 {at} JST')
+    yt_api.cmd_finish(pack, new, at)
+    log('  メタ情報・サムネ・字幕・予約 ok')
+
+    short_slug = SHORT_OF.get(slug, slug)
+    if set_long_id(short_slug, new):
+        log(f'  Short仕様の long_id を更新 {new}')
+    subprocess.run([sys.executable, str(R / 'scripts' / 'fix_short_links.py'), short_slug],
+                   check=True, cwd=str(R), capture_output=True, text=True, encoding='utf8')
+    short = f'short_{short_slug}'
+    if short in yt_api.load_ids():
+        try:
+            yt_api.cmd_redesc(short)
+            log(f'  Short概要欄を更新 {short}')
+        except Exception as e:  # 概要欄が更新できなくても、二重公開の方が困るので削除へ進む
+            log(f'  !! Short概要欄の更新に失敗 {short}: {str(e)[-120:]}')
+
+    retry(lambda: yt.videos().delete(id=old).execute(), log=log)
+    ids = yt_api.load_ids()
+    rec = ids[pack]
+    rec.setdefault('deleted', []).append(old)
+    if old in rec.get('superseded', []):
+        rec['superseded'].remove(old)
+    yt_api.IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+    log(f'  旧IDを削除 {old}')
+    clear_pending(slug, log=log)
+    return old, new
+
+
 def replace(slug, log=print):
     """1本を差し替える。戻り値 (old_id, new_id)。見送り時は Skip を投げる。"""
     pack = PACK[slug]
@@ -134,6 +205,13 @@ def replace(slug, log=print):
         raise Skip(f'{pack} が台帳に無い')
     old = ids[pack]['video_id']
     yt = yt_api.service()
+    # 前回のアップロードが字幕や予約で落ちたまま（新IDが private・予約なし・旧IDが superseded に残る）なら、
+    # アップロードをやり直さずに仕上げる。ここを見落とすと「公開予約が無い」で毎日スキップされ続ける。
+    cur_st = _status(yt, old)
+    if (cur_st and cur_st['privacyStatus'] != 'public' and not cur_st.get('publishAt')
+            and ids[pack].get('superseded')):
+        log(f'  未完成の新ID {old} を検出（前回の差し替えが途中で止まっている）')
+        return finish_replace(slug, log=log)
     item = yt.videos().list(part='status,snippet', id=old).execute()['items'][0]
     st = item['status']
     if st['privacyStatus'] == 'public':

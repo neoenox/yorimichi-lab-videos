@@ -27,7 +27,8 @@
   "replace_short:moon": "2026-10-30T16:05:49",
   "replace_short:islands": "2026-10-30T16:06:37",
   "replace_short:magnitude": "2026-10-30T16:07:11",
-  "replace_short:leapsecond": "2026-10-30T16:07:56"
+  "replace_short:leapsecond": "2026-10-30T16:07:56",
+  "replace_short:venus": "2026-10-31T16:05:49"
  },
  "notes": {
   "short_oke_upload": "uploaded",
@@ -57,7 +58,7 @@
   "replace_short:islands": "('JWfCtCq1Zjg', 'GiWfFDi9MFY')",
   "replace_short:magnitude": "('71aUPEXqklE', '3dU7_-zVeQ0')",
   "replace_short:leapsecond": "('bnpUMtqVNe4', 'HFqz24ruHQM')",
-  "replace_short:venus": "retry: out に作り直した Short が無い",
+  "replace_short:venus": "('dBs6pF-Qz2w', 'mCTDtQPfdbg')",
   "schedule_long:01_world_map_distortion": "2026-11-11 19:00",
   "schedule_long:02_honnoji_incident": "2026-11-12 19:00",
   "schedule_long:03_ninja_myths": "2026-11-13 19:00",
@@ -68,5 +69,5 @@
   "short_upload:honnoji": "uploaded / 2026-11-12 20:00",
   "short_upload:ninja": "uploaded / 2026-11-13 20:00"
  },
- "spent": 52532
+ "spent": 54634
 }

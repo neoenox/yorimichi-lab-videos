@@ -14,6 +14,7 @@ usage:
 （`replace_versions.replace()` は out の video と srt だけをパックへコピーする。
  description.txt / thumbnail.jpg はパックにあるものを使うので、パック側の鮮度を見る。）
 """
+import hashlib
 import json
 import subprocess
 import sys
@@ -94,7 +95,7 @@ def qa_of(slug):
 
 
 def publish_at(pack, slug):
-    """公開日時（JST の datetime）。snapshot の publish_at(UTC) を優先し、無ければ台帳の日付＋19:00"""
+    """公開日時（JST の datetime）。snapshot の publish_at(UTC) を優先し、無ければ実行記録→台帳の日付＋19:00"""
     import datetime as dt
     snap = R / 'data' / 'publish_snapshot.json'
     if snap.exists():
@@ -105,6 +106,17 @@ def publish_at(pack, slug):
                 return dt.datetime.strptime(z, '%Y-%m-%dT%H:%M:%SZ') + dt.timedelta(hours=9)
         except Exception:
             pass
+    # スナップショットは「取った時点」の情報なので、その後に予約した回は載っていない。
+    # schedule_long の実行記録（例 '2026-11-11 19:00'）があればそれを使う。
+    try:
+        st = json.loads((R / 'data' / 'quota_run_state.json').read_text(encoding='utf8'))
+        note = str((st.get('notes') or {}).get(f'schedule_long:{pack}') or '')
+        import re
+        m = re.search(r'(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})', note)
+        if m:
+            return dt.datetime.strptime(f'{m.group(1)} {m.group(2)}', '%Y-%m-%d %H:%M')
+    except Exception:
+        pass
     if SHEET.exists():
         d = json.loads(SHEET.read_text(encoding='utf8'))
         day = (d.get('videos', {}).get(slug) or {}).get('publishAt')
@@ -135,8 +147,16 @@ def check_one(slug, pack, budget_left):
         return False
 
     # 1) replace() がコピーする2ファイルの整合（焼き込み字幕とキャプションが同じ元か）
+    #    焼き込んだ時点の字幕の指紋（out/<slug>_build.json）があれば、それと比べる。
+    #    replace() はアップロード直前に srt を書き直すので、mtime だけで見ると必ず「字幕が新しい」になる。
+    manifest = OUT / f'{slug}_build.json'
     if not out_srt.exists():
         add(slug, 'NG', '字幕（srt）が無い')
+    elif manifest.exists():
+        rec = json.loads(manifest.read_text(encoding='utf8'))
+        cur = hashlib.sha256(out_srt.read_bytes()).hexdigest()
+        if rec.get('srt_sha256') and rec['srt_sha256'] != cur:
+            add(slug, 'NG', '字幕の中身が焼き込んだときと違う（字幕を直したあと再レンダリングしていない）')
     elif mtime(out_srt) > mtime(out_video) + 1:
         add(slug, 'NG', f'字幕が動画より新しい（字幕 {_fmt(mtime(out_srt))} / 動画 {_fmt(mtime(out_video))}）'
                         '＝字幕を直したあと再レンダリングしていない')
@@ -145,9 +165,18 @@ def check_one(slug, pack, budget_left):
     if not (pk / 'subtitles_ja.srt').exists():
         add(slug, 'WARN', f'upload/{pack}/subtitles_ja.srt が無い（replace() が out からコピーします）')
 
+    # 1b) 台帳のIDが公開スナップショットと違う＝前回の差し替えが途中（アップロード済み・予約前）。
+    #     この状態は replace() が finish_replace() に切り替えて仕上げる（約600ユニット）。
+    snap_p = R / 'data' / 'publish_snapshot.json'
+    if snap_p.exists():
+        snap_id = ((json.loads(snap_p.read_text(encoding='utf8')).get(pack) or {}).get('video_id'))
+        led_id = (rv.yt_api.load_ids().get(pack) or {}).get('video_id')
+        if snap_id and led_id and snap_id != led_id:
+            add(slug, 'WARN', f'台帳のIDが公開スナップショットと違う（{led_id} / {snap_id}）'
+                              '＝差し替え途中。finish_replace で仕上げる')
+
     # 2) パック側だけが持つメタ情報の鮮度（replace() は作り直さない）
     #    mtime ではなく「パックを作るのと同じ抽出をして中身を比べる」（draft の見出し等で誤検知しない）
-    import hashlib
     import make_upload_pack as mup
     spec_p = R / 'data' / f'{slug}_spec.json'
     title_no = cfg.get('title_no', 1)

@@ -163,8 +163,52 @@ def run(slug):
     return True
 
 
+def from_cache(slug):
+    """cache に残っている「無音映像」と「ミックス音声」から完成品を作る（再レンダリングなし）。
+
+    2026-10-28 以降 out/<slug>_video.mp4 と upload/<pack>/video.mp4 が消えた回の復旧用。
+    `rebuild_old_compose.run()` は音声を「元の完成版」から借りるが、それも消えている場合は
+    `cache/<slug>_video_silent.mp4`（10/21 に作り直した映像）と `cache/<slug>_mix.wav`
+    （ナレーション＋BGMのミックス）で同じものが作れる。尺が一致することを確かめてから結合する。
+    """
+    s = SPEC[slug]
+    silent = R / 'cache' / f'{slug}_video_silent.mp4'
+    mix = R / 'cache' / f'{slug}_mix.wav'
+    if not ok_mp4(silent) or not mix.exists():
+        print(f'{slug}: cache に無音映像かミックス音声が無い', flush=True)
+        return False
+    a, b = dur(silent), dur(mix)
+    if abs(a - b) > 1.0:
+        print(f'{slug}: 尺が合わない 映像 {a:.1f}s / 音声 {b:.1f}s → 中止', flush=True)
+        return False
+    target = R / s['out']
+    tmp = R / 'cache' / f'{slug}_restore.mp4'
+    # loudnorm は2パス（測ってから当てる）。mix は既に BGM 込みなので、そのまま -14 LUFS に揃える。
+    r = subprocess.run(['ffmpeg', '-hide_banner', '-nostats', '-i', str(mix), '-af',
+                        'loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json', '-f', 'null', '-'],
+                       capture_output=True, text=True, encoding='utf8', errors='replace')
+    import re
+    j = json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}', r.stderr, re.S).group(0))
+    af = (f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:"
+          f"measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true")
+    subprocess.run(['ffmpeg', '-y', '-v', 'warning', '-i', str(silent), '-i', str(mix),
+                    '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-af', af,
+                    '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart',
+                    '-shortest', str(tmp)], check=True)
+    d = dur(tmp)
+    if abs(d - a) > 1.0:
+        print(f'{slug}: 書き出しの尺が合わない {d:.1f}s / 映像 {a:.1f}s → 中止', flush=True)
+        return False
+    shutil.move(str(tmp), str(target))
+    print(f'{slug}: cache から復元 {target} {d:.1f}s（{j["input_i"]} LUFS 入力 → -14 目標）', flush=True)
+    return True
+
+
 if __name__ == '__main__':
+    args = sys.argv[1:]
+    use_cache = '--from-cache' in args
+    args = [a for a in args if not a.startswith('--')]
     ok = True
-    for slug in sys.argv[1:]:
-        ok = run(slug) and ok
+    for slug in args:
+        ok = (from_cache(slug) if use_cache else run(slug)) and ok
     sys.exit(0 if ok else 1)

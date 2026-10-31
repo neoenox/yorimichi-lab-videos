@@ -209,14 +209,19 @@ def main():
         return
 
     yt = yt_api.service()
-    waited = 0
-    while not probe(yt):
-        if waited >= wait_min:
-            log('クォータがまだ回復していない。終了（次回また実行してください）')
-            sys.exit(2)
-        log('クォータ待ち 10分')
-        time.sleep(600)
-        waited += 10
+
+    def ensure_quota(waited):
+        """1ユニットの疎通確認。切れていれば最大 wait_min 分まで待つ。"""
+        while not probe(yt):
+            if waited >= wait_min:
+                log('クォータがまだ回復していない。終了（次回また実行してください）')
+                sys.exit(2)
+            log('クォータ待ち 10分')
+            time.sleep(600)
+            waited += 10
+        return waited
+
+    waited = ensure_quota(0)
 
     spent = 0
     i = 0
@@ -228,6 +233,10 @@ def main():
         if spent + cost > budget:
             log(f'予算切れ: 次回に回す {tid}（今回 {spent} / {budget}）')
             break
+        # 高い作業（アップロード）の前に残量を確かめる。途中で切れると 1,600 ユニットを
+        # 使ったまま「字幕で停止」＝未完成の新IDが残る（2026-10-31 に発生）。
+        if cost >= 1000:
+            waited = ensure_quota(waited)
         log(f'start {tid} (~{cost})')
         try:
             res = fn(yt)
