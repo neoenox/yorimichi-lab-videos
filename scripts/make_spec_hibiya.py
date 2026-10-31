@@ -1,0 +1,84 @@
+"""Writes data/hibiya_spec.json（東京の日比谷は、昔は海だった？）"""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import finalize, TOP
+
+R = Path(__file__).resolve().parents[1]
+
+# 使える素材がなければ最小限（art/image を使う場合は assets に用意）
+IMAGES = {}
+# 例: IMAGES['map'] = dict(file='assets/hibiya/art_map.png')
+
+spec = dict(
+    slug='hibiya',
+    theme_dir='20271101_hibiya',
+    pack='79_hibiya',
+    header_sub='日比谷入江・江戸前島の埋立てで、地形の成り立ちを確かめる',
+    images=IMAGES,
+    bgm=[['intro', 'edo', 'piano36'], ['history', 'old', 'piano12'], ['end', 'end', 'piano40']],
+    chapters=[
+        {'key': 'intro', 'title': '東京の日比谷は、昔は海だった？', 'chapter_title': '導入：日比谷は昔は海だった？',
+         'opener': '東京の日比谷は、昔は海だった？', 'opener_until': 1,
+         'scene': [
+             dict(t='big', text='東京の日比谷は、\n昔は[[海]]だった？', y=320, at=0, size=62, col='gold'),
+             dict(t='panel', box=[120, 520, 1800, 620], text='答え：海ではなく、[[日比谷入江]]という入り江だった', at=2, size=44, hi=True),
+             dict(t='panel', box=[120, 660, 1800, 740], text='江戸時代初頭まで存在し、徐々に埋め立てられた', at=4, size=38),
+         ]},
+        {'key': 'irie', 'title': '日比谷入江', 'chapter_title': '日比谷入江',
+         'scene': [
+             dict(t='panel', box=TOP, text='日比谷入江は、江戸湾北西奥にあった入り江', at=0, until=1, size=44, hi=True),
+             dict(t='panel', box=TOP, text='北から平川が流れ込み、南から北へ湾入していた', at=1, until=2, size=40),
+             dict(t='panel', box=TOP, text='西は本丸台地、東は江戸前島に挟まれていた', at=2, until=3, size=40),
+             dict(t='panel', box=TOP, text='江戸城西丸から東に見下ろせた', at=3, until=4, size=38),
+         ]},
+        {'key': 'ume', 'title': '埋め立て', 'chapter_title': '埋め立て',
+         'scene': [
+             dict(t='panel', box=TOP, text='1592年（天正20年）江戸城西丸築城の残土で北側から埋め立て開始', at=0, until=1, size=38, hi=True),
+             dict(t='panel', box=TOP, text='平川の河道も移設された', at=1, until=2, size=40),
+             dict(t='panel', box=TOP, text='1603年（慶長8年）から本格化。家康晩年〜秀忠期に広大な陸地に', at=2, until=3, size=38),
+             dict(t='panel', box=TOP, text='1620年代には大名屋敷が立ち並ぶようになった', at=3, until=4, size=38),
+             dict(t='panel', box=TOP, text='江戸時代初頭までに南側も全て埋め立てられた', at=4, size=40, col='gold'),
+         ]},
+        {'key': 'ato', 'title': '名残り', 'chapter_title': '名残り',
+         'scene': [
+             dict(t='panel', box=TOP, text='平川橋に平川の名が残る', at=0, until=1, size=44),
+             dict(t='panel', box=TOP, text='和田倉門付近は海に面していた（和田＝ワダ＝海）', at=1, until=2, size=40),
+             dict(t='panel', box=TOP, text='平川は河口直前から東へ流路移設→日本橋川・外濠川に', at=2, until=3, size=38),
+             dict(t='panel', box=TOP, text='日比谷濠・馬場先濠は日比谷入江の名残', at=3, until=4, size=40),
+             dict(t='panel', box=TOP, text='汐見坂は「海の見える坂」に由来', at=4, size=42, col='gold'),
+         ]},
+        {'key': 'end', 'title': 'まとめ', 'chapter_title': 'まとめ',
+         'scene': [
+             dict(t='cols2', size=38, xm=940, xm2=980,
+                  left=dict(title='分かったこと', title_at=0, items=[
+                      dict(at=1, text='日比谷は海ではなく入江だった'),
+                      dict(at=2, text='江戸城築城の残土などで段階的に埋め立てられた'),
+                      dict(at=3, text='江戸時代初頭までにほぼ埋め立てられた'),
+                  ]),
+                  right=dict(title='名残り', title_at=4, items=[
+                      dict(at=5, text='平川橋・和田倉門・日比谷濠・汐見坂など'),
+                      dict(at=6, text='地形のわずかな高低差から推定できる'),
+                  ])),
+             dict(t='panel', box=[120, 760, 1800, 840], text='「昔は海だった」より「入り江だった」が正確', at=7, size=40, hi=True),
+         ]},
+    ],
+    desc={'title_main': '東京の日比谷は、昔は海だった？',
+          'title_no': 1,
+          'titles': ['東京の日比谷は、昔は海だった？ 日比谷入江と埋め立ての歴史',
+                     '日比谷入江とは？ 江戸城と埋め立ての歴史を地図で確かめる',
+                     '和田倉門・日比谷濠の名残りから辿る日比谷入江'],
+          'intro': '日比谷には海の名残が残っています。実際には海ではなく「日比谷入江」という入り江でした。江戸城の築城とともに埋め立てられ、今の街になった過程を辿ります。',
+          'points': ['日比谷入江は江戸湾北西奥の入り江で、北から平川が流れ込んでいた',
+                     '1592年から埋め立てが始まり、1600年代前半に大名屋敷が立ち並ぶまでに',
+                     '平川橋・和田倉門・日比谷濠・汐見坂などに名残が見られる'],
+          'refs': ['Wikipedia「日比谷入江」',
+                   '三井住友トラスト不動産「日比谷・有楽町」',
+                   '地学雑誌「東京都臨海域における埋立地造成の歴史」'],
+          'credit_lines': ['・地形・歴史解説：各種公開資料をもとに検証・再構成'],
+          'notes': ['「海」ではなく「入り江」。表現には注意する。'],
+          'tags': '日比谷, 日比谷入江, 江戸前島, 平川, 埋め立て, 江戸, 検証',
+          'checks': ['一次史料（古地図）で範囲を精査', '地学雑誌等の論文で埋立年表を確認']},
+    thumb=dict(bg='assets/koku/art_edo.png', lines=[['日比谷は', 76, 'white'], ['昔は入江？', 130, 'gold']], sub='日比谷入江・埋め立ての歴史', shade_col=[8, 20, 36], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=640, sub_size=42, shade_x=700, shade_w=520))
+
+finalize(spec, {})
