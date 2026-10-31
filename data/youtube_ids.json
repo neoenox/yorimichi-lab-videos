@@ -225,14 +225,12 @@
   "finished": true
  },
  "18_yakubusoku_meaning": {
-  "video_id": "Cx9DgjZ2TAM",
+  "video_id": "h6C7OPst0zg",
   "privacy": "private",
-  "via": "browser",
-  "superseded": [],
-  "deleted": [
-   "EtiAD5-REwk"
-  ],
-  "finished": true
+  "via": "api",
+  "superseded": [
+   "Cx9DgjZ2TAM"
+  ]
  },
  "21_venus_day": {
   "video_id": "rj1bDRBWHsY",
@@ -1207,6 +1205,12 @@
  },
  "short_solo_yakurei_menkyo": {
   "video_id": "Ddl8C78Wyns",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "78_shibuya": {
+  "video_id": "C2PpSB2DYZI",
   "privacy": "private",
   "via": "api",
   "superseded": []

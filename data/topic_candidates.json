@@ -1226,6 +1226,175 @@
    ],
    "source_hint": "国土交通省・NEXCO各社の公表値",
    "gate_blockers": []
+  },
+  {
+   "id": "mukashi_hibiya",
+   "title": "東京の日比谷は、昔は海だった？",
+   "cat": "earth",
+   "tags": [
+    "日比谷",
+    "入江",
+    "江戸前島",
+    "埋め立て",
+    "古地図"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "ties": [
+    "koku"
+   ],
+   "source_hint": "国土地理院 地理院地図・古地図、東京都公文書館、徳川家康の江戸入府と日比谷入江埋立の概説",
+   "gate_blockers": []
+  },
+  {
+   "id": "mukashi_ginza_shimbashi",
+   "title": "銀座は、昔は海に突き出た砂州だった？",
+   "cat": "earth",
+   "tags": [
+    "銀座",
+    "江戸前島",
+    "砂州",
+    "埋め立て",
+    "古地図"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "ties": [],
+   "source_hint": "国土地理院、中央区の歴史資料、江戸前島の地形研究",
+   "gate_blockers": []
+  },
+  {
+   "id": "mukashi_shibuya_river",
+   "title": "渋谷の谷底には、昔は川が流れていた？",
+   "cat": "earth",
+   "tags": [
+    "渋谷",
+    "渋谷川",
+    "暗渠",
+    "谷",
+    "古地図"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "ties": [],
+   "source_hint": "渋谷区郷土資料、国土地理院 地理院地図、今昔マップ",
+   "gate_blockers": []
+  },
+  {
+   "id": "mukashi_tsukiji",
+   "title": "築地は、昔は海だった？ 名前の由来を確かめる",
+   "cat": "history",
+   "tags": [
+    "築地",
+    "埋め立て",
+    "明暦の大火",
+    "地名",
+    "江戸"
+   ],
+   "hook": 4,
+   "source": 4,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "ties": [
+    "koku"
+   ],
+   "source_hint": "中央区の歴史資料、明暦の大火後の埋立の概説",
+   "gate_blockers": []
+  },
+  {
+   "id": "mukashi_ikebukuro_sugamo",
+   "title": "東京の駅前の地名は、昔の何から来た？ 地名由来を比べる",
+   "cat": "language",
+   "tags": [
+    "地名",
+    "由来",
+    "諸説",
+    "古地図",
+    "駅"
+   ],
+   "hook": 4,
+   "source": 3,
+   "visual": 4,
+   "rights": 5,
+   "season": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "ties": [],
+   "source_hint": "各区の地名由来資料。諸説ありの扱い",
+   "gate_blockers": []
   }
  ]
 }
