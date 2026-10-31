@@ -27,6 +27,7 @@ def doctor():
 
 def monitor():
     out=ROOT/'logs'/'resources.jsonl'
+    out.parent.mkdir(parents=True,exist_ok=True)
     while not (ROOT/'out'/'monitor.stop').exists():
         processes=[]
         for p in psutil.process_iter(['pid','name','memory_info','cmdline']):
