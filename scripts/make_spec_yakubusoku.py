@@ -2,42 +2,62 @@
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from specart import inject
+from spec_common import finalize
 R = Path(__file__).resolve().parents[1]
+def pop(name, **kw):
+    return dict(t='anim', name=name, **kw)
+
+
+def tel(text, x, y, size, **kw):
+    return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+
+
+def rows(items, **kw):
+    return dict(t='anim', name='pop_rows', items=items, **kw)
+
+
+def card(inner, box, **kw):
+    kw.setdefault('at', 0)
+    return dict(t='anim', name='pop_card', inner=inner, box=box, **kw)
+
+
 spec = dict(slug='yakubusoku', theme_dir='20261103_yakubusoku', pack='18_yakubusoku_meaning', header_sub='「役不足」の意味を文化庁の調査で確かめる',
- images={},
+ style='pop',
+ images={n: dict(file=f'assets/yakubusoku/{n}.png') for n in ('art_intro', 'art_ask', 'art_result', 'art_meaning', 'art_end', 'chart_h14', 'chart_h18')},
  bgm=[['intro', 'ask', 'piano36'], ['result', 'meaning', 'piano12'], ['end', 'end', 'piano40']],
  chapters=[
  dict(key='intro', title='「役不足」の意味は？', chapter_title='導入：「役不足」の意味は？', scene=[
-   dict(t='big', text='「彼には役不足の仕事だ」', y=330, at=0, size=76, col='gold'),
-   dict(t='chips', y=470, w=700, h=130, gap=160, size=46, items=[dict(at=1, text='仕事が重すぎる？')]),
-   dict(t='panel', box=[120, 640, 1800, 730], text='文化庁の「国語に関する世論調査」の結果で、意味を確かめる', at=1, size=42, hi=True),
-   dict(t='panel', box=[120, 760, 1800, 830], text='資料：文化庁（平成14年度・平成18年度の調査）', at=2, size=32)]),
+   pop('pop_bgimg', img='art_intro', at=0, dim=.5, blur=3),
+   tel('「彼には\n[[役不足]]の仕事だ」', 960, 440, 130, at=0, until=1, rot=-2),
+   tel('答え：本来は\n[[役目が軽すぎる]]', 960, 440, 120, at=1, until=2, plate='green', rot=2),
+   tel('でも、選んだ人が多かったのは[[逆]]！', 960, 440, 96, at=2, plate='red', rot=-1.5),
+   tel('文化庁の調査で確かめる', 960, 760, 54, at=1, plate='blue', rot=1)]),
  dict(key='ask', title='文化庁の調査は、何を尋ねたのか', chapter_title='文化庁の調査は、何を尋ねたのか', scene=[
-   dict(t='panel', box=[60, 190, 1860, 300], text='例文：「彼には役不足の仕事だ。」この言葉の意味は？', at=0, size=44, hi=True),
-   dict(t='panel', box=[60, 340, 1860, 450], text='(ア)　本人の力量に対して、役目が重すぎること', at=1, size=42),
-   dict(t='panel', box=[60, 480, 1860, 590], text='(イ)　本人の力量に対して、役目が軽すぎること', at=2, size=42),
-   dict(t='panel', box=[60, 620, 1860, 720], text='文化庁：(イ)が、本来の意味', at=4, size=46, hi=True, col='gold'),
-   dict(t='panel', box=[60, 750, 1860, 830], text='(ア)の「役目が重すぎる」は、本来の意味ではない、と整理されている', at=5, size=36)]),
+   pop('pop_bgimg', img='art_ask', at=0, dim=.55, blur=4),
+   tel('「彼には役不足の仕事だ」\nこの言葉の意味は？', 960, 240, 72, at=0, plate='yellow', rot=-1),
+   rows([dict(at=1, tag='(ア)', text='役目が重すぎる', col='orange'),
+         dict(at=2, tag='(イ)', text='役目が軽すぎる', col='blue')], x0=170, x1=1750, y0=400, size=64, gap=34),
+   tel('ほかに「両方」「別の意味」「分からない」', 960, 800, 40, at=3, until=4, plate='blue', rot=1),
+   tel('文化庁：本来の意味は[[(イ)]]', 960, 770, 76, at=4, plate='green', rot=-1.5)]),
  dict(key='result', title='調査の結果は、どうだったのか', chapter_title='調査の結果は、どうだったのか', scene=[
-   dict(t='bars', box=[60, 190, 1860, 470], title='平成14年度の調査（文化庁）', unit='％', max=70, lab_w=560, data=[
-     dict(at=0, label='(ア)役目が重すぎる', value=62.8, vlabel='62.8％', col='org'),
-     dict(at=1, label='(イ)役目が軽すぎる（本来の意味）', value=27.6, vlabel='27.6％', col='blue')]),
-   dict(t='bars', box=[60, 490, 1860, 770], title='平成18年度の調査（文化庁）', unit='％', max=70, lab_w=560, data=[
-     dict(at=2, label='(ア)役目が重すぎる', value=50.3, vlabel='50.3％', col='org'),
-     dict(at=2, label='(イ)役目が軽すぎる（本来の意味）', value=40.3, vlabel='40.3％', col='blue')]),
-   dict(t='panel', box=[60, 790, 1860, 850], text='差：35ポイント（平成14年度）→ 10ポイント（平成18年度）', at=4, size=38, hi=True, col='gold')]),
+   pop('pop_bgimg', img='art_result', at=0, dim=.5, blur=8),
+   card('img', [170, 110, 1750, 790], img='chart_h14', at=0, until=2, rot=-1),
+   card('img', [170, 110, 1750, 790], img='chart_h18', at=2, until=4, rot=1),
+   rows([dict(at=4, tag='H14', text='差　35ポイント', col='orange'),
+         dict(at=4, tag='H18', text='差　10ポイント　（縮まった）', col='blue')], x0=170, x1=1750, y0=300, size=70, gap=40),
+   tel('どちらの年度も、[[(ア)の方が多い]]', 960, 190, 84, at=3, until=4, plate='red', rot=-1.5),
+   tel('差は縮まっている', 960, 800, 80, at=5, plate='yellow', rot=1.5)]),
  dict(key='meaning', title='この数字は、何を表しているのか', chapter_title='この数字は、何を表しているのか', scene=[
-   dict(t='panel', box=[60, 200, 1860, 320], text='この数字は、調査に答えた人が、選んだ意味の割合', at=0, size=46, hi=True),
-   dict(t='panel', box=[60, 360, 1860, 480], text='「いま、何割の人が、本来と違う意味で使っている」とは、言えない', at=1, size=42),
-   dict(t='panel', box=[60, 520, 1860, 640], text='この動画で見たのは、平成14年度と平成18年度の調査', at=2, size=42),
-   dict(t='panel', box=[60, 680, 1860, 800], text='その後の調査の結果は、この動画の資料だけでは、分からない', at=3, size=42, col='gold')]),
+   pop('pop_bgimg', img='art_meaning', at=0, dim=.55, blur=6),
+   rows([dict(at=0, tag='数字は', text='選んだ意味の割合', col='blue'),
+         dict(at=1, tag='言えない', text='「いま何割が、本来と違う意味で使う」', col='red'),
+         dict(at=2, tag='見たのは', text='平成14年度と平成18年度の調査', col='orange'),
+         dict(at=3, tag='その後は', text='この資料だけでは、分からない', col='purple')], x0=130, x1=1790, y0=210, size=60, gap=34)]),
  dict(key='end', title='分かること、決められないこと', chapter_title='結論：分かること、決められないこと', scene=[
-   dict(t='cols2', size=36, xm=940, xm2=980, left=dict(title='分かること', title_at=0, items=[
-      dict(at=1, text='文化庁は、「役不足」の本来の意味を、「本人の力量に対して、役目が軽すぎること」としている'),
-      dict(at=2, text='平成14年度・平成18年度の調査では、本来の意味ではない(ア)を選んだ人のほうが多かった')]),
-     right=dict(title='決められないこと', title_at=3, items=[
-      dict(at=4, text='いまの、本来の意味とそうでない意味の割合（この動画の資料だけでは分からない）')]))])
+   rows([dict(at=0, tag='分かる', text='文化庁は、本来の意味を「役目が軽すぎる」としている', col='green'),
+         dict(at=1, tag='分かる', text='H14・H18の調査では、逆の意味を選んだ人の方が多かった', col='green'),
+         dict(at=2, tag='不明', text='いまの使われ方までは、この結果だけでは決められない', col='red')], x0=110, x1=1810, y0=190, size=52, gap=30),
+   tel('「役不足」は[[軽すぎる役目]]の意味。\nただし、いまの割合は不明', 960, 700, 64, at=3, plate='yellow', rot=-1)])
  ],
  desc=dict(title_main='「役不足」は、自分の能力が足りないという意味なのか', title_no=1,
   titles=['「役不足」は、能力が足りない意味？ 文化庁の調査で確かめる', '「役不足」の本来の意味は？ 文化庁の世論調査の結果を確かめる', '「役不足」を、役目が重すぎる意味で選んだ人は？ 文化庁の調査'],
@@ -50,21 +70,4 @@ spec = dict(slug='yakubusoku', theme_dir='20261103_yakubusoku', pack='18_yakubus
   checks=['文化庁の平成14・18年度の原文を、公開前にもう一度開いて確認する(`docs/themes/20261103_yakubusoku/08_fact_check.md`)', '令和年度の調査に「役不足」が含まれるか、文化庁の報告書で確認する(確認できれば最新の数字を足す)']),
  thumb=dict(bg='assets/yakubusoku/thumb_art.png', lines=[['役不足', 150, 'white'], ['逆の意味？', 105, 'gold']], sub='文化庁の調査で確かめる', shade_col=[58,10,16], accent=[255,205,90], bar_col=[255,255,255], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
 
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
-
-
-_fit(spec)
-inject(spec, dict(intro='intro', ask='ask', result='result', meaning='meaning', end='end'))
-(R / 'data' / 'yakubusoku_spec.json').write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf8'); print('spec written')
+finalize(spec, {})

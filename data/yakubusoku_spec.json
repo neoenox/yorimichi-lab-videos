@@ -3,21 +3,28 @@
  "theme_dir": "20261103_yakubusoku",
  "pack": "18_yakubusoku_meaning",
  "header_sub": "「役不足」の意味を文化庁の調査で確かめる",
+ "style": "pop",
  "images": {
-  "intro": {
+  "art_intro": {
    "file": "assets/yakubusoku/art_intro.png"
   },
-  "ask": {
+  "art_ask": {
    "file": "assets/yakubusoku/art_ask.png"
   },
-  "meaning": {
+  "art_result": {
+   "file": "assets/yakubusoku/art_result.png"
+  },
+  "art_meaning": {
    "file": "assets/yakubusoku/art_meaning.png"
   },
-  "end": {
+  "art_end": {
    "file": "assets/yakubusoku/art_end.png"
   },
-  "result": {
-   "file": "assets/yakubusoku/art_result.png"
+  "chart_h14": {
+   "file": "assets/yakubusoku/chart_h14.png"
+  },
+  "chart_h18": {
+   "file": "assets/yakubusoku/chart_h18.png"
   }
  },
  "bgm": [
@@ -44,76 +51,57 @@
    "chapter_title": "導入：「役不足」の意味は？",
    "scene": [
     {
-     "t": "art",
-     "name": "intro",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_intro",
      "at": 0,
-     "dim": 0.8,
-     "dir": 1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.5,
+     "blur": 3
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「彼には\n[[役不足]]の仕事だ」",
+     "x": 960,
+     "y": 440,
+     "size": 130,
      "at": 0,
-     "alpha": 0.66
+     "until": 2,
+     "rot": -2
     },
     {
-     "t": "big",
-     "text": "「彼には役不足の仕事だ」",
-     "y": 330,
-     "at": 0,
-     "size": 76,
-     "col": "gold"
-    },
-    {
-     "t": "chips",
-     "y": 470,
-     "w": 700,
-     "h": 130,
-     "gap": 160,
-     "size": 46,
-     "items": [
-      {
-       "at": 1,
-       "text": "仕事が重すぎる？"
-      }
-     ]
-    },
-    {
-     "t": "panel",
-     "box": [
-      120,
-      640,
-      1800,
-      730
-     ],
-     "text": "文化庁の「国語に関する世論調査」の結果で、意味を確かめる",
-     "at": 1,
-     "size": 42,
-     "hi": true
-    },
-    {
-     "t": "panel",
-     "box": [
-      120,
-      760,
-      1800,
-      830
-     ],
-     "text": "資料：文化庁（平成14年度・平成18年度の調査）",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "答え：本来は\n[[役目が軽すぎる]]",
+     "x": 960,
+     "y": 440,
+     "size": 120,
      "at": 2,
-     "size": 32
+     "until": 3,
+     "plate": "green",
+     "rot": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "でも、選んだ人が多かったのは[[逆]]！",
+     "x": 960,
+     "y": 440,
+     "size": 96,
+     "at": 3,
+     "plate": "red",
+     "rot": -1.5
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "文化庁の調査で確かめる",
+     "x": 960,
+     "y": 760,
+     "size": 54,
+     "at": 2,
+     "plate": "blue",
+     "rot": 1
     }
    ]
   },
@@ -123,92 +111,69 @@
    "chapter_title": "文化庁の調査は、何を尋ねたのか",
    "scene": [
     {
-     "t": "art",
-     "name": "ask",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_ask",
      "at": 0,
-     "dim": 0.8,
-     "dir": -1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.55,
+     "blur": 4
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「彼には役不足の仕事だ」\nこの言葉の意味は？",
+     "x": 960,
+     "y": 240,
+     "size": 72,
      "at": 0,
-     "alpha": 0.66
+     "plate": "yellow",
+     "rot": -1
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      190,
-      1860,
-      300
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "tag": "(ア)",
+       "text": "役目が重すぎる",
+       "col": "orange"
+      },
+      {
+       "at": 2,
+       "tag": "(イ)",
+       "text": "役目が軽すぎる",
+       "col": "blue"
+      }
      ],
-     "text": "例文：「彼には役不足の仕事だ。」この言葉の意味は？",
-     "at": 0,
-     "size": 44,
-     "hi": true
+     "x0": 170,
+     "x1": 1750,
+     "y0": 400,
+     "size": 64,
+     "gap": 34
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      340,
-      1860,
-      450
-     ],
-     "text": "(ア)　本人の力量に対して、役目が重すぎること",
-     "at": 1,
-     "size": 42
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      480,
-      1860,
-      590
-     ],
-     "text": "(イ)　本人の力量に対して、役目が軽すぎること",
-     "at": 2,
-     "size": 42
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      620,
-      1860,
-      720
-     ],
-     "text": "文化庁：(イ)が、本来の意味",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "ほかに「両方」「別の意味」「分からない」",
+     "x": 960,
+     "y": 800,
+     "size": 40,
      "at": 4,
-     "size": 46,
-     "hi": true,
-     "col": "gold"
+     "until": 5,
+     "plate": "blue",
+     "rot": 1
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      750,
-      1860,
-      830
-     ],
-     "text": "(ア)の「役目が重すぎる」は、本来の意味ではない、と整理されている",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "文化庁：本来の意味は[[(イ)]]",
+     "x": 960,
+     "y": 770,
+     "size": 76,
      "at": 5,
-     "size": 36
+     "plate": "green",
+     "rot": -1.5
     }
    ]
   },
@@ -218,101 +183,88 @@
    "chapter_title": "調査の結果は、どうだったのか",
    "scene": [
     {
-     "t": "art",
-     "name": "result",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_result",
      "at": 0,
-     "dim": 0.8,
-     "dir": 1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.5,
+     "blur": 8
     },
     {
-     "t": "shade",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
-      60,
       170,
-      1860,
-      850
+      110,
+      1750,
+      790
      ],
+     "img": "chart_h14",
      "at": 0,
-     "alpha": 0.66
+     "until": 2,
+     "rot": -1
     },
     {
-     "t": "bars",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
-      60,
-      190,
-      1860,
-      470
+      170,
+      110,
+      1750,
+      790
      ],
-     "title": "平成14年度の調査（文化庁）",
-     "unit": "％",
-     "max": 70,
-     "lab_w": 560,
-     "data": [
+     "img": "chart_h18",
+     "at": 2,
+     "until": 4,
+     "rot": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
       {
-       "at": 0,
-       "label": "(ア)役目が重すぎる",
-       "value": 62.8,
-       "vlabel": "62.8％",
-       "col": "org"
+       "at": 4,
+       "tag": "H14",
+       "text": "差　35ポイント",
+       "col": "orange"
       },
       {
-       "at": 1,
-       "label": "(イ)役目が軽すぎる（本来の意味）",
-       "value": 27.6,
-       "vlabel": "27.6％",
+       "at": 4,
+       "tag": "H18",
+       "text": "差　10ポイント　（縮まった）",
        "col": "blue"
       }
-     ]
+     ],
+     "x0": 170,
+     "x1": 1750,
+     "y0": 300,
+     "size": 70,
+     "gap": 40
     },
     {
-     "t": "bars",
-     "box": [
-      60,
-      490,
-      1860,
-      770
-     ],
-     "title": "平成18年度の調査（文化庁）",
-     "unit": "％",
-     "max": 70,
-     "lab_w": 560,
-     "data": [
-      {
-       "at": 2,
-       "label": "(ア)役目が重すぎる",
-       "value": 50.3,
-       "vlabel": "50.3％",
-       "col": "org"
-      },
-      {
-       "at": 2,
-       "label": "(イ)役目が軽すぎる（本来の意味）",
-       "value": 40.3,
-       "vlabel": "40.3％",
-       "col": "blue"
-      }
-     ]
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "どちらの年度も、[[(ア)の方が多い]]",
+     "x": 960,
+     "y": 190,
+     "size": 84,
+     "at": 3,
+     "until": 4,
+     "plate": "red",
+     "rot": -1.5
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      790,
-      1860,
-      850
-     ],
-     "text": "差：35ポイント（平成14年度）→ 10ポイント（平成18年度）",
-     "at": 4,
-     "size": 38,
-     "hi": true,
-     "col": "gold"
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "差は縮まっている",
+     "x": 960,
+     "y": 800,
+     "size": 80,
+     "at": 5,
+     "plate": "yellow",
+     "rot": 1.5
     }
    ]
   },
@@ -322,79 +274,47 @@
    "chapter_title": "この数字は、何を表しているのか",
    "scene": [
     {
-     "t": "art",
-     "name": "meaning",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_meaning",
      "at": 0,
-     "dim": 0.8,
-     "dir": -1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.55,
+     "blur": 6
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "tag": "数字は",
+       "text": "選んだ意味の割合",
+       "col": "blue"
+      },
+      {
+       "at": 1,
+       "tag": "言えない",
+       "text": "「いま何割が、本来と違う意味で使う」",
+       "col": "red"
+      },
+      {
+       "at": 2,
+       "tag": "見たのは",
+       "text": "平成14年度と平成18年度の調査",
+       "col": "orange"
+      },
+      {
+       "at": 3,
+       "tag": "その後は",
+       "text": "この資料だけでは、分からない",
+       "col": "purple"
+      }
      ],
-     "at": 0,
-     "alpha": 0.66
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      200,
-      1860,
-      320
-     ],
-     "text": "この数字は、調査に答えた人が、選んだ意味の割合",
-     "at": 0,
-     "size": 46,
-     "hi": true
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      360,
-      1860,
-      480
-     ],
-     "text": "「いま、何割の人が、本来と違う意味で使っている」とは、言えない",
-     "at": 1,
-     "size": 42
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      520,
-      1860,
-      640
-     ],
-     "text": "この動画で見たのは、平成14年度と平成18年度の調査",
-     "at": 2,
-     "size": 42
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      680,
-      1860,
-      800
-     ],
-     "text": "その後の調査の結果は、この動画の資料だけでは、分からない",
-     "at": 3,
-     "size": 42,
-     "col": "gold"
+     "x0": 130,
+     "x1": 1790,
+     "y0": 210,
+     "size": 60,
+     "gap": 34
     }
    ]
   },
@@ -404,59 +324,44 @@
    "chapter_title": "結論：分かること、決められないこと",
    "scene": [
     {
-     "t": "art",
-     "name": "end",
-     "box": [
-      60,
-      170,
-      1860,
-      850
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "tag": "分かる",
+       "text": "文化庁は、本来の意味を「役目が軽すぎる」としている",
+       "col": "green"
+      },
+      {
+       "at": 2,
+       "tag": "分かる",
+       "text": "H14・H18の調査では、逆の意味を選んだ人の方が多かった",
+       "col": "green"
+      },
+      {
+       "at": 3,
+       "tag": "不明",
+       "text": "いまの使われ方までは、この結果だけでは決められない",
+       "col": "red"
+      }
      ],
-     "at": 0,
-     "dim": 0.8,
-     "dir": 1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "x0": 110,
+     "x1": 1810,
+     "y0": 190,
+     "size": 52,
+     "gap": 30
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
-     "at": 0,
-     "alpha": 0.66
-    },
-    {
-     "t": "cols2",
-     "size": 36,
-     "xm": 940,
-     "xm2": 980,
-     "left": {
-      "title": "分かること",
-      "title_at": 0,
-      "items": [
-       {
-        "at": 1,
-        "text": "文化庁は、「役不足」の本来の意味を、「本人の力量に対して、役目が軽すぎること」としている"
-       },
-       {
-        "at": 2,
-        "text": "平成14年度・平成18年度の調査では、本来の意味ではない(ア)を選んだ人のほうが多かった"
-       }
-      ]
-     },
-     "right": {
-      "title": "決められないこと",
-      "title_at": 3,
-      "items": [
-       {
-        "at": 4,
-        "text": "いまの、本来の意味とそうでない意味の割合（この動画の資料だけでは分からない）"
-       }
-      ]
-     }
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「役不足」は[[軽すぎる役目]]の意味。\nただし、いまの割合は不明",
+     "x": 960,
+     "y": 700,
+     "size": 64,
+     "at": 5,
+     "plate": "yellow",
+     "rot": -1
     }
    ]
   }
