@@ -269,3 +269,32 @@ https://youtu.be/（長尺ID）
 - 残る空白（11〜12月）：11/01（当日・もう埋められない）、11/04-05、12/03-04、12/06-08、12/10-11、12/13、12/19-20、12/26-27。
   12月は**まだ12日ぶん空いている**が、ここを埋めるには新規作成か、1本しかない日からの移動（＝別の日が空白になる）が要る。
   **まずは 11/26〜12/01 が毎日続いたときに何が変わるかを見てから**、12月に手を入れるか決める。
+
+### 2026-11-01　F5（長尺37本の概要欄に「次の動画」リンクを追加）
+
+`videos.update`（50ユニット/本＝1,850ユニット）で、**長尺37本の概要欄末尾**に次への導線を入れた。
+「再生リストだけでは、そのシリーズの順序でしか回遊できない」ため、各動画から直接次へ飛べるようにした。
+
+シリーズ定義（`scripts/add_next_links.py` の `SERIES` に集約、今後追加もここで）：
+
+| シリーズ | 順序（一部） | 本数 |
+|---|---|---|
+| tokyo_lowland | hibiya → shibuya → ginza | 3 |
+| battle | okehazama → mikatagahara → nagashino → anegawa → komaki → tedorigawa → yamazaki → shizugatake → tottori → sekigahara | 10 |
+| edo_life | hikeshi → koku → bath → carpenter → hikyaku → hatsugatsuo → hanabi → doyo → chushingura | 9 |
+| sci_calendar | calendar → leapsecond | 2 |
+| sci_earth | drain → compass → flatearth → magnitude → lightning | 5 |
+| sci_bio | brain10 → einstein → scurvy → zenzen → vein | 5 |
+| sci_physics | gps → frequency → akashi → rain30 | 4 |
+| sci_econ | gdp → bukka → rice | 3 |
+| sci_history | ninja → forest → islands → oceanblue → snowcrystal | 5 |
+
+- 追加形式：
+```
+▼ 次の動画
+（次の動画のタイトル）
+https://youtu.be/（動画ID）
+```
+- 既にリンクがあるものはスキップ（冪等）。今後新規動画を作ったら `SERIES` に追加して再実行すれば自動でつながる。
+- `scripts/add_next_links.py --dry` で下見可能。
+- 反映確認：日比谷→渋谷→銀座、桶狭間→三方ヶ原→長篠…の順でタイトルが正しく入っていることを API 読み直しで確認済み。
