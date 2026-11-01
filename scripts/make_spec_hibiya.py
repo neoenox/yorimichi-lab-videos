@@ -9,7 +9,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from spec_common import finalize
 
 R = Path(__file__).resolve().parents[1]
-IMG = ('aerial_1936', 'aerial_1961', 'aerial_now', 'relief', 'relief_plain')
+IMG = ('aerial_1936', 'aerial_1961', 'aerial_now', 'relief', 'relief_plain',
+       'fillmap_0', 'fillmap_1', 'fillmap_2', 'fillmap_3')
 IMAGES = {n: dict(file=f'assets/hibiya/{n}.png') for n in IMG}
 CAP_RELIEF = '色別標高図（国土地理院の5mメッシュ標高から作成）'
 CAP_1936 = '国土地理院 空中写真（1936〜42年頃）'
@@ -79,13 +80,17 @@ spec = dict(
                    tel('「島」ではなく、\n[[砂州]]の半島', 1430, 730, 54, at=2, until=5, plate='yellow', rot=2)]},
         {'key': 'ume', 'title': '埋め立て', 'chapter_title': '埋め立て',
          'scene': [pop('pop_bgimg', img='aerial_1961', at=0, dim=.6, blur=7),
-                   rows([dict(at=0, tag='1592年', text='江戸城の西丸を築いた残土で、北側から埋め立てが始まる', col='orange'),
-                         dict(at=1, tag='同じ頃', text='平川の流れも、東へ移された', col='blue'),
-                         dict(at=2, tag='1603年', text='本格化。家康の晩年から秀忠の頃に広大な陸地になったとされる', col='green'),
-                         dict(at=3, tag='1620年代', text='大名屋敷が立ち並んだとされる', col='purple'),
-                         dict(at=4, tag='仕上げ', text='江戸時代の初頭までに、南側も埋め立てられたとされる', col='red')],
-                        y0=190, size=40, gap=16),
-                   tel('完成した年は、\n資料によって[[幅がある]]', 960, 740, 44, at=4, plate='yellow', rot=-1)]},
+                   pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
+                       cap='入り江と埋め立ての模式図（位置・形は模式化）',
+                       steps=[dict(img='fillmap_1', at=0), dict(img='fillmap_2', at=2),
+                              dict(img='fillmap_3', at=4)]),
+                   rows([dict(at=0, tag='1592年', text='西丸の残土で、北から埋め立て', col='orange'),
+                         dict(at=1, tag='平川', text='流れを東へ移した', col='blue'),
+                         dict(at=2, tag='1603年', text='本格化。本丸東から有楽町', col='green'),
+                         dict(at=3, tag='1620年代', text='大名屋敷が並んだとされる', col='purple'),
+                         dict(at=4, tag='江戸初頭', text='南の日比谷から新橋も', col='red')],
+                        x0=1000, x1=1860, y0=180, size=36, gap=16),
+                   tel('こうして、[[今の形]]に', 1430, 780, 46, at=5, plate='yellow', rot=-1)]},
         {'key': 'ato', 'title': '名残り', 'chapter_title': '名残り',
          'scene': [pop('pop_bgimg', img='aerial_now', at=0, dim=.55, blur=6),
                    rows([dict(at=0, tag='名前', text='平川橋に、平川の名が残る', col='orange'),
@@ -119,7 +124,8 @@ spec = dict(
                    '東側には、砂が積もってできた砂州の半島「江戸前島」がありました。'
                    '日本橋・京橋・銀座の町は、この半島の上に広がっていきました。',
                    '1592年（天正20年）に江戸城西丸築城の残土で北側から埋め立てが始まり、1603年（慶長8年）から本格化。'
-                   '1620年代には大名屋敷が立ち並んだとされます。',
+                   '1620年代には大名屋敷が立ち並んだとされます。'
+                   '江戸時代の初頭までに南側の日比谷から新橋までが埋め立てられ、今の街の形になりました。',
                    '平川橋・和田倉門・日比谷濠・汐見坂などに名残が見られます。'
                    '国土地理院の標高データでは、皇居・本丸が約20.1m、日比谷公園が約3.6m、有楽町駅が約2.8mで、'
                    'この高低差が入り江の跡を物語ります。'],
@@ -130,10 +136,12 @@ spec = dict(
         'credit_lines': [
             '・空中写真:国土地理院撮影の空中写真(1936〜42年頃、1961〜69年頃)と全国最新写真を、地理院タイルから加工して作成',
             '・色別標高図:国土地理院の標高タイル(5mメッシュ)から作成',
+            '・模式図:国土地理院の標高タイルを土台に、入り江・砂州・埋め立ての範囲を描き足して作成(位置と形は模式化)',
             '・場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)',
         ],
         'notes': ['「海」ではなく「入り江」。表現には注意する。',
                   '埋め立ての完了年は、資料によって幅があります。この動画では年を断定せず「〜とされる」としています。',
+                  '埋め立ての範囲を示す模式図は、標高を土台に入り江・砂州・各段階の範囲を描き足したもので、位置と形は模式化しています。',
                   '江戸前島・中央通り・和田倉門・汐見坂・日比谷濠の由来は、二次資料（Wikipedia系）のみで確認したため「〜とされる」「との説」と弱めています。',
                   '標高は国土地理院の5mメッシュ標高から、地点の周り9×9画素の平均を取った概算です。',
                   '「和田＝ワダ＝海」は語源の推定で、確定した説ではありません。'],

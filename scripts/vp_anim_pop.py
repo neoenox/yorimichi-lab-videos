@@ -287,4 +287,42 @@ def pop_card(im, d0, cx, it, a):
     _place(im, card, (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0))
 
 
-DRAW_POP = dict(pop_bgimg=pop_bgimg, pop_telop=pop_telop, pop_rows=pop_rows, pop_card=pop_card)
+def _fill_img(name):
+    """模式図は透過を持つので、RGB に落とす get_img ではなく RGBA のまま読む。"""
+    key = ('fill', name)
+    if key not in _BG:
+        _BG[key] = Image.open(G['P'](G['SPEC']['images'][name]['file'])).convert('RGBA')
+    return _BG[key]
+
+
+def pop_fill(im, d0, cx, it, a):
+    """段階を追って陸地が広がる図。spec: dict(t='anim', name='pop_fill', base='fillmap_0',
+    steps=[dict(img='fillmap_1', at=0), dict(img='fillmap_2', at=2)], box=[...], rot=-2, at=0, cap='...')
+    steps の各画像は base と同じ大きさの透過PNG。at の文が始まると、ふわっと重なる。"""
+    k = pop_k(cx, it.get('at'), .5)
+    if k <= 0: return
+    x0, y0, x1, y1 = it['box']; W, H = x1 - x0, y1 - y0
+    cap = it.get('cap')
+    tw, th = W - 44, H - 44 - (60 if cap else 0)
+    base = _fill_img(it['base'])
+    sc = min(tw / base.width, th / base.height)
+    size = (max(1, int(base.width * sc)), max(1, int(base.height * sc)))
+    key = ('fillc', it['base'], size)
+    if key not in _BG:
+        _BG[key] = base.resize(size, Image.LANCZOS)
+    pic = _BG[key].copy()
+    for st in it['steps']:
+        ka = ease(cx.a(st.get('at'), .45))
+        if ka <= 0: continue
+        sk = ('fillc', st['img'], size)
+        if sk not in _BG:
+            _BG[sk] = _fill_img(st['img']).resize(size, Image.LANCZOS)
+        lay = _BG[sk]
+        if ka < 1:
+            lay = lay.copy()
+            lay.putalpha(lay.getchannel('A').point(lambda v: int(v * ka)))
+        pic.alpha_composite(lay)
+    _place(im, _frame_photo(pic, cap), (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0))
+
+
+DRAW_POP = dict(pop_bgimg=pop_bgimg, pop_telop=pop_telop, pop_rows=pop_rows, pop_card=pop_card, pop_fill=pop_fill)
