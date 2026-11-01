@@ -1,0 +1,84 @@
+"""Writes data/venus_spec.json（金星では、1日が1年より長い？）。台本：docs/themes/20261108_venus/09_script_v2.md"""
+import json, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from specart import inject
+R = Path(__file__).resolve().parents[1]
+TOP = [60, 170, 1860, 235]
+spec = dict(slug='venus', theme_dir='20261108_venus', pack='21_venus_day', header_sub='金星の自転と公転を、NASAの表で確かめる',
+ images={},
+ bgm=[['intro', 'sun', 'piano36'], ['why', 'why', 'piano12'], ['end', 'end', 'piano40']],
+ chapters=[
+ dict(key='intro', title='金星では、一日が一年より長い？', chapter_title='導入：金星では、一日が一年より長い？', scene=[
+   dict(t='chips', y=240, w=900, h=140, gap=100, size=54, items=[dict(at=0, text='金星：一日 ＞ 一年？')]),
+   dict(t='panel', box=[120, 450, 1800, 570], text='「一日」を何と考えるかで、答えが変わる', at=3, size=44, hi=True),
+   dict(t='panel', box=[120, 620, 1800, 700], text='資料：NASA（Venus Fact Sheet）', at=4, size=34)]),
+ dict(key='nums', title='星を基準にした、自転と公転', chapter_title='星を基準にした、自転と公転', scene=[
+   dict(t='panel', box=TOP, text='遠くの星を基準にした、金星の自転周期（NASAの表）', at=0, until=1, size=38, hi=True),
+   dict(t='panel', box=TOP, text='自転周期：5,832.6時間 ＝ 約243日（24時間＝1日で換算）', at=1, until=3, size=38, hi=True),
+   dict(t='panel', box=TOP, text='公転周期：224.701日', at=3, until=4, size=42, hi=True),
+   dict(t='panel', box=TOP, text='自転一回は、公転一周より、約18日長い（自作の計算）', at=4, size=40, col='gold'),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='anim', name='venusspin', box=[60, 250, 1860, 850], at=1, s_a=1, dur=34)]),
+ dict(key='sun', title='太陽の動きで決める、一日', chapter_title='太陽の動きで決める、一日', scene=[
+   dict(t='panel', box=TOP, text='NASAの表には、もう一つ、「Length of day」の行がある', at=0, until=1, size=38, hi=True),
+   dict(t='panel', box=TOP, text='赤道上の地点で、太陽が正午の位置に戻るまでの、平均の時間', at=1, until=3, size=38, hi=True),
+   dict(t='panel', box=TOP, text='金星：2,802.0時間 ＝ 116.75日', at=3, until=5, size=42, hi=True),
+   dict(t='panel', box=TOP, text='公転周期（224.7日）より、短い', at=5, until=6, size=42, col='gold'),
+   dict(t='panel', box=TOP, text='地球：24.0000時間（ほぼ24時間）', at=6, size=42),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='bars', box=[160, 330, 1760, 760], title='金星の周期（NASAの表をもとに、日数に換算）', unit='日', max=260, lab_w=520, data=[
+     dict(at=4, label='自転周期（星を基準）', value=243.0, vlabel='約243日', col='blue'),
+     dict(at=4, label='公転周期', value=224.7, vlabel='224.7日', col='org'),
+     dict(at=4, label='太陽の動きで決める一日', value=116.75, vlabel='116.75日', col='gold')])]),
+ dict(key='why', title='なぜ、短くなるのか', chapter_title='なぜ、短くなるのか', scene=[
+   dict(t='panel', box=TOP, text='表の自転周期：−5,832.6時間（マイナスの符号が付いている）', at=0, until=1, size=40, hi=True),
+   dict(t='panel', box=TOP, text='NASA：マイナスは、逆向き（逆行）の自転', at=1, until=2, size=42, hi=True),
+   dict(t='panel', box=TOP, text='金星は、地球など多くの惑星とは、逆向きに自転している', at=2, until=3, size=40),
+   dict(t='panel', box=TOP, text='金星の自転は、公転とは、反対向き', at=3, until=4, size=42, hi=True),
+   dict(t='panel', box=TOP, text='二つの動きは、太陽の向きを、同じ向きに動かす', at=4, until=5, size=42, col='gold'),
+   dict(t='panel', box=TOP, text='だから、太陽が空の元の位置に戻るのが、早くなる', at=5, until=6, size=42, col='gold'),
+   dict(t='panel', box=TOP, text='二つの動きを合わせて計算する（自作の計算。小数第2位まで）', at=6, until=8, size=40, hi=True),
+   dict(t='panel', box=TOP, text='結果は、NASAの表の値と、ほぼ一致する', at=8, size=42, col='gold'),
+   dict(t='shade', box=[60, 250, 1860, 850], at=0, alpha=0.5),
+   dict(t='anim', name='venusspin', box=[60, 250, 1860, 850], at=3, until=6, s_a=3, dur=16),
+   dict(t='panel', box=[160, 400, 1760, 560], text='1/243.0 ＋ 1/224.7 ＝ 1/116.75', at=6, size=72, hi=True),
+   dict(t='panel', box=[160, 620, 1760, 740], text='NASAの表：116.75日　→　小数第2位まで一致', at=8, size=48, col='gold')]),
+ dict(key='end', title='分かること、決められないこと', chapter_title='結論：分かること、決められないこと', scene=[
+   dict(t='cols2', size=36, xm=940, xm2=980, left=dict(title='分かること', title_at=0, items=[
+      dict(at=1, text='NASAの表：星を基準にした自転周期（約243日）は、公転周期（224.7日）より長い'),
+      dict(at=4, text='「自転一回」を一日とすれば、一日は一年より長い'),
+      dict(at=5, text='「太陽の動きで決める一日」は約116.75日で、一年より短い')]),
+     right=dict(title='決められないこと', title_at=8, items=[
+      dict(at=9, text='金星の地表から、実際に空がどう見えるか（この動画の資料だけでは分からない）')])),
+   dict(t='panel', box=[60, 770, 1860, 840], text='一日の意味が違えば、答えも変わる（どちらもNASAの表の数字）', at=6, size=38, col='gold')])
+ ],
+ desc=dict(title_main='金星では、一日が一年より長いのか', title_no=1,
+  titles=['金星では、1日が1年より長い？ NASAの表で確かめる', '金星の「1日」は何日？ 自転と公転をNASAの表で確かめる', '金星の1日は1年より長い？ 「1日」の意味で答えが変わる理由'],
+  intro='「金星では、一日が一年より長い」と聞いたことはありませんか。この動画では、NASAの金星のファクトシートの数字から、金星の自転と公転を確かめます。星を基準にした自転周期と公転周期、太陽の動きで決める一日、なぜ短くなるのか、を分けて見ていきます。「一日」を何と考えるかで、答えが変わります。分かることと決められないことを分けて、NASAの表に帰属して述べます。',
+  points=['NASAの表では、金星の自転周期(遠くの星を基準にした一回転の時間)は5,832.6時間(符号はマイナスで逆向き)、公転周期は224.701日です。自転周期を24時間=1日で換算すると約243日で、公転周期より約18日長くなります(NASA Venus Fact Sheet、日数への換算と差は自作の計算)。', '同じ表の「Length of day」は、赤道上の地点で太陽が正午の位置に戻るまでの平均の時間で(NASAのNotes)、金星では2,802.0時間=116.75日です。公転周期224.701日より短い時間です(NASA Venus Fact Sheet)。', '金星の自転は公転とは反対向きなので、二つの動きは金星から見た太陽の向きを同じ向きに動かし、太陽が元の位置に戻るのが早くなります。1/243.025+1/224.701≒1/116.75 の計算は、小数第2位まで、NASAの値と一致します(自作の計算)。', 'NASAの表では天王星の自転周期にもマイナスが付いており、金星だけが逆向きではありません(NASA Uranus Fact Sheet)。'],
+  refs=['NASA NSSDC「Venus Fact Sheet」:https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html', 'NASA NSSDC「Notes on the Fact Sheets」:https://nssdc.gsfc.nasa.gov/planetary/factsheet/planetfact_notes.html', 'NASA NSSDC「Uranus Fact Sheet」:https://nssdc.gsfc.nasa.gov/planetary/factsheet/uranusfact.html'],
+  credit_lines=['・図・グラフ・計算:自作(NASAの表の数字をもとにした模式図です。実際の金星の見え方ではありません)', '・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実際の金星の姿・景色の再現ではありません)'],
+  notes=['図は、NASAの表の周期をもとにした自作の模式図で、実際の金星の見え方ではありません。', '金星の地表から実際に空がどう見えるか、自転周期の測定方法、時期による変化は、この動画では確認していません。', '日数への換算は、24時間=1日として行った自作の計算です。'],
+  tags='金星, 自転, 公転, 1日, 1年, NASA, 太陽系, 天文, 雑学, 検証',
+  checks=['NASAのファクトシートとNotesの原文を、公開前にもう一度開いて確認する(`docs/themes/20261108_venus/08_fact_check.md`)', '「天王星の自転周期にもマイナスが付く」の根拠(NASAの天王星の表)を開き直して確認する']),
+ thumb=dict(bg='assets/venus/thumb_art.png', lines=[['金星の一日は', 90, 'white'], ['一年より', 100, 'white'], ['長い？', 150, 'gold']], sub='NASAの表で確かめる', shade_col=[8, 46, 52], accent=[255, 190, 110], bar_col=[255, 190, 110], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
+
+
+def _fit(o):
+    if isinstance(o, dict):
+        if o.get('t') == 'panel' and o.get('title'):
+            h = o['box'][3] - o['box'][1]
+            if h < 112:
+                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
+                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
+                else: o['size'] = min(o.get('size', 40), 30)
+            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
+        for v in o.values(): _fit(v)
+    elif isinstance(o, list):
+        for v in o: _fit(v)
+
+
+_fit(spec)
+inject(spec, dict(intro='intro', nums='nums', sun='sun', why='why', end='end'))
+(R / 'data' / 'venus_spec.json').write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf8'); print('spec written')

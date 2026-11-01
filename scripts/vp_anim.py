@@ -1137,7 +1137,7 @@ def venusspin(im, d0, cx, it, a):
         circle(d, (ox, oy), rr, outline=(255, 205, 90, int(80 - (rr - 66) * 1.5)), w=2)
     text(d, (ox, oy), '太陽', 28, (60, 40, 0), 'mm')
     circle(d, (ox, oy), R, outline=(120, 150, 180, 170), w=2)
-    text(d, (W / 2, 36), '上から見た金星（自作の模式図。周期はNASAの表の数字）', 32, WHITE, 'mm')
+    text(d, (W / 2, 36), '上から見た金星（自作の模式図。周期はNASAの表の数字）', 38, WHITE, 'mm')
     P_ORB, P_ROT = 224.701, 243.025
     if s < 0:
         t = 0.0
@@ -1148,21 +1148,21 @@ def venusspin(im, d0, cx, it, a):
     px, py = ox + R * math.cos(th), oy - R * math.sin(th)
     pr = 40
     circle(d, (px, py), pr, fill=(225, 190, 150, 255), outline=(255, 245, 225, 255), w=3)
-    al = math.pi / 2 + phi
+    al = math.pi + phi   # 開始時は、地表の一点が太陽の方を向く（太陽が正午の位置にある）
     mx, my = px + pr * 1.7 * math.cos(al), py - pr * 1.7 * math.sin(al)
     poly(d, [(px, py), (mx, my)], (90, 190, 255, 255), 6)
     circle(d, (mx, my), 9, fill=(90, 190, 255, 255))
     be = th + math.pi
     poly(d, [(px, py), (px + pr * 1.3 * math.cos(be), py - pr * 1.3 * math.sin(be))], (255, 205, 90, 230), 4)
-    ang = math.pi / 2 + th - phi
+    ang = th - phi
     noon = int(ang / (2 * math.pi))
     rx = W * 0.62
-    text(d, (rx, H * 0.16), f'経過：{t:5.1f}日', 40, WHITE, 'la')
-    text(d, (rx, H * 0.30), f'自転：{t / P_ROT:.2f}回転（逆向き）', 36, (150, 210, 255), 'la')
-    text(d, (rx, H * 0.42), f'公転：{t / P_ORB:.2f}周', 36, GOLD, 'la')
-    text(d, (rx, H * 0.58), f'太陽が空の同じ位置に戻った回数：{noon}回', 34, (255, 205, 150), 'la')
-    text(d, (rx, H * 0.74), '青い線：金星の地表の一点の向き', 28, (150, 210, 255), 'la')
-    text(d, (rx, H * 0.82), '黄色い線：太陽の向き', 28, GOLD, 'la')
+    text(d, (rx, H * 0.16), f'経過：{t:5.1f}日', 48, WHITE, 'la')
+    text(d, (rx, H * 0.30), f'自転：{t / P_ROT:.2f}回転（逆向き）', 42, (150, 210, 255), 'la')
+    text(d, (rx, H * 0.42), f'公転：{t / P_ORB:.2f}周', 42, GOLD, 'la')
+    text(d, (rx, H * 0.58), f'太陽が元の位置に戻った回数：{noon}回', 42, (255, 205, 150), 'la')
+    text(d, (rx, H * 0.74), '青い線：地表の一点の向き', 36, (150, 210, 255), 'la')
+    text(d, (rx, H * 0.82), '黄色い線：太陽の向き', 36, GOLD, 'la')
     commit(im, L, box, a)
 
 
