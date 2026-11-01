@@ -172,7 +172,40 @@ def disp_title(sc):
     import re as _re
     m=_re.match(r'^\d+ / (.*)$',sc['title'])
     return m.group(1) if m else sc['title']
+_POPCOL={'主張':(238,120,40),'説':(238,120,40),'問い':(238,120,40),'共通':(238,120,40),'位置づけ':(150,100,210),'根拠':(40,110,200),'論者':(40,110,200),'著者':(40,110,200),'日記':(40,110,200),'分かること':(40,160,100),'評価':(40,160,100),'現状':(40,160,100),'理由':(40,160,100),'弱点':(210,60,60),'反論':(210,60,60),'注意点':(210,60,60),'注意':(210,60,60),'結論':(210,60,60)}
+def theory_pop(d,spec,seg_t,used,t):
+    """1画面1主張：色つきの見出し札＋白いカード。文字は大きく、出てくる順に1行ずつ（現在の行は金の縁）"""
+    tag=spec['tag'];w=int(tw(d,tag,FB[44]))+48
+    d.rounded_rectangle((60,150,60+w,214),14,fill=GOLD+(255,));d.text((84,154),tag,font=FB[44],fill=(30,22,10))
+    nm=spec['name'];d.text((60,222),nm,font=FB[76] if len(nm)<12 else FB[62] if len(nm)<16 else FB[48],fill=WHITE,stroke_width=5,stroke_fill=(5,10,16))
+    rows_in=spec['rows']
+    def on(at):return at<len(seg_t) and t>=seg_t[at]
+    def fa(at):return min(1,(t-seg_t[at])/.5)
+    x0,x1,y0,ybot=60,1860,326,834
+    for FS in (54,50,46,42,38,34):
+        LF=F[FS];LH=FS+14;CF=FB[max(30,FS-10)]
+        cw=max(int(tw(d,lab,CF)) for lab,_,_ in rows_in)+44
+        textw=x1-x0-cw-80
+        hs=[len(wrap(d,text,LF,textw))*LH+34 for _,text,_ in rows_in]
+        if sum(hs)+16*(len(hs)-1)<=ybot-y0:break
+    act=-1
+    for i,(lab,text,at) in enumerate(rows_in):
+        if on(at):act=i
+    y=y0
+    for i,(lab,text,at) in enumerate(rows_in):
+        h=hs[i]
+        if on(at):
+            a=fa(at);A=int(250*a)
+            d.rounded_rectangle((x0+5,y+7,x1+5,y+h+7),22,fill=(0,0,0,int(110*a)))
+            d.rounded_rectangle((x0,y,x1,y+h),22,fill=(255,255,255,A),outline=(GOLD+(int(255*a),)) if i==act else None,width=5)
+            col=_POPCOL.get(lab,(120,90,190));ch=h-24
+            d.rounded_rectangle((x0+12,y+12,x0+12+cw,y+12+ch),16,fill=col+(int(255*a),))
+            d.text((x0+12+cw/2,y+12+ch/2),lab,font=CF,fill=(255,255,255,int(255*a)),anchor='mm')
+            for j,l in enumerate(wrap(d,text,LF,textw)):d.text((x0+12+cw+28,y+16+j*LH),l,font=LF,fill=(30,30,50,int(255*a)))
+        y+=h+16
+    used.append((x0,y0,x1,y))
 def theory_panel(d,spec,seg_t,used,t):
+    if not spec.get('timeline'):return theory_pop(d,spec,seg_t,used,t)
     tag=spec['tag'];w=int(tw(d,tag,FB[44]))+48
     d.rounded_rectangle((60,150,60+w,214),14,fill=GOLD+(255,));d.text((84,154),tag,font=FB[44],fill=(30,22,10))
     d.text((60,222),spec['name'],font=FB[66] if len(spec['name'])<18 else FB[52],fill=WHITE,stroke_width=5,stroke_fill=(5,10,16))
