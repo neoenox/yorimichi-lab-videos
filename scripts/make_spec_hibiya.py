@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from spec_common import finalize
 
 R = Path(__file__).resolve().parents[1]
+PLAYLIST_LOWLAND = 'PLV4MJdcpAGpM'   # 再生リスト「東京の低地」（日比谷・渋谷）
 IMG = ('aerial_1936', 'aerial_1961', 'aerial_now', 'relief', 'relief_plain',
        'fillmap_0', 'fillmap_1', 'fillmap_2', 'fillmap_3')
 IMAGES = {n: dict(file=f'assets/hibiya/{n}.png') for n in IMG}
@@ -118,7 +119,10 @@ spec = dict(
                    '和田倉門・日比谷濠の名残りから辿る日比谷入江'],
         'intro': '日比谷には海の名残が残っています。実際には海ではなく「日比谷入江」という入り江でした。'
                  '入り江の東には、砂が積もってできた江戸前島という半島。'
-                 '江戸城の築城とともに埋め立てられ、今の街になった過程を辿ります。',
+                 '江戸城の築城とともに埋め立てられ、今の街になった過程を辿ります。'
+                 '\n\n■ シリーズ「東京の低地」\n'
+                 '昔は水だった土地を、地図・標高・空中写真で確かめます。\n'
+                 '再生リスト:https://www.youtube.com/playlist?list=' + PLAYLIST_LOWLAND,
         'points': ['日比谷入江は江戸湾北西奥の入り江で、北から平川が流れ込んでいました。'
                    '最奥は今の大手町付近、入口は新橋付近にあたります。',
                    '東側には、砂が積もってできた砂州の半島「江戸前島」がありました。'
