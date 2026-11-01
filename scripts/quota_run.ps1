@@ -17,4 +17,7 @@ $code = $LASTEXITCODE
 
 # 実行後の突き合わせ（予約・ID・Shortのリンク・二重公開）。NG があればログに残す
 & $py -X utf8 scripts/check_publish.py --check *>&1 | Tee-Object -Append -FilePath out\codex\quota_check.log
+
+# F2: 前日までに公開された Short に、対応する長尺への案内コメントを入れる（未投稿の分だけ。固定はStudioで手作業）
+& $py -X utf8 scripts/short_comment.py *>&1 | Tee-Object -Append -FilePath out\codex\quota_comment.log
 exit $code

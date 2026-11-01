@@ -6,10 +6,11 @@
   python scripts/short_comment.py --limit 3        # 先頭3本だけ投稿
   python scripts/short_comment.py                  # 未投稿のすべて
 
-対応（Short → 長尺）は data/short_*.json の long_id を使う。
+対応（Short → 長尺）は data/short_*.json の long_id、Short の動画IDは data/youtube_ids.json。
+公開状態は毎回 API から取る（out/youtube_status.json が古くても動く）。
 投稿済みは data/short_comment_done.json に残し、二重投稿しない
 （自分のチャンネルが同じ長尺IDを案内しているコメントがあれば skip）。
-quota: commentThreads.insert 50ユニット/本、list 1ユニット/本。
+quota: commentThreads.insert 50ユニット/本、videos.list 1ユニット/50本、list 1ユニット/本。
 """
 import io
 import json
@@ -22,16 +23,9 @@ sys.path.insert(0, str(R / 'scripts'))
 import yt_api  # noqa: E402
 
 STATE = R / 'data/short_comment_done.json'
-STATUS = R / 'out/youtube_status.json'
 AM = 'https://youtu.be/'
 DRY = '--dry' in sys.argv
 LIMIT = int(sys.argv[sys.argv.index('--limit') + 1]) if '--limit' in sys.argv else None
-
-
-def secs(d):
-    m = re.match(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', d or '')
-    h, mi, s = (int(x) if x else 0 for x in m.groups())
-    return h * 3600 + mi * 60 + s
 
 
 def trim_sentences(s, limit=100):
@@ -52,13 +46,12 @@ def build_text(title, hook, long_id):
     return text
 
 
-def collect():
-    """公開済み Short のうち、まだ投稿していないもの。"""
-    S = json.loads(STATUS.read_text(encoding='utf8'))
+def collect(yt):
+    """公開済み Short のうち、まだ案内コメントを入れていないもの（再生の多い順）。"""
     ids = json.loads((R / 'data/youtube_ids.json').read_text(encoding='utf8'))
     state = json.loads(STATE.read_text(encoding='utf8')) if STATE.exists() else {}
-    pub = {r['id']: r for r in S['public_with_views']}
-    jobs = []
+
+    cand = {}
     for f in sorted((R / 'data').glob('short_*.json')):
         slug = f.stem
         try:
@@ -68,23 +61,37 @@ def collect():
         if not isinstance(d, dict) or not d.get('long_id'):
             continue
         sh = (ids.get(slug) or {}).get('video_id')
-        if not sh or sh not in pub:
+        if not sh or (state.get(slug) or {}).get('short') == sh:
             continue
-        if (state.get(slug) or {}).get('short') == sh:
+        cand[sh] = dict(slug=slug, short=sh, long=d['long_id'], hook=d.get('hook', ''))
+
+    if not cand:
+        return []
+
+    meta = {}
+    keys = list(cand)
+    for k in range(0, len(keys), 50):
+        for v in yt.videos().list(part='status,statistics',
+                                  id=','.join(keys[k:k + 50])).execute()['items']:
+            meta[v['id']] = v
+    jobs = []
+    for sh, c in cand.items():
+        v = meta.get(sh)
+        if not v or v['status']['privacyStatus'] != 'public':
             continue
-        jobs.append(dict(slug=slug, short=sh, long=d['long_id'], hook=d.get('hook', ''),
-                         views=pub[sh]['views']))
+        c['views'] = int(v.get('statistics', {}).get('viewCount', 0))
+        jobs.append(c)
     jobs.sort(key=lambda r: -r['views'])
     return jobs[:LIMIT] if LIMIT else jobs
 
 
 def main():
-    jobs = collect()
+    yt = yt_api.service()
+    jobs = collect(yt)
     if not jobs:
         print('no jobs (すべて投稿済み、または公開済みの Short がない)')
         return
 
-    yt = yt_api.service()
     if DRY:
         lines = []
         for j in jobs:
@@ -116,6 +123,7 @@ def main():
         if exists:
             print(f'skip  {j["slug"]:<20} 既に案内コメントあり')
             state[j['slug']] = dict(short=j['short'], long=j['long'], comment_id='(existing)')
+            STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1) + '\n', encoding='utf8')
             continue
 
         try:
@@ -131,8 +139,6 @@ def main():
                                 comment_id=r['id'], status=st)
         print(f'ok    {j["slug"]:<20} {r["id"]} [{st}]')
         STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1) + '\n', encoding='utf8')
-
-    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1) + '\n', encoding='utf8')
 
 
 if __name__ == '__main__':

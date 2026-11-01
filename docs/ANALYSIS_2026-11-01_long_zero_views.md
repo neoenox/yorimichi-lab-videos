@@ -211,3 +211,7 @@ https://youtu.be/（長尺ID）
   **`scripts/short_comment.py`**（`--dry` で本文の下見、`--limit N` でN本だけ）。今後 Short が公開されたら
   これを回せば、未投稿の分だけ足される。
 - **次の手**：Studio で10本のコメントを「固定」。固定すると Short を開いたとき最初に見えるコメントになる。
+- **自動化**：`scripts/quota_run.ps1`（毎日16:05のタスク）の最後に `scripts/short_comment.py` を足した。
+  以後は、公開された Short に案内コメントが**自動で**入る（未投稿の分だけ。約51ユニット/本）。
+  ログは `out/codex/quota_comment.log`。
+- 補足：`data/youtube_status.json` が古いままでも動くよう、公開状態は毎回 API から取る。
