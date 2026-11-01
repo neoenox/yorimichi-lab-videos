@@ -205,30 +205,29 @@
   ]
  },
  "19_leap_second": {
-  "video_id": "dO_fY0jaTh4",
+  "video_id": "JkPCUodEGfE",
   "privacy": "private",
-  "via": "browser",
+  "via": "api",
   "superseded": [],
   "deleted": [
-   "Xku8ppUSZKI"
-  ],
-  "finished": true
+   "dO_fY0jaTh4"
+  ]
  },
  "17_magnitude_energy": {
-  "video_id": "RXJrW4QwXdE",
+  "video_id": "q18--lhsm_8",
   "privacy": "private",
-  "via": "browser",
+  "via": "api",
   "superseded": [],
   "deleted": [
-   "ZguO5obyDNg"
-  ],
-  "finished": true
+   "RXJrW4QwXdE"
+  ]
  },
  "18_yakubusoku_meaning": {
   "video_id": "h6C7OPst0zg",
   "privacy": "private",
   "via": "api",
-  "superseded": [
+  "superseded": [],
+  "deleted": [
    "Cx9DgjZ2TAM"
   ]
  },
@@ -366,11 +365,13 @@
   "finished": true
  },
  "14_okehazama": {
-  "video_id": "TIfXJAQlNDc",
+  "video_id": "id1hjqjrztY",
   "privacy": "private",
   "via": "api",
   "superseded": [],
-  "finished": true
+  "deleted": [
+   "TIfXJAQlNDc"
+  ]
  },
  "short_venus": {
   "video_id": "mCTDtQPfdbg",
@@ -1211,6 +1212,12 @@
  },
  "78_shibuya": {
   "video_id": "C2PpSB2DYZI",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "79_hibiya": {
+  "video_id": "OrGGevmW-tU",
   "privacy": "private",
   "via": "api",
   "superseded": []
