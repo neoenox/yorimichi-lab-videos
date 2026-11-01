@@ -43,6 +43,23 @@ def convert_chapter(ch, slug, images, art_cycle, ci):
     has_big = any(e.get('t') == 'big' for e in sc)
     plates = ['yellow', 'blue', 'pink', 'green', 'orange']; pn_ = 0
     bg_added = False
+    stack_mode = False
+    if text_only:
+        pans = [e for e in sc if e.get('t') == 'panel' and e.get('text') and e['box'][1] < 800]
+        for i, pi_ in enumerate(pans):
+            for pj in pans[i + 1:]:
+                if pi_.get('until') is None or pi_['until'] > pj.get('at', 0):
+                    stack_mode = True
+        if stack_mode:
+            items = []
+            for pe in pans:
+                it = dict(at=pe.get('at'), text=pe['text'], col=GOLDCOL.get(pe.get('col'), 'orange'))
+                if pe.get('until') is not None: it['until'] = pe['until']
+                if pe.get('title'): it['tag'] = pe['title']
+                items.append(it)
+            n_ = len(items)
+            stack_row = pop('pop_rows', items=items, x0=110, x1=1810, y0=330 if has_big else 250, size=52 if n_ <= 3 else 46, gap=22)
+            stack_done = False
     for e in sc:
         t = e.get('t')
         if t == 'shade':
@@ -60,6 +77,10 @@ def convert_chapter(ch, slug, images, art_cycle, ci):
             continue
         if t == 'big':
             out.append(pop('pop_telop', text=e['text'], x=960, y=e.get('y', 400), size=int(min(e.get('size', 60) * 1.6, 120)), at=e.get('at', 0), plate='yellow' if e.get('col') != 'red' else 'red', rot=-1.5))
+            continue
+        if t == 'panel' and stack_mode and e.get('text') and e['box'][1] < 800:
+            if not stack_done:
+                out.append(stack_row); stack_done = True
             continue
         if t == 'panel':
             sz = e.get('size', 40)
