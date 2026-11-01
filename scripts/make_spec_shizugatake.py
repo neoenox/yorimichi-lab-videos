@@ -45,29 +45,58 @@ KAIZU_O = O(136.0877, 35.4491)
 KITANOSHO = N(136.2217, 36.0613); FUCHU = N(136.1683, 35.9033); KINO_N = N(136.2226, 35.5023); YANAGASE_N = N(136.1883, 35.5966)
 
 
+
 def pn(text, at, until=None, size=40, hi=True, col=None):
-    d = dict(t='panel', box=TOP, text=text, at=at, size=size, hi=hi)
-    if until is not None: d['until'] = until
-    if col: d['col'] = col
-    return d
+    """旧パネルの代わり：右側の白いカード（ポップ）。"""
+    it = dict(at=at, text=text, col='orange')
+    if until is not None: it['until'] = until
+    return dict(t='anim', name='pop_rows', items=[it], x0=1010, x1=1880, y0=170, size=44, gap=0)
+
+
+def tel(text, x, y, size, **kw): return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+def rows(items, **kw): return dict(t='anim', name='pop_rows', items=items, **kw)
+def bgimg(img, **kw): return dict(t='anim', name='pop_bgimg', img=img, **kw)
 
 
 def unit(**k): return k
-def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label=txt, kind='spot', at=at, side='r', col=GOLD, lsize=28)
-def amap(img='area', **k): return dict(t='anim', name='battle_map', img=img, box=BOX, at=0, **k)
+def NOTE_POS(at=0, txt='※位置は概略の推定'): return dict(xy=[0.02, 0.04], label='※推定', kind='spot', at=at, side='r', col=GOLD, lsize=28, _note=True)
+
+
+MAPBOX = [30, 120, 1000, 880]
+
+
+def _big(k):
+    for pl in k.get('places', []):
+        if not pl.get('_note'): pl['lsize'] = int(pl.get('lsize', 24) * 1.5)
+        pl.pop('_note', None)
+    for u in k.get('units', []):
+        u['lsize'] = int(u.get('lsize', 26) * 1.5); u['head'] = int(u.get('head', 26) * 1.3)
+        if 'lab_off' in u: u['lab_off'] = (int(u['lab_off'][0] * 1.6), int(u['lab_off'][1] * 1.6))
+    for ln in k.get('lines', []): ln['lsize'] = int(ln.get('lsize', 26) * 1.5)
+    for mk in k.get('marks', []): mk['lsize'] = int(mk.get('lsize', 24) * 1.5)
+
+
+def amap(img='area', **k):
+    _big(k)
+    return dict(t='anim', name='battle_map', img=img, box=MAPBOX, at=0, **k)
 
 
 NOTE_IMG = 'イメージ（生成画像）。実際の場面の再現ではありません'
 NOTE_GUNKI = '※軍記による描写。実際の経路・順序は確定しない'
-ART_BOX = [60, 170, 1860, 850]
+
+_MAPCH = {'split', 'terrain', 'forces', 'standoff', 'after', 'kessen', 'mino', 'oiwa'}
+_MAPCH_ORDER = ['intro', 'split', 'forces', 'terrain', 'standoff', 'oiwa', 'mino', 'kessen', 'source', 'after', 'check']
+DROP = {'split': {2, 3, 4, 6, 7}, 'forces': {4}, 'terrain': {1, 4, 5}, 'standoff': {2, 3}, 'oiwa': {1, 2, 6, 7, 8}, 'mino': {3, 6}, 'kessen': {8, 2, 5}, 'after': {3, 4, 5, 6, 7}}
 
 chapters = [
- dict(key='intro', title='賤ヶ岳の戦い', chapter_title='導入：賤ヶ岳の戦い', opener='賤ヶ岳の戦い', opener_until=2, scene=[
-   dict(t='art', name='lake', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.5),
-   pn('天正11年4月21日（グレゴリオ暦1583年6月11日。ユリウス暦では6月1日）', 0, 1, 38), pn('琵琶湖の北・余呉湖のまわり：羽柴秀吉の軍 対 柴田勝家の軍', 1, 2, 38),
-   pn('山崎の戦いから、10か月後', 2, 3, 42), pn('「秀吉は、大垣から木之本まで、52kmを5時間で戻った」（通説）', 3, 4, 38, col='gold'),
-   pn('「前田利家は、戦いの最中に勝家を裏切って退いた」（通説）', 4, 5, 38, col='gold'), pn('「賤ヶ岳の七本槍」の活躍（通説）', 5, 6, 40, col='gold'),
-   pn('勝敗を分けたものは何か。同時代の記録は、何を語り、何を語っていないのか', 6, None, 36)]),
+ dict(key='intro', title='賤ヶ岳の戦い', chapter_title='導入：賤ヶ岳の戦い', scene=[
+   bgimg('lake', at=0, dim=.5, blur=4),
+   tel('有名な3つの話は\n[[どれも確かめられない]]', 960, 470, 120, at=0, until=1, plate='red', rot=-3),
+   tel('賤ヶ岳の戦い\n天正11年4月21日', 960, 470, 130, at=1, until=2, rot=2),
+   rows([dict(at=2, tag='①', text='秀吉は、52kmを5時間で戻った', col='orange', until=3),
+         dict(at=2, tag='②', text='前田利家は、勝家を裏切った', col='orange', until=3),
+         dict(at=2, tag='③', text='活躍した、賤ヶ岳の七本槍', col='orange', until=3)], x0=110, x1=1810, y0=260, size=60, gap=40),
+   tel('地図で追って、確かめる！', 960, 470, 120, at=3, plate='pink', rot=-2)]),
  dict(key='split', title='清洲会議のあと', chapter_title='清洲会議のあと', scene=[
    pn('天正10年6/27　清洲会議（尾張・清洲城）', 0, 1, 40), pn('織田信孝を推す柴田勝家 対 三法師を推す羽柴秀吉', 1, 2, 40),
    pn('三法師が後継に（通説）。近年、勝家も三法師自体には賛成で、名代をめぐって対立したとする説も', 2, 3, 34, col='gold'),
@@ -142,7 +171,7 @@ chapters = [
                          dict(xy=NAGAHAMA, label='長浜城', kind='castle', at=9, side='b', col=GOLD, lsize=22)],
         lines=[dict(pts=[OGAKI, KINO_O], label='十三里（約52km）', at=4, col=GOLD, dash=True, lab=[0.50, 0.22])],
         units=[unit(label='羽柴秀吉', sub='大垣 → 木之本', col=BLUE, portrait='p_hideyoshi', pts=[OGAKI, KINO_O], legs=[[1, 3]], at=0, head=28, lab_off=(36, -4), lsize=22, dashed=True)])]),
-dict(key='kessen', title='四月二十一日　決戦', chapter_title='4月21日　決戦', scene=[
+ dict(key='kessen', title='四月二十一日　決戦', chapter_title='4月21日　決戦', scene=[
    pn('夜が明けた4/21。朝から昼過ぎまで、5度、7度と合戦を重ねた（『柴田退治記』）', 0, 1, 36, col='gold'), pn('秀吉が戻ったと知った盛政は、孤立を恐れ、夜のうちに大岩山を離れ始めた（軍記）', 1, 2, 34),
    pn('秀吉は追撃を命じ、盛政は弟の柴田勝政の隊に逃げ込んだ（軍記）', 2, 3, 36), pn('秀吉は賤ヶ岳に本陣を移し、勝政の隊に攻めかかる。勝政は討死といわれる（軍記）', 3, 4, 34),
    pn('秀吉が、近習の若い侍二、三百騎を先頭に、柴田方に切り込んだ（『柴田退治記』）', 4, 5, 34, col='gold'),
@@ -154,6 +183,14 @@ dict(key='kessen', title='四月二十一日　決戦', chapter_title='4月21日
                unit(label='羽柴秀吉', sub='賤ヶ岳へ（軍記）', col=BLUE, portrait='p_hideyoshi', pts=[KINOMOTO, SHIZU, OJIRO], legs=[[3, 4], [4, 5]], at=3, head=26, lab_off=(36, 10), lsize=22, dashed=True),
                unit(label='前田利家', sub='戦場を離れる（軍記）', col=RED, portrait='p_maeda', pts=[SHIGEYAMA, YANAGASE], legs=[[6, 7]], at=0, head=24, lab_off=(36, -4), lsize=22, dashed=True),
                unit(label='柴田勝家', sub='北ノ庄へ', col=RED, portrait='p_shibata', pts=[GENBAO, YANAGASE], legs=[[9, 10]], at=0, head=26, lab_off=(-36, -10), lsize=22, dashed=True)])]),
+ dict(key='source', title='同時代の記録は、何を語るのか', chapter_title='同時代の記録は、何を語るのか', scene=[
+   bgimg('docs', at=0, dim=.55, blur=6),
+   tel('同時代の記録＝\n[[『柴田退治記』]]', 960, 400, 120, at=0, until=1, rot=-2),
+   tel('秀吉の側が、その年のうちにまとめた記録', 960, 700, 56, at=0, until=1, plate='yellow', rot=1),
+   rows([dict(at=1, tag='②利家', text='離脱には触れない。4/22に府中で降参、とだけ記す', col='orange', until=3),
+         dict(at=2, tag='見方', text='密約を裏づける同時代の史料は確認されていない（説）', col='purple', until=3)], x0=110, x1=1810, y0=250, size=54, gap=40),
+   rows([dict(at=3, tag='③七本槍', text='『柴田退治記』が挙げるのは、九人', col='orange'),
+         dict(at=4, tag='呼び名', text='「七本槍」は江戸初期の『甫庵太閤記』が初見とされる', col='blue')], x0=110, x1=1810, y0=250, size=54, gap=40)]),
  dict(key='after', title='その後', chapter_title='その後', scene=[
    pn('4/22　秀吉は越前府中へ。4/23　北ノ庄城を囲む（『柴田退治記』）', 0, 1, 38, col='gold'), pn('4/24　勝家は、妻のお市の方とともに自害（グレゴリオ暦6月14日）', 1, 2, 38),
    pn('佐久間盛政は捕らえられ、京の六条河原で処刑（『柴田退治記』）', 2, 3, 38), pn('織田信孝は岐阜城で降伏し、尾張で自害。日付は4/29とも5/2とも', 3, 4, 38),
@@ -162,35 +199,17 @@ dict(key='kessen', title='四月二十一日　決戦', chapter_title='4月21日
    amap('north', places=[NOTE_POS(0, '※位置は概略の推定'), dict(xy=KITANOSHO, label='北ノ庄', kind='castle', at=0, side='r', col=RED, lsize=24),
                          dict(xy=FUCHU, label='越前府中', kind='camp', at=0, side='r', col=BLUE, lsize=22), dict(xy=KINO_N, label='木之本', kind='spot', at=0, side='r', col=GOLD, lsize=22)],
         units=[unit(label='羽柴秀吉', sub='4/22 府中 → 4/23 北ノ庄', col=BLUE, portrait='p_hideyoshi', pts=[KINO_N, FUCHU, KITANOSHO], legs=[[0, 1], [1, 2]], at=0, head=26, lab_off=(-36, -10), lsize=22, dashed=True)])]),
- dict(key='source', title='同時代の記録は、何を語るのか', chapter_title='同時代の記録は、何を語るのか', scene=[
-   dict(t='art', name='docs', box=ART_BOX, at=0, dim=0.8, dir=-1, note='イメージ（生成画像）。実際の資料の再現ではありません'), dict(t='shade', box=ART_BOX, at=0, alpha=0.66),
-   dict(t='cols2', size=30, xm=940, xm2=980, until=3, left=dict(title='『柴田退治記』とは', title_at=0, items=[
-        dict(at=0, text='大村由己の編。天正11年11月成立（続群書類従所収）'), dict(at=0, text='秀吉の側が、その年のうちにまとめた記録'), dict(at=0, text='秀吉をたたえる文章であることに注意')]),
-        right=dict(title='①美濃大返し', title_at=1, items=[
-        dict(at=1, text='数字の元は、ありました（申の刻→戌の刻、十三里、二時半）'), dict(at=2, text='ただし、馬が死に、兵が息絶えた、とも書かれる'),
-        dict(at=2, text='この記述だけでは、全軍が同じ時間に着いたかは確かめられない。「五時間」を全軍の正確な記録とみなすのは慎重に（渡邊大門氏）'), dict(at=2, text='渡邊氏は、約1万5千の軍勢が5時間で52kmは不可能、とする（説）')])),
-   dict(t='cols2', size=30, xm=940, xm2=980, at=3, until=8, left=dict(title='②前田利家の裏切り', title_at=3, items=[
-        dict(at=3, text='『柴田退治記』は、戦場での離脱に触れない。4/22に利家らが越前府中で降参、とだけ記す'), dict(at=4, text='利家は、勝家の家臣ではなく与力だったと説明される（説）')]),
-        right=dict(title='見方', title_at=5, items=[
-        dict(at=5, text='事前の密約を裏付ける同時代史料は確認されていない、との指摘がある（説）'),
-        dict(at=6, text='動機の説明の多くは、『甫庵太閤記』など後世の記述に由来するとの見方も（説）'), dict(at=7, text='殿を務めた横山長隆の討死の伝承。ただし殿軍の有無は内通の有無とは別で、解釈は分かれる（軍記）')])),
-   dict(t='cols2', size=30, xm=940, xm2=980, at=8, left=dict(title='③七本槍', title_at=8, items=[
-        dict(at=8, text='『柴田退治記』が挙げるのは、七人ではなく九人'), dict(at=9, text='福島正則・脇坂安治・加藤嘉明・加藤清正・平野長泰・片桐且元・糟屋武則・桜井家一・石川一光（石川は討死）'),
-        dict(at=10, text='「七本槍」の呼び名は、江戸初期の『甫庵太閤記』が初見とされる（軍記）'), dict(at=11, text='『一柳家記』は、14人の先懸の衆を挙げる（石田三成・大谷吉継も）（軍記）')]),
-        right=dict(title='④兵力', title_at=12, items=[
-        dict(at=12, text='『柴田退治記』は、柴田方を「五、六万騎」と書く。大きすぎて、そのまま信じられない')]))]),
  dict(key='check', title='分かること、決められないこと', chapter_title='分かること、決められないこと', scene=[
-   dict(t='art', name='dusk', box=ART_BOX, at=0, dim=0.8, dir=1, note=NOTE_IMG), dict(t='shade', box=ART_BOX, at=0, alpha=0.62),
-   dict(t='cols2', size=34, xm=940, xm2=980, until=2, left=dict(title='分かること', title_at=0, items=[
-        dict(at=0, text='天正11年4月、羽柴軍が柴田軍に勝った'), dict(at=0, text='勝家は4/24に自害した')]),
-        right=dict(title='決められないこと', title_at=1, items=[
-        dict(at=1, text='秀吉の軍は、本当に5時間で戻ったのか'), dict(at=1, text='両軍の、実際の兵数'), dict(at=1, text='前田利家が、なぜ退いたのか')])),
-   dict(t='cols2', size=34, xm=940, xm2=980, at=2, left=dict(title='その後と日付', title_at=2, items=[dict(at=2, text='この勝利で、秀吉は信長の旧臣の中で優位を固めていった'), dict(at=3, text='大岩山を攻めた日や信孝の自害の日など、書物によって異なるものがある')]),
-        right=dict(title='見方', title_at=4, items=[dict(at=4, text='通説・軍記・同時代の記録を、分けて見ると、見え方が変わる')]))]),
+   bgimg('dusk', at=0, dim=.55, blur=6),
+   rows([dict(at=0, tag='分かる', text='天正11年4月、羽柴軍が柴田軍に勝った。勝家は4/24に自害', col='green'),
+         dict(at=1, tag='不明', text='秀吉の軍が、本当に5時間で戻ったのか', col='red'),
+         dict(at=1, tag='不明', text='両軍の、実際の兵数', col='red'),
+         dict(at=1, tag='不明', text='前田利家が、なぜ退いたのか', col='red')], x0=110, x1=1810, y0=170, size=50, gap=26),
+   tel('通説・軍記・同時代の記録。\n分けて見ると、[[見え方が変わる]]', 960, 850, 56, at=2, plate='yellow', rot=-1.2)]),
 ]
 
 images = dict(
-    area=dict(file='assets/shizugatake/map_area.png'), ogaki=dict(file='assets/shizugatake/map_ogaki.png'), north=dict(file='assets/shizugatake/map_north.png'),
+    area=dict(file='assets/shizugatake/map_area.png'), area_c=dict(file='assets/shizugatake/map_area_c.png'), ogaki=dict(file='assets/shizugatake/map_ogaki.png'), north=dict(file='assets/shizugatake/map_north.png'),
     p_hideyoshi=dict(file='assets/portraits/hideyoshi.jpg', crop=CY['hideyoshi']), p_shibata=dict(file='assets/portraits/shibata.jpg', crop=CS['shibata']),
     p_sakuma=dict(file='assets/portraits/sakuma_m.jpg', crop=CS['sakuma_m']), p_maeda=dict(file='assets/portraits/maeda.jpg', crop=CS['maeda']),
     p_nakagawa=dict(file='assets/portraits/nakagawa.jpg', crop=CY['nakagawa']), p_takayama=dict(file='assets/portraits/takayama.jpg', crop=CY['takayama']),
@@ -217,26 +236,60 @@ def _line_to_sentence_starts():
     return out
 
 
-def _remap(o, st):
-    f = lambda i: None if i is None else st[min(i, len(st) - 1)]
+def _remap(o, st, drop=()):
+    sh = lambda i: i - sum(1 for d in drop if d < i)
+    f = lambda i: None if i is None else st[min(sh(i), len(st) - 1)]
     if isinstance(o, dict):
         for k, v in list(o.items()):
             if k in ('at', 'until', 'title_at') and isinstance(v, int): o[k] = f(v)
             elif k == 'legs': o[k] = [[f(a), f(b)] for a, b in v]
-            else: _remap(v, st)
+            else: _remap(v, st, drop)
     elif isinstance(o, list):
-        for v in o: _remap(v, st)
+        for v in o: _remap(v, st, drop)
 
 
 _S = _line_to_sentence_starts()
 assert len(_S) == len(chapters), (len(_S), len(chapters))
 for _ch, _st in zip(chapters, _S):
-    _remap(_ch['scene'], _st)
+    _remap(_ch['scene'], _st, DROP.get(_ch['key'], ()))
+    if _ch['key'] in ('check', 'summary'):
+        _tels = [e for e in _ch['scene'] if e.get('name') == 'pop_telop' and e.get('y', 0) >= 800]
+        if _tels:
+            _t0 = _tels[0]
+            for _e in _ch['scene']:
+                if _e.get('name') == 'pop_rows':
+                    _e['size'] = 44; _e['y0'] = 150; _e['gap'] = 18
+                    for _it in _e['items']: _it.setdefault('until', _t0['at'])
+            _t0['y'] = 470; _t0['size'] = int(_t0['size'] * 1.5)
+    _wide = False
+    if _ch['key'] in _MAPCH:
+        _ART = ['lake', 'docs', 'dusk']
+        _ch['scene'].insert(0, bgimg(_ART[_MAPCH_ORDER.index(_ch['key']) % len(_ART)], at=0, dim=.6, blur=9))
+        _bm = next((e for e in _ch['scene'] if e.get('name') == 'battle_map'), None)
+        if _bm is not None and _bm['img'] == 'area':
+            _bm['img'] = 'area_c'
+            _cx = lambda p: [min(max((p[0] - 0.22) / 0.5, 0.03), 0.97), p[1]]
+            for _pl in _bm.get('places', []):
+                if not str(_pl.get('label', '')).startswith('※'): _pl['xy'] = _cx(_pl['xy'])
+            for _u in _bm.get('units', []): _u['pts'] = [_cx(_p) for _p in _u['pts']]
+            for _ln in _bm.get('lines', []):
+                _ln['pts'] = [_cx(_p) for _p in _ln['pts']]
+                if 'lab' in _ln: _ln['lab'] = _cx(_ln['lab'])
+        if _bm is not None:
+            from PIL import Image as _Im
+            _w, _h = _Im.open(Path(__file__).resolve().parents[1] / images[_bm['img']]['file']).size
+            if _w / _h > 1.7:
+                _wide = True
+                _bm['box'] = [30, 110, 1890, 690]
+                for _e in _ch['scene']:
+                    if _e.get('name') == 'pop_rows': _e['x0'] = 60; _e['x1'] = 1860; _e['y0'] = 705; _e['size'] = 46
+        _ch['scene'].append(tel('※位置・経路は概略の推定（資料の推定図と軍記による）', 1500 if _wide else 1440, 140 if _wide else 835, 28, at=0))
     if 'opener_until' in _ch: _ch['opener_until'] = _st[min(_ch['opener_until'], len(_st) - 1)]
 
 spec = dict(slug='shizugatake', theme_dir='20261219_shizugatake', pack='29_shizugatake', header_sub='賤ヶ岳の戦いを、地図の上で、同時代の記録と軍記を分けて確かめる',
  images=images,
  bgm=[['intro', 'forces', 'piano36'], ['terrain', 'kessen', 'piano12'], ['after', 'check', 'piano40']],
+ style='pop',
  chapters=chapters,
  desc=dict(title_main='賤ヶ岳の戦い「五時間で五十二キロ」「利家の裏切り」「七本槍」を、同時代の記録で確かめる', title_no=1,
   titles=['賤ヶ岳の戦いを地図で解説 美濃大返し・前田利家の裏切り・七本槍は本当？', '賤ヶ岳の戦い 秀吉の美濃大返しは5時間で52km？ 同時代の記録で確かめる', '賤ヶ岳の戦いの流れ 大岩山・美濃大返し・勝家の最期と通説の見直し'],
