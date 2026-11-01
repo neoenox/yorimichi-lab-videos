@@ -1,84 +1,150 @@
-"""Writes data/hibiya_spec.json（東京の日比谷は、昔は海だった？）"""
+"""Writes data/hibiya_spec.json（東京の日比谷は、昔は海だった？）。台本：docs/themes/20271101_hibiya/09_script_v2.md
+at / until は『章内の行番号（0始まり）』。spec_common.finalize が文の番号に直す。
+素材は scripts/make_hibiya_assets.py で作る（国土地理院のタイル。加工して作成）。
+見せ場：本丸台地（20.1m）と、埋め立てた低地（日比谷公園3.6m・有楽町2.8m）の段差。
+"""
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from spec_common import finalize, TOP
+from spec_common import finalize
 
 R = Path(__file__).resolve().parents[1]
+IMG = ('aerial_1936', 'aerial_1961', 'aerial_now', 'relief', 'relief_plain')
+IMAGES = {n: dict(file=f'assets/hibiya/{n}.png') for n in IMG}
+CAP_RELIEF = '色別標高図（国土地理院の5mメッシュ標高から作成）'
+CAP_1936 = '国土地理院 空中写真（1936〜42年頃）'
 
-# 使える素材がなければ最小限（art/image を使う場合は assets に用意）
-IMAGES = {}
-# 例: IMAGES['map'] = dict(file='assets/hibiya/art_map.png')
+
+# --- ポップスタイルの部品（vp_anim_pop）。at/until は章内の行番号
+def pop(name, **kw):
+    return dict(t='anim', name=name, **kw)
+
+
+def tel(text, x, y, size, **kw):
+    return dict(t='anim', name='pop_telop', text=text, x=x, y=y, size=size, **kw)
+
+
+def rows(items, **kw):
+    kw.setdefault('x0', 100)
+    kw.setdefault('x1', 1820)
+    kw.setdefault('y0', 180)
+    kw.setdefault('size', 38)
+    kw.setdefault('gap', 18)
+    return dict(t='anim', name='pop_rows', items=items, **kw)
+
+
+def card(box, **kw):
+    kw.setdefault('at', 0)
+    kw.setdefault('rot', -2)
+    return dict(t='anim', name='pop_card', inner='img', box=box, **kw)
+
 
 spec = dict(
-    slug='hibiya',
-    theme_dir='20271101_hibiya',
-    pack='79_hibiya',
+    slug='hibiya', theme_dir='20271101_hibiya', pack='79_hibiya',
     header_sub='日比谷入江・江戸前島の埋立てで、地形の成り立ちを確かめる',
     images=IMAGES,
-    bgm=[['intro', 'edo', 'piano36'], ['history', 'old', 'piano12'], ['end', 'end', 'piano40']],
+    bgm=[['intro', 'maejima', 'piano36'], ['maejima', 'end', 'piano12'], ['end', 'end', 'piano40']],
+    style='pop',
     chapters=[
-        {'key': 'intro', 'title': '東京の日比谷は、昔は海だった？', 'chapter_title': '導入：日比谷は昔は海だった？',
+        {'key': 'intro', 'title': '東京の日比谷は、昔は海だった？',
+         'chapter_title': '導入：日比谷は昔は海だった？',
          'opener': '東京の日比谷は、昔は海だった？', 'opener_until': 1,
-         'scene': [
-             dict(t='big', text='東京の日比谷は、\n昔は[[海]]だった？', y=320, at=0, size=62, col='gold'),
-             dict(t='panel', box=[120, 520, 1800, 620], text='答え：海ではなく、[[日比谷入江]]という入り江だった', at=2, size=44, hi=True),
-             dict(t='panel', box=[120, 660, 1800, 740], text='江戸時代初頭まで存在し、徐々に埋め立てられた', at=4, size=38),
-         ]},
+         'scene': [pop('pop_bgimg', img='aerial_1936', at=0, dim=.5, blur=3),
+                   tel('東京の日比谷は\n昔、[[海]]だった？', 960, 450, 140, at=0, until=2, rot=-3),
+                   tel('答え：海ではなく\n[[日比谷入江]]だった', 960, 700, 92, at=1, until=3, plate='green', rot=1.5),
+                   tel('入り江が、埋め立てられて街になった', 960, 470, 76, at=2, until=4, plate='yellow', rot=-1.5),
+                   tel('地形と資料で、[[確かめる]]', 960, 660, 78, at=3, until=4, plate='blue', rot=1),
+                   tel('名残りも見ていこう', 960, 560, 96, at=4, plate='pink', rot=-2)]},
         {'key': 'irie', 'title': '日比谷入江', 'chapter_title': '日比谷入江',
-         'scene': [
-             dict(t='panel', box=TOP, text='日比谷入江は、江戸湾北西奥にあった入り江', at=0, until=1, size=44, hi=True),
-             dict(t='panel', box=TOP, text='北から平川が流れ込み、南から北へ湾入していた', at=1, until=2, size=40),
-             dict(t='panel', box=TOP, text='西は本丸台地、東は江戸前島に挟まれていた', at=2, until=3, size=40),
-             dict(t='panel', box=TOP, text='江戸城西丸から東に見下ろせた', at=3, until=4, size=38),
-         ]},
+         'scene': [pop('pop_bgimg', img='relief_plain', at=0, dim=.65, blur=12),
+                   card([60, 150, 960, 840], at=0, rot=-2, img='relief', cap=CAP_RELIEF),
+                   rows([dict(at=0, tag='位置', text='日比谷入江は、江戸湾の北西の奥にあった', col='orange'),
+                         dict(at=1, tag='川', text='北から平川が流れ込み、南から北へ湾入していた', col='blue'),
+                         dict(at=2, tag='地形', text='西は本丸台地、東は江戸前島にはさまれた', col='green'),
+                         dict(at=3, tag='資料', text='江戸城の西丸から、東に見下ろせた', col='purple'),
+                         dict(at=4, tag='範囲', text='最奥は今の大手町付近、入口は新橋付近', col='pink')],
+                        x0=1000, x1=1860, y0=160, size=32, gap=12),
+                   tel('台地は [[20m]]、低地は [[3m]]', 1430, 730, 56, at=4, plate='yellow', rot=2),
+                   tel('出典：国土地理院 標高タイル（加工して作成）', 1390, 810, 25, at=0)]},
+        {'key': 'maejima', 'title': '江戸前島', 'chapter_title': '江戸前島：入り江の東の半島',
+         'scene': [pop('pop_bgimg', img='relief_plain', at=0, dim=.6, blur=11),
+                   card([60, 150, 960, 840], at=0, rot=-2, img='aerial_1936', cap=CAP_1936),
+                   rows([dict(at=0, tag='半島', text='入り江の東に、細長い半島があった', col='orange'),
+                         dict(at=1, tag='名前', text='江戸前島とよばれる', col='blue'),
+                         dict(at=2, tag='でき方', text='砂が積もってできた、砂州の半島', col='green'),
+                         dict(at=3, tag='はさみ', text='西が入り江、東は海。細い土地に町ができた', col='purple'),
+                         dict(at=4, tag='通り', text='真ん中の線が、今の中央通りにあたるとされる', col='pink'),
+                         dict(at=5, tag='町', text='日本橋・京橋・銀座の町は、この半島の上に広がった', col='red')],
+                        x0=1000, x1=1860, y0=165, size=32, gap=10),
+                   tel('「島」ではなく、\n[[砂州]]の半島', 1430, 730, 54, at=2, until=5, plate='yellow', rot=2)]},
         {'key': 'ume', 'title': '埋め立て', 'chapter_title': '埋め立て',
-         'scene': [
-             dict(t='panel', box=TOP, text='1592年（天正20年）江戸城西丸築城の残土で北側から埋め立て開始', at=0, until=1, size=38, hi=True),
-             dict(t='panel', box=TOP, text='平川の河道も移設された', at=1, until=2, size=40),
-             dict(t='panel', box=TOP, text='1603年（慶長8年）から本格化。家康晩年〜秀忠期に広大な陸地に', at=2, until=3, size=38),
-             dict(t='panel', box=TOP, text='1620年代には大名屋敷が立ち並ぶようになった', at=3, until=4, size=38),
-             dict(t='panel', box=TOP, text='江戸時代初頭までに南側も全て埋め立てられた', at=4, size=40, col='gold'),
-         ]},
+         'scene': [pop('pop_bgimg', img='aerial_1961', at=0, dim=.6, blur=7),
+                   rows([dict(at=0, tag='1592年', text='江戸城の西丸を築いた残土で、北側から埋め立てが始まる', col='orange'),
+                         dict(at=1, tag='同じ頃', text='平川の流れも、東へ移された', col='blue'),
+                         dict(at=2, tag='1603年', text='本格化。家康の晩年から秀忠の頃に広大な陸地になったとされる', col='green'),
+                         dict(at=3, tag='1620年代', text='大名屋敷が立ち並んだとされる', col='purple'),
+                         dict(at=4, tag='仕上げ', text='江戸時代の初頭までに、南側も埋め立てられたとされる', col='red')],
+                        y0=190, size=40, gap=16),
+                   tel('完成した年は、\n資料によって[[幅がある]]', 960, 740, 44, at=4, plate='yellow', rot=-1)]},
         {'key': 'ato', 'title': '名残り', 'chapter_title': '名残り',
-         'scene': [
-             dict(t='panel', box=TOP, text='平川橋に平川の名が残る', at=0, until=1, size=44),
-             dict(t='panel', box=TOP, text='和田倉門付近は海に面していた（和田＝ワダ＝海）', at=1, until=2, size=40),
-             dict(t='panel', box=TOP, text='平川は河口直前から東へ流路移設→日本橋川・外濠川に', at=2, until=3, size=38),
-             dict(t='panel', box=TOP, text='日比谷濠・馬場先濠は日比谷入江の名残', at=3, until=4, size=40),
-             dict(t='panel', box=TOP, text='汐見坂は「海の見える坂」に由来', at=4, size=42, col='gold'),
-         ]},
+         'scene': [pop('pop_bgimg', img='aerial_now', at=0, dim=.55, blur=6),
+                   rows([dict(at=0, tag='名前', text='平川橋に、平川の名が残る', col='orange'),
+                         dict(at=1, tag='海', text='和田倉門のあたりは海だった（和田＝ワダ＝海、との説）', col='blue'),
+                         dict(at=2, tag='流れ', text='平川は河口の手前で東へ。日本橋川・外濠川になった', col='green'),
+                         dict(at=3, tag='水面', text='日比谷濠・馬場先濠は、入り江の名残とされる', col='purple'),
+                         dict(at=4, tag='坂', text='汐見坂は「海の見える坂」が由来とされる', col='pink')],
+                        y0=180, size=38, gap=18),
+                   tel('今はビルの街。\n面影は[[地形と名前]]に残る', 960, 790, 52, at=4, plate='yellow', rot=-1)]},
         {'key': 'end', 'title': 'まとめ', 'chapter_title': 'まとめ',
-         'scene': [
-             dict(t='cols2', size=38, xm=940, xm2=980,
-                  left=dict(title='分かったこと', title_at=0, items=[
-                      dict(at=1, text='日比谷は海ではなく入江だった'),
-                      dict(at=2, text='江戸城築城の残土などで段階的に埋め立てられた'),
-                      dict(at=3, text='江戸時代初頭までにほぼ埋め立てられた'),
-                  ]),
-                  right=dict(title='名残り', title_at=4, items=[
-                      dict(at=5, text='平川橋・和田倉門・日比谷濠・汐見坂など'),
-                      dict(at=6, text='地形のわずかな高低差から推定できる'),
-                  ])),
-             dict(t='panel', box=[120, 760, 1800, 840], text='「昔は海だった」より「入り江だった」が正確', at=7, size=40, hi=True),
-         ]},
+         'scene': [pop('pop_bgimg', img='relief_plain', at=0, dim=.5, blur=8),
+                   tel('まとめ！', 960, 400, 150, at=0, until=1, rot=-3),
+                   rows([dict(at=0, tag='分かった', text='日比谷は、海ではなく日比谷入江だった', col='green'),
+                         dict(at=1, tag='分かった', text='段階的に埋め立てられて、今の街になった', col='green'),
+                         dict(at=2, tag='名残り', text='入り江の形は、台地と低地の段差と、各地の名前に残る', col='orange'),
+                         dict(at=3, tag='注意', text='「昔は海だった」より「入り江だった」が正確', col='red')],
+                        y0=180, size=40, gap=18),
+                   tel('次に日比谷を歩くとき、\n[[入り江の底]]を思い出してみて', 960, 740, 52, at=3, plate='yellow', rot=-1)]},
     ],
-    desc={'title_main': '東京の日比谷は、昔は海だった？',
-          'title_no': 1,
-          'titles': ['東京の日比谷は、昔は海だった？ 日比谷入江と埋め立ての歴史',
-                     '日比谷入江とは？ 江戸城と埋め立ての歴史を地図で確かめる',
-                     '和田倉門・日比谷濠の名残りから辿る日比谷入江'],
-          'intro': '日比谷には海の名残が残っています。実際には海ではなく「日比谷入江」という入り江でした。江戸城の築城とともに埋め立てられ、今の街になった過程を辿ります。',
-          'points': ['日比谷入江は江戸湾北西奥の入り江で、北から平川が流れ込んでいた',
-                     '1592年から埋め立てが始まり、1600年代前半に大名屋敷が立ち並ぶまでに',
-                     '平川橋・和田倉門・日比谷濠・汐見坂などに名残が見られる'],
-          'refs': ['Wikipedia「日比谷入江」',
-                   '三井住友トラスト不動産「日比谷・有楽町」',
-                   '地学雑誌「東京都臨海域における埋立地造成の歴史」'],
-          'credit_lines': ['・地形・歴史解説：各種公開資料をもとに検証・再構成'],
-          'notes': ['「海」ではなく「入り江」。表現には注意する。'],
-          'tags': '日比谷, 日比谷入江, 江戸前島, 平川, 埋め立て, 江戸, 検証',
-          'checks': ['一次史料（古地図）で範囲を精査', '地学雑誌等の論文で埋立年表を確認']},
-    thumb=dict(bg='assets/koku/art_edo.png', lines=[['日比谷は', 76, 'white'], ['昔は入江？', 130, 'gold']], sub='日比谷入江・埋め立ての歴史', shade_col=[8, 20, 36], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=640, sub_size=42, shade_x=700, shade_w=520))
-
+    desc={
+        'title_main': '東京の日比谷は、昔は海だった？',
+        'title_no': 1,
+        'titles': ['東京の日比谷は、昔は海だった？ 日比谷入江と埋め立ての歴史',
+                   '日比谷入江とは？ 江戸城と埋め立ての歴史を地図で確かめる',
+                   '和田倉門・日比谷濠の名残りから辿る日比谷入江'],
+        'intro': '日比谷には海の名残が残っています。実際には海ではなく「日比谷入江」という入り江でした。'
+                 '入り江の東には、砂が積もってできた江戸前島という半島。'
+                 '江戸城の築城とともに埋め立てられ、今の街になった過程を辿ります。',
+        'points': ['日比谷入江は江戸湾北西奥の入り江で、北から平川が流れ込んでいました。'
+                   '最奥は今の大手町付近、入口は新橋付近にあたります。',
+                   '東側には、砂が積もってできた砂州の半島「江戸前島」がありました。'
+                   '日本橋・京橋・銀座の町は、この半島の上に広がっていきました。',
+                   '1592年（天正20年）に江戸城西丸築城の残土で北側から埋め立てが始まり、1603年（慶長8年）から本格化。'
+                   '1620年代には大名屋敷が立ち並んだとされます。',
+                   '平川橋・和田倉門・日比谷濠・汐見坂などに名残が見られます。'
+                   '国土地理院の標高データでは、皇居・本丸が約20.1m、日比谷公園が約3.6m、有楽町駅が約2.8mで、'
+                   'この高低差が入り江の跡を物語ります。'],
+        'refs': ['Wikipedia「日比谷入江」:https://ja.wikipedia.org/wiki/日比谷入江',
+                 '三井住友トラスト不動産「このまちアーカイブス 日比谷・有楽町」',
+                 '国土地理院 地理院タイル一覧:https://maps.gsi.go.jp/development/ichiran.html',
+                 '国土地理院コンテンツ利用規約:https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html'],
+        'credit_lines': [
+            '・空中写真:国土地理院撮影の空中写真(1936〜42年頃、1961〜69年頃)と全国最新写真を、地理院タイルから加工して作成',
+            '・色別標高図:国土地理院の標高タイル(5mメッシュ)から作成',
+            '・場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)',
+        ],
+        'notes': ['「海」ではなく「入り江」。表現には注意する。',
+                  '埋め立ての完了年は、資料によって幅があります。この動画では年を断定せず「〜とされる」としています。',
+                  '江戸前島・中央通り・和田倉門・汐見坂・日比谷濠の由来は、二次資料（Wikipedia系）のみで確認したため「〜とされる」「との説」と弱めています。',
+                  '標高は国土地理院の5mメッシュ標高から、地点の周り9×9画素の平均を取った概算です。',
+                  '「和田＝ワダ＝海」は語源の推定で、確定した説ではありません。'],
+        'tags': '日比谷, 日比谷入江, 江戸前島, 平川, 埋め立て, 江戸, 地形, 検証',
+        'checks': ['一次史料（古地図）で入り江の範囲を精査',
+                   '地学雑誌等の論文で埋立年表を確認',
+                   '収益化動画での地理院データの扱いを国土地理院に確認'],
+    },
+    thumb=dict(bg='assets/hibiya/relief_plain.png',
+               lines=[['日比谷は', 76, 'white'], ['昔は入江？', 130, 'gold']],
+               sub='地図と標高で、確かめる', shade_col=[8, 20, 36], accent=[255, 178, 72],
+               bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=640, sub_size=42,
+               shade_x=700, shade_w=520))
 finalize(spec, {})

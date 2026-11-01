@@ -1,9 +1,9 @@
-"""日比谷入江の動画（hibiya）の素材を作る。国土地理院のタイルから、空中写真3年代・標高の色別図（5mメッシュ）・土地条件図を作る。
-出典：国土地理院（ort_riku10=1936〜42年頃、ort_old10=1961〜69年、seamlessphoto=全国最新写真、dem5a_png、lcmfc2=土地条件図）。加工して作成。
-usage: python scripts/make_hibiya_assets.py [photos|relief|landform|all]
+"""日比谷入江の動画（hibiya）の素材を作る。国土地理院のタイルから、空中写真3年代と、標高の色別図（5mメッシュ）を作る。
+出典：国土地理院（ort_riku10=1936〜42年頃、ort_old10=1961〜69年、seamlessphoto=全国最新写真、dem5a_png）。加工して作成。
+usage: python scripts/make_hibiya_assets.py [photos|relief|all]
 
 見せ場：本丸台地（約20m）と、埋め立てた低地（約3m）の段差。日比谷入江はその低い側にあった。
-labels.png / relief.png は 1060x720（ほかの回と同じ枠）。
+土地条件図（lcmfc2）は、タイルの配信範囲と位置合わせがこちらの座標計算と合わなかったため、この動画では使っていない。
 """
 import io, math, sys, urllib.request
 import numpy as np
@@ -107,31 +107,9 @@ def relief():
     print({k: round(v[0], 2) for k, v in pts.items()})
 
 
-def landform():
-    """国土地理院の土地条件図（lcmfc2）。台地・低地・旧水部・埋立地が色分けされている。"""
-    z, R = 16, 3
-    fx, fy = xy(CENTER[0], CENTER[1], z)
-    x0, y0 = int(fx) - R, int(fy) - R
-    N = 256 * (2 * R + 1)
-    im = Image.new('RGBA', (N, N), (255, 255, 255, 255))
-    for i in range(2 * R + 1):
-        for j in range(2 * R + 1):
-            im.alpha_composite(tile_rgba('lcmfc2', z, x0 + i, y0 + j), ((i + R) * 256, (j + R) * 256))
-    im.convert('RGB').save(OUT / 'landform.png')
-    pts = []
-    for la, lo in PTS.values():
-        px, py = xy(la, lo, z)
-        pts.append(((px - x0) * 256, (py - y0) * 256))
-    box = _crop_box(pts, N, *FRAME)
-    im.convert('RGB').crop(box).save(OUT / 'landform_crop.png')
-    print('landform', im.size, 'crop', box)
-
-
 if __name__ == '__main__':
     what = sys.argv[1] if len(sys.argv) > 1 else 'all'
     if what in ('photos', 'all'):
         photos()
     if what in ('relief', 'all'):
         relief()
-    if what in ('landform', 'all'):
-        landform()
