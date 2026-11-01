@@ -556,10 +556,16 @@ def loud_args(path):
 def stage_build(chunk=2000,bgm_db=-6.0):
     load_runtime()
     for f in P('cache').glob(f'{SLUG}_part_*.mp4'):f.unlink()
-    procs=[]
-    for a in range(0,N,chunk):
-        procs.append(subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'}))
-    rc=[p.wait() for p in procs];assert all(r==0 for r in rc),f'part render failed {rc}'
+    import time as _t
+    pending=list(range(0,N,chunk));running=[];rc=[]
+    while pending or running:   # NVENC の同時セッションは8本まで（14本同時だと、Could not open encoder で落ちる）
+        while pending and len(running)<8:
+            a=pending.pop(0)
+            running.append(subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'}))
+        _t.sleep(1)
+        for p_ in [q for q in running if q.poll() is not None]:
+            rc.append(p_.returncode);running.remove(p_)
+    assert all(r==0 for r in rc),f'part render failed {rc}'
     parts=sorted(P('cache').glob(f'{SLUG}_part_*.mp4'),key=lambda p:int(p.stem.split('_')[2]));lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
     wav=P(f'out/{SLUG}_narration.wav');nob=P(f'out/{SLUG}_video_nobgm.mp4');af,j=loud_args(wav)
     subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',str(wav),'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(nob)],check=True)

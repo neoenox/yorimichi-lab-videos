@@ -33,6 +33,10 @@ def one(slug):
     if r.returncode: log(f'{slug}: to_pop 失敗 {r.stderr[-300:]}'); return False
     r = run(['scripts/vp.py', slug, 'story'])
     if r.returncode: log(f'{slug}: story 失敗 {r.stderr[-300:]}'); return False
+    for need, stage in (('narration', 'audio'), ('bgm', 'bgm')):
+        if not (R / 'out' / f'{slug}_{need}.wav').exists():
+            r0 = run(['scripts/vp.py', slug, stage])
+            if r0.returncode: log(f'{slug}: {stage} 失敗 {(r0.stderr or r0.stdout)[-300:]}'); return False
     r = run(['scripts/vp.py', slug, 'build'])
     vid = R / 'out' / f'{slug}_video.mp4'
     if r.returncode or 'QA' not in r.stdout:
