@@ -7,7 +7,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1];SR=48000;D=ROOT/'assets'/'bgm_maou'
 tl=json.loads((ROOT/'data'/'hn_timeline.json').read_text(encoding='utf8'));T={c['key']:c for c in tl};TOTAL=tl[-1]['end']
 # (first scene key, last scene key, track) -- chosen from the site's descriptions/tags (not auditioned by the author)
-PLAN=[('hook','hook','ethnic26'),('a_origin','b_west','ethnic06'),('c_ieyasu','tr_calendar','piano36'),('d_depart','d_attack','ethnic26'),('d_nijo','tr_eleven','ethnic30'),('m_intro','m_totsupatsu','piano12'),('m_chotei','m_shikoku','ethnic06'),('m_hido','m_kuro','piano12'),('s_intro','s_later','piano36'),('tr_teki','tr_honjo','piano40'),('m_compare','m_compare','piano12'),('e_end','e_end','piano40')]
+PLAN=[('hook','hook','ethnic26'),('a_origin','b_west','ethnic06'),('c_ieyasu','tr_calendar','piano36'),('d_depart','d_attack','ethnic26'),('d_nijo','tr_eleven','ethnic30'),('m_intro','m_yabou','piano12'),('m_chotei','m_shikoku','ethnic06'),('m_other','m_other','piano12'),('s_intro','s_later','piano36'),('tr_teki','tr_honjo','piano40'),('m_compare','m_compare','piano12'),('e_end','e_end','piano40')]
 XF=3.0;TARGET_LUFS=-24.0
 def load(name):
     raw=subprocess.run(['ffmpeg','-v','error','-i',str(D/f'maou_bgm_{name}.mp3'),'-ar',str(SR),'-ac','2','-f','f32le','-'],capture_output=True).stdout
