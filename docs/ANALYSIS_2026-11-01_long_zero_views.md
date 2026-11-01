@@ -179,3 +179,35 @@
   5本とも再読みして新タイトルになっていることを確認済み。
 - 検証（7日後）：Studio のインプレッション数・CTR と、`長尺再生 ÷ Short再生` を1本ずつ見る。
   動いた本があれば、残り10本も同じ型に寄せる（「やらないこと」の一斉書き換えは、この結果を見てから）。
+
+### 2026-11-01　F2（公開済み Short 10本に、長尺への案内コメントを投稿）
+
+`commentThreads.insert`（50ユニット/本＝500ユニット）で、**公開済みの Short 10本すべて**に投稿した。
+投稿はAPIで自動化、**「固定」はAPI非対応なので Studio で1本ずつ押す**（残作業）。
+
+本文の型（3行）:
+```
+くわしくは本編で →「（長尺のタイトル）」
+https://youtu.be/（長尺ID）
+（Short の台本にある hook の1〜3文。100字まで）
+```
+
+| Short（slug / 動画ID） | 再生 | → 長尺 |
+|---|---|---|
+| season / `X0gVeS9KdNw` | 1,259 | `SrpCtfIcU4Y` 夏が暑いのは、地球が太陽に近いから？ |
+| calendar / `2waqm6-Kqg4` | 1,252 | `xBrcDEN8tmk` 明治5年は、12月が2日で終わった？ |
+| vein / `MI4uSQhWuTE` | 1,238 | `vtGdSrEnQjI` 静脈の血は青く見えるのに… |
+| koku / `ku6FuXKerlI` | 1,226 | `AcW0KC8O7FY` 江戸の一刻は夏と冬で47分違った |
+| compass / `RlCfl7JxMsk` | 1,210 | `zqHvAQwYC2I` 方位磁針は、北極点を指している？ |
+| scurvy / `holp8pd66r8` | 1,209 | `c9vR4yp4U0A` 壊血病は「レモンで解決」したのか |
+| gdp / `Y7hBNfHyxcQ` | 1,174 | `NMTirenWL9M` 家事の値段は年146兆円 |
+| einstein / `5LTjdjdQDR4` | 1,028 | `sVMwrN1fomA` アインシュタインは数学が苦手な落第生だった？ |
+| sekigahara / `HVdstpUra9E` | 1,024 | `Z4net9F8VCs` 【開戦は何時？】関ヶ原の戦い 小早川秀秋はいつ寝返ったのか |
+| rain30 / `myjfHXMUQ-4` | 993 | `SwT2kd1obFg` 降水確率30％は、地域の30％で雨？ |
+
+- 長尺のタイトルは**投稿時にAPIから取得**しているので、F3で書き換えた5本も新しいタイトルで入っている。
+- 投稿後に `commentThreads.list` で読み直し、**10本とも `published`（保留なし）で公開表示**を確認済み。状態は `data/short_comment_done.json`。
+- 再実行しても二重投稿しない（自分のチャンネルが同じ長尺IDを案内済みなら skip）。投稿スクリプトは
+  **`scripts/short_comment.py`**（`--dry` で本文の下見、`--limit N` でN本だけ）。今後 Short が公開されたら
+  これを回せば、未投稿の分だけ足される。
+- **次の手**：Studio で10本のコメントを「固定」。固定すると Short を開いたとき最初に見えるコメントになる。
