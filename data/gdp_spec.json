@@ -7,17 +7,17 @@
   "office": {
    "file": "assets/gdp/art_office.png"
   },
-  "ledger": {
-   "file": "assets/gdp/art_ledger.png"
-  },
-  "city": {
-   "file": "assets/gdp/art_city.png"
-  },
   "house": {
    "file": "assets/gdp/art_house.png"
   },
   "tools": {
    "file": "assets/gdp/art_tools.png"
+  },
+  "city": {
+   "file": "assets/gdp/art_city.png"
+  },
+  "ledger": {
+   "file": "assets/gdp/art_ledger.png"
   },
   "y2021": {
    "file": "assets/gdp/art_y2021.png"
@@ -890,9 +890,9 @@
   "title_main": "家事を外注すると、GDPが増える、は本当か",
   "title_no": 1,
   "titles": [
+   "家事の値段は年146兆円｜無償労働は名目GDPの26.6%、それでもGDPに足せない理由",
    "家事を外注すると、GDPは増える？ 内閣府の資料で、数字を確かめる",
-   "同じ掃除でも、頼むとGDPに入る？ 無償労働の貨幣評価を読む",
-   "家事の値段は、GDPの何％？ 内閣府の推計と、その注意点"
+   "同じ掃除でも、頼むとGDPに入る？ 無償労働の貨幣評価を読む"
   ],
   "intro": "同じ掃除でも、自分でするのと、お金を払って頼むのとでは、国の経済の数字(GDP)が変わる。そんな話を聞いたことはありませんか。この動画では、内閣府経済社会総合研究所「無償労働の貨幣評価」(令和5年7月)を読み、国民経済計算での家事の扱い、無償労働の評価方法(機会費用法・代替費用法)、2021年の推計額と名目GDPとの比較を確かめます。推計額はGDPに足せる数字ではないこと、評価額が賃金の取り方で変わることなど、分かることと決められないことを分けて紹介します。",
   "points": [

@@ -4,23 +4,23 @@
  "pack": "07_scurvy_lind",
  "header_sub": "壊血病とリンドの試験を確かめる",
  "images": {
-  "book": {
-   "file": "assets/scurvy/art_book.png"
-  },
-  "deck": {
-   "file": "assets/scurvy/art_deck.png"
-  },
   "harbor": {
    "file": "assets/scurvy/art_harbor.png"
   },
   "sickbay": {
    "file": "assets/scurvy/art_sickbay.png"
   },
+  "office": {
+   "file": "assets/scurvy/art_office.png"
+  },
   "barrels": {
    "file": "assets/scurvy/art_barrels.png"
   },
-  "office": {
-   "file": "assets/scurvy/art_office.png"
+  "book": {
+   "file": "assets/scurvy/art_book.png"
+  },
+  "deck": {
+   "file": "assets/scurvy/art_deck.png"
   },
   "sea": {
    "file": "assets/scurvy/art_sea.png"
@@ -889,9 +889,9 @@
   "title_main": "壊血病は「レモンが効く」と分かったら解決したのか",
   "title_no": 1,
   "titles": [
+   "壊血病は「レモンで解決」したのか｜1747年の試験は450ページ中4ページ、海軍の命令は1795年",
    "壊血病は、「レモンが効く」と分かったら解決したのか？ リンドの試験を確かめる",
-   "リンドは壊血病の治療法を発見した？ 通説と、リンド研究者の指摘",
-   "「レモンの発見者」リンドの本当の姿は？ 1747年の試験と、その後を確かめる"
+   "リンドは壊血病の治療法を発見した？ 通説と、リンド研究者の指摘"
   ],
   "intro": "「18世紀に、スコットランドの医師リンドが、レモンやオレンジが壊血病に効くことを発見した。それなのに、海軍がすぐに採用せず、対策が遅れた」。よく語られるこの話は、どこまで確かめられるのでしょうか。この動画では、リンド研究者のイアン・ミルン氏の論文(2012年)を主な手がかりに、1747年の比較試験の記録、リンドの本の書き方、柑橘がリンド以前から知られていたこと、広まらなかった理由、通説の見直しを紹介します。分かることと決められないことを分けて見ていきます。",
   "points": [

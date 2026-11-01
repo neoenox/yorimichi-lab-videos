@@ -4,20 +4,20 @@
  "pack": "04_edo_ichikoku",
  "header_sub": "江戸の時刻の仕組みを確かめる",
  "images": {
-  "wadokei": {
-   "file": "assets/koku/art_wadokei.png"
+  "bell": {
+   "file": "assets/koku/art_bell.png"
   },
   "edo": {
    "file": "assets/koku/art_edo.png"
   },
+  "meiji": {
+   "file": "assets/koku/art_meiji.png"
+  },
   "sundial": {
    "file": "assets/koku/art_sundial.png"
   },
-  "bell": {
-   "file": "assets/koku/art_bell.png"
-  },
-  "meiji": {
-   "file": "assets/koku/art_meiji.png"
+  "wadokei": {
+   "file": "assets/koku/art_wadokei.png"
   },
   "sunrise": {
    "file": "assets/koku/art_sunrise.png"
@@ -895,9 +895,9 @@
   "title_main": "江戸の「一刻」は、いつも同じ長さだったのか",
   "title_no": 1,
   "titles": [
+   "江戸の一刻は夏と冬で47分違った｜夏至は2時間36分、冬至は1時間49分",
    "江戸の「一刻」は、いつも同じ長さだったのか？ 夏と冬で何分違うのか確かめる",
-   "時代劇の「一刻」は約2時間？ 江戸の不定時法を、計算例で確かめる",
-   "「九つ・八つ」と「一刻」：江戸の時刻の仕組みと、夏と冬の長さの違い"
+   "時代劇の「一刻」は約2時間？ 江戸の不定時法を、計算例で確かめる"
   ],
   "intro": "時代劇でおなじみの「一刻」。「およそ2時間」と説明されることがありますが、江戸時代の暮らしでは、昼と夜をそれぞれ6等分する「不定時法」が使われていました。この動画では、国立天文台の解説と、大阪工業大学の紀要の論文の計算表から、夏至のころと冬至のころで、昼の一刻の長さが何分違うのかを確かめます。「九つ・八つ」の呼び名、暦の「百刻法」との違い、明治の改暦までも、分かることと決められないことを分けて紹介します。",
   "points": [
