@@ -471,6 +471,11 @@ def render(a,b):
                     cr=['地形・写真：国土地理院 地理院タイル（標高・オルソ・陰影起伏図）を加工','歴史概要：Wikipedia（日本語版）本能寺の変・明智光秀ほか（CC BY-SA 4.0）','座標：国土地理院 住所検索（町名レベルの概略位置を含む）','肖像画・錦絵：Wikimedia Commons（パブリックドメイン）','　長興寺・本徳寺・総見寺・高台寺・大阪城天守閣・名古屋市蔵','経路・軍勢・炎・包囲：模式表現（史実の再現ではない）','一次史料（信長公記など）の直接校訂は未実施','音声：VOICEVOX:四国めたん　制作：Blender・FFmpeg']
                     for k,txt in enumerate(cr):d.text((72,232+k*72),txt,font=F[30],fill=WHITE)
             draw_cards(im,ci,t,local,shown,used,key);d=ImageDraw.Draw(im,'RGBA')
+            if key=='hook' and t>=S0[3]['start']:
+                _q=('光秀の軍勢は、' + chr(10) + 'どの道を通って来たのか？') if t<S0[5]['start'] else ('光秀は、なぜ、主君を討ったのか？' + chr(10) + '定説は、ない')
+                _a=min(1,(t-(S0[3]['start'] if t<S0[5]['start'] else S0[5]['start']))/.5)
+                d.rounded_rectangle((180,500,1740,820),24,fill=(7,24,36,int(235*_a)),outline=GOLD+(int(255*_a),),width=5)
+                for _j,_l in enumerate(_q.split(chr(10))):d.text((960,585+_j*120),_l,font=FB[92],fill=(WHITE if _j==0 else GOLD)+(int(255*_a),),anchor='mm',stroke_width=5,stroke_fill=(5,10,16,int(255*_a)))
             ov=Image.new('RGBA',(1920*SS,1080*SS),(0,0,0,0));od=ImageDraw.Draw(ov)
             if mapspec:draw_map_items(od,scr,spec,t,seg_t,used,key)
             if key=='hook' and hook<1:
