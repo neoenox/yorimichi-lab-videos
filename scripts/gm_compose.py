@@ -9,6 +9,7 @@ import gm_geo as G
 import gm_proj as P
 from PIL import Image,ImageDraw,ImageFont
 import rich_text as rich
+import vp_anim_pop as POP
 ROOT=Path(__file__).resolve().parents[1];FD='C:/Windows/Fonts/';_FC={}
 SPEC_F={'sans':('NotoSansJP-VF.ttf',560),'sub':('NotoSansJP-VF.ttf',640),'serif':('NotoSerifJP-VF.ttf',800)}
 def vfont(kind,size):
@@ -101,8 +102,34 @@ class Ctx:
     def prog(s,i,j,dur=None):
         """0..1 progress from start of sentence i to start (or end) of sentence j"""
         t0=s.st[min(i,len(s.st)-1)];t1=s.segl[min(j,len(s.segl)-1)]['end'] if dur is None else t0+dur;return min(1,max(0,(s.t-t0)/max(t1-t0,1e-6)))
+_HF={}
+def _heavy(sz):
+    if sz not in _HF:
+        f=ImageFont.truetype(FD+'NotoSansJP-VF.ttf',sz);f.set_variation_by_axes([900]);_HF[sz]=f
+    return _HF[sz]
+_PLATE={'yellow':(255,226,40),'red':(235,60,70),'pink':(240,80,150),'blue':(40,130,240),'green':(40,190,110),'orange':(255,140,30)}
+def POPT(im,text,cx_,cy_,size,plate,a=1.0,rot=-1.5):
+    """大きなテロップ（色つきの板）。[[強調]] は赤か黄色。"""
+    f=_heavy(size);d0=ImageDraw.Draw(Image.new('RGBA',(8,8)));lines=text.split(chr(10));lh=int(size*1.22)
+    plain=[l.replace('[[','').replace(']]','') for l in lines];ws=[d0.textlength(l,font=f) for l in plain]
+    pad=int(size*.45);W=int(max(ws))+pad*2+10;H=lh*len(lines)+pad*2
+    pic=Image.new('RGBA',(W,H),(0,0,0,0));pd=ImageDraw.Draw(pic);pc=_PLATE[plate]
+    pd.rounded_rectangle((6,10,W-2,H-2),int(size*.5),fill=(0,0,0,120));pd.rounded_rectangle((2,4,W-8,H-8),int(size*.5),fill=pc+(255,),outline=(18,14,28,255),width=max(4,int(size*.07)))
+    y=pad;dark=plate in ('yellow','orange')
+    for ln,w in zip(lines,ws):
+        x=(W-w)/2
+        for seg in re.split(r'(\[\[.*?\]\])',ln):
+            if not seg:continue
+            hi=seg.startswith('[[');t=seg[2:-2] if hi else seg
+            col=(200,20,40) if (hi and dark) else (255,230,40) if hi else ((18,14,28) if dark else (255,255,255))
+            pd.text((x,y),t,font=f,fill=col+(255,));x+=d0.textlength(t,font=f)
+        y+=lh
+    if a<1:pic=pic.copy();pic.putalpha(pic.getchannel('A').point(lambda v:int(v*a)))
+    pic=pic.rotate(rot,resample=Image.BICUBIC,expand=True);im.alpha_composite(pic,(int(cx_-pic.width/2),int(cy_-pic.height/2)))
 def header(d,key):
-    d.text((48,16),TITLES[key],font=FB[60],fill=WHITE,stroke_width=5,stroke_fill=(5,10,16));d.text((48,94),'地図の歪みを検証する',font=F[28],fill=(200,210,214),stroke_width=4,stroke_fill=(5,10,16))
+    f=_heavy(54);t=TITLES[key];w=d.textlength(t,font=f);x0,y0=40,26
+    d.rounded_rectangle((x0+7,y0+9,x0+w+61,y0+90),20,fill=(0,0,0,110));d.rounded_rectangle((x0,y0,x0+w+54,y0+81),20,fill=(255,226,40,255),outline=(18,14,28,255),width=5);d.text((x0+27,y0+9),t,font=f,fill=(18,14,28,255))
+
 MAP_R=(50,165,1150,845)
 _jr=[r for r,g in zip(RINGS,GROUP) if g==3]
 _v=np.concatenate([np.stack([np.cos(np.radians(r[:,1]))*np.cos(np.radians(r[:,0])),np.cos(np.radians(r[:,1]))*np.sin(np.radians(r[:,0])),np.sin(np.radians(r[:,1]))],1) for r in _jr]).mean(0)
@@ -119,6 +146,7 @@ def sc_intro(im,d,cx):
         x,y=view.px(np.stack([np.array(P.PROJ['merc'](lo,la))],0) if False else np.array([[P.merc(np.array([lo]),np.array([la]))[0][0],P.merc(np.array([lo]),np.array([la]))[1][0]]]),1)[0]
         a=cx.a(0,.6);line_text(d,(MAP_R[0]+x-70+dx,MAP_R[1]+y-20+dy),txt,F[34],WHITE,a,stroke=True)
     line_text(d,(MAP_R[0]+10,MAP_R[1]-4),'メルカトル図法',FB[34],GOLD,cx.a(0),stroke=True)
+    if cx.on(1) and not cx.on(3):POPT(im,'同じくらいの[[大きさ]]に見える？',600,740,54,'yellow',cx.a(1))
     px_=1190
     if cx.on(3):
         panel(d,(px_,170,1870,640),'実際の面積')
@@ -183,7 +211,12 @@ def sc_why(im,d,cx):
         if cx.on(10):line_text(d,(680,500),'面積 と 形 を同時に守ることは',F[44],WHITE,cx.a(10));line_text(d,(680,566),'できない',FB[72],GOLD,cx.a(10))
         if cx.on(11):line_text(d,(680,690),'だから、世界地図には いくつもの種類がある',F[40],WHITE,cx.a(11))
 def sc_mercator(im,d,cx):
-    mr=(50,165,1150,845);lay,view=draw_map({'merc':1},mr,{1:C_AFR,2:C_GRL},alpha=255);im.alpha_composite(lay,(mr[0],mr[1]))
+    mr=(50,165,1150,845);_c0=fit(blend(PR,{'merc':1}),mr);_z=1.0
+    if cx.on(5):_z=1+0.9*ease(cx.a(5,1.2))
+    if cx.on(9):_z=1+0.9*(1-ease(cx.a(9,1.2)))
+    _w=(_z-1)/0.9;_tx,_ty=P.merc(np.array([-40.0]),np.array([42.0]));_tx,_ty=float(_tx[0]),float(_ty[0])
+    _vw=View(_c0[0]+(_tx-_c0[0])*_w,_c0[1]+(_ty-_c0[1])*_w,_c0[2]*_z,mr)
+    lay,view=draw_map({'merc':1},mr,{1:C_AFR,2:C_GRL},alpha=255,view=_vw);im.alpha_composite(lay,(mr[0],mr[1]))
     mpx=lambda lo,la:(lambda a,b:(mr[0]+view.px(np.array([[a[0],b[0]]]),1)[0][0],mr[1]+view.px(np.array([[a[0],b[0]]]),1)[0][1]))(*P.merc(np.array([lo]),np.array([la])))
     ov=Image.new('RGBA',(1920,1080),(0,0,0,0));od=ImageDraw.Draw(ov)
     if cx.on(2) and not cx.on(4):
@@ -210,6 +243,9 @@ def sc_mercator(im,d,cx):
             q=mpx(-178,la);q2=mpx(178,la);od.line([q,q2],fill=GOLD+(int(200*a),),width=3);line_text(d,(q[0]+6,q[1]-40),lab,F[30],GOLD,a,stroke=True)
         line_text(d,(1215,760),'高緯度ほど、面積が大きく見える',F[38],GOLD,cx.a(9))
     im.alpha_composite(ov)
+    if cx.on(5) and not cx.on(7):POPT(im,'一定の針路 ＝ [[直線]]',600,780,54,'yellow',cx.a(5))
+    if cx.on(7) and not cx.on(9):POPT(im,'最短とは [[限らない]]',600,780,54,'red',cx.a(7))
+    if cx.on(9):POPT(im,'高緯度ほど\n[[大きく見える]]',600,740,54,'pink',cx.a(9))
 def sc_measure(im,d,cx):
     i=cx.idx()
     if i<6:
@@ -307,8 +343,8 @@ def sc_webmap(im,d,cx):
     if i<=3:
         panel(d,(50,170,1000,520),'ウェブメルカトル');line_text(d,(80,236),'メルカトル図法を基にした方式',F[40],WHITE,cx.a(0))
         if cx.on(1):line_text(d,(80,300),'主なウェブ地図の多くが採用（とされる）',F[36],DIM,cx.a(1))
-        if cx.on(2):
-            a=cx.a(2);panel(d,(1030,170,1870,840),'狭い範囲の形（角度）が保たれる')
+        if True:
+            a=cx.a(2) if cx.on(2) else .6;panel(d,(1030,170,1870,840),'狭い範囲の形（角度）が保たれる')
             tis=[(lo,la,6,(255,220,120)) for la in (0,35,60) for lo in (-120,-40,40,120)]
             lay,_=draw_map({'merc':1},(1050,230,1850,540),{1:C_AFR,2:C_GRL},grat=False,tissot=tis);im.alpha_composite(lay,(1050,230));ptext(d,1060,545,'メルカトル図法：円は円のまま（大きさは変わる）',F[32],780,WHITE,a)
             lay,_=draw_map({'ee':1},(1050,620,1850,830),{1:C_AFR,2:C_GRL},grat=False,tissot=tis);im.alpha_composite(lay,(1050,620));line_text(d,(1060,586),'比べて、イコール・アース図法：円が歪む',F[30],DIM,a)
@@ -344,12 +380,10 @@ def sc_end(im,d,cx):
     for r,row in enumerate(rows):
         if r==0 or cx.on(r):
             a=1.0 if r==0 else cx.a(r)
-            for c,txt in enumerate(row):ptext(d,xs[c],y0+r*98-(0 if r else 0),txt,F[34] if r else F[30],[400,340,440,500][c],GOLD if r==0 else WHITE,a if r else 1.0)
+            for c,txt in enumerate(row):ptext(d,xs[c],y0+r*98-(0 if r else 0),txt,F[38] if r else F[32],[400,340,440,500][c],GOLD if r==0 else WHITE,a if r else 1.0)
             if r:d.line([(70,y0+r*98-14),(1850,y0+r*98-14)],fill=EDGE+(120,),width=1)
-    if cx.on(5):
-        d.rounded_rectangle((50,640,930,840),14,fill=BG,outline=GOLD,width=3);line_text(d,(80,656),'分かること',F[40],GOLD,cx.a(5));ptext(d,80,716,'何かを守るために、何かを犠牲にする',F[34],800,WHITE,cx.a(6))
-    if cx.on(7):
-        d.rounded_rectangle((960,640,1870,840),14,fill=BG,outline=GOLD,width=3);line_text(d,(990,656),'1つに決められないこと',F[40],GOLD,cx.a(7));ptext(d,990,716,'最適な図法は、使う目的しだい',F[34],840,WHITE,cx.a(8))
+    if cx.on(5) and not cx.on(7):POPT(im,'何かを守るために、\n何かを[[犠牲]]にする',960,740,58,'yellow',cx.a(5))
+    if cx.on(7):POPT(im,'最適な図法は\n[[使う目的しだい]]',960,740,58,'pink',cx.a(7))
 SCENES={'intro':sc_intro,'why':sc_why,'mercator':sc_mercator,'measure':sc_measure,'others':sc_others,'webmap':sc_webmap,'end':sc_end}
 # ---------------- subtitles (46px, max 2 lines, long sentences are paged instead of shrunk)
 _SUBP={}
@@ -372,7 +406,7 @@ def sub_lines(d,seg,f,t):
     return _SUBP[k][-1][0]
 def render_frame(i):
     t=i/30;ci=next(k for k,c in enumerate(timeline) if t<c['end']+1e-9);cx=Ctx(ci,t)
-    im=Image.new('RGBA',(1920,1080),NAVY+(255,));d=ImageDraw.Draw(im,'RGBA')
+    im=POP.background(ci,t);d=ImageDraw.Draw(im,'RGBA')
     header(d,cx.key);SCENES[cx.key](im,d,cx);d=ImageDraw.Draw(im,'RGBA')
     active=next((x for x in cx.segl if x['start']<=t<x['end']),None)
     if active:
