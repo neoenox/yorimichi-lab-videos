@@ -24,7 +24,12 @@ def _portrait(name, r):
     return _PORT[k]
 
 
-def _plate2(d, xy, s, size, col, anchor='lm', sub=None):
+def _hit(a, b, pad=4):
+    return a[0] < b[2] + pad and b[0] < a[2] + pad and a[1] < b[3] + pad and b[1] < a[3] + pad
+
+
+def _plate2(d, xy, s, size, col, anchor='lm', sub=None, avoid=None):
+    """ラベル板。avoid=[(x0,y0,x1,y1),...] にぶつかるときは、上下にずらして避ける（顔写真・先に描いた板を隠さない）。板の位置は avoid に追記する"""
     f = A.F[size * S]
     w = d.textlength(s, font=f) / S
     w2 = (d.textlength(sub, font=A.F[int(size * 0.78) * S]) / S) if sub else 0
@@ -32,6 +37,21 @@ def _plate2(d, xy, s, size, col, anchor='lm', sub=None):
     x, y = xy
     x0 = x if anchor[0] == 'l' else (x - ww / 2 if anchor[0] == 'm' else x - ww)
     h = size * (2.0 if sub else 0.8)
+    if avoid is not None:
+        def rect(yy):
+            return (x0 - 10, yy - size * 0.7 - 4, x0 + ww + 10, yy + (size * 1.3 + 6 if sub else size * 0.7 + 4))
+        if any(_hit(rect(y), r) for r in avoid):
+            step = max(10, int(size * 0.5)); best = y
+            for n in range(1, 13):
+                for sgn in (-1, 1):
+                    yy = y + sgn * n * step
+                    if not any(_hit(rect(yy), r) for r in avoid):
+                        best = yy; break
+                else:
+                    continue
+                break
+            y = best
+        avoid.append(rect(y))
     d.rounded_rectangle(((x0 - 10) * S, (y - size * 0.7 - 4) * S, (x0 + ww + 10) * S, (y + (size * 1.3 + 6 if sub else size * 0.7 + 4)) * S), 10 * S,
                         fill=(6, 14, 22, 215), outline=tuple(col) + (255,), width=2 * S)
     text(d, (x0, y), s, size, WHITE, 'lm')
@@ -75,6 +95,8 @@ def battle_map(im, d0, cx, it, a):
     mw, mh = pic.width, pic.height
     L, d = layer([0, 0, mw, mh])
     n = len(cx.segl)
+    avoid = []   # 描いたラベル板・顔写真の範囲
+    late = []
 
     def P(q):
         return (q[0] * mw, q[1] * mh)
@@ -93,7 +115,7 @@ def battle_map(im, d0, cx, it, a):
             poly(d, pts, col + (int(235 * k),), 7)
         if ln.get('label'):
             lx, ly = P(ln.get('lab', ln['pts'][len(ln['pts']) // 2]))
-            _plate2(d, (lx + 14, ly), ln['label'], ln.get('lsize', 26), col, 'lm')
+            _plate2(d, (lx + 14, ly), ln['label'], ln.get('lsize', 26), col, 'lm', avoid=avoid)
     for pl in it.get('places', []):
         if not _vis(cx, pl):
             continue
@@ -111,28 +133,32 @@ def battle_map(im, d0, cx, it, a):
             circle(d, (x, y), 11, fill=col + (int(235 * k),), outline=(250, 248, 240, int(255 * k)), w=3)
         off = {'r': (22, 0, 'lm'), 'l': (-22, 0, 'rm'), 't': (0, -34, 'mm'), 'b': (0, 40, 'mm')}[pl.get('side', 'r')]
         if pl.get('label'):
-            _plate2(d, (x + off[0], y + off[1]), pl['label'], pl.get('lsize', 24), col, off[2])
-    for u in it.get('units', []):
-        if not _vis(cx, {'at': u.get('at', 0), 'until': u.get('until')}):
-            continue
-        fade = _fadein(T(cx, u.get('at', 0)), 0.5)
+            late.append(((x + off[0], y + off[1]), pl['label'], pl.get('lsize', 24), col, off[2]))   # 駒を描いた後に、避けながら置く
+    def _unit_state(u):
         pts = [P(q) for q in u['pts']]
-        col = tuple(u['col'])
         if len(pts) == 1 or not u.get('legs'):
-            head = pts[0]
-            trav = [pts[0]]
-        else:
-            k = 0
-            for j, (i0, _) in enumerate(u['legs']):
-                if i0 < n and cx.t >= cx.st[i0]:
-                    k = j
-            i0, i1 = u['legs'][k][0], u['legs'][k][1]
-            t0 = cx.st[i0] if i0 < n else cx.st[-1]
-            t1 = cx.st[i1] if i1 < n else cx.st[n - 1] + cx.segl[n - 1]['duration']
-            p = 0.0 if cx.t <= t0 else min(1.0, (cx.t - t0) / max(.001, t1 - t0))
-            sdist = sum(math.dist(pts[j], pts[j + 1]) for j in range(k)) + ease(p) * math.dist(pts[k], pts[k + 1])
-            trav = _upto2(pts, sdist)
-            head = trav[-1]
+            return pts, [pts[0]], pts[0]
+        k = 0
+        for j, (i0, _) in enumerate(u['legs']):
+            if i0 < n and cx.t >= cx.st[i0]:
+                k = j
+        i0, i1 = u['legs'][k][0], u['legs'][k][1]
+        t0 = cx.st[i0] if i0 < n else cx.st[-1]
+        t1 = cx.st[i1] if i1 < n else cx.st[n - 1] + cx.segl[n - 1]['duration']
+        p = 0.0 if cx.t <= t0 else min(1.0, (cx.t - t0) / max(.001, t1 - t0))
+        sdist = sum(math.dist(pts[j], pts[j + 1]) for j in range(k)) + ease(p) * math.dist(pts[k], pts[k + 1])
+        trav = _upto2(pts, sdist)
+        return pts, trav, trav[-1]
+
+    vis_units = [u for u in it.get('units', []) if _vis(cx, {'at': u.get('at', 0), 'until': u.get('until')})]
+    states = [_unit_state(u) for u in vis_units]
+    for u, (_, _, head) in zip(vis_units, states):   # 顔写真の位置を先に登録（ラベルは全員の顔を避ける）
+        r = u.get('head', 26)
+        avoid.append((head[0] - r - 8, head[1] - r - 8, head[0] + r + 8, head[1] + r + 8))
+    heads_draw = []
+    for u, (pts, trav, head) in zip(vis_units, states):
+        fade = _fadein(T(cx, u.get('at', 0)), 0.5)
+        col = tuple(u['col'])
         if len(trav) > 1 and u.get('trail', True):
             if u.get('dashed'):
                 for i in range(len(trav) - 1):
@@ -141,6 +167,17 @@ def battle_map(im, d0, cx, it, a):
                 poly(d, trav, (6, 14, 22, int(160 * fade)), 13)
                 poly(d, trav, col + (int(225 * fade),), 8)
         r = u.get('head', 26)
+        heads_draw.append((u, head, fade, col, r))
+        if u.get('label'):
+            ox, oy = u.get('lab_off', (r + 16, -r - 6))
+            ls = u.get('lsize', 26)
+            top = head[1] + oy - ls * 0.7 - 4; bot = head[1] + oy + (ls * 1.3 + 6 if u.get('sub') else ls * 0.7 + 4)
+            if bot > head[1] - r - 10 and top < head[1] + r + 10 and ox < r + 22:
+                ox = r + 22   # 板が顔写真に重なるときは、右へ出す
+            _plate2(d, (head[0] + ox, head[1] + oy), u['label'], ls, col, 'lm', sub=u.get('sub'), avoid=avoid)
+    for xy_, lab_, ls_, col_, anc_ in late:
+        _plate2(d, xy_, lab_, ls_, col_, anc_, avoid=avoid)
+    for u, head, fade, col, r in heads_draw:   # 顔写真は最前面
         circle(d, head, r + 8 + 3 * math.sin(cx.t * 4), outline=col + (int(100 * fade),), w=2)
         circle(d, head, r + 4, fill=col + (int(255 * fade),))
         if u.get('portrait'):
@@ -150,9 +187,6 @@ def battle_map(im, d0, cx, it, a):
             L.alpha_composite(tmp, (int((head[0] - r) * S), int((head[1] - r) * S)))
         else:
             circle(d, head, r - 4, fill=(250, 248, 240, int(255 * fade)))
-        if u.get('label'):
-            ox, oy = u.get('lab_off', (r + 16, -r - 6))
-            _plate2(d, (head[0] + ox, head[1] + oy), u['label'], u.get('lsize', 26), col, 'lm', sub=u.get('sub'))
     for mk in it.get('marks', []):
         if not _vis(cx, mk):
             continue
@@ -162,7 +196,7 @@ def battle_map(im, d0, cx, it, a):
         poly(d, [(x - 14, y - 14), (x + 14, y + 14)], col + (int(255 * k),), 7)
         poly(d, [(x - 14, y + 14), (x + 14, y - 14)], col + (int(255 * k),), 7)
         if mk.get('label'):
-            _plate2(d, (x + 22, y), mk['label'], mk.get('lsize', 24), col, 'lm')
+            _plate2(d, (x + 22, y), mk['label'], mk.get('lsize', 24), col, 'lm', avoid=avoid)
     commit(im, L, [box[0] + px0, box[1] + py0, box[0] + px0 + mw, box[1] + py0 + mh], a)
 
 

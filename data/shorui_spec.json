@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "dogs",
+      "board"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "dogs",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "board"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -176,7 +186,12 @@
      "img": "board",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "dogs"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -317,7 +332,12 @@
      "img": "board",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "dogs"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -396,7 +416,12 @@
      "img": "dogs",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "board"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -475,7 +500,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "dogs",
+      "board"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

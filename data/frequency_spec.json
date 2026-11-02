@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "pylon",
+      "plant",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -103,7 +110,14 @@
      "img": "pylon",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "plant",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -254,7 +268,14 @@
      "img": "plant",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "pylon",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -389,7 +410,14 @@
      "img": "plant",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "pylon",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -455,7 +483,14 @@
      "img": "plant",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "pylon",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -534,7 +569,14 @@
      "img": "pylon",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "plant",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -658,7 +700,14 @@
      "img": "home",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "pylon",
+      "plant",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -816,7 +865,14 @@
      "img": "sub",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "pylon",
+      "plant",
+      "home"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -991,7 +1047,14 @@
      "img": "pylon",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "plant",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1041,7 +1104,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "pylon",
+      "plant",
+      "home",
+      "sub"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

@@ -54,7 +54,15 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "nums",
+      "count",
+      "new",
+      "land",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -133,7 +141,15 @@
      "img": "nums",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "count",
+      "new",
+      "land",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "bars",
@@ -209,7 +225,15 @@
      "img": "count",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "nums",
+      "new",
+      "land",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -351,7 +375,15 @@
      "img": "new",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "nums",
+      "count",
+      "land",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -414,7 +446,15 @@
      "img": "land",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "nums",
+      "count",
+      "new",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -455,7 +495,15 @@
      "img": "end",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "nums",
+      "count",
+      "new",
+      "land"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

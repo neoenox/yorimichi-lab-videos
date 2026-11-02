@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "coins",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "coins",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -238,7 +248,12 @@
      "img": "coins",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -373,7 +388,12 @@
      "img": "shop",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coins"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -452,7 +472,12 @@
      "img": "shop",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coins"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -531,7 +556,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "coins",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

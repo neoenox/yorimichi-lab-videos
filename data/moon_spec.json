@@ -54,7 +54,15 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "motion",
+      "sync",
+      "dark",
+      "why",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -133,7 +141,15 @@
      "img": "motion",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "sync",
+      "dark",
+      "why",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -210,7 +226,15 @@
      "img": "sync",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "motion",
+      "dark",
+      "why",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -287,7 +311,15 @@
      "img": "dark",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "motion",
+      "sync",
+      "why",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -364,7 +396,15 @@
      "img": "why",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "motion",
+      "sync",
+      "dark",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -463,7 +503,15 @@
      "img": "end",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "motion",
+      "sync",
+      "dark",
+      "why"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

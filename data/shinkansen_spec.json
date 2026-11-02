@@ -48,7 +48,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "platform",
+      "tracks",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -100,7 +106,13 @@
      "img": "platform",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "tracks",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -248,7 +260,13 @@
      "img": "tracks",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "platform",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -396,7 +414,13 @@
      "img": "tracks",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "platform",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -605,7 +629,13 @@
      "img": "platform",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "tracks",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -760,7 +790,13 @@
      "img": "tracks",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "platform",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -902,7 +938,13 @@
      "img": "storm",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "platform",
+      "tracks"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -968,7 +1010,13 @@
      "img": "platform",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "tracks",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1024,7 +1072,13 @@
      "img": "tracks",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "platform",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1170,7 +1224,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "platform",
+      "tracks",
+      "storm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

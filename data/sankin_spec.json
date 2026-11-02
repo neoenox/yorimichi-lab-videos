@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "river",
+      "mansion"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "river",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "mansion"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -238,7 +248,12 @@
      "img": "river",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "mansion"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -372,7 +387,12 @@
      "img": "mansion",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "river"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -513,7 +533,12 @@
      "img": "mansion",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "river"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -592,7 +617,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "river",
+      "mansion"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

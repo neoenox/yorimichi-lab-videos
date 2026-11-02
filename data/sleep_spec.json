@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "candle",
+      "dark"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "candle",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "dark"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -231,7 +241,12 @@
      "img": "dark",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "candle"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -310,7 +325,12 @@
      "img": "candle",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "dark"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -389,7 +409,12 @@
      "img": "dark",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "candle"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -455,7 +480,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "candle",
+      "dark"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

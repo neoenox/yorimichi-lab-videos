@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "fish",
+      "coin"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "fish",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coin"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -176,7 +186,12 @@
      "img": "coin",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "fish"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -255,7 +270,12 @@
      "img": "coin",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "fish"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -396,7 +416,12 @@
      "img": "fish",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coin"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -475,7 +500,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "fish",
+      "coin"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

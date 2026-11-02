@@ -57,7 +57,16 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "study",
+      "clinic",
+      "scan",
+      "lamp",
+      "city",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -109,7 +118,16 @@
      "img": "study",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "clinic",
+      "scan",
+      "lamp",
+      "city",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -308,7 +326,16 @@
      "img": "clinic",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "study",
+      "scan",
+      "lamp",
+      "city",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -436,7 +463,16 @@
      "img": "scan",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "study",
+      "clinic",
+      "lamp",
+      "city",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -634,7 +670,16 @@
      "img": "lamp",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "study",
+      "clinic",
+      "scan",
+      "city",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -779,7 +824,16 @@
      "img": "city",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "study",
+      "clinic",
+      "scan",
+      "lamp",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -832,7 +886,16 @@
      "img": "crowd",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "study",
+      "clinic",
+      "scan",
+      "lamp",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -911,7 +974,16 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "study",
+      "clinic",
+      "scan",
+      "lamp",
+      "city",
+      "crowd"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

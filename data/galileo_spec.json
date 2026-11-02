@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "hall",
+      "books",
+      "gallery",
+      "sky"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -103,7 +110,14 @@
      "img": "hall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "books",
+      "gallery",
+      "sky"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -195,7 +209,14 @@
      "img": "books",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "gallery",
+      "sky"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -377,7 +398,14 @@
      "img": "gallery",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "books",
+      "sky"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -577,7 +605,14 @@
      "img": "sky",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "books",
+      "gallery"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -669,7 +704,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "hall",
+      "books",
+      "gallery",
+      "sky"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -748,7 +790,14 @@
      "img": "hall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "books",
+      "gallery",
+      "sky"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -804,7 +853,14 @@
      "img": "sky",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "books",
+      "gallery"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

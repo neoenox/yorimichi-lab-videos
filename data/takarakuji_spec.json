@@ -48,7 +48,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "counter",
+      "coins",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -116,7 +122,13 @@
      "img": "counter",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coins",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -275,7 +287,13 @@
      "img": "coins",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "counter",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -417,7 +435,13 @@
      "img": "coins",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "counter",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -565,7 +589,13 @@
      "img": "counter",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coins",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -703,7 +733,13 @@
      "img": "city",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "counter",
+      "coins"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -840,7 +876,13 @@
      "img": "counter",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "coins",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -965,7 +1007,13 @@
      "img": "coins",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "counter",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1009,7 +1057,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "counter",
+      "coins",
+      "city"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

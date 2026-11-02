@@ -57,7 +57,16 @@
      "img": "cafe",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "dict",
+      "novel",
+      "c",
+      "press",
+      "edo",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -142,7 +151,16 @@
      "img": "dict",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cafe",
+      "novel",
+      "c",
+      "press",
+      "edo",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -185,7 +203,16 @@
      "img": "novel",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cafe",
+      "dict",
+      "c",
+      "press",
+      "edo",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -193,7 +220,16 @@
      "img": "c",
      "at": 6,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cafe",
+      "dict",
+      "novel",
+      "press",
+      "edo",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -269,7 +305,16 @@
      "img": "press",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cafe",
+      "dict",
+      "novel",
+      "c",
+      "edo",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "timeline",
@@ -401,7 +446,16 @@
      "img": "edo",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cafe",
+      "dict",
+      "novel",
+      "c",
+      "press",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -445,7 +499,16 @@
      "img": "study",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cafe",
+      "dict",
+      "novel",
+      "c",
+      "press",
+      "edo"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -487,7 +550,16 @@
      "img": "cafe",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "dict",
+      "novel",
+      "c",
+      "press",
+      "edo",
+      "study"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

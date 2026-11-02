@@ -14,18 +14,30 @@ COLS = M.COL
 _BG = {}
 
 
-def bg(path, zoom):
-    """アートを 1080x1920 に cover で切り出し、暗くして、ゆっくり拡大（Ken Burns）。"""
-    if path not in _BG:
+def bg(path, zoom, dim=0.55, fit=1.12):
+    """アートを 1080x1920 に cover で切り出し、暗くして、ゆっくり拡大（Ken Burns）。
+    dim は場面ごとの明るさ、fit は余白の取り方（1.0で9:16の画像を切らない）。"""
+    key = (path, round(dim, 2), fit)
+    if key not in _BG:
         im = Image.open(ROOT / path).convert('RGB')
-        s = H * 1.12 / im.height
+        s = H * fit / im.height
         im = im.resize((round(im.width * s), round(im.height * s)), Image.LANCZOS)
-        _BG[path] = ImageEnhance.Brightness(im).enhance(0.55)
-    im = _BG[path]
+        _BG[key] = ImageEnhance.Brightness(im).enhance(dim)
+    im = _BG[key]
     z = 1 + 0.06 * zoom
     cw, ch = W / z, H / z
     cx, cy = im.width / 2, im.height / 2
     return im.crop((round(cx - cw / 2), round(cy - ch / 2), round(cx + cw / 2), round(cy + ch / 2))).resize((W, H), Image.BILINEAR)
+
+
+def draw_tiktok_end(d, spec, A):
+    """TikTok用の最終画面。結論をくり返し、出典の場所とチャンネル名だけを出す（外部誘導なし）。"""
+    y1 = panel(d, (60, 470, 1020, 470), '結論', spec.get('answer') or spec['title'], 52, hi=True, alpha=A)
+    top = y1 + 60
+    d.rounded_rectangle((90, top, 990, top + 300), 18, fill=(7, 24, 36, int(215 * A / 255)))
+    d.text((540, top + 55), '出典は、コメントに', font=font(46), fill=WHITE + (A,), anchor='mm')
+    d.text((540, top + 155), '寄り道ラボ', font=font(76, True), fill=GOLD + (A,), anchor='mm')
+    d.text((540, top + 235), '地図と史料で、通説を確かめる', font=font(32), fill=DIM + (A,), anchor='mm')
 
 
 def draw_scene(im, sc, spec, a):
@@ -33,8 +45,13 @@ def draw_scene(im, sc, spec, a):
     d.rectangle((0, 0, W, 330), fill=(5, 14, 24, 150))
     d.text((540, 190), spec['title'], font=font(56, True), fill=WHITE + (255,), anchor='mm')
     d.line([(120, 258), (960, 258)], fill=GOLD + (255,), width=4)
+    if sc.get('src_small'):
+        d.text((60, 300), sc['src_small'], font=font(26), fill=DIM + (A,))
     col = COLS.get(sc.get('col', 'gold'), GOLD)
     if sc.get('end'):
+        if spec.get('platform') == 'tiktok':
+            draw_tiktok_end(d, spec, A)
+            return
         panel(d, (60, 480, 1020, 860), '本編の動画', spec['long_title'], 50, hi=True, alpha=A)
         d.rounded_rectangle((90, 905, 990, 1215), 18, fill=(7, 24, 36, int(215 * a)))
         if spec.get('cta', True):   # 登録の呼びかけ版（2026-10-26から）。cta:false で従来の終わり方
@@ -47,7 +64,7 @@ def draw_scene(im, sc, spec, a):
             d.text((540, 1170), 'ふと気になったことを、資料で調べる', font=font(36), fill=DIM + (A,), anchor='mm')
         return
     if sc.get('big'):
-        y = 520
+        y = sc.get('big_y', 520)
         sz = 92
         big = display(sc['big'])
         while sz > 60 and d.textlength(big, font=font(sz, True)) > 840 and d.textlength(big, font=font(sz, True)) < 1300:
@@ -97,11 +114,12 @@ def render(spec, segs, total, out_mp4, slug):
         sc = spec['scenes'][seg['i']]
         k = t - (seg['start'] - 0.2); a = min(1.0, max(0.0, k / 0.35))
         ratio = min(1.0, k / max(1.0, seg['end'] - seg['start']))
-        im = bg(sc.get('art') or spec['art'], ratio).convert('RGBA')
+        im = bg(sc.get('art') or spec['art'], ratio, sc.get('dim', 0.55), spec.get('bg_fit', 1.12)).convert('RGBA')
         draw_scene(im, sc, spec, a)
-        draw_hook(im, spec, t)
+        if spec.get('hook_card', True):
+            draw_hook(im, spec, t)
         ck = next((c for c in cks if c[0] <= t < c[1]), None)
-        if ck and not (spec.get('answer') and t < 1.75):   # 結論カードと字幕が同じことを二重に言わないようにする
+        if ck and not (spec.get('hook_card', True) and spec.get('answer') and t < 1.75):   # 結論カードと字幕が同じことを二重に言わないようにする
             d = ImageDraw.Draw(im, 'RGBA')
             lns = wrap(d, ck[2], font(60), 880)
             nh = len(lns) * 84
@@ -138,12 +156,33 @@ def description(spec):
 """)
 
 
+def tiktok_caption(spec):
+    """TikTok用のキャプション。外部リンクを置かず、確かめたこと・出典・クレジットを残す。"""
+    refs = spec.get('refs') or []
+    ref_block = ('■ 参考\n' + '\n'.join(f'・{r}' for r in refs) + '\n\n') if refs else ''
+    return f"""{spec['title']}
+
+{spec['hook']}
+
+{spec.get('notes', '')}
+
+{ref_block}■ クレジット
+{spec.get('credit') or '・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の資料の複製ではありません）'}
+・音声：VOICEVOX:四国めたん
+
+{spec.get('hashtags') or '#歴史 #雑学'}
+"""
+
+
 def main():
     slug = sys.argv[1]
     spec = json.loads((ROOT / 'data' / f'short_{slug}.json').read_text(encoding='utf8'))
     work = ROOT / 'cache' / f'short_{slug}'; work.mkdir(parents=True, exist_ok=True)
     texts = [s['text'] for s in spec['scenes']]
-    if spec.get('cta', True):   # 最後の場面の読み上げに、登録の呼びかけを足す
+    is_tt = spec.get('platform') == 'tiktok'
+    if is_tt and spec.get('end_text'):
+        texts[-1] = spec['end_text']
+    elif spec.get('cta', True) and not is_tt:   # 最後の場面の読み上げに、登録の呼びかけを足す
         texts[-1] = texts[-1] + '資料で確かめています。続きが気になったら、チャンネル登録を。'
     segs, total = synth(dict(pron=spec['pron'], scenes=[dict(text=t, kind='') for t in texts]), work)
     (ROOT / 'out' / f'short_{slug}_kana.txt').write_text('\n'.join(f"{s['text']}\n    {s['kana']}" for s in segs), encoding='utf8')
@@ -151,7 +190,8 @@ def main():
     raw = work / 'raw.mp4'; render(spec, segs, total, raw, slug)
     mix(spec, work, total, raw, ROOT / 'out' / f'short_{slug}.mp4')
     spec['sec'] = round(total)
-    (ROOT / 'out' / f'short_{slug}_description.md').write_text(description(spec), encoding='utf8')
+    text = tiktok_caption(spec) if is_tt else description(spec)
+    (ROOT / 'out' / f'short_{slug}_description.md').write_text(text, encoding='utf8')
     print('done -> out/short_%s.mp4' % slug)
 
 

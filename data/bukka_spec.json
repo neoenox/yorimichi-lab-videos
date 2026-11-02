@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "office",
+      "shop",
+      "home",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -103,7 +110,14 @@
      "img": "office",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop",
+      "home",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -231,7 +245,14 @@
      "img": "shop",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "office",
+      "home",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -402,7 +423,14 @@
      "img": "office",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop",
+      "home",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -603,7 +631,14 @@
      "img": "home",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "office",
+      "shop",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -750,7 +785,14 @@
      "img": "wallet",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "office",
+      "shop",
+      "home"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -888,7 +930,14 @@
      "img": "office",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop",
+      "home",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1069,7 +1118,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "office",
+      "shop",
+      "home",
+      "wallet"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

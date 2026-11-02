@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "road",
+      "inn"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "road",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "inn"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -231,7 +241,12 @@
      "img": "inn",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "road"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -310,7 +325,12 @@
      "img": "road",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "inn"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -389,7 +409,12 @@
      "img": "inn",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "road"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -468,7 +493,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "road",
+      "inn"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

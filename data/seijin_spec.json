@@ -48,7 +48,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "hall",
+      "desk",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -100,7 +106,13 @@
      "img": "hall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -265,7 +277,13 @@
      "img": "desk",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -406,7 +424,13 @@
      "img": "desk",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -547,7 +571,13 @@
      "img": "desk",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -688,7 +718,13 @@
      "img": "hall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -839,7 +875,13 @@
      "img": "shrine",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -981,7 +1023,13 @@
      "img": "hall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1139,7 +1187,13 @@
      "img": "shrine",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "hall",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1189,7 +1243,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "hall",
+      "desk",
+      "shrine"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

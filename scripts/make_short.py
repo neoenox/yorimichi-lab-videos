@@ -149,6 +149,7 @@ def panel(d, box, title, text, size=52, col=WHITE, hi=False, alpha=255):
         d.text((x0 + 30, y), title, font=font(34, True), fill=GOLD + (alpha,)); y += 56
     for ln in lns:
         d.text((x0 + 30, y), ln, font=font(size), fill=col + (alpha,)); y += int(size * 1.4)
+    return y1
 
 
 def draw_visual(d, kind, a, k):
@@ -283,10 +284,18 @@ def render(spec, segs, total, work, out_mp4):
 
 
 def mix(spec, work, total, out_mp4, final):
+    narration = str(work / 'narration.wav')
+    if spec.get('bgm') == 'none':
+        # BGMなし（TikTok用）。ナレーションだけを -14 LUFS にそろえる。
+        subprocess.run(['ffmpeg', '-y', '-v', 'warning', '-i', str(out_mp4), '-i', narration,
+                        '-filter_complex', '[1:a]aresample=48000,loudnorm=I=-14:TP=-1.5:LRA=7[a]',
+                        '-map', '0:v', '-map', '[a]', '-t', f'{total:.2f}', '-c:v', 'copy',
+                        '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', str(final)], check=True)
+        return
     bgm = ROOT / 'assets' / 'bgm_maou' / 'maou_bgm_piano12.mp3'
     fc = ('[1:a]aresample=48000,volume=0.30,afade=t=in:d=1,afade=t=out:st=%.2f:d=1.5[b];[2:a]aresample=48000,asplit=2[n1][n2];'
           '[b][n1]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[bd];[bd][n2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=7[a]') % (total - 1.5)
-    subprocess.run(['ffmpeg', '-y', '-v', 'warning', '-i', str(out_mp4), '-stream_loop', '-1', '-i', str(bgm), '-i', str(work / 'narration.wav'),
+    subprocess.run(['ffmpeg', '-y', '-v', 'warning', '-i', str(out_mp4), '-stream_loop', '-1', '-i', str(bgm), '-i', narration,
                     '-filter_complex', fc, '-map', '0:v', '-map', '[a]', '-t', f'{total:.2f}', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', str(final)], check=True)
 
 

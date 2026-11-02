@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "ruler",
+      "print",
+      "guard",
+      "island"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -103,7 +110,14 @@
      "img": "ruler",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "print",
+      "guard",
+      "island"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -244,7 +258,14 @@
      "img": "ruler",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "print",
+      "guard",
+      "island"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -395,7 +416,14 @@
      "img": "print",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "ruler",
+      "guard",
+      "island"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -403,7 +431,14 @@
      "img": "guard",
      "at": 3,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "ruler",
+      "print",
+      "island"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -482,7 +517,14 @@
      "img": "island",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "ruler",
+      "print",
+      "guard"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

@@ -49,7 +49,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "in",
+      "out",
+      "change",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -110,7 +117,14 @@
      "img": "in",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "out",
+      "change",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -203,7 +217,14 @@
      "img": "out",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "in",
+      "change",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -373,7 +394,14 @@
      "img": "change",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "in",
+      "out",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -469,7 +497,14 @@
      "img": "end",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "in",
+      "out",
+      "change"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

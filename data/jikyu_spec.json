@@ -57,7 +57,16 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "desk",
+      "farm",
+      "ship",
+      "harbor",
+      "market",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -109,7 +118,16 @@
      "img": "desk",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "farm",
+      "ship",
+      "harbor",
+      "market",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -268,7 +286,16 @@
      "img": "farm",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "ship",
+      "harbor",
+      "market",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -456,7 +483,16 @@
      "img": "ship",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "farm",
+      "harbor",
+      "market",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -625,7 +661,16 @@
      "img": "harbor",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "farm",
+      "ship",
+      "market",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -805,7 +850,16 @@
      "img": "market",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "farm",
+      "ship",
+      "harbor",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -995,7 +1049,16 @@
      "img": "kitchen",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "desk",
+      "farm",
+      "ship",
+      "harbor",
+      "market"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1100,7 +1163,16 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "desk",
+      "farm",
+      "ship",
+      "harbor",
+      "market",
+      "kitchen"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

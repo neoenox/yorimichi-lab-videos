@@ -45,7 +45,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "farm",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -97,7 +102,12 @@
      "img": "farm",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -176,7 +186,12 @@
      "img": "shop",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "farm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -255,7 +270,12 @@
      "img": "shop",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "farm"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -334,7 +354,12 @@
      "img": "farm",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -413,7 +438,12 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "farm",
+      "shop"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

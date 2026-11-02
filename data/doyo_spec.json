@@ -48,7 +48,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "stall",
+      "board",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -100,7 +106,13 @@
      "img": "stall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "board",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -179,7 +191,13 @@
      "img": "board",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "stall",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -320,7 +338,13 @@
      "img": "desk",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "stall",
+      "board"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -399,7 +423,13 @@
      "img": "stall",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "board",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -478,7 +508,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "stall",
+      "board",
+      "desk"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

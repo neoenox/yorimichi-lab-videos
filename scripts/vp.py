@@ -594,7 +594,7 @@ def stage_build(chunk=2000,bgm_db=-6.0):
     import time as _t
     pending=list(range(0,N,chunk));running=[];rc=[]
     while pending or running:   # NVENC の同時セッションは8本まで（14本同時だと、Could not open encoder で落ちる）
-        while pending and len(running)<8:
+        while pending and len(running)<int(os.environ.get('VP_MAXPAR','8')):
             a=pending.pop(0)
             running.append(subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'}))
         _t.sleep(1)

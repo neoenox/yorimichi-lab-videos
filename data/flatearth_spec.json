@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "press",
+      "book",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -103,7 +110,14 @@
      "img": "press",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -182,7 +196,14 @@
      "img": "book",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "press",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -190,7 +211,14 @@
      "img": "ship",
      "at": 8,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "press",
+      "book",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -349,7 +377,14 @@
      "img": "book",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "press",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -415,7 +450,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "press",
+      "book",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -488,7 +530,14 @@
      "img": "press",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -618,7 +667,14 @@
      "img": "map",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "press",
+      "book",
+      "ship"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -697,7 +753,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "press",
+      "book",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -759,7 +822,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "press",
+      "book",
+      "ship",
+      "map"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

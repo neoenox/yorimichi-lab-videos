@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cloud",
+      "lab",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -103,7 +110,14 @@
      "img": "cloud",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "lab",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -268,7 +282,14 @@
      "img": "lab",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "cloud",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -416,7 +437,14 @@
      "img": "cloud",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "lab",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -557,7 +585,14 @@
      "img": "micro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "cloud",
+      "lab",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -705,7 +740,14 @@
      "img": "cloud",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "lab",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -853,7 +895,14 @@
      "img": "lab",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "cloud",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -932,7 +981,14 @@
      "img": "micro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "cloud",
+      "lab",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1066,7 +1122,14 @@
      "img": "micro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "cloud",
+      "lab",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1116,7 +1179,14 @@
      "img": "glove",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "cloud",
+      "lab",
+      "micro"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -1182,7 +1252,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "cloud",
+      "lab",
+      "micro",
+      "glove"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

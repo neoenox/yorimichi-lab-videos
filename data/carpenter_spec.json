@@ -48,7 +48,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "tools",
+      "site",
+      "deshi"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -100,7 +106,13 @@
      "img": "tools",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "site",
+      "deshi"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -155,7 +167,13 @@
      "img": "site",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "tools",
+      "deshi"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -289,7 +307,13 @@
      "img": "site",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "tools",
+      "deshi"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -368,7 +392,13 @@
      "img": "deshi",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "tools",
+      "site"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -447,7 +477,13 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "tools",
+      "site",
+      "deshi"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

@@ -70,7 +70,15 @@
      "img": "field_dusk",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "downpour",
+      "old_records",
+      "war_council",
+      "quiet_field",
+      "old_book"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -365,7 +373,15 @@
      "img": "downpour",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "field_dusk",
+      "old_records",
+      "war_council",
+      "quiet_field",
+      "old_book"
+     ],
+     "seg": 22
     },
     {
      "t": "stack",
@@ -562,7 +578,15 @@
      "img": "old_records",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "field_dusk",
+      "downpour",
+      "war_council",
+      "quiet_field",
+      "old_book"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -712,7 +736,15 @@
      "img": "war_council",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "field_dusk",
+      "downpour",
+      "old_records",
+      "quiet_field",
+      "old_book"
+     ],
+     "seg": 22
     },
     {
      "t": "stack",
@@ -866,7 +898,15 @@
      "img": "quiet_field",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "field_dusk",
+      "downpour",
+      "old_records",
+      "war_council",
+      "old_book"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -996,7 +1036,15 @@
      "img": "old_book",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "field_dusk",
+      "downpour",
+      "old_records",
+      "war_council",
+      "quiet_field"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",

@@ -51,7 +51,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "book",
+      "review",
+      "snow",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -98,7 +105,14 @@
      "img": "book",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "review",
+      "snow",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -177,7 +191,14 @@
      "img": "review",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "snow",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -285,7 +306,14 @@
      "img": "review",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "snow",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -413,7 +441,14 @@
      "img": "snow",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "review",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -565,7 +600,14 @@
      "img": "intro",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "book",
+      "review",
+      "snow",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -700,7 +742,14 @@
      "img": "book",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "review",
+      "snow",
+      "end"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -767,7 +816,14 @@
      "img": "end",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "review",
+      "snow"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
@@ -980,7 +1036,14 @@
      "img": "end",
      "at": 0,
      "dim": 0.5,
-     "blur": 4
+     "blur": 4,
+     "alts": [
+      "intro",
+      "book",
+      "review",
+      "snow"
+     ],
+     "seg": 22
     },
     {
      "t": "anim",
