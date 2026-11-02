@@ -167,7 +167,7 @@ KIBA_STAGES = [
     # 明治以降の埋め立て。南部（塩浜・東陽・豊洲）が陸になる
     dict(name='③ 1872年〜 生糸輸出・埋め立て', col=(220, 200, 140),
          poly=[(35.6700, 139.7855), (35.6700, 139.8290), (35.6510, 139.8290), (35.6510, 139.7855)],
-         labels=[('豊洲・東陽の埋め立て', 35.6575, 139.8180, 24)]),
+         labels=[('豊洲・東陽の埋め立て', 35.6620, 139.7930, 24)]),
 ]
 
 BAR_ANG = 45.0
@@ -292,16 +292,21 @@ def fillmap():
         paint(amask([cp], 7), RIVER_COL)
 
     im = Image.fromarray(np.clip(arr, 0, 255).astype('uint8')).convert('RGBA')
-    dr = ImageDraw.Draw(im)
     P = lambda la, lo: _ll2px([(la, lo)], box)[0]
-    w, _ = _chip(dr, 18, 14, '深川・木場', 38)
-    _chip(dr, 18 + w + 10, 24, '模式図', 23, fg=(58, 44, 24), bg=(238, 228, 192, 240))
-    _chip(dr, *P(35.6790, 139.7870), '隅田川', 24, anchor='mm', bg=(30, 62, 96, 220))
-    _chip(dr, *P(35.6740, 139.8050), '門前仲町', 26, anchor='mm', bg=(120, 40, 30, 230))
-    _chip(dr, *P(35.6713, 139.8074), '木場', 26, anchor='mm', bg=(160, 100, 40, 230))
-    _chip(dr, *P(35.6570, 139.7880), '豊洲', 24, anchor='mm')
-    _chip(dr, *P(35.6680, 139.8220), '東陽', 24, anchor='mm')
-    _rot_text(im, *P(35.6789, 139.7950), '小名木川', 24, BAR_ANG)
+
+    def base_labels(img):
+        """地名チップ。段階画像でも描き直す（陸地の色でチップが隠れるのを防ぐ）。"""
+        dr = ImageDraw.Draw(img)
+        w, _ = _chip(dr, 18, 14, '深川・木場', 38)
+        _chip(dr, 18 + w + 10, 24, '模式図', 23, fg=(58, 44, 24), bg=(238, 228, 192, 240))
+        _chip(dr, *P(35.6790, 139.7870), '隅田川', 24, anchor='mm', bg=(30, 62, 96, 220))
+        _chip(dr, *P(35.6740, 139.8050), '門前仲町', 26, anchor='mm', bg=(120, 40, 30, 230))
+        _chip(dr, *P(35.6713, 139.8074), '木場', 26, anchor='mm', bg=(160, 100, 40, 230))
+        _chip(dr, *P(35.6570, 139.7880), '豊洲', 24, anchor='mm')
+        _chip(dr, *P(35.6680, 139.8220), '東陽', 24, anchor='mm')
+        _rot_text(img, *P(35.6789, 139.7950), '小名木川', 24, BAR_ANG)
+
+    base_labels(im)
     for cp in canal_px.values():
         if len(cp) >= 2:
             mid = ((cp[0][0] + cp[-1][0]) / 2, (cp[0][1] + cp[-1][1]) / 2)
@@ -326,15 +331,17 @@ def fillmap():
         cc[new] = st['col']
         a = np.zeros((H, W, 4), float)
         a[..., :3] = cc
-        a[..., 3] = cum * 255.
+        # 縁を少しぼかす（矩形のカクつきを抑え、陸と海の境目らしく見せる）
+        a[..., 3] = np.clip(ndi.gaussian_filter(cum.astype(float), 1.6), 0, 1) * 255.
         edge = new & ndi.binary_dilation(~new & ~sea, np.ones((4, 4), bool))
         a[ndi.binary_dilation(edge, np.ones((2, 2), bool))] = FILL_EDGE + (255.,)
         s = Image.fromarray(np.clip(a, 0, 255).astype('uint8'))
+        base_labels(s)   # 陸地の上に地名を描き直す
         ds = ImageDraw.Draw(s)
         for txt, la, lo_, sz in st['labels']:
             _chip(ds, *P(la, lo_), txt, sz, anchor='mm', bg=(40, 34, 26, 220))
         for j in range(1, i + 1):  # 進行済みの段階をタイムラインとして積む
-            _chip(ds, W - 16, 610 + (j - 1) * 52, KIBA_STAGES[j - 1]['name'], 28,
+            _chip(ds, W - 16, 585 + (j - 1) * 50, KIBA_STAGES[j - 1]['name'], 26,
                   fg=(255, 255, 255), bg=(40, 34, 26, 225), anchor='rt')
         # 運河も毎回重ね描き（水色で）
         for cp in canal_px.values():
