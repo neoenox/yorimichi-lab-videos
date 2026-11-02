@@ -28,7 +28,11 @@
   "replace_short:islands": "2026-10-30T16:06:37",
   "replace_short:magnitude": "2026-10-30T16:07:11",
   "replace_short:leapsecond": "2026-10-30T16:07:56",
-  "replace_short:venus": "2026-10-31T16:05:49"
+  "replace_short:venus": "2026-10-31T16:05:49",
+  "replace:magnitude": "2026-11-01T16:05:48",
+  "replace:yakubusoku": "2026-11-01T16:06:06",
+  "replace:oke": "2026-11-01T16:08:10",
+  "replace:leapsecond": "2026-11-01T16:09:03"
  },
  "notes": {
   "short_oke_upload": "uploaded",
@@ -46,10 +50,10 @@
   "replace:einstein": "('v8FSfpItmos', 'sVMwrN1fomA')",
   "replace:moon": "('97mj1dw20ec', 'q8-ufW5IuA0')",
   "replace:islands": "('4xXMeRX8OfA', 'UIDRLw9UOXg')",
-  "replace:magnitude": "retry: out に作り直した動画が無い",
-  "replace:yakubusoku": "retry: out に作り直した動画が無い",
-  "replace:oke": "retry: out に作り直した動画が無い",
-  "replace:leapsecond": "retry: out に作り直した動画が無い",
+  "replace:magnitude": "('RXJrW4QwXdE', 'q18--lhsm_8')",
+  "replace:yakubusoku": "('Cx9DgjZ2TAM', 'h6C7OPst0zg')",
+  "replace:oke": "('TIfXJAQlNDc', 'id1hjqjrztY')",
+  "replace:leapsecond": "('dO_fY0jaTh4', 'JkPCUodEGfE')",
   "replace:sunrise": "retry: out に作り直した動画が無い",
   "replace:venus": "retry: out に作り直した動画が無い",
   "replace_short:scurvy": "skip: 公開済み（視聴数とリンクを失うため差し替えない）",
@@ -69,5 +73,5 @@
   "short_upload:honnoji": "uploaded / 2026-11-12 20:00",
   "short_upload:ninja": "uploaded / 2026-11-13 20:00"
  },
- "spent": 54634
+ "spent": 63450
 }

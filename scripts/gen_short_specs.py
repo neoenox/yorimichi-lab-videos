@@ -199,7 +199,7 @@ J('islands', dict(
 
 J('magnitude', dict(
     title='マグニチュード+1で、10倍強い？',
-    long_id='RXJrW4QwXdE',
+    long_id='q18--lhsm_8',
     long_title='マグニチュードが1増えると地震は10倍強い？ 気象庁の解説で確かめる',
     pron='data/magnitude_pronunciations.json',
     art='assets/magnitude/art_intro.png',
@@ -216,7 +216,7 @@ J('magnitude', dict(
 
 J('yakubusoku', dict(
     title='「役不足」の本当の意味は？',
-    long_id='Cx9DgjZ2TAM',
+    long_id='h6C7OPst0zg',
     long_title='「役不足」は、能力が足りない意味？ 文化庁の調査で確かめる',
     pron='data/yakubusoku_pronunciations.json',
     art='assets/yakubusoku/art_intro.png',
@@ -233,7 +233,7 @@ J('yakubusoku', dict(
 
 J('leapsecond', dict(
     title='うるう秒は、なぜやめる？',
-    long_id='dO_fY0jaTh4',
+    long_id='JkPCUodEGfE',
     long_title='うるう秒は、なぜやめる？ 国際度量衡総会の決議を確かめる',
     pron='data/leapsecond_pronunciations.json',
     art='assets/leapsecond/art_intro.png',
@@ -318,7 +318,7 @@ J('oceanblue', dict(
 
 J('oke', dict(
     title='2万5千の大軍は、なぜ敗れた？',
-    long_id='TIfXJAQlNDc',
+    long_id='id1hjqjrztY',
     long_title='2万5千の大軍は、なぜ敗れたのか？ 桶狭間の戦いを史料の数字から確かめる',
     pron='data/oke_pronunciations.json',
     art='assets/okehazama/art_field_dusk.png',

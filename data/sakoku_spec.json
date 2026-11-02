@@ -2,27 +2,42 @@
  "slug": "sakoku",
  "theme_dir": "20270602_sakoku",
  "pack": "77_sakoku",
- "header_sub": "解説記事で、鎖国と四つの窓口を確かめる",
+ "header_sub": "解説記事と地図で、鎖国と四つの窓口を確かめる",
  "images": {
-  "gate": {
-   "file": "assets/sakoku/art_gate.png"
-  },
-  "intro": {
+  "art_intro": {
    "file": "assets/sakoku/art_intro.png"
   },
-  "scroll": {
+  "art_gate": {
+   "file": "assets/sakoku/art_gate.png"
+  },
+  "art_scroll": {
    "file": "assets/sakoku/art_scroll.png"
+  },
+  "map_s0": {
+   "file": "assets/sakoku/map_s0.png"
+  },
+  "map_s1": {
+   "file": "assets/sakoku/map_s1.png"
+  },
+  "map_s2": {
+   "file": "assets/sakoku/map_s2.png"
+  },
+  "map_s3": {
+   "file": "assets/sakoku/map_s3.png"
+  },
+  "map_s4": {
+   "file": "assets/sakoku/map_s4.png"
   }
  },
  "bgm": [
   [
    "intro",
-   "yotsu",
+   "mado",
    "piano36"
   ],
   [
-   "yukiki",
-   "wakaranai",
+   "yuiitsu",
+   "kinshi",
    "piano12"
   ],
   [
@@ -31,419 +46,360 @@
    "piano40"
   ]
  ],
+ "style": "pop",
  "chapters": [
   {
    "key": "intro",
    "title": "江戸時代の日本は、鎖国をして、長崎でしか外国と付き合わなかった？",
-   "chapter_title": "導入：江戸時代の日本は、鎖国をして、長崎でしか外国と付き合わなかった？",
-   "opener": "江戸時代の日本は、鎖国をしていた？",
-   "opener_until": 2,
+   "chapter_title": "導入：鎖国で、外国との窓口は長崎だけ？",
    "scene": [
     {
-     "t": "art",
-     "name": "intro",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_intro",
      "at": 0,
-     "dim": 0.8,
-     "dir": 1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.5,
+     "blur": 3
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "鎖国で\n窓口は[[長崎だけ]]？",
+     "x": 960,
+     "y": 470,
+     "size": 170,
      "at": 0,
-     "alpha": 0.66
+     "until": 2,
+     "rot": -3
     },
     {
-     "t": "big",
-     "text": "鎖国で、窓口は長崎だけ？",
-     "y": 270,
-     "at": 0,
-     "size": 44,
-     "col": "gold"
-    },
-    {
-     "t": "panel",
-     "box": [
-      120,
-      450,
-      1800,
-      570
-     ],
-     "text": "教科書でおなじみの、鎖国の話",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "答え：窓口は[[4つ]]あった！",
+     "x": 960,
+     "y": 470,
+     "size": 130,
      "at": 2,
-     "size": 40,
-     "hi": true
+     "until": 3,
+     "plate": "green",
+     "rot": -2
     },
     {
-     "t": "panel",
-     "box": [
-      120,
-      620,
-      1800,
-      700
-     ],
-     "text": "確かめる材料：荒野泰典さんの解説記事",
-     "at": 4,
-     "size": 38
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "荒野泰典さんの解説記事 ×",
+     "x": 960,
+     "y": 330,
+     "size": 80,
+     "at": 3,
+     "plate": "blue",
+     "rot": 1
     },
     {
-     "t": "panel",
-     "box": [
-      120,
-      750,
-      1800,
-      860
-     ],
-     "text": "答え：国を閉ざしたとは言えず、窓口は四つ",
-     "at": 5,
-     "size": 32,
-     "col": "gold"
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[地図]]で確かめる！",
+     "x": 960,
+     "y": 600,
+     "size": 150,
+     "at": 3,
+     "rot": -2
     }
    ]
   },
   {
-   "key": "kotoba",
-   "title": "鎖国という言葉",
-   "chapter_title": "鎖国という言葉",
+   "key": "mado",
+   "title": "四つの窓口",
+   "chapter_title": "四つの窓口",
    "scene": [
     {
-     "t": "art",
-     "name": "scroll",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "map_s0",
      "at": 0,
-     "dim": 0.8,
-     "dir": -1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.4,
+     "blur": 12
     },
     {
-     "t": "shade",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
       60,
-      170,
-      1860,
-      850
+      120,
+      900,
+      860
      ],
+     "img": "map_s0",
      "at": 0,
-     "alpha": 0.66
+     "rot": -1.5,
+     "until": 2
     },
     {
-     "t": "panel",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
       60,
-      170,
-      1860,
-      235
+      120,
+      900,
+      860
      ],
-     "text": "まず、鎖国という言葉",
-     "at": 0,
-     "size": 40,
-     "until": 1
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "解説：国を閉ざす意味のオランダ語の訳語",
-     "at": 1,
-     "size": 34,
-     "until": 2,
-     "hi": true
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "志筑忠雄が、1801年の『鎖国論』で作った、とされる",
+     "img": "map_s1",
      "at": 2,
-     "size": 32,
+     "rot": -1.5,
      "until": 3
     },
     {
-     "t": "panel",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
       60,
-      170,
-      1860,
-      235
+      120,
+      900,
+      860
      ],
-     "text": "完成の目安は、1641年のオランダ人の出島移転",
+     "img": "map_s2",
      "at": 3,
-     "size": 34,
+     "rot": -1.5,
      "until": 4
     },
     {
-     "t": "panel",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
       60,
-      170,
-      1860,
-      235
+      120,
+      900,
+      860
      ],
-     "text": "一方、記事：国を閉ざした史実はない",
+     "img": "map_s3",
      "at": 4,
-     "size": 34,
-     "col": "gold"
-    }
-   ]
-  },
-  {
-   "key": "yotsu",
-   "title": "四つの口",
-   "chapter_title": "四つの口",
-   "scene": [
-    {
-     "t": "art",
-     "name": "gate",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
-     "at": 0,
-     "dim": 0.8,
-     "dir": 1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
-    },
-    {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
-     "at": 0,
-     "alpha": 0.66
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "次に、海外との窓口",
-     "at": 0,
-     "size": 40,
-     "until": 1
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "解説：窓口は四つ。長崎・対馬・薩摩・松前",
-     "at": 1,
-     "size": 34,
-     "until": 3,
-     "hi": true
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "長崎＝オランダ・中国／対馬＝朝鮮／薩摩＝琉球／松前＝蝦夷地",
-     "at": 3,
-     "size": 28,
-     "until": 4
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "長崎が唯一の窓口、という話は成り立たない",
-     "at": 4,
-     "size": 34,
+     "rot": -1.5,
      "until": 5
     },
     {
-     "t": "panel",
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
      "box": [
       60,
-      170,
-      1860,
-      235
+      120,
+      900,
+      860
      ],
-     "text": "「四つの口」は、荒野さんが1978年に提唱",
+     "img": "map_s4",
      "at": 5,
-     "size": 34,
-     "col": "gold"
+     "rot": -1.5
     },
     {
-     "t": "table",
-     "box": [
-      60,
-      300,
-      1860,
-      640
-     ],
-     "cols": [
-      "窓口（解説記事）",
-      "相手"
-     ],
-     "colw": [
-      900,
-      900
-     ],
-     "size": 32,
-     "rows": [
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "窓口は\n[[4つ]]！",
+     "x": 1400,
+     "y": 300,
+     "size": 130,
+     "at": 0,
+     "until": 2,
+     "rot": -3
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
       {
-       "at": 1,
-       "cells": [
-        "長崎",
-        "オランダ・中国"
-       ]
+       "at": 2,
+       "tag": "長崎",
+       "text": "オランダ・中国",
+       "col": "orange"
       },
       {
        "at": 3,
-       "cells": [
-        "対馬／薩摩／松前",
-        "朝鮮／琉球／蝦夷地"
-       ]
+       "tag": "対馬",
+       "text": "朝鮮",
+       "col": "blue"
+      },
+      {
+       "at": 4,
+       "tag": "薩摩",
+       "text": "琉球",
+       "col": "green"
       },
       {
        "at": 5,
-       "cells": [
-        "この見方を提唱",
-        "荒野泰典さん（1978年）"
-       ]
+       "tag": "松前",
+       "text": "蝦夷地",
+       "col": "purple"
       }
-     ]
+     ],
+     "x0": 950,
+     "x1": 1860,
+     "y0": 190,
+     "size": 60,
+     "gap": 26
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "出典：荒野泰典「「四つの口」と長崎貿易」（nippon.com）",
+     "x": 1400,
+     "y": 810,
+     "size": 36,
+     "at": 2
     }
    ]
   },
   {
-   "key": "yukiki",
-   "title": "行き来と禁止",
-   "chapter_title": "行き来と禁止",
+   "key": "yuiitsu",
+   "title": "唯一の窓口ではない",
+   "chapter_title": "唯一の窓口ではない",
    "scene": [
     {
-     "t": "art",
-     "name": "intro",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_gate",
      "at": 0,
-     "dim": 0.8,
-     "dir": -1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.5,
+     "blur": 4
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "長崎だけ？\n[[成り立たない]]",
+     "x": 960,
+     "y": 420,
+     "size": 150,
      "at": 0,
-     "alpha": 0.66
+     "until": 1,
+     "plate": "red",
+     "rot": -2
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "数字でも、見てみる",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "と、記事は述べる",
+     "x": 960,
+     "y": 720,
+     "size": 80,
      "at": 0,
-     "size": 40,
-     "until": 1
+     "until": 1,
+     "plate": "yellow",
+     "rot": 1.5
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "tag": "提唱",
+       "text": "「四つの口」＝荒野泰典さん（1978年）",
+       "col": "orange"
+      }
      ],
-     "text": "朝鮮通信使：1609〜1811年に12回来日",
-     "at": 1,
-     "size": 34,
-     "until": 2,
-     "hi": true
+     "x0": 110,
+     "x1": 1810,
+     "y0": 330,
+     "size": 64,
+     "gap": 34
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "琉球の使節：1634〜1850年に18回来日",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "朝鮮通信使 [[12回]]\n琉球使節 [[18回]]",
+     "x": 960,
+     "y": 700,
+     "size": 110,
      "at": 2,
-     "size": 34,
-     "until": 3
+     "plate": "blue",
+     "rot": -1.5
+    }
+   ]
+  },
+  {
+   "key": "kinshi",
+   "title": "禁じたことと、鎖国という言葉",
+   "chapter_title": "禁じたことと、鎖国という言葉",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_scroll",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "でも、[[禁じたこと]]も！",
+     "x": 960,
+     "y": 250,
+     "size": 110,
+     "at": 0,
+     "until": 2,
+     "rot": -2
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "tag": "1635年",
+       "text": "中国人の来航地は、長崎だけに",
+       "col": "red",
+       "until": 2
+      },
+      {
+       "at": 0,
+       "tag": "1639年",
+       "text": "ポルトガルとの関係を断つ",
+       "col": "red",
+       "until": 2
+      }
      ],
-     "text": "1635年：中国人の来航地は長崎に限定。1639年：ポルトガルと断交",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 430,
+     "size": 62,
+     "gap": 40
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "では、「鎖国」って\nどこから来た言葉？",
+     "x": 960,
+     "y": 470,
+     "size": 110,
+     "at": 2,
+     "until": 3,
+     "rot": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[1801年]]\n志筑忠雄『鎖国論』",
+     "x": 960,
+     "y": 440,
+     "size": 130,
      "at": 3,
-     "size": 28,
-     "until": 4
+     "until": 4,
+     "plate": "yellow",
+     "rot": -2
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "禁じたことと、続けたことの、両方があった（自作）",
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "国を閉ざした史実は…\n[[ない]]、と記事は述べる",
+     "x": 960,
+     "y": 460,
+     "size": 110,
      "at": 4,
-     "size": 32,
-     "col": "gold"
+     "plate": "pink",
+     "rot": 2
     }
    ]
   },
@@ -453,95 +409,51 @@
    "chapter_title": "分からないこと",
    "scene": [
     {
-     "t": "art",
-     "name": "scroll",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_intro",
      "at": 0,
-     "dim": 0.8,
-     "dir": 1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "dim": 0.55,
+     "blur": 6
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "分からないこと",
+     "x": 960,
+     "y": 250,
+     "size": 120,
      "at": 0,
-     "alpha": 0.66
+     "rot": -2
     },
     {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "tag": "教科書",
+       "text": "今の書き方は、未確認",
+       "col": "orange"
+      },
+      {
+       "at": 0,
+       "tag": "原文",
+       "text": "『鎖国論』の原文は、未確認",
+       "col": "red"
+      },
+      {
+       "at": 2,
+       "tag": "研究者",
+       "text": "四つの口の見方が、どこまで共有されているか",
+       "col": "purple"
+      }
      ],
-     "text": "分からないことも、整理する",
-     "at": 0,
-     "size": 40,
-     "until": 1
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "読んだのは、荒野さんの解説記事の一本だけ",
-     "at": 1,
-     "size": 34,
-     "until": 2,
-     "hi": true
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "今の教科書の書き方は、確認できていない",
-     "at": 2,
-     "size": 34,
-     "until": 3
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "『鎖国論』の原文や、言葉を作った経緯は、未確認",
-     "at": 3,
-     "size": 34,
-     "until": 4
-    },
-    {
-     "t": "panel",
-     "box": [
-      60,
-      170,
-      1860,
-      235
-     ],
-     "text": "四つの口の見方が、どこまで共有されているかも不明",
-     "at": 4,
-     "size": 34,
-     "col": "gold"
+     "x0": 110,
+     "x1": 1810,
+     "y0": 420,
+     "size": 60,
+     "gap": 34
     }
    ]
   },
@@ -551,67 +463,38 @@
    "chapter_title": "まとめ",
    "scene": [
     {
-     "t": "art",
-     "name": "intro",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "窓口は[[4つ]]！\n鎖国は1801年の訳語",
+     "x": 960,
+     "y": 400,
+     "size": 130,
      "at": 0,
-     "dim": 0.8,
-     "dir": -1,
-     "note": "イメージ（生成画像）。実際の場面の再現ではありません"
+     "until": 3,
+     "rot": -2
     },
     {
-     "t": "shade",
-     "box": [
-      60,
-      170,
-      1860,
-      850
-     ],
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "国を閉ざした史実は[[ない]]、と解説",
+     "x": 960,
+     "y": 700,
+     "size": 66,
      "at": 0,
-     "alpha": 0.66
+     "until": 3,
+     "plate": "green",
+     "rot": 1.5
     },
     {
-     "t": "cols2",
-     "size": 32,
-     "xm": 940,
-     "xm2": 980,
-     "left": {
-      "title": "分かったこと",
-      "title_at": 1,
-      "items": [
-       {
-        "at": 1,
-        "text": "「鎖国」は、1801年の志筑忠雄による訳語とされる"
-       },
-       {
-        "at": 2,
-        "text": "窓口は、長崎・対馬・薩摩・松前の四つ"
-       },
-       {
-        "at": 3,
-        "text": "禁じたことと、続けたことの両方があった"
-       }
-      ]
-     },
-     "right": {
-      "title": "分からないこと・言い方",
-      "title_at": 4,
-      "items": [
-       {
-        "at": 4,
-        "text": "教科書の今の書き方。『鎖国論』の原文"
-       },
-       {
-        "at": 4,
-        "text": "「国を閉ざしたとは言えず、窓口は四つあった、と解説される」"
-       }
-      ]
-     }
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[国を閉ざした]]とは言えず、\n窓口は[[4つ]]あった",
+     "x": 960,
+     "y": 480,
+     "size": 120,
+     "at": 3,
+     "plate": "yellow",
+     "rot": -1.5
     }
    ]
   }

@@ -319,10 +319,9 @@
   "video_id": "3dU7_-zVeQ0",
   "privacy": "private",
   "via": "api",
-  "superseded": [
-   "71aUPEXqklE"
-  ],
+  "superseded": [],
   "deleted": [
+   "71aUPEXqklE",
    "71aUPEXqklE"
   ]
  },
@@ -339,10 +338,9 @@
   "video_id": "HFqz24ruHQM",
   "privacy": "private",
   "via": "api",
-  "superseded": [
-   "bnpUMtqVNe4"
-  ],
+  "superseded": [],
   "deleted": [
+   "bnpUMtqVNe4",
    "bnpUMtqVNe4"
   ]
  },
@@ -377,10 +375,9 @@
   "video_id": "mCTDtQPfdbg",
   "privacy": "private",
   "via": "api",
-  "superseded": [
-   "dBs6pF-Qz2w"
-  ],
+  "superseded": [],
   "deleted": [
+   "dBs6pF-Qz2w",
    "dBs6pF-Qz2w"
   ]
  },
@@ -1218,6 +1215,18 @@
  },
  "79_hibiya": {
   "video_id": "OrGGevmW-tU",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "80_ginza": {
+  "video_id": "R5HBJVvQrcE",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "81_fukagawa": {
+  "video_id": "T9chOUIxCwg",
   "privacy": "private",
   "via": "api",
   "superseded": []
