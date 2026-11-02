@@ -107,7 +107,7 @@ spec = dict(
                    tel('まとめ！', 960, 400, 150, at=0, until=1, rot=-3),
                    rows([dict(at=0, tag='分かった', text='深川は、海ではなく入り江の最奥部（干潟・湿地）だった', col='green'),
                          dict(at=1, tag='分かった', text='開拓→木場→運河網→埋め立てで、順に街になった', col='green'),
-                         dict(at=2, tag='高さ', text='門前仲町 約1m・木場 約1m・豊洲 約2-3m。銀座（約4m）よりずっと低い', col='orange'),
+                         dict(at=2, tag='高さ', text='門前仲町 約0.9m・木場 約1.1m・豊洲 約2.7m。銀座（約4m）よりずっと低い', col='orange'),
                          dict(at=3, tag='川', text='小名木川・仙台堀川・横十間川…運河の名は、今も地図に残る', col='red'),
                          dict(at=4, tag='祭り', text='富岡八幡宮の水掛け祭りに、江戸の賑わいの面影がある', col='purple')],
                         y0=180, size=40, gap=18),
