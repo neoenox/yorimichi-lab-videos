@@ -322,6 +322,12 @@ def pop_fill(im, d0, cx, it, a):
             lay = lay.copy()
             lay.putalpha(lay.getchannel('A').point(lambda v: int(v * ka)))
         pic.alpha_composite(lay)
+    cr = it.get('credit')
+    if cr:
+        f2 = semi(max(14, int(pic.width * .022)))
+        d2 = ImageDraw.Draw(pic)
+        d2.text((pic.width - 12, pic.height - 10), cr, font=f2, fill=(255, 255, 255, 255),
+                anchor='rs', stroke_width=4, stroke_fill=(32, 52, 78, 255))
     _place(im, _frame_photo(pic, cap), (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0))
 
 

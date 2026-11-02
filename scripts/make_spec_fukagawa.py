@@ -15,6 +15,7 @@ IMG = ('aerial_1936', 'aerial_1961', 'aerial_now', 'relief', 'relief_plain',
        'fillmap_0', 'fillmap_1', 'fillmap_2', 'fillmap_3')
 IMAGES = {n: dict(file=f'assets/fukagawa/{n}.png') for n in IMG}
 CAP_RELIEF = '色別標高図（国土地理院の5mメッシュ標高から作成）'
+CREDIT = '国土地理院の標高データから作成・位置と形は模式化'
 CAP_1936 = '国土地理院 空中写真（1936〜42年頃）'
 
 
@@ -71,7 +72,7 @@ spec = dict(
         {'key': 'kiba', 'title': '木場の誕生', 'chapter_title': '木場の誕生：1657年〜',
          'scene': [pop('pop_bgimg', img='aerial_1961', at=0, dim=.6, blur=11),
                    pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
-                       cap='入り江と運河・木場の模式図（位置・形は模式化）',
+                       cap='入り江と運河・木場の模式図（位置・形は模式化）', credit=CREDIT,
                        steps=[dict(img='fillmap_1', at=0)]),
                    rows([dict(at=0, tag='大火', text='明暦の大火（1657）で江戸の大半が焼け、幕府は大改造を決めた', col='orange'),
                          dict(at=1, tag='命令', text='日本橋の材木河岸を、深川の対岸に移す命令が出た', col='blue'),
@@ -82,25 +83,25 @@ spec = dict(
         {'key': 'unga', 'title': '運河網と水運ハブ', 'chapter_title': '運河網と水運ハブ：1700年〜',
          'scene': [pop('pop_bgimg', img='aerial_now', at=0, dim=.55, blur=6),
                    pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
-                       cap='入り江と運河・木場の模式図（位置・形は模式化）',
+                       cap='入り江と運河・木場の模式図（位置・形は模式化）', credit=CREDIT,
                        steps=[dict(img='fillmap_2', at=0)]),
                    rows([dict(at=0, tag='物資', text='材木だけでなく、米・塩・生糸も船で集まるようになった', col='orange'),
                          dict(at=1, tag='運河', text='横十間川・仙台堀川・大横川…運河が格子状に掘削された', col='blue'),
                          dict(at=2, tag='生糸', text='富岡製糸場の生糸も、深川から船で横浜へ運ばれたとされる', col='green'),
                          dict(at=3, tag='拠点', text='深川は、江戸〜日本各地をつなぐ物流の要所になった', col='purple'),
                          dict(at=4, tag='花街', text='「辰巳の花街」として、深川芸者の名も全国に知られた', col='pink')],
-                        y0=180, size=38, gap=18),
+                        x0=1000, x1=1860, y0=180, size=32, gap=12),
                    tel('水運で栄えた、\n[[江戸の台所]]', 1430, 780, 46, at=4, plate='yellow', rot=-1)]},
         {'key': 'umetate', 'title': '埋め立てと海の消滅', 'chapter_title': '埋め立てと海の消滅：明治〜',
          'scene': [pop('pop_bgimg', img='aerial_now', at=0, dim=.5, blur=8),
                    pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
-                       cap='入り江と運河・木場の模式図（位置・形は模式化）',
+                       cap='入り江と運河・木場の模式図（位置・形は模式化）', credit=CREDIT,
                        steps=[dict(img='fillmap_3', at=0)]),
                    rows([dict(at=0, tag='埋立', text='明治以降、沖合の埋め立てが進み、海岸線がどんどん後退した', col='orange'),
                          dict(at=1, tag='災害', text='1910年大水害、1923年関東大震災、1945年東京大空襲…何度も焦土になった', col='blue'),
                          dict(at=2, tag='公園', text='1969年、新木場建設で旧木場は埋め立てられ木場公園になった', col='green'),
                          dict(at=3, tag='伝承', text='川並鳶の技「角乗（かくのり）」だけが、貯木場の記憶を今に伝える', col='purple')],
-                        y0=180, size=40, gap=18),
+                        x0=1000, x1=1860, y0=180, size=32, gap=12),
                    tel('入り江の果ては、\n[[工場からタワマンへ]]変わった', 1430, 780, 46, at=4, plate='yellow', rot=-1)]},
         {'key': 'end', 'title': '名残りとまとめ', 'chapter_title': '名残りとまとめ',
          'scene': [pop('pop_bgimg', img='relief_plain', at=0, dim=.5, blur=8),

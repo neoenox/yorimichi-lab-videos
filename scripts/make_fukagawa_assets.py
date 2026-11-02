@@ -280,8 +280,7 @@ def fillmap():
             dy = cp[-1][1] - cp[0][1]
             ang = math.degrees(math.atan2(dy, dx))
             _rot_text(im, mid[0], mid[1], '運河', 20, ang)
-    dr.text((W - 14, H - 12), '国土地理院の標高データから作成・位置と形は模式化', font=_font(20, 500),
-            fill=(255, 255, 255), anchor='rs', stroke_width=4, stroke_fill=(32, 52, 78))
+    # 出典は合成側（pop_fill の credit）で描く。埋め立ての地色に隠れないように。
     im.convert('RGB').save(OUT / 'fillmap_0.png')
 
     # 累積マスク
