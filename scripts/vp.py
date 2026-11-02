@@ -180,17 +180,30 @@ def it_bars(im,d,cx,it):
     if not vis_any:return
     box_fill(d,(x0,y0,x1,y1),1.0);yy=y0+12
     if title:line_text(d,(x0+22,yy),title,FB[34],GOLD,1.0);yy+=52
-    rh=min(70,(y1-yy-14)//len(data));lab_w=it.get('lab_w',300);bw=x1-x0-lab_w-220
+    pop=SPEC.get('style')=='pop'
+    rh=min(96 if pop else 70,(y1-yy-14)//len(data));lab_w=it.get('lab_w',300);fs=32
+    if pop:
+        fs=max(32,min(48,rh-26))
+        lab_w=max(lab_w,min(int((x1-x0)*.5),int(max(tw(d,e['label'],F[fs]) for e in data))+50))
+    bw=x1-x0-lab_w-(260 if pop else 220)
     for k,e in enumerate(data):
         if not cx.vis(e):continue
         a=cx.a(e.get('at'));ry=yy+k*rh;col=COL.get(e.get('col','org'),ORG)
-        line_text(d,(x0+22,ry+4),e['label'],F[32],WHITE,a);L=int(bw*min(1,e['value']/mx)*ease(a*1.6))
+        line_text(d,(x0+22,ry+4),e['label'],F[fs],WHITE,a);L=int(bw*min(1,e['value']/mx)*ease(a*1.6))
         d.rounded_rectangle((x0+lab_w,ry+6,x0+lab_w+max(4,L),ry+rh-12),6,fill=tuple(col)+(int(235*a),))
-        line_text(d,(x0+lab_w+L+14,ry+4),e.get('vlabel',f"{e['value']:,}{unit}"),F[32],WHITE,a)
+        line_text(d,(x0+lab_w+L+14,ry+4),e.get('vlabel',f"{e['value']:,}{unit}"),F[fs],WHITE,a)
 def it_table(im,d,cx,it):
     x0,y0,x1,y1=it['box'];cols=it['cols'];rows=it['rows'];size=it.get('size',32);cw=it.get('colw') or [ (x1-x0-40)/len(cols) ]*len(cols)
     pop=SPEC.get('style')=='pop'
-    if pop:size=min(size+6,38)
+    if pop and '_fit' in it:size=it['_fit']
+    elif pop:
+        _d0=ImageDraw.Draw(Image.new('RGBA',(8,8)));best=min(size+6,38)
+        for sz in range(56,best-1,-2):
+            need=sz+26
+            for r in rows:
+                need+=max(len(wrapn(_d0,str(c),F[sz],w-16)) for c,w in zip(r['cells'],cw))*int(sz*1.25)+14
+            if y0+12+need<=y1:best=sz;break
+        size=best;it['_fit']=best
     if not any(cx.vis(r) for r in rows):return
     if pop:
         d.rounded_rectangle((x0+6,y0+8,x1+6,y1+8),20,fill=(0,0,0,80))
@@ -379,7 +392,7 @@ def _subs_layer(ci,t,alpha):
     if not active:return None
     lay=Image.new('RGBA',(1920,1080),(0,0,0,0));d=ImageDraw.Draw(lay,'RGBA')
     if SPEC.get('style')=='pop':
-        import vp_anim_pop as PP;PP.bind(globals());PP.subs_shade(lay);f=PP.heavy(60);lines=sub_lines(d,active,f,t);PP.subs(d,lines,f,rich)
+        import vp_anim_pop as PP;PP.bind(globals());PP.subs_shade(lay);f=PP.heavy(66);lines=sub_lines(d,active,f,t);PP.subs(d,lines,f,rich)
     else:
       f=FSUB[52];lines=sub_lines(d,active,f,t);d.rounded_rectangle((60,850,1860,1008),12,fill=(5,18,29,242))
       for j,txt in enumerate(lines):
@@ -412,7 +425,7 @@ def render_part(a,b):
             write=staticmethod(lambda b:None);close=staticmethod(lambda:None)
         def wait(self):pass
         returncode=0
-    proc=_P() if stills else subprocess.Popen(['ffmpeg','-y','-v','warning','-f','rawvideo','-pix_fmt','rgb24','-s','1920x1080','-r','30','-i','pipe:0','-an','-c:v','h264_nvenc','-preset','p4','-cq','19','-b:v','0','-pix_fmt','yuv420p',str(out)],stdin=subprocess.PIPE,stderr=log)
+    proc=_P() if stills else subprocess.Popen(['ffmpeg','-y','-v','warning','-f','rawvideo','-pix_fmt','rgb24','-s','1920x1080','-r','30','-i','pipe:0','-an',*(['-c:v','libx264','-preset','veryfast','-crf','19'] if os.environ.get('VP_ENC')=='libx264' else ['-c:v','h264_nvenc','-preset','p4','-cq','19','-b:v','0']),'-pix_fmt','yuv420p',str(out)],stdin=subprocess.PIPE,stderr=log)
     try:
         for i in (stills or range(a,min(b,N))):
             im=render_frame(i);proc.stdin.write(im.convert('RGB').tobytes())

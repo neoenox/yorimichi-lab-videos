@@ -299,12 +299,12 @@ def fillmap():
         dr = ImageDraw.Draw(img)
         w, _ = _chip(dr, 18, 14, '深川・木場', 38)
         _chip(dr, 18 + w + 10, 24, '模式図', 23, fg=(58, 44, 24), bg=(238, 228, 192, 240))
-        _chip(dr, *P(35.6790, 139.7870), '隅田川', 24, anchor='mm', bg=(30, 62, 96, 220))
-        _chip(dr, *P(35.6740, 139.8050), '門前仲町', 26, anchor='mm', bg=(120, 40, 30, 230))
-        _chip(dr, *P(35.6713, 139.8074), '木場', 26, anchor='mm', bg=(160, 100, 40, 230))
-        _chip(dr, *P(35.6570, 139.7880), '豊洲', 24, anchor='mm')
-        _chip(dr, *P(35.6680, 139.8220), '東陽', 24, anchor='mm')
-        _rot_text(img, *P(35.6789, 139.7950), '小名木川', 24, BAR_ANG)
+        _chip(dr, *P(35.6790, 139.7870), '隅田川', 28, anchor='mm', bg=(30, 62, 96, 220))
+        _chip(dr, *P(35.6740, 139.8050), '門前仲町', 32, anchor='mm', bg=(120, 40, 30, 230))
+        _chip(dr, *P(35.6713, 139.8074), '木場', 32, anchor='mm', bg=(160, 100, 40, 230))
+        _chip(dr, *P(35.6570, 139.7880), '豊洲', 28, anchor='mm')
+        _chip(dr, *P(35.6680, 139.8220), '東陽', 28, anchor='mm')
+        _rot_text(img, *P(35.6789, 139.7950), '小名木川', 28, BAR_ANG)
 
     base_labels(im)
     for cp in canal_px.values():
@@ -313,7 +313,7 @@ def fillmap():
             dx = cp[-1][0] - cp[0][0]
             dy = cp[-1][1] - cp[0][1]
             ang = math.degrees(math.atan2(dy, dx))
-            _rot_text(im, mid[0], mid[1], '運河', 20, ang)
+            _rot_text(im, mid[0], mid[1], '運河', 22, ang)
     # 出典は合成側（pop_fill の credit）で描く。埋め立ての地色に隠れないように。
     im.convert('RGB').save(OUT / 'fillmap_0.png')
 
@@ -341,7 +341,7 @@ def fillmap():
         for txt, la, lo_, sz in st['labels']:
             _chip(ds, *P(la, lo_), txt, sz, anchor='mm', bg=(40, 34, 26, 220))
         for j in range(1, i + 1):  # 進行済みの段階をタイムラインとして積む
-            _chip(ds, W - 16, 585 + (j - 1) * 50, KIBA_STAGES[j - 1]['name'], 26,
+            _chip(ds, W - 16, 585 + (j - 1) * 50, KIBA_STAGES[j - 1]['name'], 28,
                   fg=(255, 255, 255), bg=(40, 34, 26, 225), anchor='rt')
         # 運河も毎回重ね描き（水色で）
         for cp in canal_px.values():

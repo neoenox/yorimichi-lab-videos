@@ -96,7 +96,7 @@ def header(d, ci):
 def subs(d, lines, f, rich):
     """字幕。帯なし・太い黒ふち。rich は rich_text。下に薄い影を敷く（呼び出し側）"""
     for j, txt in enumerate(lines):
-        rich.draw_center(d, 960, 868 + j * 78, txt, f, '#ffffff', YELLOW, stroke_width=9, stroke_fill=BLACK)
+        rich.draw_center(d, 960, 862 + j * 86, txt, f, '#ffffff', YELLOW, stroke_width=10, stroke_fill=BLACK)
 
 
 def subs_shade(lay):
@@ -113,22 +113,56 @@ def subs_shade(lay):
 _BG = {}
 
 
-def pop_bgimg(im, d0, cx, it, a):
-    """写真いっぱいの背景。ゆっくり拡大。spec: dict(t='anim', name='pop_bgimg', img='aerial_1936', at=0, until=N, dim=.5, blur=4, zoom=.12)"""
-    key = (it['img'], it.get('blur', 4))
+def _bg_big(name, blur):
+    key = (name, blur)
     if key not in _BG:
-        src = Image.open(G['P'](G['SPEC']['images'][it['img']]['file'])).convert('RGB')
+        src = Image.open(G['P'](G['SPEC']['images'][name]['file'])).convert('RGB')
         sc = max(1920 / src.width, 1080 / src.height) * 1.25
         big = src.resize((int(src.width * sc) + 1, int(src.height * sc) + 1), Image.LANCZOS)
-        if it.get('blur', 4): big = big.filter(ImageFilter.GaussianBlur(it.get('blur', 4)))
-        big = ImageEnhance.Color(big).enhance(1.35)
-        _BG[key] = big
-    big = _BG[key]
-    prog = min(1.0, cx.t / 40.0)
-    z = 1 - it.get('zoom', .12) * prog
-    w, h = int(1920 * z * 1.0), int(1080 * z * 1.0)
-    ox = int((big.width - w) * (0.3 + 0.4 * prog)); oy = int((big.height - h) * 0.5)
-    crop = big.crop((ox, oy, ox + w, oy + h)).resize((1920, 1080), Image.BILINEAR).convert('RGBA')
+        if blur: big = big.filter(ImageFilter.GaussianBlur(blur))
+        _BG[key] = ImageEnhance.Color(big).enhance(1.35)
+    return _BG[key]
+
+
+def _chap_prog(cx):
+    """章の進み具合 0〜1（カードのゆっくりしたズームに使う）"""
+    tl = G.get('TL') or []
+    if cx.ci < len(tl):
+        s, e = tl[cx.ci]['start'], tl[cx.ci]['end']
+        return max(0.0, min(1.0, (cx.t - s) / max(0.1, e - s)))
+    return 0.0
+
+
+def _bg_crop(big, prog, zoom, rev=False):
+    z = 1 - zoom * (1 - prog if rev else prog)
+    q = (1 - prog) if rev else prog
+    w, h = 1920 * z, 1080 * z
+    ox = (big.width - w) * (0.3 + 0.4 * q); oy = (big.height - h) * 0.5
+    # 整数pxで切ると同じコマが続いて「静止」に見えるので、小数のまま拡大縮小する
+    return big.transform((1920, 1080), Image.AFFINE,
+                         (w / 1920, 0, ox, 0, h / 1080, oy),
+                         resample=Image.BILINEAR).convert('RGBA')
+
+
+def pop_bgimg(im, d0, cx, it, a):
+    """写真いっぱいの背景。ゆっくり拡大。spec: dict(t='anim', name='pop_bgimg', img='aerial_1936', at=0, until=N, dim=.5, blur=4, zoom=.12,
+    alts=['別の背景', ...], seg=22)  alts があれば seg 秒ごとに別の写真へ、ゆっくり溶けて切り替わる（同じ背景が続く単調さを避ける）"""
+    blur = it.get('blur', 4); zoom = it.get('zoom', .12)
+    names = [it['img']] + list(it.get('alts') or [])
+    if len(names) == 1:
+        prog = min(1.0, 0.02 + 0.98 * _chap_prog(cx))   # 章の間ずっと動かす（以前は開始40秒で止まっていた）
+        crop = _bg_crop(_bg_big(names[0], blur), prog, zoom)
+    else:
+        seg = float(it.get('seg', 22)); fade = 1.6
+        t0 = cx.st[it['at']] if it.get('at') is not None and cx.on(it['at']) else 0.0
+        tt = max(0.0, cx.t - t0)
+        n = int(tt // seg); local = tt - n * seg
+        cur = names[n % len(names)]
+        crop = _bg_crop(_bg_big(cur, blur), min(1.0, local / seg), zoom, rev=(n % 2 == 1))
+        if n > 0 and local < fade:
+            prev = names[(n - 1) % len(names)]
+            pc = _bg_crop(_bg_big(prev, blur), 1.0, zoom, rev=((n - 1) % 2 == 1))
+            crop = Image.blend(pc, crop, ease(local / fade))
     dim = it.get('dim', .5)
     crop = Image.blend(crop, Image.new('RGBA', crop.size, (10, 8, 30, 255)), dim)
     if a < 1: crop.putalpha(crop.getchannel('A').point(lambda v: int(v * a)))
@@ -194,10 +228,10 @@ def _text_img(text, size, col, plate=None, maxw=1500, pad=None, stroke=None):
 SUB_TOP = 836   # 字幕の枠は y=850 から
 
 
-def _place(im, pic, cx_, cy_, k, rot=0.0, settle=True):
-    """pic を中心 (cx_, cy_) に、k(0〜1の出方)で弾ませて置く"""
+def _place(im, pic, cx_, cy_, k, rot=0.0, settle=True, zoom=1.0):
+    """pic を中心 (cx_, cy_) に、k(0〜1の出方)で弾ませて置く。zoom でゆっくり拡大（静止画の単調さ対策）"""
     if k <= 0: return
-    s = max(0.01, bounce(k)) if k < 1 else 1.0
+    s = (max(0.01, bounce(k)) if k < 1 else 1.0) * zoom
     r = rot * (1 + (1 - ease(k)) * 1.5 if settle and k < 1 else 1)
     w, h = max(1, int(pic.width * s)), max(1, int(pic.height * s))
     p = pic.resize((w, h), Image.LANCZOS) if s != 1 else pic
@@ -307,7 +341,8 @@ def pop_card(im, d0, cx, it, a):
             c.rounded_rectangle((14, 18, W + 12, H + 14), 26, fill=(0, 0, 0, 120))
             c.rounded_rectangle((6, 6, W + 6, H + 6), 26, fill=(14, 20, 48, 238), outline=(255, 255, 255, 255), width=6)
             card.alpha_composite(piece, (12, 12))
-    _place(im, card, (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0))
+    _place(im, card, (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0),
+           zoom=1 + it.get('zoom', .04) * _chap_prog(cx))
 
 
 def _fill_img(name):
@@ -351,7 +386,8 @@ def pop_fill(im, d0, cx, it, a):
         d2 = ImageDraw.Draw(pic)
         d2.text((pic.width - 12, pic.height - 10), cr, font=f2, fill=(255, 255, 255, 255),
                 anchor='rs', stroke_width=4, stroke_fill=(32, 52, 78, 255))
-    _place(im, _frame_photo(pic, cap), (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0))
+    _place(im, _frame_photo(pic, cap), (x0 + x1) / 2, (y0 + y1) / 2, k, it.get('rot', 0),
+           zoom=1 + it.get('zoom', .05) * _chap_prog(cx))
 
 
 DRAW_POP = dict(pop_bgimg=pop_bgimg, pop_telop=pop_telop, pop_rows=pop_rows, pop_card=pop_card, pop_fill=pop_fill)
