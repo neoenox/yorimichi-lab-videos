@@ -45,7 +45,8 @@ def photos():
 
 
 # 深川のまわり。超低地（0-3m）と、隅田川・運河網を比べる
-PTS = {'門前仲町': (35.6748, 139.7985), '清澄白河': (35.6837, 139.7960),
+# 清澄白河は駅中心で採る（旧座標 35.6837,139.7960 は水面に落ち、DEMが-3.8mになっていた）
+PTS = {'門前仲町': (35.6748, 139.7985), '清澄白河': (35.6826, 139.8005),
        '木場三丁目': (35.6713, 139.8074), '東陽四丁目': (35.6652, 139.8220),
        '豊洲四丁目': (35.6570, 139.7880), '隅田川・佃': (35.6680, 139.7830)}
 
@@ -102,18 +103,22 @@ def relief():
     im = Image.fromarray(np.clip(out * (0.5 + 0.5 * hs[..., None]), 0, 255).astype('uint8'))
     box = _crop_box([p[1] for p in pts.values()], N, *FRAME)
     im.crop(box).save(OUT / 'relief_plain.png')
-    d = ImageDraw.Draw(im)
+    # 切り出した後でラベルを描く（切り出し前の座標でクランプすると端で欠ける）
+    im2 = im.crop(box)
+    d = ImageDraw.Draw(im2)
     f = ImageFont.truetype('C:/Windows/Fonts/NotoSansJP-VF.ttf', 34)
     f.set_variation_by_axes([700])
     for k, (v, (x, y)) in pts.items():
-        X, Y = x, y
+        X, Y = x - box[0], y - box[1]
+        X = max(12, min(X, im2.width - 12))
+        Y = max(28, min(Y, im2.height - 28))
         d.ellipse((X - 8, Y - 8, X + 8, Y + 8), fill=(255, 90, 80), outline=(255, 255, 255), width=3)
         s = f'{k} {v:.1f}m'
         w = d.textlength(s, font=f)
-        tx = min(max(X + 12, 6), im.width - w - 10)
+        tx = min(max(X + 12, 6), im2.width - w - 10)
         d.rectangle((tx - 6, Y - 24, tx + w + 6, Y + 24), fill=(7, 24, 36))
         d.text((tx, Y - 21), s, font=f, fill=(245, 243, 232))
-    im.crop(box).save(OUT / 'relief.png')
+    im2.save(OUT / 'relief.png')
     print({k: round(v[0], 2) for k, v in pts.items()})
 
 
@@ -148,19 +153,21 @@ CANALS = {
     '北十間川支流': [(35.6730, 139.8100), (35.6730, 139.8180)],
 }
 
-# 木場（貯木場）の広がり
+# 木場（貯木場）の広がり。面は模式化したもの（位置・形は正確ではない）
 KIBA_STAGES = [
+    # 1657年ごろの深川市街＋木場。隅田川の東岸から連続した陸地として描く
+    # （小さな矩形だけだと「海に浮いた島」に見えるため）
     dict(name='① 1657年〜 木場誕生', col=(200, 160, 100),
-         poly=[(35.6700, 139.8000), (35.6700, 139.8100), (35.6650, 139.8100), (35.6650, 139.8000)],
-         labels=[('木場', 35.6675, 139.8050, 26)]),
+         poly=[(35.6835, 139.7895), (35.6835, 139.8120), (35.6700, 139.8120), (35.6700, 139.7895)],
+         labels=[]),  # 木場はベース画像側のラベルに統一（二重表示を防ぐ）
     dict(name='② 1700年〜 運河網整備', col=(120, 180, 220),
          poly=[],  # 運河は線で描く
          labels=[('横十間川', 35.6760, 139.8115, 22),
                  ('仙台堀川', 35.6700, 139.8150, 22)]),
+    # 明治以降の埋め立て。南部（塩浜・東陽・豊洲）が陸になる
     dict(name='③ 1872年〜 生糸輸出・埋め立て', col=(220, 200, 140),
-         poly=[(35.6600, 139.8200), (35.6600, 139.8300), (35.6550, 139.8300), (35.6550, 139.8200)],
-         labels=[('豊洲埋立', 35.6575, 139.8250, 24),
-                 ('東陽', 35.6650, 139.8220, 22)]),
+         poly=[(35.6700, 139.7855), (35.6700, 139.8290), (35.6510, 139.8290), (35.6510, 139.7855)],
+         labels=[('豊洲・東陽の埋め立て', 35.6575, 139.8180, 24)]),
 ]
 
 BAR_ANG = 45.0
@@ -189,7 +196,9 @@ def _ll2px(pts, box, z=15):
     return out
 
 
-def _chip(d, x, y, text, size=30, fg=(255, 255, 255), bg=(34, 30, 54, 215), anchor='lt', pad=None):
+def _chip(d, x, y, text, size=30, fg=(255, 255, 255), bg=(34, 30, 54, 215), anchor='lt', pad=None,
+          margin=4):
+    """ラベルチップを描く。画像の外にはみ出す場合は内側へ寄せる（端で文字が欠けるのを防ぐ）。"""
     f = _font(size)
     pad = int(size * .45) if pad is None else pad
     w, h = d.textlength(text, font=f) + pad * 2, int(size * 1.36) + pad
@@ -199,6 +208,16 @@ def _chip(d, x, y, text, size=30, fg=(255, 255, 255), bg=(34, 30, 54, 215), anch
         x = x - w
     elif anchor in ('lm', 'la'):
         y = y - h / 2 if anchor == 'lm' else y
+    # 画像境界でクランプ（右端・下端で切れるのを防ぐ）
+    IW, IH = d.im.size
+    if w + margin * 2 <= IW:
+        x = max(margin, min(x, IW - w - margin))
+    else:
+        x = (IW - w) / 2
+    if h + margin * 2 <= IH:
+        y = max(margin, min(y, IH - h - margin))
+    else:
+        y = (IH - h) / 2
     d.rounded_rectangle((x, y, x + w, y + h), min(16, h / 2), fill=bg)
     d.text((x + pad, y + h / 2 - 1), text, font=f, fill=fg, anchor='lm')
     return int(w), int(h)
@@ -211,7 +230,18 @@ def _rot_text(im, x, y, text, size, angle, fg=(255, 255, 255), stroke=(38, 34, 6
     t = Image.new('RGBA', (w, h), (0, 0, 0, 0))
     ImageDraw.Draw(t).text((w / 2, h / 2), text, font=f, fill=fg, stroke_width=sw, stroke_fill=stroke, anchor='mm')
     t = t.rotate(angle, resample=Image.BICUBIC, expand=True)
-    im.alpha_composite(t, (int(x - t.width / 2), int(y - t.height / 2)))
+    # expand で大きくなるため座標が負になり得る。0 以上にクランプして欠けを防ぐ。
+    px = int(x - t.width / 2)
+    py = int(y - t.height / 2)
+    if t.width <= im.width:
+        px = max(0, min(px, im.width - t.width))
+    else:
+        px = (im.width - t.width) // 2
+    if t.height <= im.height:
+        py = max(0, min(py, im.height - t.height))
+    else:
+        py = (im.height - t.height) // 2
+    im.alpha_composite(t, (px, py))
 
 
 def fillmap():
@@ -266,13 +296,12 @@ def fillmap():
     P = lambda la, lo: _ll2px([(la, lo)], box)[0]
     w, _ = _chip(dr, 18, 14, '深川・木場', 38)
     _chip(dr, 18 + w + 10, 24, '模式図', 23, fg=(58, 44, 24), bg=(238, 228, 192, 240))
-    _chip(dr, *P(35.6880, 139.7800), '隅田川', 24, anchor='mm', bg=(30, 62, 96, 220))
+    _chip(dr, *P(35.6790, 139.7870), '隅田川', 24, anchor='mm', bg=(30, 62, 96, 220))
     _chip(dr, *P(35.6740, 139.8050), '門前仲町', 26, anchor='mm', bg=(120, 40, 30, 230))
     _chip(dr, *P(35.6713, 139.8074), '木場', 26, anchor='mm', bg=(160, 100, 40, 230))
     _chip(dr, *P(35.6570, 139.7880), '豊洲', 24, anchor='mm')
-    _chip(dr, *P(35.6652, 139.8220), '東陽', 24, anchor='mm')
-    _chip(dr, *P(35.6920, 139.7880), '両国橋', 22, anchor='mm')
-    _rot_text(im, *P(35.6730, 139.8030), '小名木川', 24, BAR_ANG)
+    _chip(dr, *P(35.6680, 139.8220), '東陽', 24, anchor='mm')
+    _rot_text(im, *P(35.6789, 139.7950), '小名木川', 24, BAR_ANG)
     for cp in canal_px.values():
         if len(cp) >= 2:
             mid = ((cp[0][0] + cp[-1][0]) / 2, (cp[0][1] + cp[-1][1]) / 2)
@@ -283,9 +312,10 @@ def fillmap():
     # 出典は合成側（pop_fill の credit）で描く。埋め立ての地色に隠れないように。
     im.convert('RGB').save(OUT / 'fillmap_0.png')
 
-    # 累積マスク
+    # 累積マスク（各章は1枚だけ重ねるので、過去の段階を焼き込んでおく）
     sea = amask([sea_px]) > .5
     cum = np.zeros_like(sea)
+    cc = np.zeros((H, W, 3), float)
 
     for i, st in enumerate(KIBA_STAGES, 1):
         if st['poly']:
@@ -293,16 +323,19 @@ def fillmap():
         else:
             new = np.zeros_like(sea)
         cum = cum | new
+        cc[new] = st['col']
         a = np.zeros((H, W, 4), float)
-        a[..., :3] = st['col']
-        a[..., 3] = new * 255.
+        a[..., :3] = cc
+        a[..., 3] = cum * 255.
         edge = new & ndi.binary_dilation(~new & ~sea, np.ones((4, 4), bool))
         a[ndi.binary_dilation(edge, np.ones((2, 2), bool))] = FILL_EDGE + (255.,)
         s = Image.fromarray(np.clip(a, 0, 255).astype('uint8'))
         ds = ImageDraw.Draw(s)
         for txt, la, lo_, sz in st['labels']:
             _chip(ds, *P(la, lo_), txt, sz, anchor='mm', bg=(40, 34, 26, 220))
-        _chip(ds, W - 16, 556 + (i - 1) * 52, st['name'], 28, fg=(255, 255, 255), bg=(40, 34, 26, 225), anchor='rt')
+        for j in range(1, i + 1):  # 進行済みの段階をタイムラインとして積む
+            _chip(ds, W - 16, 610 + (j - 1) * 52, KIBA_STAGES[j - 1]['name'], 28,
+                  fg=(255, 255, 255), bg=(40, 34, 26, 225), anchor='rt')
         # 運河も毎回重ね描き（水色で）
         for cp in canal_px.values():
             if len(cp) >= 2:

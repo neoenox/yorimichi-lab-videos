@@ -154,6 +154,17 @@ def _text_img(text, size, col, plate=None, maxw=1500, pad=None, stroke=None):
     lines = []
     for ln in text.split('\n'):
         lines += G['wrapn'](d0, ln.replace('[[', '').replace(']]', ''), f, maxw) if '[[' not in ln else [ln]
+    if len(lines) > 1 and all('[[' not in l for l in lines):
+        # 最終行が短すぎる（1〜2文字だけ次の行に落ちる）ときは、同じ行数で幅を詰めて均等にする
+        plain = ''.join(lines); n = len(lines)
+        if len(lines[-1]) < 0.4 * len(lines[0]):
+            lo, hi = 200, maxw
+            while hi - lo > 8:
+                mid = (lo + hi) // 2
+                tl = G['wrapn'](d0, plain, f, mid)
+                if len(tl) <= n: hi = mid
+                else: lo = mid
+            lines = G['wrapn'](d0, plain, f, hi)
     lh = int(size * 1.22)
     ws = [d0.textlength(l.replace('[[', '').replace(']]', ''), font=f) for l in lines]
     stroke = stroke if stroke is not None else max(6, int(size * .13))
@@ -180,6 +191,9 @@ def _text_img(text, size, col, plate=None, maxw=1500, pad=None, stroke=None):
     return im
 
 
+SUB_TOP = 836   # 字幕の枠は y=850 から
+
+
 def _place(im, pic, cx_, cy_, k, rot=0.0, settle=True):
     """pic を中心 (cx_, cy_) に、k(0〜1の出方)で弾ませて置く"""
     if k <= 0: return
@@ -188,6 +202,7 @@ def _place(im, pic, cx_, cy_, k, rot=0.0, settle=True):
     w, h = max(1, int(pic.width * s)), max(1, int(pic.height * s))
     p = pic.resize((w, h), Image.LANCZOS) if s != 1 else pic
     if r: p = p.rotate(r, resample=Image.BICUBIC, expand=True)
+    if cy_ + p.height / 2 > SUB_TOP: cy_ = SUB_TOP - p.height / 2
     if k < .3: p.putalpha(p.getchannel('A').point(lambda v: int(v * k / .3)))
     im.alpha_composite(p, (int(cx_ - p.width / 2), int(cy_ - p.height / 2)))
 
@@ -210,8 +225,16 @@ def pop_rows(im, d0, cx, it, a):
     items=[dict(at=N, tag='1898年', text='淀橋浄水場が完成', col='orange', until=M)])"""
     x0, x1, y = it.get('x0', 100), it.get('x1', 1820), it.get('y0', 190)
     size, gap = it.get('size', 40), it.get('gap', 18)
-    f = semi(size); ft = heavy(int(size * .86))
     d = ImageDraw.Draw(Image.new('RGBA', (8, 8)))
+    ymax = it.get('ymax', SUB_TOP)
+    while True:
+        f = semi(size); ft = heavy(int(size * .86)); yy_ = y
+        for e in it['items']:
+            tg = e.get('tag'); tw0 = int(d.textlength(tg, font=ft)) + 44 if tg else 0
+            ln = G['wrapn'](d, e['text'], f, x1 - x0 - tw0 - 60)
+            yy_ += max(len(ln) * int(size * 1.3), int(size * 1.2)) + 30 + gap
+        if yy_ - gap <= ymax or size <= 24: break
+        size = int(size * .92); gap = max(8, int(gap * .9))
     for n, e in enumerate(it['items']):
         un = e.get('until')
         tag = e.get('tag')

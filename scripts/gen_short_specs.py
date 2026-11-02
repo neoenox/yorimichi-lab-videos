@@ -267,7 +267,7 @@ J('moon', dict(
 
 J('sunrise', dict(
     title='日の出が一番早いのは夏至の日？',
-    long_id='mk5x-Yu9cC4',
+    long_id='BeY3kMjDjzs',
     long_title='日の出が一番早いのは、夏至の日？ 国立天文台の暦で確かめる',
     pron='data/sunrise_pronunciations.json',
     art='assets/sunrise/art_intro.png',
@@ -284,7 +284,7 @@ J('sunrise', dict(
 
 J('venus', dict(
     title='金星では、1日が1年より長い？',
-    long_id='rj1bDRBWHsY',
+    long_id='qZBtCpOCa6o',
     long_title='金星では、1日が1年より長い？ NASAの表で確かめる',
     pron='data/venus_pronunciations.json',
     art='assets/venus/art_intro.png',
@@ -352,7 +352,7 @@ J('honnoji', dict(
 
 J('ninja', dict(
     title='忍者は、黒装束だったのか？',
-    long_id='FmJrf-t7ro8',
+    long_id='flajM3xInYE',
     long_title='忍者は、黒装束で手裏剣を投げていたのか？ 国立国会図書館の解説で確かめる',
     pron='data/nj_pronunciations.json',
     art='assets/ndl_ninja/hokusai_black_ninja.jpg',
@@ -369,7 +369,7 @@ J('ninja', dict(
 
 J('worldmap', dict(
     title='世界地図は、大きさを間違えている？',
-    long_id='0gpV-8L1yvg',
+    long_id='HtZmfkJy9Eo',
     long_title='グリーンランドはアフリカに何個入る？ 地図の「大きさ」を計算で検証',
     pron='data/gm_pronunciations.json',
     art='assets/earth/overview.png',

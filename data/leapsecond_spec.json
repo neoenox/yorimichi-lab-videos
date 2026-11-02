@@ -296,22 +296,26 @@
       {
        "at": 1,
        "text": "交通",
-       "col": "orange"
+       "col": "orange",
+       "until": 3
       },
       {
        "at": 1,
        "text": "エネルギー",
-       "col": "orange"
+       "col": "orange",
+       "until": 3
       },
       {
        "at": 1,
        "text": "通信",
-       "col": "orange"
+       "col": "orange",
+       "until": 3
       },
       {
        "at": 1,
        "text": "宇宙",
-       "col": "orange"
+       "col": "orange",
+       "until": 3
       }
      ],
      "x0": 300,
@@ -495,7 +499,7 @@
      ],
      "x0": 110,
      "x1": 1810,
-     "y0": 330,
+     "y0": 395,
      "size": 52,
      "gap": 22
     }

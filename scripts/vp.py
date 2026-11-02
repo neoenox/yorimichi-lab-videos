@@ -121,15 +121,29 @@ def it_image(im,d,cx,it):
 # ---------------------------------------------------------------- item renderers
 def it_stack(im,d,cx,it):
     x0,x1,y=it.get('x0',60),it.get('x1',930),it.get('y0',170);size=it.get('size',34);gap=it.get('gap',14);ymax=it.get('ymax',850)
+    pop=SPEC.get('style')=='pop'
+    if pop:size=min(size+6,42);gap=gap+2
     for e in it['items']:
         if not cx.vis(e):continue
         a=cx.a(e.get('at'));col=COL.get(e.get('col','white'),WHITE);hi=e.get('hi',False);title=e.get('title')
-        th=(size+16) if title else 0;bh=measure(d,e['text'],size,x1-x0-52)+30+th
+        th=(size+18) if title else 0;bh=measure(d,e['text'],size,x1-x0-52)+30+th
         assert y+bh<=ymax,f'stack overflow in {cx.key}: {e["text"][:20]}'
-        box_fill(d,(x0,y,x1,y+bh),a,col=GOLD if hi else EDGE,w=3 if hi else 2)
-        yy=y+14
-        if title:line_text(d,(x0+24,yy),title,FB[size-4],GOLD,a);yy+=size+16
-        text_block(d,x0+26,yy,e['text'],size,x1-x0-52,GOLD if hi else col,a);y+=bh+gap
+        if pop:
+            d.rounded_rectangle((x0+6,y+8,x1+6,y+bh+8),20,fill=(0,0,0,int(80*a)))
+            d.rounded_rectangle((x0,y,x1,y+bh),20,fill=(255,255,255,int(248*a)),outline=(0,0,0,int(255*a)),width=4)
+            yy=y+16
+            if title:
+                ft=FB[size-4];ww=int(tw(d,title,ft))+36
+                pc=(255,120,90) if hi else (255,214,64)
+                d.rounded_rectangle((x0+18,yy,x0+18+ww,yy+size+12),12,fill=pc+(int(255*a),),outline=(0,0,0,int(255*a)),width=3)
+                line_text(d,(x0+36,yy+5),title,ft,(20,20,20),a);yy+=size+20
+            text_block(d,x0+26,yy,e['text'],size,x1-x0-52,(24,24,24),a)
+        else:
+            box_fill(d,(x0,y,x1,y+bh),a,col=GOLD if hi else EDGE,w=3 if hi else 2)
+            yy=y+14
+            if title:line_text(d,(x0+24,yy),title,FB[size-4],GOLD,a);yy+=size+16
+            text_block(d,x0+26,yy,e['text'],size,x1-x0-52,GOLD if hi else col,a)
+        y+=bh+gap
 def it_panel(im,d,cx,it):
     if not cx.vis(it):return
     a=cx.a(it.get('at'));x0,y0,x1,y1=it['box'];size=it.get('size',40);col=COL.get(it.get('col','white'),WHITE);title=it.get('title');fam=it.get('fam','sans')
@@ -175,16 +189,24 @@ def it_bars(im,d,cx,it):
         line_text(d,(x0+lab_w+L+14,ry+4),e.get('vlabel',f"{e['value']:,}{unit}"),F[32],WHITE,a)
 def it_table(im,d,cx,it):
     x0,y0,x1,y1=it['box'];cols=it['cols'];rows=it['rows'];size=it.get('size',32);cw=it.get('colw') or [ (x1-x0-40)/len(cols) ]*len(cols)
+    pop=SPEC.get('style')=='pop'
+    if pop:size=min(size+6,38)
     if not any(cx.vis(r) for r in rows):return
-    box_fill(d,(x0,y0,x1,y1),1.0);x=x0+20
-    for c,w in zip(cols,cw):line_text(d,(x,y0+12),c,F[size],GOLD,1.0);x+=w
-    d.line([(x0+16,y0+12+size+14),(x1-16,y0+12+size+14)],fill=EDGE+(255,),width=2);yy=y0+12+size+26
+    if pop:
+        d.rounded_rectangle((x0+6,y0+8,x1+6,y1+8),20,fill=(0,0,0,80))
+        d.rounded_rectangle((x0,y0,x1,y1),20,fill=(255,255,255,250),outline=(0,0,0,255),width=4)
+    else:
+        box_fill(d,(x0,y0,x1,y1),1.0)
+    x=x0+20
+    for c,w in zip(cols,cw):line_text(d,(x,y0+12),c,F[size],(70,70,70) if pop else GOLD,1.0);x+=w
+    d.line([(x0+16,y0+12+size+14),(x1-16,y0+12+size+14)],fill=(0,0,0,255) if pop else EDGE+(255,),width=3 if pop else 2);yy=y0+12+size+26
     for r in rows:
         if not cx.vis(r):continue
         a=cx.a(r.get('at'));x=x0+20;hmax=0
+        tcol=(200,60,0) if (pop and r.get('col')=='gold') else ((30,30,30) if pop else COL.get(r.get('col','white'),WHITE))
         for cell,w in zip(r['cells'],cw):
             ls=wrapn(d,str(cell),F[size],w-16)
-            for j,l in enumerate(ls):line_text(d,(x,yy+j*int(size*1.25)),l,F[size],COL.get(r.get('col','white'),WHITE),a)
+            for j,l in enumerate(ls):line_text(d,(x,yy+j*int(size*1.25)),l,F[size],tcol,a)
             hmax=max(hmax,len(ls)*int(size*1.25));x+=w
         yy+=hmax+14;assert yy<=y1+4,f'table overflow in {cx.key}'
 def it_cols2(im,d,cx,it):
