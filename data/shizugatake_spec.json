@@ -95,18 +95,43 @@
  "bgm": [
   [
    "intro",
+   "split",
+   "orchestra21"
+  ],
+  [
    "forces",
-   "piano36"
+   "forces",
+   "piano32"
   ],
   [
    "terrain",
+   "standoff",
+   "ethnic33"
+  ],
+  [
+   "oiwa",
+   "oiwa",
+   "orchestra24"
+  ],
+  [
+   "mino",
+   "mino",
+   "orchestra20"
+  ],
+  [
    "kessen",
-   "piano12"
+   "kessen",
+   "orchestra19"
+  ],
+  [
+   "source",
+   "source",
+   "orchestra26"
   ],
   [
    "after",
    "check",
-   "piano40"
+   "ethnic30"
   ]
  ],
  "style": "pop",

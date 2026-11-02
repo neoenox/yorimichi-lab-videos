@@ -32,18 +32,13 @@
  "bgm": [
   [
    "intro",
-   "mado",
-   "piano36"
-  ],
-  [
    "yuiitsu",
-   "kinshi",
-   "piano12"
+   "acoustic45"
   ],
   [
-   "wakaranai",
+   "kinshi",
    "end",
-   "piano40"
+   "ethnic25"
   ]
  ],
  "style": "pop",

@@ -23,18 +23,33 @@
  "bgm": [
   [
    "intro",
+   "index",
+   "acoustic51"
+  ],
+  [
    "basket",
-   "piano36"
+   "basket",
+   "acoustic52"
   ],
   [
    "numbers",
-   "five",
+   "numbers",
+   "piano33"
+  ],
+  [
+   "why",
+   "why",
    "piano12"
   ],
   [
+   "five",
    "method",
+   "piano38"
+  ],
+  [
    "end",
-   "piano40"
+   "end",
+   "piano39"
   ]
  ],
  "chapters": [

@@ -48,18 +48,28 @@
  "bgm": [
   [
    "intro",
+   "shinobi",
+   "ethnic31"
+  ],
+  [
    "books",
-   "piano36"
+   "books",
+   "acoustic51"
   ],
   [
    "black",
-   "shuriken",
+   "black",
    "piano12"
+  ],
+  [
+   "shuriken",
+   "shuriken",
+   "piano35"
   ],
   [
    "now",
    "end",
-   "piano40"
+   "piano38"
   ]
  ],
  "chapters": [

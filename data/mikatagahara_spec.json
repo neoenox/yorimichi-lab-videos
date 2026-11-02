@@ -65,18 +65,38 @@
  "bgm": [
   [
    "intro",
-   "terrain",
-   "piano36"
+   "saijo",
+   "orchestra24"
   ],
   [
+   "terrain",
    "why",
+   "ethnic25"
+  ],
+  [
+   "battle",
+   "battle",
+   "ethnic26"
+  ],
+  [
+   "flee",
    "night",
-   "piano12"
+   "piano32"
   ],
   [
    "check",
+   "check",
+   "orchestra21"
+  ],
+  [
+   "after",
+   "source",
+   "orchestra22"
+  ],
+  [
    "summary",
-   "piano40"
+   "summary",
+   "orchestra19"
   ]
  ],
  "style": "pop",

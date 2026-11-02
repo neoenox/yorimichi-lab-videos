@@ -23,18 +23,33 @@
  "bgm": [
   [
    "intro",
-   "first",
-   "piano36"
+   "trial",
+   "piano38"
   ],
   [
-   "painting",
-   "why",
+   "first",
+   "first",
    "piano12"
   ],
   [
+   "painting",
+   "painting",
+   "piano41"
+  ],
+  [
+   "say",
+   "say",
+   "piano34"
+  ],
+  [
+   "why",
    "clear",
+   "acoustic47"
+  ],
+  [
    "end",
-   "piano40"
+   "end",
+   "ethnic31"
   ]
  ],
  "chapters": [

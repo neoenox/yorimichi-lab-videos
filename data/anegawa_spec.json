@@ -80,18 +80,43 @@
  "bgm": [
   [
    "intro",
-   "terrain",
-   "piano36"
+   "road",
+   "orchestra25"
   ],
   [
+   "forces",
+   "forces",
+   "orchestra20"
+  ],
+  [
+   "terrain",
    "dawn",
+   "ethnic33"
+  ],
+  [
+   "lines",
+   "battle",
+   "orchestra24"
+  ],
+  [
    "gunki",
-   "piano12"
+   "gunki",
+   "ethnic26"
   ],
   [
    "after",
-   "summary",
+   "after",
+   "orchestra22"
+  ],
+  [
+   "next",
+   "source",
    "piano40"
+  ],
+  [
+   "summary",
+   "summary",
+   "ethnic30"
   ]
  ],
  "style": "pop",

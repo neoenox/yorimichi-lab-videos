@@ -20,18 +20,33 @@
  "bgm": [
   [
    "intro",
+   "rule",
+   "acoustic51"
+  ],
+  [
+   "reform",
    "since",
-   "piano36"
+   "piano33"
   ],
   [
    "range",
+   "why",
+   "acoustic47"
+  ],
+  [
    "pick",
-   "piano12"
+   "pick",
+   "piano38"
   ],
   [
    "who",
+   "know",
+   "piano34"
+  ],
+  [
    "end",
-   "piano40"
+   "end",
+   "piano36"
   ]
  ],
  "chapters": [

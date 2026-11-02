@@ -107,18 +107,38 @@
  "bgm": [
   [
    "intro",
+   "letters",
+   "ethnic33"
+  ],
+  [
+   "before",
    "standoff",
-   "piano36"
+   "orchestra21"
   ],
   [
    "nakairi",
+   "nakairi",
+   "ethnic30"
+  ],
+  [
+   "chase",
+   "apr9",
+   "orchestra23"
+  ],
+  [
    "after9",
-   "piano12"
+   "after9",
+   "orchestra25"
   ],
   [
    "views",
-   "check",
+   "views",
    "piano40"
+  ],
+  [
+   "check",
+   "check",
+   "orchestra24"
   ]
  ],
  "style": "pop",

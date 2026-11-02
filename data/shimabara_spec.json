@@ -41,18 +41,53 @@
  "bgm": [
   [
    "intro",
+   "intro",
+   "ethnic25"
+  ],
+  [
+   "land",
    "tax",
-   "piano36"
+   "orchestra22"
   ],
   [
    "uprising",
+   "uprising",
+   "orchestra21"
+  ],
+  [
+   "amakusa",
+   "hara",
+   "ethnic26"
+  ],
+  [
+   "army",
+   "army",
+   "orchestra19"
+  ],
+  [
+   "siege",
+   "siege",
+   "piano36"
+  ],
+  [
    "fall",
-   "piano12"
+   "fall",
+   "orchestra24"
   ],
   [
    "numbers",
+   "numbers",
+   "piano32"
+  ],
+  [
+   "after",
+   "after",
+   "orchestra20"
+  ],
+  [
    "summary",
-   "piano40"
+   "summary",
+   "orchestra26"
   ]
  ],
  "chapters": [

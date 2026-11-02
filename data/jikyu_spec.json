@@ -29,18 +29,33 @@
  "bgm": [
   [
    "intro",
+   "base",
+   "piano37"
+  ],
+  [
    "feed",
-   "piano36"
+   "feed",
+   "ethnic31"
   ],
   [
    "rest",
+   "rest",
+   "piano36"
+  ],
+  [
+   "where",
    "scale",
-   "piano12"
+   "piano39"
   ],
   [
    "eaten",
+   "eaten",
+   "piano38"
+  ],
+  [
    "end",
-   "piano40"
+   "end",
+   "piano33"
   ]
  ],
  "chapters": [

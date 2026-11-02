@@ -41,18 +41,43 @@
  "bgm": [
   [
    "intro",
+   "joukyou",
+   "piano41"
+  ],
+  [
    "keika",
-   "ethnic06"
+   "keika",
+   "piano36"
   ],
   [
    "kessen",
+   "kessen",
+   "acoustic50"
+  ],
+  [
+   "kessen2",
+   "heiryou",
+   "piano37"
+  ],
+  [
    "kaishaku",
-   "ethnic26"
+   "kaishaku",
+   "acoustic47"
   ],
   [
    "senjou",
+   "senjou",
+   "acoustic51"
+  ],
+  [
+   "sengo",
+   "sengo",
+   "piano35"
+  ],
+  [
    "matome",
-   "piano36"
+   "matome",
+   "piano34"
   ]
  ],
  "chapters": [

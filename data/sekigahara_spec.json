@@ -128,18 +128,43 @@
  "bgm": [
   [
    "intro",
+   "before",
+   "orchestra22"
+  ],
+  [
    "forces",
-   "piano36"
+   "forces",
+   "orchestra24"
   ],
   [
    "mouri",
+   "start",
+   "orchestra26"
+  ],
+  [
+   "west",
    "kobayakawa",
-   "piano12"
+   "ethnic30"
   ],
   [
    "collapse",
-   "check",
+   "collapse",
+   "ethnic26"
+  ],
+  [
+   "shimazu",
+   "shimazu",
    "piano40"
+  ],
+  [
+   "after",
+   "after",
+   "ethnic25"
+  ],
+  [
+   "check",
+   "check",
+   "orchestra21"
   ]
  ],
  "chapters": [

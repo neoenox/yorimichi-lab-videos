@@ -23,18 +23,33 @@
  "bgm": [
   [
    "intro",
-   "meiji",
-   "piano36"
+   "define",
+   "acoustic50"
   ],
   [
+   "meiji",
    "nen",
+   "piano34"
+  ],
+  [
+   "tougou",
    "border",
-   "piano12"
+   "piano37"
   ],
   [
    "kaden",
+   "kaden",
+   "piano36"
+  ],
+  [
+   "fc",
+   "fc",
+   "piano41"
+  ],
+  [
+   "know",
    "end",
-   "piano40"
+   "acoustic52"
   ]
  ],
  "chapters": [

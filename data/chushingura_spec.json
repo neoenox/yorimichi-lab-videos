@@ -17,18 +17,13 @@
  "bgm": [
   [
    "intro",
-   "jikoku",
-   "piano36"
+   "kazoe",
+   "ethnic06"
   ],
   [
    "shingetsu",
-   "uruu",
-   "piano12"
-  ],
-  [
-   "uruu",
    "end",
-   "piano40"
+   "acoustic50"
   ]
  ],
  "chapters": [

@@ -7,18 +7,18 @@
  "bgm": [
   [
    "intro",
+   "two",
+   "piano39"
+  ],
+  [
    "how",
-   "piano36"
-  ],
-  [
    "coef",
-   "after",
-   "piano12"
+   "piano38"
   ],
   [
+   "after",
    "end",
-   "end",
-   "piano40"
+   "piano36"
   ]
  ],
  "chapters": [

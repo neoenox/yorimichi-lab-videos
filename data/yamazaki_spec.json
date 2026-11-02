@@ -126,15 +126,30 @@
   [
    "intro",
    "tondoubt",
-   "piano36"
+   "ethnic30"
   ],
   [
    "return",
-   "finish",
-   "piano12"
+   "terrain",
+   "ethnic25"
   ],
   [
+   "day12",
+   "start",
+   "piano36"
+  ],
+  [
+   "finish",
    "after",
+   "ethnic26"
+  ],
+  [
+   "tennozan",
+   "tennozan",
+   "orchestra24"
+  ],
+  [
+   "check",
    "check",
    "piano40"
   ]

@@ -86,18 +86,38 @@
  "bgm": [
   [
    "intro",
-   "forces",
+   "siege",
    "piano36"
   ],
   [
+   "march",
+   "forces",
+   "ethnic30"
+  ],
+  [
    "terrain",
+   "flank",
+   "piano32"
+  ],
+  [
    "battle",
-   "piano12"
+   "battle",
+   "ethnic25"
   ],
   [
    "collapse",
+   "after",
+   "orchestra26"
+  ],
+  [
+   "check",
+   "check",
+   "ethnic33"
+  ],
+  [
    "end",
-   "piano40"
+   "end",
+   "orchestra25"
   ]
  ],
  "chapters": [

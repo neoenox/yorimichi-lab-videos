@@ -29,18 +29,23 @@
  "bgm": [
   [
    "a",
-   "c",
+   "a",
    "piano36"
   ],
   [
-   "d",
-   "f",
-   "piano12"
+   "b",
+   "c",
+   "piano39"
   ],
   [
+   "d",
+   "d",
+   "piano37"
+  ],
+  [
+   "e",
    "g",
-   "g",
-   "piano40"
+   "piano41"
   ]
  ],
  "chapters": [

@@ -23,18 +23,28 @@
  "bgm": [
   [
    "intro",
+   "why",
+   "acoustic47"
+  ],
+  [
    "method",
-   "piano36"
-  ],
-  [
    "general",
-   "after",
-   "piano12"
+   "piano38"
   ],
   [
+   "except",
+   "duration",
+   "piano37"
+  ],
+  [
+   "after",
    "safety",
+   "piano41"
+  ],
+  [
    "end",
-   "piano40"
+   "end",
+   "acoustic52"
   ]
  ],
  "chapters": [

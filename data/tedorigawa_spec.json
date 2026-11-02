@@ -41,18 +41,43 @@
  "bgm": [
   [
    "intro",
-   "terrain",
-   "piano36"
+   "nanao",
+   "piano32"
   ],
   [
+   "forces",
+   "forces",
+   "orchestra19"
+  ],
+  [
+   "terrain",
    "north",
+   "orchestra25"
+  ],
+  [
+   "fall",
+   "river",
+   "orchestra22"
+  ],
+  [
    "hideyoshi",
-   "piano12"
+   "hideyoshi",
+   "orchestra23"
+  ],
+  [
+   "records",
+   "records",
+   "ethnic26"
   ],
   [
    "after",
+   "source",
+   "piano36"
+  ],
+  [
    "summary",
-   "piano40"
+   "summary",
+   "orchestra20"
   ]
  ],
  "chapters": [

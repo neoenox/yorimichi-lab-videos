@@ -32,18 +32,43 @@
  "bgm": [
   [
    "intro",
+   "background",
+   "orchestra20"
+  ],
+  [
+   "forces",
    "terrain",
    "piano36"
   ],
   [
    "siege",
+   "siege",
+   "piano40"
+  ],
+  [
+   "claims",
+   "claims",
+   "orchestra19"
+  ],
+  [
+   "famine",
+   "mori",
+   "ethnic33"
+  ],
+  [
    "surrender",
-   "piano12"
+   "surrender",
+   "piano32"
   ],
   [
    "after",
+   "after",
+   "orchestra22"
+  ],
+  [
+   "source",
    "summary",
-   "piano40"
+   "ethnic30"
   ]
  ],
  "chapters": [

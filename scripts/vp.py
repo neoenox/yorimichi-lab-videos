@@ -642,7 +642,11 @@ def stage_qa():
 def chapter_list():
     tl=json.loads(P(f'data/{SLUG}_timeline.json').read_text(encoding='utf8'));ts=lambda s:f'{int(s)//60}:{int(s)%60:02d}'
     return [f'{ts(c["start"])} {SPEC["chapters"][i].get("chapter_title",SPEC["chapters"][i].get("title",c["key"]))}' for i,c in enumerate(tl)],tl[-1]['end']
-MAOU={'piano12':'ピアノ12','piano36':'ピアノ36','piano40':'ピアノ40','ethnic06':'民族06','ethnic26':'民族26','ethnic30':'民族30'}
+class _Maou(dict):
+    _JP={'piano':'ピアノ','ethnic':'民族','orchestra':'オーケストラ','acoustic':'アコースティック'}
+    def __missing__(s,k):
+        m=re.match(r'([a-z]+)(\d+)$',k);return s._JP.get(m.group(1),m.group(1))+m.group(2)
+MAOU=_Maou()
 def stage_desc():
     ds=SPEC['desc'];chapters,dur=chapter_list();used=sorted({it['name'] for ch in SPEC['chapters'] for it in ch['scene'] if it['t']=='image'})
     imglines=[f"・{SPEC['images'][n]['credit']}:{SPEC['images'][n]['source_url']}" for n in used if SPEC['images'][n].get('credit')]
