@@ -11,6 +11,7 @@ import json,subprocess,sys,math,os,re,hashlib,time,wave,shutil
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from hn_text import display
+from thin_commas import thin
 from PIL import Image,ImageDraw,ImageFont
 import rich_text as rich
 ROOT=Path(__file__).resolve().parents[1];FD='C:/Windows/Fonts/';BASE='http://127.0.0.1:50021';SPEED=0.95
@@ -33,7 +34,7 @@ def P(rel):return ROOT/rel
 # 画面に出す文字は、数量・回数・順序を算用数字にする（字幕と同じ規則。慣用句は hn_text.KEEP で保護）
 _TXT={'text','title','sub','chapter_title','opener','cells','lines'}
 def _cv(v):
-    if isinstance(v,str):return display(v)
+    if isinstance(v,str):return thin(display(v)) if len(v)>12 else display(v)
     if isinstance(v,list):return [_cv(x) for x in v]
     return v
 def _conv_display(o):
@@ -360,7 +361,7 @@ _SUBP={}
 def sub_lines(d,seg,f,t):
     k=seg['start']
     if k not in _SUBP:
-        txt=display(seg['text']);ls=wrap(d,txt,f,1720);ch=split_clauses(txt);ct=seg.get('cue_times')
+        txt=thin(display(seg['text']));ls=wrap(d,txt,f,1720);ch=split_clauses(txt);ct=seg.get('cue_times')
         if len(ch)>1:
             if ct and len(ct)==len(ch)+1:ts=ct
             else:
@@ -539,7 +540,7 @@ def stage_audio():
                 q=requests.post(BASE+'/audio_query',params={'text':spoken,'speaker':style},timeout=120).json();q.update(speedScale=speed,intonationScale=1.08,prePhonemeLength=pre,postPhonemeLength=post,outputSamplingRate=24000)
                 r=requests.post(BASE+'/synthesis',params={'speaker':style},json=q,timeout=180);r.raise_for_status();p.write_bytes(r.content);meta.write_text(json.dumps({'key':key}),encoding='utf8')
             pcm,rate=readwav(p);dur=len(pcm)/rate;rms=float(np.sqrt(np.mean((pcm.astype(float)/32768)**2)));peak=float(np.abs(pcm).max()/32768)
-            ch0=split_clauses(display(text));tot0=sum(len(c) for c in ch0);cum0=0;fr0=[]
+            ch0=split_clauses(thin(display(text)));tot0=sum(len(c) for c in ch0);cum0=0;fr0=[]
             for c in ch0:fr0.append(cum0/tot0);cum0+=len(c)
             fr0.append(1.0);ct=_cue_times(pcm,rate,cursor+t,dur,fr0);env0,hop0=_env(pcm,rate)
             assert dur>.4 and rms>.003 and peak<.999,(sc['key'],i,dur,rms,peak)
@@ -550,7 +551,7 @@ def stage_audio():
     st=lambda t:(lambda ms:f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}')(round(t*1000))
     cues=[];rep=[]
     for x in segs:
-        ch=split_clauses(display(x['text']));tot=sum(len(c) for c in ch);cum=0;fr=[]
+        ch=split_clauses(thin(display(x['text'])));tot=sum(len(c) for c in ch);cum=0;fr=[]
         for c in ch:fr.append(cum/tot);cum+=len(c)
         fr.append(1.0);nom=[x['start']+(x['end']-x['start'])*f for f in fr]
         ct=x.get('cue_times');ts=ct if ct and len(ct)==len(ch)+1 else snap_bounds(x,fr)
@@ -598,14 +599,17 @@ def stage_build(chunk=2000,bgm_db=-6.0):
     import time as _t
     pending = [a for a in range(0, N, chunk)
                if not (keep_parts and P(f'cache/{SLUG}_part_{a}_{a+chunk}.mp4').exists())]
-    running=[];rc=[]
+    running=[];rc=[];tries={}
     while pending or running:   # NVENC の同時セッションは8本まで（14本同時だと、Could not open encoder で落ちる）
         while pending and len(running)<int(os.environ.get('VP_MAXPAR','8')):
             a=pending.pop(0)
-            running.append(subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'}))
+            running.append((a,subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'})))
         _t.sleep(1)
-        for p_ in [q for q in running if q.poll() is not None]:
-            rc.append(p_.returncode);running.remove(p_)
+        for q_ in [q for q in running if q[1].poll() is not None]:
+            running.remove(q_)
+            if q_[1].returncode!=0 and tries.get(q_[0],0)<3:   # NVENC競合などの一時失敗は、少し待って部品ごとにやり直す
+                tries[q_[0]]=tries.get(q_[0],0)+1;_t.sleep(20);pending.append(q_[0])
+            else:rc.append(q_[1].returncode)
     assert all(r==0 for r in rc),f'part render failed {rc}'
     parts=sorted(P('cache').glob(f'{SLUG}_part_*.mp4'),key=lambda p:int(p.stem.rsplit('_',2)[1]));lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
     wav=P(f'out/{SLUG}_narration.wav');nob=P(f'out/{SLUG}_video_nobgm.mp4');af,j=loud_args(wav)
