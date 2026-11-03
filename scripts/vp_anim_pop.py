@@ -296,12 +296,17 @@ def pop_rows(im, d0, cx, it, a):
                 pass
             c.text((tx, yy), l, font=f, fill=INK + (255,))
             yy += int(size * 1.3)
-        off = (1 - ease(k)) * 140 * (1 if n % 2 == 0 else -1)
-        if k < 1:
+        fade_in = e.get('fade_in', True)
+        travel = 80 if not fade_in else 140
+        off = (1 - ease(k)) * travel * (1 if n % 2 == 0 else -1)
+        if k < 1 and fade_in:
             p = card.copy(); p.putalpha(p.getchannel('A').point(lambda v: int(v * min(1, k / .4))))
         else:
             p = card
-        im.alpha_composite(p, (int(x0 - 10 + off * (0 if k >= 1 else 1)), int(top - 6)))
+        xpos = int(x0 - 10 + off * (0 if k >= 1 else 1))
+        if not fade_in:
+            xpos = max(0, min(im.width - p.width, xpos))
+        im.alpha_composite(p, (xpos, int(top - 6)))
 
 
 def _frame_photo(pic, cap=None, size=30):

@@ -15,6 +15,11 @@ def bind(g):
     F, FB = g['F'], g['FB']
     get_img = g.get('get_img')
     try:
+        import vp_anim_ginza_map as _gm
+        _gm.bind(g)
+    except ImportError:
+        pass
+    try:
         import vp_anim_pop as _pp
         _pp.bind(g)
     except ImportError:
@@ -1264,3 +1269,9 @@ try:
     DRAW.update(_pop.DRAW_POP)
 except ImportError as _e:
     print('vp_anim_pop not loaded:', _e)
+
+try:
+    import vp_anim_ginza_map as _gm
+    DRAW.update(_gm.DRAW_GINZA_MAP)
+except ImportError as _e:
+    print('vp_anim_ginza_map not loaded:', _e)

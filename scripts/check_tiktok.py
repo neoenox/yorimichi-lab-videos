@@ -5,14 +5,19 @@ usage:
     python scripts/check_tiktok.py tiktok_shibuya ...  # 指定したslugだけ
 
 見るもの: 1080x1920 / 20〜45秒 / 音声トラック / 禁止語（チャンネル登録・概要欄・youtu.be等）/
-クレジット（VOICEVOX）/ 出典の有無。ffmpegとffprobeがPATHにあること。
+クレジット（VOICEVOX）/ 出典の有無。ffmpegとffprobeはPATH、無ければ tools/ffmpeg/bin を使う。
 """
 import json
+import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+_BIN = ROOT / 'tools' / 'ffmpeg' / 'bin'
+if not shutil.which('ffprobe') and _BIN.exists():
+    os.environ['PATH'] = str(_BIN) + os.pathsep + os.environ.get('PATH', '')
 BANNED = ['チャンネル登録', '概要欄', 'youtu.be', '高評価', '拡散希望', '長い動画', '本編']
 MIN_SEC, MAX_SEC = 20.0, 45.0
 

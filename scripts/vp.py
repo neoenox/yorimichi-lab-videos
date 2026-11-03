@@ -525,6 +525,8 @@ def snap_bounds(seg,fr):
     return out
 def stage_audio():
     requests,speaker,style=_vv();folder=P(f'cache/{SLUG}_audio');folder.mkdir(exist_ok=True,parents=True)
+    voice=SPEC.get('voice',{})
+    speed=float(voice.get('speed',SPEED));pre=float(voice.get('pre_phoneme',.15));post=float(voice.get('post_phoneme',.35));scene_hold=float(voice.get('scene_hold',1.6))
     dic=json.loads(P(f'data/{SLUG}_pronunciations.json').read_text(encoding='utf8'));scenes=json.loads(P(f'data/{SLUG}_scenes.json').read_text(encoding='utf8'))
     segs=[];timeline=[];cursor=0;allpcm=[];rate=24000
     for sc in scenes:
@@ -532,9 +534,9 @@ def stage_audio():
         for i,text in enumerate(sentences(sc)):
             spoken=text
             for k,v in sorted(dic.items(),key=lambda x:-len(x[0])):spoken=spoken.replace(k,v)
-            p=folder/f'{sc["id"]:02}_{i:02}.wav';key=hashlib.sha256((spoken+f'|{SPEED}|1.08|'+str(style)).encode()).hexdigest();meta=p.with_suffix('.json')
+            p=folder/f'{sc["id"]:02}_{i:02}.wav';key=hashlib.sha256((spoken+f'|{speed}|1.08|{pre}|{post}|'+str(style)).encode()).hexdigest();meta=p.with_suffix('.json')
             if not p.exists() or not meta.exists() or json.loads(meta.read_text())['key']!=key:
-                q=requests.post(BASE+'/audio_query',params={'text':spoken,'speaker':style},timeout=120).json();q.update(speedScale=SPEED,intonationScale=1.08,prePhonemeLength=.15,postPhonemeLength=.35,outputSamplingRate=24000)
+                q=requests.post(BASE+'/audio_query',params={'text':spoken,'speaker':style},timeout=120).json();q.update(speedScale=speed,intonationScale=1.08,prePhonemeLength=pre,postPhonemeLength=post,outputSamplingRate=24000)
                 r=requests.post(BASE+'/synthesis',params={'speaker':style},json=q,timeout=180);r.raise_for_status();p.write_bytes(r.content);meta.write_text(json.dumps({'key':key}),encoding='utf8')
             pcm,rate=readwav(p);dur=len(pcm)/rate;rms=float(np.sqrt(np.mean((pcm.astype(float)/32768)**2)));peak=float(np.abs(pcm).max()/32768)
             ch0=split_clauses(display(text));tot0=sum(len(c) for c in ch0);cum0=0;fr0=[]
@@ -542,7 +544,7 @@ def stage_audio():
             fr0.append(1.0);ct=_cue_times(pcm,rate,cursor+t,dur,fr0);env0,hop0=_env(pcm,rate)
             assert dur>.4 and rms>.003 and peak<.999,(sc['key'],i,dur,rms,peak)
             segs.append(dict(scene=sc['id'],text=text,spoken=spoken,start=round(cursor+t,4),end=round(cursor+t+dur,4),duration=dur,rms=rms,peak=peak,cue_times=ct,pauses=[round(cursor+t+x,4) for x in _silence_centers(env0,hop0,rate,dur)]));local.append(pcm);t+=dur
-        sd=math.ceil((t+1.6)*30)/30;j=np.concatenate(local);j=np.pad(j,(0,round(sd*rate)-len(j)));allpcm.append(j)
+        sd=math.ceil((t+scene_hold)*30)/30;j=np.concatenate(local);j=np.pad(j,(0,round(sd*rate)-len(j)));allpcm.append(j)
         timeline.append({**sc,'start':cursor,'duration':sd,'end':cursor+sd});cursor+=sd
     writewav(P(f'out/{SLUG}_narration.wav'),np.concatenate(allpcm),rate)
     st=lambda t:(lambda ms:f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}')(round(t*1000))
@@ -557,7 +559,7 @@ def stage_audio():
     P(f'out/{SLUG}_subtitles.srt').write_text('\n\n'.join(f'{i+1}\n{st(a)} --> {st(b)}\n{c}' for i,(a,b,c) in enumerate(cues))+'\n',encoding='utf8')
     P(f'out/{SLUG}_subtitle_timing.json').write_text(json.dumps(dict(tol=SNAP_TOL,min_cue=MIN_CUE,max_shift=max([r['max_shift'] for r in rep] or [0]),snapped=sum(r['snapped'] for r in rep),segments=rep),ensure_ascii=False,indent=1),encoding='utf8')
     P(f'data/{SLUG}_timeline.json').write_text(json.dumps(timeline,ensure_ascii=False,indent=1),encoding='utf8')
-    P(f'out/{SLUG}_audio_report.json').write_text(json.dumps(dict(engine=requests.get(BASE+'/version').json(),speaker='VOICEVOX:四国めたん',style=style,segments=segs,total_seconds=cursor,all_lines_voiced=True,semantic_asr_verified=False),ensure_ascii=False,indent=1),encoding='utf8')
+    P(f'out/{SLUG}_audio_report.json').write_text(json.dumps(dict(engine=requests.get(BASE+'/version').json(),speaker='VOICEVOX:四国めたん',style=style,voice_tuning=dict(speed=speed,pre_phoneme=pre,post_phoneme=post,scene_hold=scene_hold),segments=segs,total_seconds=cursor,all_lines_voiced=True,semantic_asr_verified=False),ensure_ascii=False,indent=1),encoding='utf8')
     print('total',round(cursor,1),'s',int(cursor//60),'min',int(cursor%60),'s')
 def stage_bgm():
     SR=48000;D=P('assets/bgm_maou');tl=json.loads(P(f'data/{SLUG}_timeline.json').read_text(encoding='utf8'));T={c['key']:c for c in tl};TOTAL=tl[-1]['end'];XF=3.0;TARGET=-24.0
@@ -590,9 +592,13 @@ def loud_args(path):
     return f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true",j
 def stage_build(chunk=2000,bgm_db=-6.0):
     load_runtime()
-    for f in P('cache').glob(f'{SLUG}_part_*.mp4'):f.unlink()
+    keep_parts = os.environ.get('VP_KEEP_PARTS') == '1'
+    if not keep_parts:
+        for f in P('cache').glob(f'{SLUG}_part_*.mp4'): f.unlink()
     import time as _t
-    pending=list(range(0,N,chunk));running=[];rc=[]
+    pending = [a for a in range(0, N, chunk)
+               if not (keep_parts and P(f'cache/{SLUG}_part_{a}_{a+chunk}.mp4').exists())]
+    running=[];rc=[]
     while pending or running:   # NVENC の同時セッションは8本まで（14本同時だと、Could not open encoder で落ちる）
         while pending and len(running)<int(os.environ.get('VP_MAXPAR','8')):
             a=pending.pop(0)
@@ -601,7 +607,7 @@ def stage_build(chunk=2000,bgm_db=-6.0):
         for p_ in [q for q in running if q.poll() is not None]:
             rc.append(p_.returncode);running.remove(p_)
     assert all(r==0 for r in rc),f'part render failed {rc}'
-    parts=sorted(P('cache').glob(f'{SLUG}_part_*.mp4'),key=lambda p:int(p.stem.split('_')[2]));lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
+    parts=sorted(P('cache').glob(f'{SLUG}_part_*.mp4'),key=lambda p:int(p.stem.rsplit('_',2)[1]));lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
     wav=P(f'out/{SLUG}_narration.wav');nob=P(f'out/{SLUG}_video_nobgm.mp4');af,j=loud_args(wav)
     subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',str(wav),'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(nob)],check=True)
     mix=P(f'cache/{SLUG}_mix.wav');bgm=P(f'out/{SLUG}_bgm.wav')

@@ -2,7 +2,7 @@
 at / until は『章内の行番号（0始まり）』。spec_common.finalize が文の番号に直す。
 素材は scripts/make_ginza_assets.py で作る（国土地理院のタイル。加工して作成）。
 見せ場：江戸前島（約4m）と、両側の埋め立て地（約3m）の段差。
-fillmap は標高だけを土台に、砂州・西の入り江・東の海・4本の堀を手で描いた模式図。位置と形は模式化してある。
+本編の形成図は国土地理院の現在地図へ地理座標で重ね、砂州・海・埋立地・堀の変化をナレーション順に累積表示する。位置と形は模式化してある。
 """
 import sys
 from pathlib import Path
@@ -14,6 +14,12 @@ PLAYLIST_LOWLAND = 'PLV4MJdcpAGpM'   # 再生リスト「東京の低地」（�
 IMG = ('aerial_1936', 'aerial_1961', 'aerial_now', 'relief', 'relief_plain',
        'fillmap_0', 'fillmap_1', 'fillmap_2', 'fillmap_3')
 IMAGES = {n: dict(file=f'assets/ginza/{n}.png') for n in IMG}
+IMAGES.update({
+    'pale_map_z15': dict(file='upload/80_ginza_vector_prototype/pale_current_map_z15_r3.png'),
+    'pale_map_z17': dict(file='upload/80_ginza_vector_prototype/pale_current_map_z17_r6.png'),
+    'street_wako': dict(file='out/ginza_remaster_work/assets/ginza_street/wako.jpg'),
+    'street_crossing': dict(file='out/ginza_remaster_work/assets/ginza_street/crossing.jpg'),
+})
 CAP_RELIEF = '色別標高図（国土地理院の5mメッシュ標高から作成）'
 CAP_1936 = '国土地理院 空中写真（1936〜42年頃）'
 
@@ -58,57 +64,18 @@ spec = dict(
                    tel('半島の西は入り江、東は海', 960, 470, 76, at=2, until=4, plate='yellow', rot=-1.5),
                    tel('両側が埋め立てられて、今の銀座になった', 960, 660, 78, at=3, until=4, plate='blue', rot=1),
                    tel('順を追って、地形の成り立ちを確かめる', 960, 560, 96, at=4, plate='pink', rot=-2)]},
-        {'key': 'maejima', 'title': '江戸前島', 'chapter_title': '江戸前島：砂がつくった半島',
-         'scene': [pop('pop_bgimg', img='relief_plain', at=0, dim=.65, blur=12),
-                   card([60, 150, 960, 840], at=0, rot=-2, img='relief', cap=CAP_RELIEF),
-                   rows([dict(at=0, tag='半島', text='東京湾の奥に、南へ突き出した半島があった', col='orange'),
-                         dict(at=1, tag='名前', text='江戸前島とよばれる', col='blue'),
-                         dict(at=2, tag='でき方', text='隅田川が運んだ砂が積もってできた、砂州の半島', col='green'),
-                         dict(at=3, tag='はさみ', text='西が日比谷入江、東は海。細い土地に町ができた', col='purple'),
-                         dict(at=4, tag='通り', text='真ん中の線が、今の中央通りにあたる', col='pink'),
-                         dict(at=5, tag='町', text='日本橋・京橋・銀座の町は、この半島の上に広がった', col='red')],
-                        x0=1000, x1=1860, y0=165, size=32, gap=10),
-                   tel('「島」ではなく、\n[[砂州]]の半島', 1430, 730, 54, at=2, until=5, plate='yellow', rot=2)]},
+        {'key': 'maejima', 'title': '江戸前島', 'chapter_title': '江戸前島：砂州がつくった半島',
+         'scene': [pop('ginza_formation_map', at=0)]},
         {'key': 'west', 'title': '西を埋める', 'chapter_title': '西を埋める：1603年〜',
-         'scene': [pop('pop_bgimg', img='aerial_1961', at=0, dim=.6, blur=7),
-                   pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
-                       cap='砂州と両側の海・堀の模式図（位置・形は模式化）',
-                       steps=[dict(img='fillmap_1', at=0)]),
-                   rows([dict(at=0, tag='日比谷入江', text='半島の西側は、入り江だった', col='orange'),
-                         dict(at=1, tag='1603年', text='江戸開府、天下普請で埋め立てが始まった', col='blue'),
-                         dict(at=2, tag='1612年', text='駿府の銀座が移り、地名のもとになった', col='green'),
-                         dict(at=3, tag='台地', text='入り江が埋まると、日本橋台地と呼ばれる微高地になった', col='purple'),
-                         dict(at=4, tag='通り', text='中央通りは尾根筋に通された。水はけのためとされる', col='pink')],
-                        x0=1000, x1=1860, y0=180, size=36, gap=16),
-                   tel('西側が、陸になった', 1430, 780, 46, at=5, plate='yellow', rot=-1)]},
+         'scene': [pop('ginza_formation_map', at=0)]},
         {'key': 'east', 'title': '東を埋める', 'chapter_title': '東を埋める：1657年〜',
-         'scene': [pop('pop_bgimg', img='aerial_now', at=0, dim=.55, blur=6),
-                   pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
-                       cap='砂州と両側の海・堀の模式図（位置・形は模式化）',
-                       steps=[dict(img='fillmap_2', at=0)]),
-                   rows([dict(at=0, tag='東側', text='東側は、まだ海だった', col='orange'),
-                         dict(at=1, tag='1657年', text='明暦の大火で江戸の大半が焼けた', col='blue'),
-                         dict(at=2, tag='西本願寺', text='焼けた寺の代わりに、佃島の住人が海を埋めて築地を造成', col='green'),
-                         dict(at=3, tag='築地', text='「築地」は、もともと埋め立て地という意味', col='purple'),
-                         dict(at=4, tag='銀座', text='銀座の東も、しだいに陸になっていった', col='red')],
-                        y0=180, size=38, gap=18),
-                   tel('東側も、陸になった', 1430, 780, 46, at=5, plate='yellow', rot=-1)]},
+         'scene': [pop('ginza_formation_map', at=0)]},
         {'key': 'moat', 'title': '島になり、また陸になる', 'chapter_title': '島になり、また陸になる',
-         'scene': [pop('pop_bgimg', img='aerial_now', at=0, dim=.5, blur=8),
-                   pop('pop_fill', base='fillmap_0', at=0, box=[60, 150, 960, 840], rot=-2,
-                       cap='砂州と両側の海・堀の模式図（位置・形は模式化）',
-                       steps=[dict(img='fillmap_3', at=0)]),
-                   rows([dict(at=0, tag='島', text='東西南北を4本の堀に囲まれ、銀座は島になった', col='orange'),
-                         dict(at=1, tag='1949年', text='三十間堀川の埋め立てが始まった', col='blue'),
-                         dict(at=2, tag='外堀ほか', text='外堀・汐留川・京橋川も埋め立てられた', col='green'),
-                         dict(at=3, tag='1964年', text='東京高速道路が完成。掘割は道路に変わった', col='purple')],
-                        y0=180, size=40, gap=18),
-                   tel('こうして、[[地続きの街]]に', 1430, 780, 46, at=4, plate='yellow', rot=-1)]},
-        {'key': 'end', 'title': '名残りとまとめ', 'chapter_title': '名残りとまとめ',
-         'scene': [pop('pop_bgimg', img='relief_plain', at=0, dim=.5, blur=8),
+         'scene': [pop('ginza_formation_map', at=0)]},        {'key': 'end', 'title': '名残りとまとめ', 'chapter_title': '名残りとまとめ',
+         'scene': [pop('pop_bgimg', img='street_wako', alts=['street_crossing'], seg=12, at=0, dim=.24, blur=0, zoom=.08),
                    tel('まとめ！', 960, 400, 150, at=0, until=1, rot=-3),
                    rows([dict(at=0, tag='分かった', text='銀座は、海ではなく砂州の半島の先端ちかくだった', col='green'),
-                         dict(at=1, tag='分かった', text='西（1603年〜）→東（1657年〜）→堀（1949年〜』で別々に埋め立てられた', col='green'),
+                         dict(at=1, tag='分かった', text='西・東・堀は、時期も理由も別に埋め立てられた', col='green'),
                          dict(at=2, tag='高さ', text='標高を測ると、銀座はまわりの埋め立て地より少し高い', col='orange'),
                          dict(at=3, tag='柳', text='1874年に植えた木が根腐れし、柳に替えられたとされる', col='red'),
                          dict(at=4, tag='通り', text='中央通りの向きは、京橋・日本橋と少し違う。地形に沿ったためとされる', col='purple')],
@@ -145,9 +112,11 @@ spec = dict(
                  '国土地理院 地理院タイル一覧:https://maps.gsi.go.jp/development/ichiran.html',
                  '国土地理院コンテンツ利用規約:https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html'],
         'credit_lines': [
-            '・空中写真:国土地理院撮影の空中写真(1936〜42年頃、1961〜69年頃)と全国最新写真を、地理院タイルから加工して作成',
+            '・映像素材:国土地理院撮影の空中写真(1936〜42年頃)と地理院タイルの現在地図を加工',
             '・色別標高図:国土地理院の標高タイル(5mメッシュ)から作成',
-            '・模式図:国土地理院の標高タイルを土台に、砂州・日比谷入江・江戸湾・4本の堀・埋め立ての範囲を描き足して作成(位置と形は模式化)',
+            '・模式図:現在の地理院地図に砂州・水域・埋立地・堀の範囲を地理座標で重ねて表示(復元範囲・海岸線は模式図)',
+            '・銀座和光の写真:Supanut Arunoprayote / CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)',
+            '・銀座四丁目交差点の写真:ノボホショコロトソ / CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)',
             '・場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)',
         ],
         'notes': ['「海」ではなく「砂州の半島」。表現には注意する。',
