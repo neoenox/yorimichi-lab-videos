@@ -112,7 +112,7 @@ git checkout restored-ninja -- assets/anegawa/map_main.png
 | --- | --- |
 | `ninja` の素材込み履歴（663 画像） | `E:/rekishikaisetu-media-archive/ninja-media-history-20261104.bundle`（1.0GB） |
 | `honnoji` / `worldmap` / `codex/series-quality-unification` | `E:/rekishikaisetu-media-archive/branches-*.bundle` |
-| 旧リポジトリの main（素材込み・651 画像） | `backup` リモート = `github.com/neoenox/rekishikaisetu-honnoji` |
+| 旧リポジトリの main（素材込み・651 画像） | `github.com/neoenox/rekishikaisetu-honnoji`（旧 `backup` リモート。1.05GB） |
 
 復元するときは、前提コミット `6c05d14` を含むリポジトリで:
 
@@ -124,6 +124,32 @@ git checkout restored-ninja -- assets/anegawa/map_main.png
 
 `codex/series-quality-unification` は `E:/rekishikaisetu` の worktree が使用中なので、
 そちらに未コミットの作業が無いことを確認してから削除する。
+
+## リポジトリの大きさ（2026-11-04 実測）
+
+| 場所 | サイズ | 備考 |
+| --- | --- | --- |
+| GitHub `yorimichi-lab-videos`（origin） | **44 MB** | テキストのみ。正常 |
+| GitHub `rekishikaisetu-honnoji`（旧リポジトリ） | 1.05 GB | 素材込みのアーカイブ。GitHub に残す |
+| ローカル `.git`（作業ツリー共通） | **0.33 GB** | 下の整備で 1.32 GB から削減 |
+
+履歴の書き換えはしていない。ローカルを軽くするには、不要になった ref（削除済みブランチ）が
+reflog 経由で残っているので、失効させてから gc する。
+
+```bash
+git reflog expire --expire=now --all
+git gc --prune=now
+git count-objects -vH        # size-pack が実際の使用量
+```
+
+旧リポジトリ（`backup`）はローカルの remote から外した。必要になったら戻せる。
+
+```bash
+git remote add backup https://github.com/neoenox/rekishikaisetu-honnoji.git
+```
+
+> 公開済み履歴の書き換え（`6c05d14` 以前の素材を消す）は、force-push と全クローン破棄が
+> 必要になるため行っていない。origin は 44 MB で問題ない。
 
 ## トラブルシューティング
 
