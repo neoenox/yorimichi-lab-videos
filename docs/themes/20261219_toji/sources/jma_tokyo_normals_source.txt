@@ -1,0 +1,2 @@
+source: https://www.data.jma.go.jp/stats/etrn/view/nml_sfc_ym.php?prec_no=44&block_no=47662&year=&month=&day=&view=
+気象庁 過去の気象データ検索 東京（47662）平年値（年・月ごとの値）統計期間1991〜2020

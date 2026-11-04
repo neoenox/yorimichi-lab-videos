@@ -198,8 +198,8 @@ def it_table(im,d,cx,it):
     pop=SPEC.get('style')=='pop'
     if pop and '_fit' in it:size=it['_fit']
     elif pop:
-        _d0=ImageDraw.Draw(Image.new('RGBA',(8,8)));best=min(size+6,38)
-        for sz in range(56,best-1,-2):
+        _d0=ImageDraw.Draw(Image.new('RGBA',(8,8)));best=24
+        for sz in range(56,23,-2):
             need=sz+26
             for r in rows:
                 need+=max(len(wrapn(_d0,str(c),F[sz],w-16)) for c,w in zip(r['cells'],cw))*int(sz*1.25)+14
@@ -451,8 +451,13 @@ def _vv():
     import requests
     sp=requests.get(BASE+'/speakers',timeout=60).json();speaker=next(x for x in sp if x['name']=='四国めたん');style=next(x['id'] for x in speaker['styles'] if x['name']=='ノーマル');return requests,speaker,style
 def sentences(sc):return [x.strip()+'。' for x in sc['narration'].split('。') if x.strip()]
+def load_dic():
+    """読みの辞書。全動画で共有する data/pronunciations_common.json に、動画ごとの辞書を重ねる（同じ語は動画ごとの方が勝つ）"""
+    d={};c=P('data/pronunciations_common.json')
+    if c.exists():d.update(json.loads(c.read_text(encoding='utf8')))
+    d.update(json.loads(P(f'data/{SLUG}_pronunciations.json').read_text(encoding='utf8')));return d
 def stage_kana():
-    requests,spk,style=_vv();dic=json.loads(P(f'data/{SLUG}_pronunciations.json').read_text(encoding='utf8'));out=[]
+    requests,spk,style=_vv();dic=load_dic();out=[]
     for s in json.loads(P(f'data/{SLUG}_scenes.json').read_text(encoding='utf8')):
         for x in sentences(s):
             sp_=x
@@ -528,7 +533,7 @@ def stage_audio():
     requests,speaker,style=_vv();folder=P(f'cache/{SLUG}_audio');folder.mkdir(exist_ok=True,parents=True)
     voice=SPEC.get('voice',{})
     speed=float(voice.get('speed',SPEED));pre=float(voice.get('pre_phoneme',.15));post=float(voice.get('post_phoneme',.35));scene_hold=float(voice.get('scene_hold',1.6))
-    dic=json.loads(P(f'data/{SLUG}_pronunciations.json').read_text(encoding='utf8'));scenes=json.loads(P(f'data/{SLUG}_scenes.json').read_text(encoding='utf8'))
+    dic=load_dic();scenes=json.loads(P(f'data/{SLUG}_scenes.json').read_text(encoding='utf8'))
     segs=[];timeline=[];cursor=0;allpcm=[];rate=24000
     for sc in scenes:
         local=[];t=0
@@ -591,27 +596,71 @@ def loud_args(path):
     r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',str(path),'-af','loudnorm=I=-14:TP=-1.5:LRA=9:print_format=json','-f','null','-'],capture_output=True,text=True)
     j=json.loads(re.search(r'\{[^{}]*"input_i"[^{}]*\}',r.stderr,re.S).group(0))
     return f"loudnorm=I=-14:TP=-1.5:LRA=9:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true",j
-def stage_build(chunk=2000,bgm_db=-6.0):
-    load_runtime()
-    keep_parts = os.environ.get('VP_KEEP_PARTS') == '1'
-    if not keep_parts:
-        for f in P('cache').glob(f'{SLUG}_part_*.mp4'): f.unlink()
+def _code_fp():
+    """描画に関わるコード全体の指紋（コードが変わったら、全部品を作り直す）"""
+    h=hashlib.sha1()
+    for f in sorted(list(P('scripts').glob('vp*.py'))+[P('scripts/hn_text.py'),P('scripts/thin_commas.py'),P('scripts/rich_text.py')]):
+        if f.name.startswith(('vp_before','vp_check','vp_preview','vp_lock','vp_remix')) or not f.exists():continue
+        b=f.read_bytes()
+        if f.name=='vp.py':   # vp.py は、描画の部分（text helpers〜stages）だけを見る。コマンドや段取りの変更で、部品を作り直さない
+            t=b.decode('utf8').replace('\r','');a_=t.index('# ---------------------------------------------------------------- text helpers');z_=t.index('# ---------------------------------------------------------------- stages');b=t[a_:z_].encode('utf8')
+        h.update(f.name.encode());h.update(b)
+    return h.hexdigest()
+def _part_fp(a,b,codefp):
+    """フレーム a〜b の部品の指紋：該当する章（と前後の章）の定義、文の時刻、画像ファイル、全体の長さ、描画コード"""
+    t0,t1=a/30-1.0,b/30+1.0
+    cis=sorted({x for ci,c in enumerate(TL) if c['end']>=t0 and c['start']<=t1 for x in (ci-1,ci,ci+1) if 0<=x<len(TL)})
+    h=hashlib.sha1();imgs={}
+    for k,m in (SPEC.get('images') or {}).items():
+        f=P(m['file']);imgs[k]=[m,f.stat().st_size if f.exists() else -1,f.stat().st_mtime_ns if f.exists() else -1]
+    h.update(json.dumps([SPEC.get('style'),imgs,N,codefp],sort_keys=True,ensure_ascii=False).encode())
+    for ci in cis:
+        h.update(json.dumps([ci,SPEC['chapters'][ci],TL[ci],[x for x in SEGS if x['scene']==ci]],sort_keys=True,ensure_ascii=False).encode())
+    return h.hexdigest()
+def stage_build(chunk=1000,bgm_db=-6.0):
+    load_runtime();chunk=int(os.environ.get('VP_CHUNK',chunk))   # 部品の長さ（フレーム）。短くすると、差分再描画の粒度が細かくなる
+    keep_parts = os.environ.get('VP_KEEP_PARTS') == '1';full = os.environ.get('VP_FULL') == '1'
     import time as _t
-    pending = [a for a in range(0, N, chunk)
-               if not (keep_parts and P(f'cache/{SLUG}_part_{a}_{a+chunk}.mp4').exists())]
-    running=[];rc=[];tries={}
+    codefp=_code_fp();fps={a:_part_fp(a,min(a+chunk,N),codefp) for a in range(0,N,chunk)};pending=[];reused=0
+    for a in range(0,N,chunk):
+        mp=P(f'cache/{SLUG}_part_{a}_{a+chunk}.mp4');fpf=P(f'cache/{SLUG}_part_{a}_{a+chunk}.fp')
+        ok=mp.exists() and mp.stat().st_size>0
+        if ok and (keep_parts or (not full and fpf.exists() and fpf.read_text(encoding='utf8')==fps[a])):reused+=1;continue   # 変わっていない部品は、作り直さない
+        if mp.exists():mp.unlink()
+        if fpf.exists():fpf.unlink()
+        pending.append(a)
+    want={f'{SLUG}_part_{a}_{a+chunk}' for a in range(0,N,chunk)}
+    for f in list(P('cache').glob(f'{SLUG}_part_*.mp4'))+list(P('cache').glob(f'{SLUG}_part_*.fp')):   # 部品の長さが違う古い部品は、結合に混ざらないよう消す
+        if f.stem not in want:f.unlink()
+    print(f'parts: {len(fps)} (reuse {reused}, render {len(pending)})',flush=True)
+    import vp_lock
+    maxpar=int(os.environ['VP_MAXPAR']) if os.environ.get('VP_MAXPAR') else vp_lock.share_maxpar(ROOT,SLUG)   # 別の build が動いていれば、並列数を分け合う
+    running=[];rc=[];tries={};why=[]
+    TRANSIENT=('Could not open encoder','OpenEncodeSessionEx','No capable devices','NVENC','nvenc','CUDA_ERROR','out of memory')
     while pending or running:   # NVENC の同時セッションは8本まで（14本同時だと、Could not open encoder で落ちる）
-        while pending and len(running)<int(os.environ.get('VP_MAXPAR','8')):
-            a=pending.pop(0)
-            running.append((a,subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'})))
+        while pending and not why and len(running)<maxpar:
+            a=pending.pop(0);ef=P(f'cache/{SLUG}_part_{a}.err');fh=open(ef,'w',encoding='utf8')
+            running.append((a,subprocess.Popen([sys.executable,str(Path(__file__)),SLUG,'part',str(a),str(a+chunk)],cwd=str(ROOT),env={**os.environ,'PYTHONIOENCODING':'utf8'},stderr=fh),fh,ef))
         _t.sleep(1)
         for q_ in [q for q in running if q[1].poll() is not None]:
-            running.remove(q_)
-            if q_[1].returncode!=0 and tries.get(q_[0],0)<3:   # NVENC競合などの一時失敗は、少し待って部品ごとにやり直す
-                tries[q_[0]]=tries.get(q_[0],0)+1;_t.sleep(20);pending.append(q_[0])
-            else:rc.append(q_[1].returncode)
+            running.remove(q_);q_[2].close();err=q_[3].read_text(encoding='utf8',errors='replace') if q_[3].exists() else ''
+            if why:continue   # すでに止めると決めたあと（kill された部品）は数えない
+            if q_[1].returncode==0:
+                rc.append(0);P(f'cache/{SLUG}_part_{q_[0]}_{q_[0]+chunk}.fp').write_text(fps[q_[0]],encoding='utf8');continue
+            transient=any(t in err for t in TRANSIENT)
+            if transient and tries.get(q_[0],0)<2:   # GPUの一時失敗だけ、少し待って部品ごとにやり直す
+                tries[q_[0]]=tries.get(q_[0],0)+1;_t.sleep(10);pending.append(q_[0])
+            else:   # 必ず失敗するエラーは、待たずに止める（残りの部品も止める）
+                rc.append(q_[1].returncode);last=[l for l in err.strip().split('\n') if l.strip()][-3:]
+                why.append(f'part {q_[0]}: '+' | '.join(last));sys.stderr.write(err[-2000:]+'\n')
+                for r_ in running:r_[1].kill()
+                pending.clear()
+    for f_ in P('cache').glob(f'{SLUG}_part_*.err'):f_.unlink(missing_ok=True)
+    if why:raise AssertionError('part render failed (not retried: deterministic error) '+'; '.join(why))
     assert all(r==0 for r in rc),f'part render failed {rc}'
-    parts=sorted(P('cache').glob(f'{SLUG}_part_*.mp4'),key=lambda p:int(p.stem.rsplit('_',2)[1]));lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
+    parts=[P(f'cache/{SLUG}_part_{a}_{a+chunk}.mp4') for a in range(0,N,chunk)];miss=[p.name for p in parts if not p.exists() or p.stat().st_size==0]
+    assert not miss,f'部品が足りない: {miss}'
+    lst=P(f'cache/{SLUG}_parts.txt');lst.write_text(''.join(f"file '{p.as_posix()}'\n" for p in parts))
     wav=P(f'out/{SLUG}_narration.wav');nob=P(f'out/{SLUG}_video_nobgm.mp4');af,j=loud_args(wav)
     subprocess.run(['ffmpeg','-y','-v','warning','-f','concat','-safe','0','-i',str(lst),'-i',str(wav),'-map','0:v','-map','1:a','-c:v','copy','-af',af,'-c:a','aac','-b:a','192k','-ar','48000','-movflags','+faststart','-shortest',str(nob)],check=True)
     mix=P(f'cache/{SLUG}_mix.wav');bgm=P(f'out/{SLUG}_bgm.wav')
@@ -693,6 +742,8 @@ def stage_pack():
     name=SPEC['pack'];M.build(name,dict(video=f'out/{SLUG}_video.mp4',thumb=f'out/{SLUG}_thumbnail.jpg',srt=f'out/{SLUG}_subtitles.srt',desc=f'out/{SLUG}_description.md',title_no=SPEC['desc'].get('title_no',1)))
 if __name__=='__main__':
     slug,cmd=sys.argv[1],sys.argv[2];load_spec(slug)
+    if cmd in ('build','audio','prep'):
+        import vp_lock;vp_lock.acquire(ROOT,slug,cmd)   # 二重起動を防ぐ
     if cmd=='part':load_runtime();render_part(int(sys.argv[3]),int(sys.argv[4]))
     elif cmd=='story':stage_story()
     elif cmd=='still':
@@ -703,6 +754,18 @@ if __name__=='__main__':
         load_runtime()
         for c in TL:
             ss=[x for x in SEGS if x['scene']==c['id']];print(c['key'],[round(x['start']+0.8,1) for x in ss])
+    elif cmd=='lint':
+        import script_lint;raise SystemExit(script_lint.run(globals()))
+    elif cmd=='prep':   # 台本→読み→音声→BGM→検査まで一括（描画の前の準備。止まる所があれば、そこで止まる）
+        import vp_check,script_lint
+        stage_story();script_lint.run(globals());stage_kana();stage_audio();stage_bgm()
+        raise SystemExit(vp_check.run(globals()))
+    elif cmd=='preview':
+        load_runtime();import vp_preview;raise SystemExit(vp_preview.run(globals()))
+    elif cmd=='pvpart':
+        load_runtime();import vp_preview;vp_preview.worker(globals(),sys.argv[3])
+    elif cmd=='check':
+        import vp_check;raise SystemExit(vp_check.run(globals()))
     elif cmd=='sents':
         for s in json.loads(P(f'data/{SLUG}_scenes.json').read_text(encoding='utf8')):
             print(f"--- {s['id']} {s['key']}")
@@ -710,6 +773,12 @@ if __name__=='__main__':
     elif cmd=='kana':stage_kana()
     elif cmd=='audio':stage_audio()
     elif cmd=='bgm':stage_bgm()
+    elif cmd=='refp':   # 既存の部品に、いまの指紋を付け直す（部品が、いまの spec・音声・描画コードで作られたと分かっているときだけ）
+        load_runtime();ch=int(os.environ.get('VP_CHUNK',1000));cf=_code_fp();n_=0
+        for a in range(0,N,ch):
+            mp=P(f'cache/{SLUG}_part_{a}_{a+ch}.mp4')
+            if mp.exists() and mp.stat().st_size>0:P(f'cache/{SLUG}_part_{a}_{a+ch}.fp').write_text(_part_fp(a,min(a+ch,N),cf),encoding='utf8');n_+=1
+        print('re-stamped',n_,'parts')
     elif cmd=='build':stage_build()
     elif cmd=='qa':stage_qa()
     elif cmd=='desc':stage_desc()

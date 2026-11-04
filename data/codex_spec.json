@@ -1,0 +1,3033 @@
+{
+ "slug": "codex",
+ "theme_dir": "20261104_anegawa3",
+ "pack": "cmp3_codex",
+ "style": "pop",
+ "header_sub": "姉川の戦いを、同時代の記録・軍記・通説・説に分けて見る",
+ "images": {
+  "wide": {
+   "file": "assets/anegawa/map_wide.png"
+  },
+  "main": {
+   "file": "assets/anegawa/map_main.png",
+   "crop": [
+    0.0,
+    0.15,
+    1.0,
+    0.85
+   ]
+  },
+  "mid": {
+   "file": "assets/anegawa/map_mid.png",
+   "crop": [
+    0.0,
+    0.08,
+    1.0,
+    0.92
+   ]
+  },
+  "area": {
+   "file": "assets/anegawa/map_area.png"
+  },
+  "core": {
+   "file": "assets/anegawa/map_core.png",
+   "crop": [
+    0.0,
+    0.08,
+    1.0,
+    0.92
+   ]
+  },
+  "art_castle": {
+   "file": "assets/anegawa/art_castle.png"
+  },
+  "art_dawn": {
+   "file": "assets/anegawa/art_dawn.png"
+  },
+  "art_docs": {
+   "file": "assets/anegawa/art_docs.png"
+  },
+  "art_river": {
+   "file": "assets/anegawa/art_river.png"
+  },
+  "p_ieyasu": {
+   "file": "assets/portraits/ieyasu.jpg"
+  },
+  "p_nobunaga": {
+   "file": "assets/portraits/nobunaga.jpg"
+  }
+ },
+ "bgm": [
+  [
+   "kanegasaki",
+   "cast",
+   "piano35"
+  ],
+  [
+   "terrain",
+   "dawn",
+   "ethnic31"
+  ],
+  [
+   "west",
+   "decide",
+   "orchestra25"
+  ],
+  [
+   "kubi",
+   "after",
+   "acoustic48"
+  ]
+ ],
+ "chapters": [
+  {
+   "key": "kanegasaki",
+   "title": "金ヶ崎の退き口",
+   "chapter_title": "金ヶ崎の退き口",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_dawn",
+     "alts": [
+      "art_docs",
+      "art_castle",
+      "art_river"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔説〕",
+       "text": "元亀元年・一五七〇年",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔説〕",
+       "text": "信長、越前の朝倉へ",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔説〕",
+       "text": "浅井長政、朝倉に味方",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔説〕",
+       "text": "前から朝倉／後ろから浅井",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔説〕",
+       "text": "挟み撃ちの危ない場面",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔説〕",
+       "text": "信長、急いで退く",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔説〕",
+       "text": "金ヶ崎の退き口",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": 8,
+       "tag": "〔通説〕",
+       "text": "殿は木下藤吉郎ら、と伝わる",
+       "col": "red"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 8,
+       "until": null,
+       "tag": "〔説〕",
+       "text": "五月・千草越えで岐阜へ",
+       "col": "purple"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "june",
+   "title": "虎御前山と竜ヶ鼻",
+   "chapter_title": "虎御前山と竜ヶ鼻",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_castle",
+     "alts": [
+      "art_dawn",
+      "art_river",
+      "art_docs"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "wide",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.78,
+        0.28
+       ],
+       "label": "小谷城",
+       "kind": "castle",
+       "at": 2,
+       "side": "r",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 32
+      },
+      {
+       "xy": [
+        0.74,
+        0.4
+       ],
+       "label": "虎御前山",
+       "kind": "spot",
+       "at": 2,
+       "side": "l",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 29
+      },
+      {
+       "xy": [
+        0.6,
+        0.69
+       ],
+       "label": "横山城",
+       "kind": "castle",
+       "at": 4,
+       "side": "l",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.66,
+        0.6
+       ],
+       "label": "竜ヶ鼻",
+       "kind": "spot",
+       "at": 4,
+       "side": "r",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.02,
+        0.04
+       ],
+       "label": "位置は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 25
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.99,
+         0.59
+        ],
+        [
+         0.78,
+         0.57
+        ],
+        [
+         0.58,
+         0.59
+        ],
+        [
+         0.38,
+         0.65
+        ],
+        [
+         0.16,
+         0.79
+        ]
+       ],
+       "label": "姉川",
+       "at": 2,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 30,
+       "lab": [
+        0.48,
+        0.62
+       ]
+      }
+     ],
+     "units": [],
+     "marks": []
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔説〕",
+       "text": "六月、再び近江へ",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔説〕",
+       "text": "六月十九日、岐阜を出たといわれる",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "六月二十一日・虎御前山",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔N〕",
+       "text": "二十二日、いったん兵を引く",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔N〕",
+       "text": "竜ヶ鼻に陣取る（信長）",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "家康も同じ竜ヶ鼻へ",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "cast",
+   "title": "両軍の顔ぶれ",
+   "chapter_title": "両軍の顔ぶれ",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_docs",
+     "alts": [
+      "art_castle",
+      "art_dawn",
+      "art_river"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "wide",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.77,
+        0.28
+       ],
+       "label": "小谷城",
+       "kind": "castle",
+       "at": 0,
+       "side": "r",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.88,
+        0.42
+       ],
+       "label": "大依山",
+       "kind": "camp",
+       "at": 3,
+       "side": "l",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.02,
+        0.04
+       ],
+       "label": "位置は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 25
+      }
+     ],
+     "lines": [],
+     "units": [
+      {
+       "label": "朝倉勢",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "pts": [
+        [
+         0.88,
+         0.42
+        ]
+       ],
+       "at": 3,
+       "head": 30,
+       "lab_off": [
+        -44,
+        15
+       ],
+       "lsize": 29,
+       "dashed": false,
+       "sub": "大依山〔N〕"
+      }
+     ],
+     "marks": []
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔資〕",
+       "text": "朝倉景健の援軍",
+       "col": "green"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "朝倉八千／浅井五千",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "合計・一万三千",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔N〕",
+       "text": "朝倉勢は大依山へ",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔資〕",
+       "text": "浅井方：長政・磯野・遠藤",
+       "col": "green"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔資〕",
+       "text": "織田方：柴田・秀吉・稲葉ほか",
+       "col": "green"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔資〕",
+       "text": "徳川方：酒井・榊原・本多ほか",
+       "col": "green"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": 8,
+       "tag": "〔N〕",
+       "text": "顔ぶれも兵数も、書物で異なる",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 8,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "織田・徳川の数は公記に記載なし",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "terrain",
+   "title": "戦場の地形",
+   "chapter_title": "戦場の地形",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_river",
+     "alts": [
+      "art_dawn",
+      "art_docs",
+      "art_castle"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "area",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.76,
+        0.22
+       ],
+       "label": "小谷城",
+       "kind": "castle",
+       "at": 2,
+       "side": "r",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.89,
+        0.35
+       ],
+       "label": "大依山",
+       "kind": "camp",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 29
+      },
+      {
+       "xy": [
+        0.62,
+        0.72
+       ],
+       "label": "横山城",
+       "kind": "castle",
+       "at": 5,
+       "side": "b",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.65,
+        0.62
+       ],
+       "label": "竜ヶ鼻",
+       "kind": "spot",
+       "at": 6,
+       "side": "l",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "lsize": 29
+      },
+      {
+       "xy": [
+        0.56,
+        0.46
+       ],
+       "label": "野村",
+       "kind": "spot",
+       "at": 7,
+       "side": "r",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 29
+      },
+      {
+       "xy": [
+        0.37,
+        0.46
+       ],
+       "label": "三田村",
+       "kind": "spot",
+       "at": 7,
+       "side": "l",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 29
+      },
+      {
+       "xy": [
+        0.05,
+        0.88
+       ],
+       "label": "琵琶湖",
+       "kind": "spot",
+       "at": 4,
+       "side": "t",
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "lsize": 28
+      },
+      {
+       "xy": [
+        0.02,
+        0.04
+       ],
+       "label": "位置は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 25
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.97,
+         0.57
+        ],
+        [
+         0.79,
+         0.57
+        ],
+        [
+         0.61,
+         0.58
+        ],
+        [
+         0.43,
+         0.61
+        ],
+        [
+         0.28,
+         0.69
+        ],
+        [
+         0.1,
+         0.82
+        ]
+       ],
+       "label": "姉川",
+       "at": 4,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 30,
+       "lab": [
+        0.52,
+        0.59
+       ]
+      }
+     ],
+     "units": [],
+     "marks": []
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "text": "ここからは地図で",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "text": "近江北部・姉川周辺",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "text": "北：小谷城",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "text": "山上の城",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "text": "姉川は西へ、琵琶湖へ",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "text": "南：横山城",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔N〕",
+       "text": "竜ヶ鼻に織田・徳川",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": null,
+       "text": "北：野村・三田村",
+       "col": "orange"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "dawn",
+   "title": "陣払い、未明",
+   "chapter_title": "陣払い、未明",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_dawn",
+     "alts": [
+      "art_river",
+      "art_castle",
+      "art_docs"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "main",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.6,
+        0.4
+       ],
+       "label": "野村",
+       "kind": "spot",
+       "at": 4,
+       "side": "r",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.36,
+        0.4
+       ],
+       "label": "三田村",
+       "kind": "spot",
+       "at": 4,
+       "side": "l",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.02,
+        -0.1571
+       ],
+       "label": "位置・経路は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 24
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.98,
+         0.5714
+        ],
+        [
+         0.78,
+         0.6143
+        ],
+        [
+         0.58,
+         0.6571
+        ],
+        [
+         0.36,
+         0.6429
+        ],
+        [
+         0.12,
+         0.6714
+        ],
+        [
+         0.0,
+         0.6857
+        ]
+       ],
+       "label": "姉川",
+       "at": 0,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 30,
+       "lab": [
+        0.52,
+        0.6429
+       ]
+      }
+     ],
+     "units": [
+      {
+       "label": "浅井・朝倉",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "pts": [
+        [
+         0.76,
+         0.2714
+        ],
+        [
+         0.61,
+         0.4857
+        ]
+       ],
+       "at": 0,
+       "head": 30,
+       "lab_off": [
+        -50,
+        -5
+       ],
+       "lsize": 28,
+       "dashed": true,
+       "sub": "二手に備える〔N〕",
+       "legs": [
+        [
+         2,
+         4
+        ]
+       ]
+      }
+     ],
+     "marks": []
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔N〕",
+       "text": "六月二十七日・暁",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "陣払いして帰ったと思われた",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "二十八日未明・三十町ほど",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔N〕",
+       "text": "三十町＝三キロ余り",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔N〕",
+       "text": "野村・三田村へ、二手に備える",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔説〕",
+       "text": "奇襲だったと見る説",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "公記は「奇襲」と書かない",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "west",
+   "title": "西の戦場：徳川と朝倉",
+   "chapter_title": "西の戦場：徳川と朝倉",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_river",
+     "alts": [
+      "art_dawn",
+      "art_docs",
+      "art_castle"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "core",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.35,
+        0.4524
+       ],
+       "label": "三田村口",
+       "kind": "spot",
+       "at": 1,
+       "side": "l",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 28
+      },
+      {
+       "xy": [
+        0.61,
+        0.4643
+       ],
+       "label": "野村",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 28
+      },
+      {
+       "xy": [
+        0.02,
+        -0.0476
+       ],
+       "label": "位置・経路は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 24
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.0,
+         0.5714
+        ],
+        [
+         0.27,
+         0.6071
+        ],
+        [
+         0.48,
+         0.5833
+        ],
+        [
+         0.72,
+         0.6071
+        ],
+        [
+         1.0,
+         0.5833
+        ]
+       ],
+       "label": "姉川",
+       "at": 0,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 30,
+       "lab": [
+        0.48,
+        0.5952
+       ]
+      }
+     ],
+     "units": [
+      {
+       "label": "徳川家康",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "pts": [
+        [
+         0.58,
+         0.8214
+        ],
+        [
+         0.36,
+         0.4881
+        ]
+       ],
+       "at": 0,
+       "head": 34,
+       "lab_off": [
+        42,
+        -12
+       ],
+       "lsize": 26,
+       "dashed": true,
+       "sub": "西の三田村口へ〔N〕",
+       "portrait": "p_ieyasu",
+       "legs": [
+        [
+         2,
+         3
+        ]
+       ]
+      },
+      {
+       "label": "朝倉勢",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "pts": [
+        [
+         0.29,
+         0.4167
+        ]
+       ],
+       "at": 6,
+       "head": 30,
+       "lab_off": [
+        -42,
+        -10
+       ],
+       "lsize": 28,
+       "dashed": false
+      }
+     ],
+     "marks": []
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔N〕",
+       "text": "公記の布陣",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "西は三田村口",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "一番合戦に家康",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔軍〕",
+       "text": "実紀は別の配陣を記す",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔軍〕",
+       "text": "信長＝朝倉／家康＝浅井",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔軍〕",
+       "text": "暁に陣を替えた、と記す",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔軍〕",
+       "text": "家康が朝倉へ",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": 8,
+       "tag": "〔軍〕",
+       "text": "忠勝の突入話",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 8,
+       "until": 9,
+       "tag": "〔軍〕",
+       "text": "相手：実紀＝浅井／三代記＝朝倉",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 9,
+       "until": 10,
+       "tag": "〔通説〕",
+       "text": "榊原康政の側面攻撃説",
+       "col": "red"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 10,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "公記・実紀の姉川条に記載なし",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "east",
+   "title": "東の戦場：織田と浅井",
+   "chapter_title": "東の戦場：織田と浅井",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_dawn",
+     "alts": [
+      "art_castle",
+      "art_river",
+      "art_docs"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "core",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.6,
+        0.4524
+       ],
+       "label": "野村",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 28
+      },
+      {
+       "xy": [
+        0.79,
+        0.4643
+       ],
+       "label": "さらに東",
+       "kind": "spot",
+       "at": 2,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 26
+      },
+      {
+       "xy": [
+        0.02,
+        -0.0476
+       ],
+       "label": "位置・経路は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 24
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.0,
+         0.5714
+        ],
+        [
+         0.27,
+         0.6071
+        ],
+        [
+         0.48,
+         0.5833
+        ],
+        [
+         0.72,
+         0.6071
+        ],
+        [
+         1.0,
+         0.5833
+        ]
+       ],
+       "label": "姉川",
+       "at": 0,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 29,
+       "lab": [
+        0.32,
+        0.5952
+       ]
+      }
+     ],
+     "units": [
+      {
+       "label": "信長の馬廻",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "pts": [
+        [
+         0.42,
+         0.8452
+        ],
+        [
+         0.58,
+         0.4643
+        ]
+       ],
+       "at": 0,
+       "head": 34,
+       "lab_off": [
+        42,
+        -12
+       ],
+       "lsize": 26,
+       "dashed": true,
+       "sub": "野村へ〔N〕",
+       "portrait": "p_nobunaga",
+       "legs": [
+        [
+         0,
+         1
+        ]
+       ]
+      },
+      {
+       "label": "美濃三人衆",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "pts": [
+        [
+         0.76,
+         0.8571
+        ],
+        [
+         0.8,
+         0.4762
+        ]
+       ],
+       "at": 0,
+       "head": 30,
+       "lab_off": [
+        -44,
+        -8
+       ],
+       "lsize": 26,
+       "dashed": true,
+       "sub": "さらに東へ〔N〕",
+       "legs": [
+        [
+         2,
+         3
+        ]
+       ]
+      },
+      {
+       "label": "浅井方",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "pts": [
+        [
+         0.66,
+         0.381
+        ]
+       ],
+       "at": 4,
+       "head": 30,
+       "lab_off": [
+        -42,
+        15
+       ],
+       "lsize": 25,
+       "dashed": false,
+       "sub": "相手と語られる〔通説〕"
+      }
+     ],
+     "marks": [
+      {
+       "xy": [
+        0.51,
+        0.6071
+       ],
+       "at": 5,
+       "label": "十一段崩し〔軍〕",
+       "col": [
+        235,
+        180,
+        65
+       ]
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔N〕",
+       "text": "東は野村",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "信長の馬廻が向かう",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "さらに東に美濃三人衆",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔N〕",
+       "text": "稲葉・氏家・安藤",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔通説〕",
+       "text": "相手は浅井の軍、と語られる",
+       "col": "red"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔軍〕",
+       "text": "磯野員昌が先陣を崩したと伝わる",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔軍〕",
+       "text": "十一段崩し",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": 8,
+       "tag": "〔軍〕",
+       "text": "旗本も騒動と浅井三代記",
+       "col": "orange"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 8,
+       "until": 9,
+       "tag": "〔通説〕",
+       "text": "美濃三人衆の側面攻撃説",
+       "col": "red"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 9,
+       "until": 10,
+       "tag": "〔説〕",
+       "text": "後世の創作という見方",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 10,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "公記には記載なし",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "decide",
+   "title": "卯の刻、姉川",
+   "chapter_title": "卯の刻、姉川",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_river",
+     "alts": [
+      "art_dawn",
+      "art_docs",
+      "art_castle"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "core",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.02,
+        -0.0476
+       ],
+       "label": "位置・経路は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 24
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.0,
+         0.5714
+        ],
+        [
+         0.27,
+         0.6071
+        ],
+        [
+         0.48,
+         0.5833
+        ],
+        [
+         0.72,
+         0.6071
+        ],
+        [
+         1.0,
+         0.5833
+        ]
+       ],
+       "label": "姉川",
+       "at": 0,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 30,
+       "lab": [
+        0.47,
+        0.5952
+       ]
+      }
+     ],
+     "units": [
+      {
+       "label": "織田・徳川",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "pts": [
+        [
+         0.43,
+         0.8333
+        ],
+        [
+         0.49,
+         0.6071
+        ]
+       ],
+       "at": 0,
+       "head": 30,
+       "lab_off": [
+        -42,
+        18
+       ],
+       "lsize": 28,
+       "dashed": true,
+       "legs": [
+        [
+         2,
+         4
+        ]
+       ]
+      },
+      {
+       "label": "浅井・朝倉",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "pts": [
+        [
+         0.65,
+         0.2857
+        ],
+        [
+         0.54,
+         0.5833
+        ]
+       ],
+       "at": 0,
+       "head": 30,
+       "lab_off": [
+        42,
+        -12
+       ],
+       "lsize": 28,
+       "dashed": true,
+       "legs": [
+        [
+         2,
+         4
+        ]
+       ]
+      }
+     ],
+     "marks": [
+      {
+       "xy": [
+        0.52,
+        0.5952
+       ],
+       "at": 6,
+       "label": "追い崩し〔N〕",
+       "col": [
+        235,
+        180,
+        65
+       ]
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔N〕",
+       "text": "元亀元年・六月二十八日",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "ユリウス暦七月三十日",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "卯の刻・午前六時ごろ",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔N〕",
+       "text": "公記の記述",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔N〕",
+       "text": "姉川で押し返す",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔N〕",
+       "text": "黒煙／しのぎを削る",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔N〕",
+       "text": "浅井・朝倉は退く",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "公記の戦闘描写は数行",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "kubi",
+   "title": "首注文と追い討ち",
+   "chapter_title": "首注文と追い討ち",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_docs",
+     "alts": [
+      "art_river",
+      "art_castle",
+      "art_dawn"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "battle_map",
+     "img": "mid",
+     "box": [
+      40,
+      150,
+      1260,
+      800
+     ],
+     "at": 0,
+     "places": [
+      {
+       "xy": [
+        0.59,
+        0.7381
+       ],
+       "label": "横山城",
+       "kind": "castle",
+       "at": 6,
+       "side": "b",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "lsize": 30
+      },
+      {
+       "xy": [
+        0.8,
+        0.2619
+       ],
+       "label": "大谷",
+       "kind": "spot",
+       "at": 5,
+       "side": "r",
+       "col": [
+        220,
+        78,
+        75
+       ],
+       "lsize": 29
+      },
+      {
+       "xy": [
+        0.02,
+        -0.0476
+       ],
+       "label": "位置・経路は概略",
+       "kind": "spot",
+       "at": 0,
+       "side": "r",
+       "col": [
+        235,
+        180,
+        65
+       ],
+       "lsize": 24
+      }
+     ],
+     "lines": [
+      {
+       "pts": [
+        [
+         0.98,
+         0.5833
+        ],
+        [
+         0.77,
+         0.5952
+        ],
+        [
+         0.58,
+         0.6071
+        ],
+        [
+         0.35,
+         0.6429
+        ],
+        [
+         0.12,
+         0.7738
+        ]
+       ],
+       "label": "姉川",
+       "at": 0,
+       "col": [
+        60,
+        190,
+        220
+       ],
+       "dash": false,
+       "lsize": 29,
+       "lab": [
+        0.54,
+        0.6071
+       ]
+      }
+     ],
+     "units": [
+      {
+       "label": "信長勢",
+       "col": [
+        67,
+        132,
+        245
+       ],
+       "pts": [
+        [
+         0.61,
+         0.5833
+        ],
+        [
+         0.8,
+         0.2619
+        ],
+        [
+         0.59,
+         0.7381
+        ]
+       ],
+       "at": 0,
+       "head": 32,
+       "lab_off": [
+        -44,
+        -8
+       ],
+       "lsize": 26,
+       "dashed": true,
+       "sub": "大谷へ、横山へ戻る〔N〕",
+       "portrait": "p_nobunaga",
+       "legs": [
+        [
+         5,
+         6
+        ],
+        [
+         6,
+         7
+        ]
+       ]
+      }
+     ],
+     "marks": []
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔N〕",
+       "text": "首注文を載せる",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "真柄十郎左衛門—青木所左衛門",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "遠藤喜右衛門—竹中久作",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔N〕",
+       "text": "主だった者・千百余",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔N〕",
+       "text": "死者の総数ではない",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔N〕",
+       "text": "大谷まで五十町、追い討ち",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 1290,
+     "x1": 1875,
+     "y0": 210,
+     "size": 42,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": null,
+       "tag": "〔N〕",
+       "text": "高山の大谷から横山へ戻る",
+       "col": "blue"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "after",
+   "title": "戦いの後",
+   "chapter_title": "戦いの後",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "art_castle",
+     "alts": [
+      "art_docs",
+      "art_dawn",
+      "art_river"
+     ],
+     "seg": 20,
+     "dim": 0.44,
+     "blur": 5,
+     "at": 0
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 0,
+       "until": 1,
+       "tag": "〔N〕",
+       "text": "横山城、降参",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 1,
+       "until": 2,
+       "tag": "〔N〕",
+       "text": "木下藤吉郎が定番に",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 2,
+       "until": 3,
+       "tag": "〔N〕",
+       "text": "七月一日、佐和山城へ",
+       "col": "blue"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 3,
+       "until": 4,
+       "tag": "〔説〕",
+       "text": "浅井・朝倉は、この戦いに敗れる",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 4,
+       "until": 5,
+       "tag": "〔説〕",
+       "text": "けれども滅びてはいない",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 5,
+       "until": 6,
+       "tag": "〔説〕",
+       "text": "秋・志賀の陣",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 6,
+       "until": 7,
+       "tag": "〔説〕",
+       "text": "天正元年、浅井・朝倉が倒れる",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 7,
+       "until": 8,
+       "tag": "〔説〕",
+       "text": "三年後",
+       "col": "purple"
+      }
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 50,
+     "gap": 0,
+     "items": [
+      {
+       "at": 8,
+       "until": null,
+       "tag": "〔説〕",
+       "text": "姉川の勝ち、しかし決着ではない",
+       "col": "purple"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

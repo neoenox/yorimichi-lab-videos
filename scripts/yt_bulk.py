@@ -98,6 +98,20 @@ if __name__ == '__main__':
         P = pairs(rows)
         print(len(P), '組 / Short', sum(1 for r in rows if '#Shorts' in r['title']), '本')
         for s, l in P[:80]: print(key(s).strftime('%m/%d %H:%M'), s['id'], '->', l['id'], l['title'][:28])
+    elif cmd == 'titles':
+        new = json.loads((R / 'data' / 'title_new_20261103.json').read_text(encoding='utf8'))
+        byid = {r['id']: r for r in rows}; n = 0
+        for vid, t in new.items():
+            r = byid.get(vid)
+            if not r or r['title'] == t: continue
+            print(vid, r['title'][:28], '=>', t[:28])
+            if apply:
+                body = dict(id=vid, snippet=dict(title=t, description=r['desc'], categoryId=r['cat'], tags=r['tags'], **({'defaultLanguage': r['lang']} if r['lang'] else {})))
+                try:
+                    yt.videos().update(part='snippet', body=body).execute(); n += 1
+                except Exception as e:
+                    print('停止:', str(e)[:160]); break
+        print('更新', n)
     elif cmd == 'playlists':
         cmd_playlists(rows, apply)
     elif cmd == 'link':

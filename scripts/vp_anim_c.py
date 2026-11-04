@@ -37,6 +37,9 @@ def _plate2(d, xy, s, size, col, anchor='lm', sub=None, avoid=None):
     x, y = xy
     x0 = x if anchor[0] == 'l' else (x - ww / 2 if anchor[0] == 'm' else x - ww)
     h = size * (2.0 if sub else 0.8)
+    Wd = d.im.size[0] / S   # 地図の幅：板がはみ出して切れないように、中へ寄せる
+    if x0 + ww + 12 > Wd: x0 = max(12, Wd - ww - 12)
+    if x0 < 12: x0 = 12
     if avoid is not None:
         def rect(yy):
             return (x0 - 10, yy - size * 0.7 - 4, x0 + ww + 10, yy + (size * 1.3 + 6 if sub else size * 0.7 + 4))

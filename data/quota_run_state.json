@@ -32,7 +32,11 @@
   "replace:magnitude": "2026-11-01T16:05:48",
   "replace:yakubusoku": "2026-11-01T16:06:06",
   "replace:oke": "2026-11-01T16:08:10",
-  "replace:leapsecond": "2026-11-01T16:09:03"
+  "replace:leapsecond": "2026-11-01T16:09:03",
+  "replace:sunrise": "2026-11-02T16:08:29",
+  "replace:venus": "2026-11-02T16:11:47",
+  "replace:gm": "2026-11-02T16:23:39",
+  "replace:nj": "2026-11-02T16:24:53"
  },
  "notes": {
   "short_oke_upload": "uploaded",
@@ -54,8 +58,8 @@
   "replace:yakubusoku": "('Cx9DgjZ2TAM', 'h6C7OPst0zg')",
   "replace:oke": "('TIfXJAQlNDc', 'id1hjqjrztY')",
   "replace:leapsecond": "('dO_fY0jaTh4', 'JkPCUodEGfE')",
-  "replace:sunrise": "retry: out に作り直した動画が無い",
-  "replace:venus": "retry: out に作り直した動画が無い",
+  "replace:sunrise": "('mk5x-Yu9cC4', 'BeY3kMjDjzs')",
+  "replace:venus": "('rj1bDRBWHsY', 'qZBtCpOCa6o')",
   "replace_short:scurvy": "skip: 公開済み（視聴数とリンクを失うため差し替えない）",
   "replace_short:calendar": "skip: 公開済み（視聴数とリンクを失うため差し替えない）",
   "replace_short:moon": "('mQwLsy6OqsY', '4z1hrhlukfo')",
@@ -66,12 +70,12 @@
   "schedule_long:01_world_map_distortion": "2026-11-11 19:00",
   "schedule_long:02_honnoji_incident": "2026-11-12 19:00",
   "schedule_long:03_ninja_myths": "2026-11-13 19:00",
-  "replace:gm": "retry: out に作り直した動画が無い",
+  "replace:gm": "('0gpV-8L1yvg', 'HtZmfkJy9Eo')",
   "replace:hn": "('V-6b8Y1a6xE', '84DQbeXhwfA')",
-  "replace:nj": "retry: out に作り直した動画が無い",
+  "replace:nj": "('FmJrf-t7ro8', 'flajM3xInYE')",
   "short_upload:worldmap": "uploaded / 2026-11-11 20:00",
   "short_upload:honnoji": "uploaded / 2026-11-12 20:00",
   "short_upload:ninja": "uploaded / 2026-11-13 20:00"
  },
- "spent": 63450
+ "spent": 72266
 }

@@ -1,0 +1,4 @@
+source: https://eco.mtk.nao.ac.jp/koyomi/yoko/2026/rekiyou262.html
+国立天文台 暦要項 令和8年(2026) 二十四節気および雑節（中央標準時）
+夏至: 6月21日 17時25分
+冬至: 12月22日 5時50分

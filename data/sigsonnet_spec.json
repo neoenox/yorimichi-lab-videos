@@ -1,0 +1,660 @@
+{
+ "slug": "sigsonnet",
+ "theme_dir": "20261104_signal",
+ "pack": "sigcmp_sigsonnet",
+ "header_sub": "法令と言葉の歴史で確かめる",
+ "style": "pop",
+ "images": {
+  "intro": {
+   "file": "assets/sigcmp/art_intro.png"
+  },
+  "law": {
+   "file": "assets/sigcmp/art_law.png"
+  },
+  "world": {
+   "file": "assets/sigcmp/art_world.png"
+  }
+ },
+ "bgm": [
+  [
+   "intro",
+   "history",
+   "piano35"
+  ],
+  [
+   "language",
+   "end",
+   "acoustic47"
+  ]
+ ],
+ "chapters": [
+  {
+   "key": "intro",
+   "title": "信号の青は、緑じゃない？",
+   "chapter_title": "導入：信号の青は、緑じゃない？",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "dim": 0.3,
+     "blur": 3,
+     "seg": 22,
+     "img": "intro",
+     "at": 0,
+     "alts": [
+      "law",
+      "world"
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "信号の青は、[[緑色]]に見えない？",
+     "x": 960,
+     "y": 340,
+     "size": 104,
+     "at": 0,
+     "plate": "blue",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[青信号]]なのに、見た目は緑",
+     "x": 960,
+     "y": 600,
+     "size": 96,
+     "at": 1,
+     "plate": "green",
+     "rot": 1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "tag": "とされる",
+       "text": "日本語の「青」の歴史から来た呼び方",
+       "col": "orange"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 290,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "tag": "確かめる",
+       "text": "法令と、言葉の面から",
+       "col": "orange"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 460,
+     "size": 56,
+     "gap": 16
+    }
+   ]
+  },
+  {
+   "key": "law",
+   "title": "法令では何色？",
+   "chapter_title": "法令では何色？",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "dim": 0.3,
+     "blur": 3,
+     "seg": 22,
+     "img": "law",
+     "at": 0,
+     "alts": [
+      "intro"
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "まず、[[法令]]",
+     "x": 960,
+     "y": 420,
+     "size": 130,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "tag": "道路交通法施行令",
+       "text": "信号の灯火の意味は「青色の灯火」",
+       "col": "orange",
+       "until": 3
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 260,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "法令の名前も[[「青色」]]",
+     "x": 960,
+     "y": 560,
+     "size": 100,
+     "at": 2,
+     "plate": "blue",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "tag": "とされる",
+       "text": "実際に光る色は、緑のなかでも青みの強い色",
+       "col": "green",
+       "until": 4
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 260,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "名前は[[青]]、見た目は[[緑寄り]]",
+     "x": 960,
+     "y": 430,
+     "size": 104,
+     "at": 4,
+     "plate": "red",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "history",
+   "title": "日本初の信号機",
+   "chapter_title": "日本初の信号機",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "dim": 0.3,
+     "blur": 3,
+     "seg": 22,
+     "img": "intro",
+     "at": 0,
+     "alts": [
+      "law",
+      "world"
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[1930年]]",
+     "x": 960,
+     "y": 520,
+     "size": 140,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "tag": "とされる",
+       "text": "日比谷交差点に三色灯の信号機",
+       "col": "orange",
+       "until": 1
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "進めは「[[青]]」と呼ぶ言い方が定着",
+     "x": 960,
+     "y": 450,
+     "size": 88,
+     "at": 1,
+     "plate": "blue",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "tag": "英語",
+       "text": "green light（グリーンライト）",
+       "col": "green",
+       "until": 3
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 260,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[green light]]",
+     "x": 960,
+     "y": 520,
+     "size": 130,
+     "at": 2,
+     "plate": "green",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "日本語だけが、[[特別]]ではない",
+     "x": 960,
+     "y": 450,
+     "size": 96,
+     "at": 3,
+     "plate": "pink",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "language",
+   "title": "言葉の「青」",
+   "chapter_title": "言葉の「青」",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "dim": 0.3,
+     "blur": 3,
+     "seg": 22,
+     "img": "world",
+     "at": 0,
+     "alts": [
+      "intro",
+      "law"
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "昔の「青」は、[[緑も含む]]？",
+     "x": 960,
+     "y": 420,
+     "size": 104,
+     "at": 0,
+     "plate": "green",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "tag": "例",
+       "text": "緑のものにも「青」が付く",
+       "col": "green",
+       "until": 2
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[青]]葉・[[青]]菜・[[青]]りんご",
+     "x": 960,
+     "y": 520,
+     "size": 110,
+     "at": 1,
+     "plate": "green",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "tag": "説がある",
+       "text": "古い日本語の基本の色名は4つ",
+       "col": "orange",
+       "until": 3
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 250,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "あか・くろ・しろ・[[あお]]",
+     "x": 960,
+     "y": 520,
+     "size": 110,
+     "at": 2,
+     "plate": "orange",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "信号の青も、その[[名残]]",
+     "x": 960,
+     "y": 450,
+     "size": 100,
+     "at": 3,
+     "plate": "purple",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "world",
+   "title": "他の国では？",
+   "chapter_title": "他の国では？",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "dim": 0.3,
+     "blur": 3,
+     "seg": 22,
+     "img": "world",
+     "at": 0,
+     "alts": [
+      "intro",
+      "law"
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青と緑の区別は、[[言語しだい]]",
+     "x": 960,
+     "y": 320,
+     "size": 96,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "tag": "韓国語",
+       "text": "青信号は「パランブル」",
+       "col": "cyan",
+       "until": 3
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 260,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "パランブル＝[[青い火]]",
+     "x": 960,
+     "y": 640,
+     "size": 104,
+     "at": 1,
+     "plate": "blue",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "tag": "ベトナム語",
+       "text": "青と緑を、一つの色の言葉で指す",
+       "col": "cyan"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 400,
+     "size": 56,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[青と緑]]を一語で指す",
+     "x": 960,
+     "y": 640,
+     "size": 104,
+     "at": 2,
+     "plate": "blue",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "色の切り方は、言語で[[違う]]",
+     "x": 960,
+     "y": 620,
+     "size": 96,
+     "at": 3,
+     "plate": "green",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "end",
+   "title": "結論",
+   "chapter_title": "結論",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "dim": 0.3,
+     "blur": 3,
+     "seg": 22,
+     "img": "intro",
+     "at": 0,
+     "alts": [
+      "world",
+      "law"
+     ]
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "[[結論]]",
+     "x": 960,
+     "y": 430,
+     "size": 150,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "tag": "考えられる",
+       "text": "日本語の「青」の使い方を受け継いだ名前",
+       "col": "orange"
+      },
+      {
+       "at": 2,
+       "tag": "法令",
+       "text": "名前は青色 ／ 光る色は緑寄り",
+       "col": "green"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 230,
+     "size": 56,
+     "gap": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "名前は、[[受け継いだ]]もの",
+     "x": 960,
+     "y": 600,
+     "size": 100,
+     "at": 1,
+     "plate": "purple",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "緑に見えるのは、[[間違いじゃない]]",
+     "x": 960,
+     "y": 600,
+     "size": 92,
+     "at": 3,
+     "plate": "red",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 4
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "信号待ちで、[[思い出して]]",
+     "x": 960,
+     "y": 600,
+     "size": 100,
+     "at": 4,
+     "plate": "blue",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  }
+ ],
+ "desc": {
+  "title_main": "信号の青は、なぜ緑色に見えるのか",
+  "title_no": 1,
+  "titles": [
+   "信号の青は、なぜ緑色に見える？ 法令と言葉の歴史で確かめる"
+  ],
+  "intro": "信号の青は、本当は緑色に見えませんか。青信号と呼ぶのに、見た目は緑に近い。この動画では、その理由を、法令と言葉の面から確かめます。",
+  "points": [
+   "道路交通法施行令は、信号の灯火の意味を「青色の灯火」と書いています。",
+   "日本語の「青」は、昔は緑も含む広い色の名前だったと考えられています（説）。"
+  ],
+  "refs": [
+   "道路交通法施行令 第2条（e-Gov法令検索）"
+  ],
+  "credit_lines": [
+   "・背景イラスト:ChatGPT(OpenAI)による生成イラスト(イメージです)"
+  ],
+  "notes": [
+   "K2〜K5は未確認で、「とされる」「説がある」の表現で述べています。"
+  ],
+  "tags": "信号, 青信号, 緑, 日本語, 色, 雑学, 検証",
+  "checks": [
+   "K2〜K5の出典を、公開前に確認する"
+  ]
+ },
+ "thumb": {
+  "bg": "assets/sigcmp/art_intro.png",
+  "lines": [
+   [
+    "青信号は",
+    110,
+    "white"
+   ],
+   [
+    "緑色？",
+    130,
+    "gold"
+   ]
+  ],
+  "sub": "法令と言葉で確かめる"
+ }
+}

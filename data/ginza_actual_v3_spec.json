@@ -1,0 +1,373 @@
+{
+  "slug": "ginza_actual_v3",
+  "theme_dir": "20271101_ginza",
+  "pack": "80_ginza_actual_v3",
+  "header_sub": "江戸前島・銀座の埋立てで、地形の成り立ちを確かめる",
+  "images": {
+    "aerial_1936": {
+      "file": "assets/ginza/aerial_1936.png"
+    },
+    "aerial_1961": {
+      "file": "assets/ginza/aerial_1961.png"
+    },
+    "aerial_now": {
+      "file": "assets/ginza/aerial_now.png"
+    },
+    "relief": {
+      "file": "assets/ginza/relief.png"
+    },
+    "relief_plain": {
+      "file": "assets/ginza/relief_plain.png"
+    },
+    "fillmap_0": {
+      "file": "assets/ginza/fillmap_0.png"
+    },
+    "fillmap_1": {
+      "file": "assets/ginza/fillmap_1.png"
+    },
+    "fillmap_2": {
+      "file": "assets/ginza/fillmap_2.png"
+    },
+    "fillmap_3": {
+      "file": "assets/ginza/fillmap_3.png"
+    },
+    "pale_map_z15": {
+      "file": "upload/80_ginza_vector_prototype/pale_current_map_z15_r3.png"
+    },
+    "pale_map_z17": {
+      "file": "upload/80_ginza_vector_prototype/pale_current_map_z17_r6.png"
+    },
+    "street_wako": {
+      "file": "out/ginza_remaster_work/assets/ginza_street/wako.jpg"
+    },
+    "street_crossing": {
+      "file": "out/ginza_remaster_work/assets/ginza_street/crossing.jpg"
+    }
+  },
+  "bgm": [
+    [
+      "intro",
+      "maejima",
+      "piano36"
+    ],
+    [
+      "maejima",
+      "end",
+      "piano12"
+    ],
+    [
+      "end",
+      "end",
+      "piano40"
+    ]
+  ],
+  "style": "pop",
+  "chapters": [
+    {
+      "key": "intro",
+      "title": "銀座は、昔は海に突き出た砂州だったのでしょうか？",
+      "chapter_title": "導入：銀座は昔、砂州の先端だったのでしょうか？",
+      "opener": "銀座は、昔は海に突き出た砂州だったのでしょうか？",
+      "opener_until": 1,
+      "scene": [
+        {
+          "t": "anim",
+          "name": "pop_bgimg",
+          "img": "aerial_1936",
+          "at": 0,
+          "dim": 0.5,
+          "blur": 3
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "銀座は、昔、\n[[海に突き出た砂州]]\nだったのでしょうか？",
+          "x": 960,
+          "y": 450,
+          "size": 100,
+          "at": 0,
+          "until": 1,
+          "rot": -3
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "正確には、[[江戸前島]]という\n砂州の半島の先端近くにありました",
+          "x": 960,
+          "y": 700,
+          "size": 78,
+          "at": 1,
+          "until": 2,
+          "plate": "green",
+          "rot": 1.5
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "西側は入り江、東側は海でした",
+          "x": 960,
+          "y": 470,
+          "size": 76,
+          "at": 2,
+          "until": 3,
+          "plate": "yellow",
+          "rot": -1.5
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "両側が埋め立てられ、\r\n現在の銀座になりました",
+          "x": 960,
+          "y": 660,
+          "size": 72,
+          "at": 3,
+          "until": 4,
+          "plate": "blue",
+          "rot": 1
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "順を追って、地形の成り立ちを確かめましょう",
+          "x": 960,
+          "y": 560,
+          "size": 88,
+          "at": 4,
+          "plate": "pink",
+          "rot": -2
+        }
+      ]
+    },
+    {
+      "key": "maejima",
+      "title": "江戸前島",
+      "chapter_title": "江戸前島：砂州がつくった半島",
+      "scene": [
+        {
+          "t": "anim",
+          "name": "ginza_formation_map",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "key": "west",
+      "title": "西を埋める",
+      "chapter_title": "西側：日比谷入江の埋め立て",
+      "scene": [
+        {
+          "t": "anim",
+          "name": "ginza_formation_map",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "key": "east",
+      "title": "東を埋める",
+      "chapter_title": "東側：築地の造成",
+      "scene": [
+        {
+          "t": "anim",
+          "name": "ginza_formation_map",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "key": "moat",
+      "title": "島になり、また陸になる",
+      "chapter_title": "四本の堀が埋め立てられるまで",
+      "scene": [
+        {
+          "t": "anim",
+          "name": "ginza_formation_map",
+          "at": 0
+        }
+      ]
+    },
+    {
+      "key": "end",
+      "title": "名残りとまとめ",
+      "chapter_title": "名残りとまとめ",
+      "scene": [
+        {
+          "t": "anim",
+          "name": "pop_bgimg",
+          "img": "street_wako",
+          "alts": [
+            "street_crossing"
+          ],
+          "seg": 12,
+          "at": 0,
+          "dim": 0.24,
+          "blur": 0,
+          "zoom": 0.08
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "まとめ！",
+          "x": 960,
+          "y": 400,
+          "size": 150,
+          "at": 0,
+          "until": 1,
+          "rot": -3
+        },
+        {
+          "t": "anim",
+          "name": "pop_rows",
+          "items": [
+            {
+              "at": 0,
+              "tag": "分かった",
+              "text": "標高は、周囲の埋め立て地より少し高いです",
+              "col": "green",
+              "fade_in": false
+            },
+            {
+              "at": 1,
+              "tag": "分かった",
+              "text": "桜や松は根腐れし、柳に植え替えられたとされています",
+              "col": "green",
+              "fade_in": false
+            },
+            {
+              "at": 2,
+              "tag": "高さ",
+              "text": "中央通りは、地形の尾根筋に沿ったとされています",
+              "col": "orange",
+              "fade_in": false
+            },
+            {
+              "at": 4,
+              "tag": "柳",
+              "text": "銀座は、砂州の先端から埋め立てでできました",
+              "col": "red",
+              "fade_in": false
+            },
+            {
+              "at": 5,
+              "tag": "通り",
+              "text": "「昔は海」より「砂州の先端」が正確です",
+              "col": "purple",
+              "fade_in": false
+            }
+          ],
+          "y0": 180,
+          "size": 40,
+          "gap": 18,
+          "x0": 100,
+          "x1": 1820
+        },
+        {
+          "t": "anim",
+          "name": "pop_telop",
+          "text": "次に銀座を歩くときは、\n[[砂州の先端]]を思い出してみてください",
+          "x": 960,
+          "y": 740,
+          "size": 52,
+          "at": 5,
+          "plate": "yellow",
+          "rot": -1
+        }
+      ]
+    }
+  ],
+  "desc": {
+    "title_main": "銀座は、昔は海に突き出た砂州だったのでしょうか？",
+    "title_no": 1,
+    "titles": [
+      "銀座は昔、砂州の先端だったのでしょうか？ 江戸前島と埋め立ての歴史",
+      "江戸前島とは？ 銀座と築地の地形を地図と標高で確かめます",
+      "三十間堀川・外堀の埋め立てから銀座の地形をたどります"
+    ],
+    "intro": "銀座は「昔は海だった」と説明されることがあります。地形を詳しく見ると、江戸前島という砂州の半島の先端近くに位置していました。半島の西側は日比谷入江、東側は海で、それぞれ別の時期・理由で埋め立てられ、現在の街になりました。地図・標高・空中写真を順に見ながら確かめます。\n\n■ シリーズ「東京の低地」\n昔は水だった土地を、地図・標高・空中写真で確かめます。\n再生リスト:https://www.youtube.com/playlist?list=PLV4MJdcpAGpM",
+    "points": [
+      "江戸前島は、隅田川が運んだ砂が積もってできた砂州の半島です。中央通り付近を尾根筋とし、汐留付近を先端としていました。日本橋・京橋・銀座の町は、この半島の上に広がっていきました。",
+      "半島の西側は日比谷入江という入り江でした。1603年の江戸開府後、天下普請で埋め立てが始まり、1612年に駿府の銀座が移って地名の由来になりました。埋め立て地は日本橋台地と呼ばれます。",
+      "東側では、1657年の明暦の大火をきっかけに、西本願寺の代替地として佃島の住人が土地を造成しました。そこが築地です。",
+      "銀座は東を三十間堀川、西を外堀、南を汐留川、北を京橋川に囲まれた島になりました。1949年に三十間堀川の埋め立てが始まり、1964年に東京高速道路が完成するまで、堀は順に道路へ変わりました。",
+      "国土地理院の標高データでは、銀座四丁目は約4.1m、京橋は約4.0m、築地本願寺は約3.4m、汐留は約3.3mです。日比谷入江側の埋め立て地（約3m）よりわずかに高く、砂州の微高地であることが分かります。",
+      "1874年に植えた桜・松・楓が根腐れし、湿地に強い柳に植え替えられたという逸話は、埋め立て地の性質を物語ります。",
+      "中央通りの軸線は、京橋・日本橋・神田の軸線と方向が異なります。地形の尾根筋に沿って通されたためとされています。"
+    ],
+    "refs": [
+      "Wikipedia「銀座」:https://ja.wikipedia.org/wiki/銀座",
+      "Wikipedia「築地」:https://ja.wikipedia.org/wiki/築地",
+      "Wikipedia「江戸前島」:https://ja.wikipedia.org/wiki/江戸前島",
+      "国土地理院 地理院タイル一覧:https://maps.gsi.go.jp/development/ichiran.html",
+      "国土地理院コンテンツ利用規約:https://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html"
+    ],
+    "credit_lines": [
+      "・映像素材:国土地理院撮影の空中写真(1936〜42年頃)と地理院タイルの現在地図を加工",
+      "・色別標高図:国土地理院の標高タイル(5mメッシュ)から作成",
+      "・模式図:現在の地理院地図に砂州・水域・埋立地・堀の範囲を地理座標で重ねて表示(復元範囲・海岸線は模式図)",
+      "・銀座和光の写真:Supanut Arunoprayote / CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "・銀座四丁目交差点の写真:ノボホショコロトソ / CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+      "・場面のイラスト:ChatGPT・Codex(OpenAI)による生成イラスト(イメージです。実際の場面・人物・資料の再現ではありません)"
+    ],
+    "notes": [
+      "「海」ではなく「砂州の半島」。表現には注意する。",
+      "埋め立ては「西（日比谷入江）→東（築地）→堀」の3段階で、別々の理由・時期に進んだ。1つの事業として語らない。",
+      "「島」は比喩ではなく、4本の堀に囲まれた事実。行政的な島ではない。",
+      "築地の造成は「銀座のため」ではなく、西本願寺の代替地として造成された。",
+      "中央通りの向きが京橋・日本橋と違うのは、砂州の尾根筋に沿ったため。現地で確認できる。",
+      "標高は国土地理院の5mメッシュ標高から、地点の周り9×9画素の平均を取った概算です。",
+      "柳の根腐れの原因は「埋立地の水分」とされるが、確定した説ではない。",
+      "1262年の「前嶋村」、中央通り＝尾根筋、楓川・三十間堀川の掘削は、二次資料（Wikipedia等）のみで確認したため「〜とされる」「との説」と弱めています。",
+      "三井住友トラスト不動産「このまちアーカイブス」は 2026-11-01 時点で HTTP 503 で再取得できず、日比谷回の参照情報から補っています。"
+    ],
+    "tags": "銀座, 江戸前島, 江戸, 埋め立て, 日比谷入江, 築地, 明暦の大火, 地形, 検証",
+    "checks": [
+      "中央区「銀座・銀座西地区 町名の由来」で1612年の記述を直接確認",
+      "築地の造成（1657年・佃島の住人）を中央区の資料で確認",
+      "標高の値を国土地理院の標高確認ページで1点照合",
+      "模式図の範囲（砂州の幅・堀の位置）を古地図または治水地形分類図と見比べて調整"
+    ]
+  },
+  "thumb": {
+    "bg": "assets/ginza/relief_plain.png",
+    "lines": [
+      [
+        "銀座は",
+        76,
+        "white"
+      ],
+      [
+        "砂州の先端？",
+        130,
+        "gold"
+      ]
+    ],
+    "sub": "地図と標高で、確かめる",
+    "shade_col": [
+      8,
+      20,
+      36
+    ],
+    "accent": [
+      255,
+      178,
+      72
+    ],
+    "bar_col": [
+      255,
+      178,
+      72
+    ],
+    "y0": 14,
+    "bar_y": 520,
+    "bar_w": 640,
+    "sub_size": 42,
+    "shade_x": 700,
+    "shade_w": 520
+  },
+  "voice": {
+    "speed": 0.88,
+    "pre_phoneme": 0.18,
+    "post_phoneme": 0.55,
+    "scene_hold": 2.8
+  }
+}
