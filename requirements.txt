@@ -6,3 +6,5 @@ requests
 psutil
 pydantic
 pytest
+jsonschema
+pyyaml

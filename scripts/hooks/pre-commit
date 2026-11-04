@@ -1,0 +1,23 @@
+#!/bin/sh
+# shorts/<slug>/result.json をコミットしようとしたら制作標準の検査を通す。
+#
+# 導入: python scripts/install_git_hooks.py
+# 手動で実行: python scripts/shorts_standard.py check shorts/<slug>/result.json
+# 仕組み: shorts-standard/validate.py（形式）＋ scripts/shorts_standard.py の追加規則
+files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^shorts/[^/]+/result\.json$')
+[ -z "$files" ] && exit 0
+
+status=0
+for f in $files; do
+    if ! python scripts/shorts_standard.py check "$f" >/dev/null 2>&1; then
+        printf '\n✖ 制作標準の検査に通りません: %s\n\n' "$f" >&2
+        python scripts/shorts_standard.py check "$f" >&2 || true
+        status=1
+    fi
+done
+
+if [ "$status" -ne 0 ]; then
+    printf '  直してから再コミットしてください（PROMPT.md と README.md が基準）。\n' >&2
+    printf '  検査だけ実行: python scripts/shorts_standard.py check <result.json>\n' >&2
+fi
+exit "$status"

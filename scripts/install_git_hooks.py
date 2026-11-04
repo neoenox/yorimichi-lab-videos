@@ -4,7 +4,8 @@
     python scripts/install_git_hooks.py --check   導入済みか確認だけする
 
 導入されるもの:
-    pre-push  素材（画像・動画・音声・PDF 等）を含む push を中止する
+    pre-push    素材（画像・動画・音声・PDF 等）を含む push を中止する
+    pre-commit  shorts/<slug>/result.json を制作標準（shorts-standard/）で検査する
 
 背景: 動画素材は 1GB を超えて push が失敗するため、リモートにはテキストだけを置く。
 テキストのみ反映するには scripts/main_push_textonly.py を使う。
@@ -16,7 +17,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-HOOKS = ('pre-push',)
+HOOKS = ('pre-push', 'pre-commit')
 
 
 def hooks_dir():

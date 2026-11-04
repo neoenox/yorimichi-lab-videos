@@ -1,0 +1,11 @@
+topic: "飛行機の窓はなぜ丸い？"
+viewer_question: "四角い窓ではだめなの？"
+audience: "一般視聴者・予備知識なし"
+source_urls:
+  - "https://airandspace.si.edu/"
+verified_facts:
+  - "窓の角は応力集中の要因になり得る"
+  - "過去の旅客機事故と機体の疲労破壊の調査が安全設計に影響した"
+caveats:
+  - "事故原因を窓の形状だけに単純化しない"
+visual_assets: "模式図、飛行機のシルエット、丸角と鋭角の比較"
