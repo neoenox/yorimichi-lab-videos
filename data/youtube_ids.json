@@ -1328,5 +1328,162 @@
   "privacy": "private",
   "via": "api",
   "superseded": []
+ },
+ "short_solo_shomi_sugitara": {
+  "video_id": "WBiW-hqdAVE",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_brain_origin": {
+  "video_id": "kbyOHtC_30U",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_brain_damage": {
+  "video_id": "wGBxb4DzOKM",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_galileo_sore": {
+  "video_id": "xibAH_kbh1g",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_bukka_katei": {
+  "video_id": "9qa6GOtP4VQ",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_columbus_flat": {
+  "video_id": "lg38vwKjeGs",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_okehazama_ukai": {
+  "video_id": "urYihA6-BDk",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_moon_dark": {
+  "video_id": "P85fOkvbrV8",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_tottori_hyoro": {
+  "video_id": "CBGYD7THeyE",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_nanao_tedorigawa": {
+  "video_id": "olKfqF53S70",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_shimabara_kazu": {
+  "video_id": "E0BobLdScvU",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_jikyu_yunyusaki": {
+  "video_id": "uin4Sr64t4U",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_anegawa_suugyou_nl": {
+  "video_id": "uw267Upb-18",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_tamago_jikyu_nl": {
+  "video_id": "j7rBP_lZrB8",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_bath_hagaki_nl": {
+  "video_id": "RM3mUp8xAQw",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_shinkansen24_nl": {
+  "video_id": "rW32WiiRFKs",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_carpenter10h_nl": {
+  "video_id": "OwvDm4yX5Uw",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_doyo_shiryo_nl": {
+  "video_id": "1OQa0cRIRpU",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_freq_why_nl": {
+  "video_id": "o52Uaqj_G0o",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_hanabi_kikin_nl": {
+  "video_id": "l1zOa07zQTY",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_hatsugatsuo_4ryo_nl": {
+  "video_id": "TzNn802Vg74",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_freq_move_nl": {
+  "video_id": "2JRsIJoy4mE",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_hikeshi_kowasu_nl": {
+  "video_id": "u7nC2qhis8E",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_edo_map_date": {
+  "video_id": "m-2eoljbdLA",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
  }
 }
