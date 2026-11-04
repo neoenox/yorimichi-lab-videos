@@ -62,6 +62,25 @@ git reset --hard origin/main          # 直前にテキストを全部コミッ�
 
 作業ツリー（カレントブランチ）は変更しない。
 
+### 作り直しと一緒に反映する
+
+```bash
+python scripts/rebuild_all.py <slug>... --sync-main-pr   # ビルド後にテキストのみで PR
+python scripts/rebuild_all.py <slug>... --sync-main      # ビルド後に main へ直接 push
+python scripts/rebuild_all.py --sync-main-dry            # 何が入るか表示だけ（ビルドしない）
+```
+
+同期の結果は `out/rebuild_all.log` に `main 同期: ...` として残る。
+同期に失敗してもビルド結果は失われない（`ALL_DONE` は必ず書く）。
+
+Python から直接呼ぶこともできる。
+
+```python
+from main_push_textonly import push_text_only
+push_text_only(pr=True)                   # 現状をテキストのみで PR
+push_text_only(dry_run=True, do_fetch=False)  # 何が入るかだけ
+```
+
 ## フック（事故防止）
 
 ```bash
@@ -78,12 +97,33 @@ python scripts/install_git_hooks.py --check  # 導入済みか確認
 ## 素材はどこにあるか
 
 - 作業ディレクトリ（`assets/`, `docs/themes/`）にそのまま置く。git からは untracked + ignored として見える
-- `ninja` ブランチ（素材 618 ファイルを含む履歴）は退役させ、`backup/ninja-pre-mainpush-20261104` に退避した
-- 素材を誤って消した場合は、その退避ブランチから取り出せる:
+- `ninja` ブランチ（素材 663 画像を含む履歴）は退役させ、bundle に退避した（下の「退避アーカイブ」）
+- 素材を誤って消した場合は、その bundle から取り出せる:
 
 ```bash
-git checkout backup/ninja-pre-mainpush-20261104 -- assets/anegawa/map_main.png
+git fetch E:/rekishikaisetu-media-archive/ninja-media-history-20261104.bundle \
+  refs/heads/backup/ninja-pre-mainpush-20261104:refs/heads/restored-ninja
+git checkout restored-ninja -- assets/anegawa/map_main.png
 ```
+
+## 退避アーカイブ（2026-11-04 の棚卸し）
+
+| 対象 | 場所 |
+| --- | --- |
+| `ninja` の素材込み履歴（663 画像） | `E:/rekishikaisetu-media-archive/ninja-media-history-20261104.bundle`（1.0GB） |
+| `honnoji` / `worldmap` / `codex/series-quality-unification` | `E:/rekishikaisetu-media-archive/branches-*.bundle` |
+| 旧リポジトリの main（素材込み・651 画像） | `backup` リモート = `github.com/neoenox/rekishikaisetu-honnoji` |
+
+復元するときは、前提コミット `6c05d14` を含むリポジトリで:
+
+```bash
+git fetch E:/rekishikaisetu-media-archive/ninja-media-history-20261104.bundle \
+  refs/heads/backup/ninja-pre-mainpush-20261104:refs/heads/restored-ninja
+git checkout restored-ninja -- assets/anegawa/map_main.png
+```
+
+`codex/series-quality-unification` は `E:/rekishikaisetu` の worktree が使用中なので、
+そちらに未コミットの作業が無いことを確認してから削除する。
 
 ## トラブルシューティング
 
