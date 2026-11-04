@@ -1,0 +1,3 @@
+# シェルスクリプトは LF 固定。CRLF だと Git Bash で shebang（#!/bin/sh）が壊れ、
+# pre-push フックが動かない。
+scripts/hooks/* text eol=lf
