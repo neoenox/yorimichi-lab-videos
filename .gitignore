@@ -37,6 +37,16 @@ data/hn_terrain.npz
 # 一時スクリプト（調査用の使い捨て）
 /tmp_*.py
 
+# 制作の出力フォルダ（ローカル専用。動画・字幕・中間 JSON が入る）
+_review_tmp/
+sigcmp_view/
+assets/edo_machibikeshi/
+assets/edo_night/
+assets/edo_prints/
+assets/kawanakajima_battle/
+assets/nagashino_map_test/
+assets/series_unified/
+
 # アップロード用に組み立てたコピー（out/ から scripts/make_upload_pack.py で再生成できる）
 upload/
 
