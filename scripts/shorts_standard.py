@@ -138,8 +138,12 @@ def extra_checks(data, path=None):
     if len(claim_ids) != len(set(claim_ids)):
         issues.append(err('claims の id が重複している'))
     for c in claims:
+        kind = c.get('source_type', 'primary')
         url = (c.get('source_url') or '').strip()
-        if not re.match(r'https?://', url):
+        if kind == 'ai_assistant':
+            issues.append(warn('claim %s: AI アシスタントの回答を根拠にしている（一次資料での裏取りは未実施）'
+                               % c.get('id')))
+        elif not re.match(r'https?://', url):
             issues.append(err('claim %s: source_url が http(s) ではない' % c.get('id')))
         if len((c.get('evidence_note') or '').strip()) < 5:
             issues.append(err('claim %s: evidence_note が短すぎる（何を確認したか書く）' % c.get('id')))
