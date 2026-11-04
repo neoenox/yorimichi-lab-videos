@@ -88,8 +88,12 @@ def human(n):
 
 def push_text_only(base='origin/main', from_ref=None, remote='origin', branch=None,
                    message=None, pr=False, draft=False, direct=False,
-                   dry_run=False, allow_media=False, do_fetch=True, quiet=False):
-    """テキストだけを 1 コミットにまとめて main へ積む。結果を dict で返す。"""
+                   dry_run=False, allow_media=False, do_fetch=True, quiet=False,
+                   paths=None):
+    """テキストだけを 1 コミットにまとめて main へ積む。結果を dict で返す。
+
+    paths を渡すと、そのパスだけを対象にする（他の作業と混ざらない）。
+    """
     def say(*a):
         if not quiet:
             print(*a)
@@ -115,7 +119,7 @@ def push_text_only(base='origin/main', from_ref=None, remote='origin', branch=No
             git(['read-tree', '--reset', src], env=env)
             git(['rm', '-r', '--cached', '--quiet', '--ignore-unmatch', '--'] + MEDIA_GLOBS, env=env)
         else:
-            git(['add', '-A', '--', '.'], env=env)  # .gitignore に従う
+            git(['add', '-A', '--'] + (list(paths) if paths else ['.']), env=env)  # .gitignore に従う
         tree = git(['write-tree'], env=env).strip()
 
         # 3. 差分に素材が残っていないか検査する
@@ -137,6 +141,8 @@ def push_text_only(base='origin/main', from_ref=None, remote='origin', branch=No
 
         say('土台      : %s (%s)' % (base, base_sha[:7]))
         say('内容      : %s' % (from_ref if from_ref else '作業ツリーの現状（.gitignore に従う）'))
+        if paths:
+            say('対象      : %s' % ' '.join(paths))
         say('変更      : %d ファイル / +%d / -%d' % (len(changed), adds, dels))
         say('追加容量  : %s' % human(total))
         if rows:
@@ -225,6 +231,8 @@ def main():
     ap.add_argument('--allow-media', action='store_true', help='素材が残っていても続行する（非推奨）')
     ap.add_argument('--dry-run', action='store_true', help='検査と集計だけ行い、commit/push しない')
     ap.add_argument('--no-fetch', action='store_true', help='fetch を省略する')
+    ap.add_argument('--path', action='append', dest='paths',
+                    help='このパスだけを対象にする（複数可。他の作業と混ざらない）')
     a = ap.parse_args()
 
     t0 = time.time()
@@ -233,6 +241,7 @@ def main():
             base=a.base, from_ref=a.from_ref, remote=a.remote, branch=a.branch,
             message=a.message, pr=a.pr, draft=a.draft, direct=a.direct,
             dry_run=a.dry_run, allow_media=a.allow_media, do_fetch=not a.no_fetch,
+            paths=a.paths,
         )
     except MediaInDiff as e:
         sys.stderr.write('✖ %s:\n' % e)
