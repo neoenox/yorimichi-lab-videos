@@ -203,7 +203,7 @@ def brief_check(path):
     return issues
 
 
-def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=None):
+def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=None, credit=None):
     """標準 JSON → 既存レンダラ（scripts/make_short2.py）の spec。"""
     src = ' '.join(s.get('narration') or '' for s in data['scenes'])
     for line in src.splitlines():
@@ -235,6 +235,8 @@ def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=
         spec['long_id'] = long_id
     if long_title:
         spec['long_title'] = long_title
+    if credit:
+        spec['credit'] = credit
     dest = Path(out) if out else ROOT / 'shorts' / slug / 'short_spec.json'
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf-8')
@@ -291,7 +293,7 @@ def cmd_to_spec(args):
         print('  未確認: %s' % ', '.join(data.get('needs_research') or ['(needs_research が空)']))
         return 1
     slug = args.slug or Path(args.result).resolve().parent.name
-    dest, spec = to_spec(data, slug, args.art, args.pron, args.out, args.long_id, args.long_title)
+    dest, spec = to_spec(data, slug, args.art, args.pron, args.out, args.long_id, args.long_title, args.credit)
     print('作成:', dest)
     print('  シーン %d / caption・art を確認し、python scripts/make_short2.py %s で描画（VOICEVOX 起動が必要）'
           % (len(spec['scenes']), slug))
@@ -344,6 +346,7 @@ def main():
     p.add_argument('--out')
     p.add_argument('--long-id')
     p.add_argument('--long-title')
+    p.add_argument('--credit', help='概要欄のクレジット行（素材の実態に合わせる）')
     p.set_defaults(func=cmd_to_spec)
 
     p = sub.add_parser('list', help='shorts/ の制作状況')

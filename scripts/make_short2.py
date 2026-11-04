@@ -135,14 +135,15 @@ def render(spec, segs, total, out_mp4, slug):
 
 def description(spec):
     # 概要欄も画面と同じ規則で算用数字にそろえる（展示用の表記）
+    # long_id（対応する長尺動画）が無い単独Shortsでは、その案内行を出さない
+    link = ''
+    if spec.get('long_id'):
+        link = f"▶ 詳しい根拠は、長い動画で：https://youtu.be/{spec['long_id']}\n　{spec.get('long_title', '')}\n\n"
     return display(f"""{spec['title']}　（約{spec.get('sec', 45)}秒）
 
 {spec['hook']}
 
-▶ 詳しい根拠は、長い動画で：https://youtu.be/{spec['long_id']}
-　{spec['long_title']}
-
-{spec['notes']}
+{link}{spec['notes']}
 
 ■ 出典・クレジット
 {spec.get('credit') or '・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の資料の複製ではありません）'}
