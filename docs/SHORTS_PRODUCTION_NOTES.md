@@ -152,3 +152,24 @@ python scripts/yt_api.py schedule <VIDEO_ID> "2026-11-05 20:00"   # 日本時間
 - 数字・固有名詞・因果関係は特に誤りやすい。可能なら同じ主張を `primary` でも裏取りする
 - AI に聞いた日時と質問文を `evidence_note` に残す（後から検証・訂正できるように）
 - 誤りが判明したら概要欄に訂正、重大なら新IDで差し替え（`superseded` 運用）
+
+## 9. 調査に ChatGPT（web）を使う（bsk・2026-11-05 実測）
+
+一次資料の候補を探すとき、ブラウザの ChatGPT を使える。**回答は根拠として使える（v1.1）が、URL は自分で開いて確かめる。**
+
+```bash
+bsk session start --browser <instance-id> --name research --width 1500 --height 950 --focus
+bsk step --session research --action navigate --json --params '{"url":"https://chatgpt.com/"}'
+bsk cooperate --session research sync --json          # context_id と composer の @eNN を読む
+bsk step --session research --context <ctx> --action fill --params '{"ref":"@e<composer>","value":"<質問>"}'
+# 送信: Enter では送信されないことがある。VOM の「送信」ボタンを click する
+bsk step --session research --context <ctx> --action click --params '{"ref":"@e<送信>"}'
+# 90秒ほど待ってから sync し、region "会話" の paragraph を読む
+bsk session stop research
+```
+
+- 質問の型: 「Web検索を使って、<日付> に発表された <官公庁/大学/研究機関> の公式発表を5件。発表元／発表日／タイトル／一次資料URL。報道記事は除外。URLは実在するものだけ」
+- **返ってきた URL は必ず HTTP で開いて確認する**（実測: 5件すべて 200 でタイトルも一致したが、これは毎回保証されない）
+- 画面の VOM には過去のチャット履歴（個人的な話題）も含まれる。作業ログや PR に貼らない
+- 回答は `source_type: ai_assistant` で記録し、可能なら同じ主張を `primary` でも裏取りする
+
