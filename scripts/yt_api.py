@@ -81,6 +81,28 @@ def load_ids():
     return json.loads(IDS.read_text(encoding='utf8')) if IDS.exists() else {}
 
 
+def save_ids_atomic(ids):
+    """台帳の既存ファイルを途中書き込みで壊さないよう原子的に保存する。"""
+    import os
+    import tempfile
+
+    IDS.parent.mkdir(parents=True, exist_ok=True)
+    temp_name = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode='w', encoding='utf8', dir=IDS.parent,
+            prefix=IDS.name + '.', suffix='.tmp', delete=False
+        ) as temp:
+            temp_name = temp.name
+            json.dump(ids, temp, ensure_ascii=False, indent=1)
+            temp.flush()
+            os.fsync(temp.fileno())
+        os.replace(temp_name, IDS)
+    finally:
+        if temp_name is not None:
+            Path(temp_name).unlink(missing_ok=True)
+
+
 def cmd_upload(pack, dry=False, new_version=False):
     from googleapiclient.http import MediaFileUpload
     d = R / 'upload' / pack
@@ -125,10 +147,12 @@ def cmd_upload(pack, dry=False, new_version=False):
             print(f'  upload {int(st.progress() * 100)}%', flush=True)
     vid = resp['id']
     print('video id', vid, resp['status']['privacyStatus'])
+    previous = ids.get(pack, {})
     ids[pack] = dict(video_id=vid, privacy=resp['status']['privacyStatus'], via='api',
-                     superseded=ids.get(pack, {}).get('superseded', []) + ([ids[pack]['video_id']] if pack in ids else []))
-    IDS.parent.mkdir(exist_ok=True)
-    IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+                     superseded=previous.get('superseded', []) + ([previous['video_id']] if previous.get('video_id') else []),
+                     deleted=previous.get('deleted', []))
+    # アップロード済みIDを失わないよう原子的に記録する（失敗時は表示したIDを手動で復旧）。
+    save_ids_atomic(ids)
     if (d / 'thumbnail.jpg').exists():
         yt.thumbnails().set(videoId=vid, media_body=MediaFileUpload(str(d / 'thumbnail.jpg'))).execute()
         print('thumbnail ok')
@@ -151,12 +175,6 @@ def cmd_finish(pack, vid, at=None):
         sys.exit('認証中のチャンネルが寄り道ラボではありません。中止')
     ids = load_ids()
     old = ids.get(pack, {}).get('video_id')
-    if old != vid:
-        ids[pack] = dict(video_id=vid, privacy='private', via='browser',
-                         superseded=ids.get(pack, {}).get('superseded', []) + ([old] if old else []),
-                         deleted=ids.get(pack, {}).get('deleted', []))
-        IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
-        print('ledger', pack, old, '->', vid)
     status = dict(privacyStatus='private', selfDeclaredMadeForKids=False, embeddable=True, license='youtube')
     if at:
         import datetime as dt
@@ -174,29 +192,66 @@ def cmd_finish(pack, vid, at=None):
         yt.captions().insert(part='snippet', body=dict(snippet=dict(videoId=vid, language='ja', name='', isDraft=False)),
                              media_body=MediaFileUpload(str(d / 'subtitles_ja.srt'), mimetype='application/octet-stream')).execute(); print('captions ok')
 
+    # API の全工程が完了するまで旧版を削除候補にしない。
+    if old != vid:
+        ids[pack] = dict(video_id=vid, privacy='private', via='browser',
+                         superseded=ids.get(pack, {}).get('superseded', []) + ([old] if old else []),
+                         deleted=ids.get(pack, {}).get('deleted', []))
+        save_ids_atomic(ids)
+        print('ledger', pack, old, '->', vid)
+
 
 def cmd_delete_superseded():
-    """data/youtube_ids.json の superseded に載っていて、かつ非公開の動画だけを削除する（公開済みは触らない）。"""
+    """削除成功を確認した非公開動画だけを superseded から deleted に移す。
+
+    取得不能・削除失敗は保留し、非ゼロ終了で知らせる。台帳は原子的に保存する。
+    """
     yt = service()
+    if not any(it['id'] == CHANNEL_ID for it in mine(yt)):
+        sys.exit('認証中のチャンネルが寄り道ラボではありません。削除を中止')
     ids = load_ids()
+    pending = []
+    quota_exceeded = False
     for pack, rec in ids.items():
         for vid in list(rec.get('superseded', [])):
-            v = yt.videos().list(part='status,snippet', id=vid).execute()['items']
-            if v and v[0]['status']['privacyStatus'] != 'private':
-                print('skip (not private):', vid)
+            try:
+                items = yt.videos().list(part='status,snippet', id=vid).execute().get('items', [])
+            except Exception as e:
+                print('lookup failed; keep pending:', vid, type(e).__name__)
+                pending.append(vid)
+                if 'quota' in str(e).lower():
+                    quota_exceeded = True
+                    break
                 continue
-            if v:
-                try:
-                    yt.videos().delete(id=vid).execute()
-                    print('deleted', vid, v[0]['snippet']['title'][:24])
-                except Exception as e:
-                    if 'videoNotFound' in str(e) or 'quota' not in str(e).lower():
-                        print('delete failed (not found / other):', vid, str(e)[-120:])
-                    else:
-                        print('quota exceeded; stop deleting'); IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8'); return
+            if not items:
+                # list() の空結果は「削除済み」と「権限なし」を区別できない。
+                print('missing or inaccessible; keep pending:', vid)
+                pending.append(vid)
+                continue
+            if items[0]['status']['privacyStatus'] != 'private':
+                print('skip (not private); keep pending:', vid)
+                pending.append(vid)
+                continue
+            try:
+                yt.videos().delete(id=vid).execute()
+            except Exception as e:
+                print('delete failed; keep pending:', vid, type(e).__name__)
+                pending.append(vid)
+                if 'quota' in str(e).lower():
+                    quota_exceeded = True
+                    break
+                continue
+            print('deleted', vid, items[0]['snippet']['title'][:24])
             rec['superseded'].remove(vid)
             rec.setdefault('deleted', []).append(vid)
-    IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+        if quota_exceeded:
+            break
+
+    # 成功した削除だけを、共通の原子的保存ヘルパーで記録する。
+    save_ids_atomic(ids)
+    if pending:
+        sys.exit(f'削除未完了 {len(pending)} 件（台帳に保留）: {", ".join(pending)}')
+
 
 
 def cmd_schedule(video_id, when):
@@ -205,6 +260,8 @@ def cmd_schedule(video_id, when):
     jst = datetime.datetime.strptime(when, '%Y-%m-%d %H:%M')
     utc = jst - datetime.timedelta(hours=9)
     yt = service()
+    if not any(it.get('id') == CHANNEL_ID for it in mine(yt)):
+        sys.exit('認証中のチャンネルが寄り道ラボではありません。中止')
     cur = yt.videos().list(part='status', id=video_id).execute()['items'][0]['status']
     body = dict(id=video_id, status=dict(privacyStatus='private', publishAt=utc.strftime('%Y-%m-%dT%H:%M:%S.000Z'),
                                          selfDeclaredMadeForKids=cur.get('selfDeclaredMadeForKids', False), embeddable=cur.get('embeddable', True),
@@ -243,7 +300,10 @@ def cmd_stats():
 
 def cmd_redesc(pack):
     """台帳の video_id の概要欄だけを、upload/<pack>/description.txt に更新する（タイトル・予約は変えない）。"""
-    yt = service(); ids = load_ids(); vid = ids[pack]['video_id']
+    yt = service()
+    if not any(it.get('id') == CHANNEL_ID for it in mine(yt)):
+        sys.exit('認証中のチャンネルが寄り道ラボではありません。中止')
+    ids = load_ids(); vid = ids[pack]['video_id']
     v = yt.videos().list(part='snippet', id=vid).execute()['items'][0]
     desc = (R / 'upload' / pack / 'description.txt').read_text(encoding='utf8').strip()
     assert len(desc) <= 5000 and '<' not in desc and '>' not in desc
