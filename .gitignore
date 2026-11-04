@@ -24,6 +24,19 @@ assets/naturalearth/
 *.webm
 data/hn_terrain.npz
 
+# 動画素材（画像）と原典資料はローカル専用。
+# リモートにはコード・台本・タイムライン（テキスト）だけを置く。
+# 既に追跡済みのファイルはこの設定では消えない（必要なら明示的に削除する）。
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.zip
+*.npy
+
+# 一時スクリプト（調査用の使い捨て）
+/tmp_*.py
+
 # アップロード用に組み立てたコピー（out/ から scripts/make_upload_pack.py で再生成できる）
 upload/
 

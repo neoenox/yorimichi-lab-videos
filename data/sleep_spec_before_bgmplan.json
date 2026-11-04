@@ -1,0 +1,598 @@
+{
+ "slug": "sleep",
+ "theme_dir": "20261230_sleep",
+ "pack": "55_sleep",
+ "header_sub": "英語版Wikipediaで、昔の人の分割睡眠を確かめる",
+ "images": {
+  "dark": {
+   "file": "assets/sleep/art_dark.png"
+  },
+  "intro": {
+   "file": "assets/sleep/art_intro.png"
+  },
+  "candle": {
+   "file": "assets/sleep/art_candle.png"
+  }
+ },
+ "bgm": [
+  [
+   "intro",
+   "ekirch",
+   "piano36"
+  ],
+  [
+   "jikken",
+   "giron",
+   "piano12"
+  ],
+  [
+   "iikata",
+   "end",
+   "piano40"
+  ]
+ ],
+ "chapters": [
+  {
+   "key": "intro",
+   "title": "昔の人は、夜に2回に分けて眠っていた？",
+   "chapter_title": "導入：昔の人は、夜に2回に分けて眠っていた？",
+   "opener": "昔の人は、夜に2回に分けて眠っていた？",
+   "opener_until": 2,
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "intro",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4,
+     "alts": [
+      "candle",
+      "dark"
+     ],
+     "seg": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "昔の人は、夜に2回に分けて眠っていた？",
+     "x": 960,
+     "y": 270,
+     "size": 73,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "text": "夜中に1〜2時間起きて、また眠る、という眠り方",
+       "col": "orange"
+      },
+      {
+       "at": 5,
+       "text": "確かめる材料：英語版Wikipedia「Segmented sleep」",
+       "col": "orange"
+      },
+      {
+       "at": 6,
+       "text": "答え：記録は多いが、普通だったかは議論が続いている",
+       "col": "orange"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 371,
+     "size": 52,
+     "gap": 22
+    }
+   ]
+  },
+  {
+   "key": "ekirch",
+   "title": "エカーチの主張",
+   "chapter_title": "エカーチの主張",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "candle",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4,
+     "alts": [
+      "intro",
+      "dark"
+     ],
+     "seg": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "text": "まず、この説を広めた人を見る",
+       "col": "orange",
+       "until": 1
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 170,
+     "size": 46,
+     "gap": 0
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "歴史家ロジャー・エカーチ：産業革命の前の西洋では、眠りが途中で途切れるのが普通",
+       "col": "orange",
+       "until": 2
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 170,
+     "size": 46,
+     "gap": 0
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "text": "根拠：古代・中世・近代の文書にある、500以上の記述",
+       "col": "orange",
+       "until": 3
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 170,
+     "size": 46,
+     "gap": 0
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "text": "早く眠る → 夜中に目覚める → もう一度眠る",
+       "col": "orange",
+       "until": 4
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 170,
+     "size": 46,
+     "gap": 0
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 4,
+       "text": "最初の眠り「first sleep」と、二度目の「second sleep」の間は、約1時間",
+       "col": "orange"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 170,
+     "size": 46,
+     "gap": 0
+    },
+    {
+     "t": "table",
+     "box": [
+      60,
+      300,
+      1860,
+      560
+     ],
+     "cols": [
+      "エカーチの説（英語版Wikipedia）",
+      "内容"
+     ],
+     "colw": [
+      900,
+      900
+     ],
+     "size": 34,
+     "rows": [
+      {
+       "at": 2,
+       "cells": [
+        "根拠",
+        "500以上の記述"
+       ]
+      },
+      {
+       "at": 4,
+       "cells": [
+        "目覚めている時間",
+        "約1時間"
+       ],
+       "col": "gold"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "key": "jikken",
+   "title": "実験では、どうだったか",
+   "chapter_title": "実験では、どうだったか",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "dark",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4,
+     "alts": [
+      "intro",
+      "candle"
+     ],
+     "seg": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "記録だけでなく、実験もある",
+     "x": 960,
+     "y": 470,
+     "size": 84,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "1992年：健康な男性7人が、1日14時間の暗闇で、1か月過ごした",
+     "x": 960,
+     "y": 470,
+     "size": 62,
+     "at": 1,
+     "plate": "blue",
+     "rot": 1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "最初は11時間ほど眠った（睡眠不足を取り戻したためと考えられる）",
+     "x": 960,
+     "y": 470,
+     "size": 62,
+     "at": 2,
+     "plate": "pink",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 4
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "その後：約4時間眠り、2〜3時間起き、また約4時間眠った",
+     "x": 960,
+     "y": 470,
+     "size": 62,
+     "at": 4,
+     "plate": "green",
+     "rot": 1.5,
+     "maxw": 1560,
+     "until": 5
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "暗い夜が長いと、眠りが2つに分かれる人もいた",
+     "x": 960,
+     "y": 470,
+     "size": 72,
+     "at": 5,
+     "plate": "orange",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "giron",
+   "title": "疑問の声",
+   "chapter_title": "疑問の声",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "candle",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4,
+     "alts": [
+      "intro",
+      "dark"
+     ],
+     "seg": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "一方で、疑問の声もある",
+     "x": 960,
+     "y": 470,
+     "size": 84,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "2015年：電気のない赤道付近の3つの社会は、3つとも、夜の眠りは1回",
+     "x": 960,
+     "y": 470,
+     "size": 62,
+     "at": 1,
+     "plate": "blue",
+     "rot": 1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "2023年の論文：エカーチの根拠は限られ、言葉の意味も一つとは限らない、とのこと",
+     "x": 960,
+     "y": 470,
+     "size": 62,
+     "at": 2,
+     "plate": "pink",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "この論文は、検索結果の要約だけ確認。本文は未確認",
+     "x": 960,
+     "y": 470,
+     "size": 72,
+     "at": 3,
+     "plate": "green",
+     "rot": 1.5,
+     "maxw": 1560,
+     "until": 5
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "分割睡眠が体によい、という説も、広い合意はない",
+     "x": 960,
+     "y": 470,
+     "size": 72,
+     "at": 5,
+     "plate": "orange",
+     "rot": -1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "iikata",
+   "title": "どう言えばよいのか",
+   "chapter_title": "どう言えばよいのか",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "dark",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4,
+     "alts": [
+      "intro",
+      "candle"
+     ],
+     "seg": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「昔の人は2回に分けて眠った」は、どう言えばよいか",
+     "x": 960,
+     "y": 470,
+     "size": 72,
+     "at": 0,
+     "plate": "yellow",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "そういう記録が、数多くあることは、事実のようだ",
+     "x": 960,
+     "y": 470,
+     "size": 72,
+     "at": 1,
+     "plate": "blue",
+     "rot": 1.5,
+     "maxw": 1560,
+     "until": 2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "いつも、どこでも普通だったかは、はっきりしない",
+     "x": 960,
+     "y": 470,
+     "size": 72,
+     "at": 2,
+     "plate": "pink",
+     "rot": -1.5,
+     "maxw": 1560,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "明かり・季節・仕事・文化で、夜の眠りは変わった（自作の整理）",
+     "x": 960,
+     "y": 470,
+     "size": 62,
+     "at": 3,
+     "plate": "green",
+     "rot": 1.5,
+     "maxw": 1560
+    }
+   ]
+  },
+  {
+   "key": "end",
+   "title": "まとめ",
+   "chapter_title": "まとめ",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "intro",
+     "at": 0,
+     "dim": 0.5,
+     "blur": 4,
+     "alts": [
+      "candle",
+      "dark"
+     ],
+     "seg": 22
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "エカーチは、500以上の記述から、夜を2回に分けて眠るのが普通だったと主張した",
+       "col": "green",
+       "tag": "分かったこと"
+      },
+      {
+       "at": 2,
+       "text": "長い暗闇の実験で、似た眠り方が現れた。電気のない社会で、1回だった例もある",
+       "col": "green",
+       "tag": "分かったこと"
+      },
+      {
+       "at": 4,
+       "text": "【分からないこと・言い方】どの時代・地域で、どれくらい普通だったか",
+       "col": "green"
+      },
+      {
+       "at": 5,
+       "text": "【分からないこと・言い方】「2回に分けて眠る人も多かったようだが、全員とは言い切れない」と言うのが近い",
+       "col": "green"
+      }
+     ],
+     "x0": 110,
+     "x1": 1810,
+     "y0": 200,
+     "size": 50,
+     "gap": 22
+    }
+   ]
+  }
+ ],
+ "desc": {
+  "title_main": "昔の人は夜に二回に分けて眠っていたのか",
+  "title_no": 1,
+  "titles": [
+   "昔の人は、夜に2回に分けて眠っていた？ 英語版Wikipediaで確かめる",
+   "「第一の眠り・第二の眠り」は本当？ 昔の分割睡眠の説と、疑問の声",
+   "電気のない時代の眠り方：エカーチの説と14時間の暗闇実験"
+  ],
+  "intro": "「電気がなかった昔の人は、夜に2回に分けて眠っていた」と聞いたことはありませんか。この動画では、英語版Wikipediaの解説で、この説の根拠と疑問の声を確かめます。",
+  "points": [
+   "歴史家ロジャー・エカーチは、500以上の記述から、産業革命の前の西洋では、夜の眠りが途中で途切れるのが普通だったと主張しています(英語版Wikipedia)。",
+   "1992年の実験では、健康な男性7人が1日14時間の暗闇で1か月過ごしたところ、約4時間眠り、2〜3時間起き、また約4時間眠る形が現れました。",
+   "一方、2015年には、電気のない赤道付近の3つの社会で、夜の眠りが1回だったという研究が報告されています。"
+  ],
+  "refs": [
+   "Wikipedia(英語版)「Segmented sleep」(二次情報):https://en.wikipedia.org/wiki/Segmented_sleep",
+   "A. Roger Ekirch, \"Segmented Sleep\" (Ekirchの解説ページ):https://sites.google.com/vt.edu/roger-ekirch/sleep-research/segmented-sleep",
+   "Have we lost sleep? A reconsideration of segmented sleep in early modern England (2023・検索結果の要約のみ確認):https://pmc.ncbi.nlm.nih.gov/articles/PMC10404514/"
+  ],
+  "credit_lines": [
+   "・サムネイルの背景と場面のイラスト:ChatGPT(OpenAI)による生成イラスト(イメージです。実在の場面・人物・資料の再現ではありません)"
+  ],
+  "notes": [
+   "500以上の記述、1992年の実験、2015年の調査の数字は、英語版Wikipediaの記述で、原論文は確認できていません。",
+   "2023年の論文は、検索結果の要約だけを確認しました。本文は未確認です。",
+   "エカーチの説は、西洋(主に英国)の記録が中心です。日本の昔の人の眠り方について言うものではありません。"
+  ],
+  "tags": "睡眠, 分割睡眠, エカーチ, 歴史, 電気, 昔の人, 眠り方, 検証",
+  "checks": [
+   "エカーチの論文・著書で、記述の数と内容を確認する",
+   "2015年の非産業社会の調査の原論文を確認する",
+   "2023年の批判論文の本文を確認する"
+  ]
+ },
+ "thumb": {
+  "bg": "assets/sleep/thumb_art.png",
+  "lines": [
+   [
+    "昔の人は",
+    95,
+    "white"
+   ],
+   [
+    "夜に2回寝た？",
+    110,
+    "gold"
+   ]
+  ],
+  "sub": "分割睡眠の説を、確かめる",
+  "shade_col": [
+   10,
+   24,
+   44
+  ],
+  "accent": [
+   255,
+   178,
+   72
+  ],
+  "bar_col": [
+   255,
+   178,
+   72
+  ],
+  "y0": 14,
+  "bar_y": 520,
+  "bar_w": 620,
+  "sub_size": 44,
+  "shade_x": 700,
+  "shade_w": 520
+ },
+ "style": "pop"
+}

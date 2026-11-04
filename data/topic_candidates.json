@@ -1395,6 +1395,146 @@
    "ties": [],
    "source_hint": "各区の地名由来資料。諸説ありの扱い",
    "gate_blockers": []
+  },
+  {
+   "id": "miki",
+   "title": "鳥取城より先に、秀吉は三木城を2年かけて「干し殺した」｜付城の配置を地図で見る",
+   "cat": "history",
+   "tags": [
+    "三木城",
+    "別所長治",
+    "秀吉",
+    "兵糧攻め",
+    "戦況解説"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "tottori",
+    "shizugatake"
+   ],
+   "source_hint": "『信長公記』天正8年の三木城落城の条（巻の特定は要確認）／『別所長治記』／三木市の付城跡の説明",
+   "gate_blockers": []
+  },
+  {
+   "id": "takatenjin",
+   "title": "高天神城は、なぜ武田の救援が来ないまま落ちたのか｜天正9年、遠江の飛び地",
+   "cat": "history",
+   "tags": [
+    "高天神城",
+    "武田勝頼",
+    "徳川家康",
+    "遠江",
+    "戦況解説"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "mikatagahara",
+    "nagashino"
+   ],
+   "source_hint": "『信長公記』天正9年3月の高天神城落城の条／『三河物語』／『甲陽軍鑑』／高天神城跡の説明",
+   "gate_blockers": []
+  },
+  {
+   "id": "edo_kuiki",
+   "title": "江戸の範囲は、今の東京のどこまでだった？ 朱引線を現代地図に重ねる",
+   "cat": "history",
+   "tags": [
+    "江戸",
+    "朱引",
+    "地図",
+    "江戸時代",
+    "東京都公文書館"
+   ],
+   "hook": 5,
+   "source": 4,
+   "visual": 5,
+   "rights": 4,
+   "season": [],
+   "ties": [
+    "koku"
+   ],
+   "source_hint": "東京都公文書館所蔵「江戸朱引図」／国立国会図書館デジタルコレクションの江戸切絵図／東京都の地形資料",
+   "gate_blockers": []
+  },
+  {
+   "id": "river_steep",
+   "title": "日本の川は、なぜ短くて急なのか？ 信濃川と世界の川を同じ縮尺で比べる",
+   "cat": "earth",
+   "tags": [
+    "川",
+    "信濃川",
+    "国土交通省",
+    "地形",
+    "比較"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "gm",
+    "islands"
+   ],
+   "source_hint": "国土交通省「日本の川」「世界の川」／国土地理院の標高データ",
+   "gate_blockers": []
+  },
+  {
+   "id": "toji_cold",
+   "title": "冬至は、一年でいちばん寒い日？ 気温のピークは約1か月半あと",
+   "cat": "science",
+   "tags": [
+    "冬至",
+    "気温",
+    "気象庁",
+    "暦",
+    "季節"
+   ],
+   "hook": 4,
+   "source": 5,
+   "visual": 5,
+   "rights": 5,
+   "season": [
+    12,
+    1
+   ],
+   "ties": [
+    "season",
+    "calendar",
+    "sunrise"
+   ],
+   "source_hint": "気象庁「日本の気候」平年値／国立天文台 暦計算室の二十四節気",
+   "gate_blockers": []
+  },
+  {
+   "id": "keigo_sasete",
+   "title": "「させていただきます」は、正しい敬語？ 文化庁の指針で条件を確かめる",
+   "cat": "language",
+   "tags": [
+    "敬語",
+    "文化庁",
+    "させていただく",
+    "日本語"
+   ],
+   "hook": 5,
+   "source": 5,
+   "visual": 3,
+   "rights": 5,
+   "season": [],
+   "ties": [
+    "zenzen",
+    "yakubusoku"
+   ],
+   "source_hint": "文化庁「敬語の指針」（平成19年2月2日 文化審議会答申）",
+   "gate_blockers": []
   }
  ]
 }

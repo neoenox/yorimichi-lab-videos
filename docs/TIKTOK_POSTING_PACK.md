@@ -199,6 +199,35 @@ TikTok Studio → アナリティクス → 動画 → 該当の投稿。
 | キャプション | 592字（`out/short_tiktok_shibuya_description.md`） |
 | AIラベル | ON |
 | 公開範囲 | 投稿直後「自分のみ」→「誰でも」に変更 |
-| 状態 | コンテンツ審査中（投稿直後） |
-| 未確認 | 審査通過後の公開表示（ブラウザ連携が切れて確認できず） |
+| 状態 | コンテンツ審査中 → 後に「審査中」表示が消え、管理画面で「誰でも」を確認 |
+| 未確認 | 公開プロフィールでの表示（TikTokがブラウザ自動操作を弾き、外から確認できない） |
+
+## 9. 予約投稿（2026-11-03 に hibiya で成功）
+
+日付が決まっている回は、Studio の「投稿予約する」で入れておくと、当日に手を動かさずに済む（10日先まで）。
+
+- 「投稿予約する」を選ぶと **「投稿予約用に動画を保存しますか？」** が出る → **許可する**。
+- 日付はカレンダー、時刻は Hours / Minutes のリスト（5分刻み）で選ぶ。`19:30` は `Hours 19` → `Minutes 30`。
+- 予約後は管理画面の一覧に **`11月6日 午後7:30 (GMT+9)`** のように出る。公開範囲は「誰でも」（予約中は変更不可の表示）。
+- 予約の取り消し・変更は管理画面から。
+
+**2026-11-03 時点の予約**
+
+| slug | 日時 | 状態 |
+|---|---|---|
+| hibiya | 11/06 19:30 | 予約済み・誰でも |
+
+### キャプションが入らないとき（重要）
+
+`bsk fill` は、**空の Draft.js エディタ**（`.public-DraftEditor-content`）に対して失敗する（「fill could not be confirmed」）。その場合は、JS で全選択して `insertText` する。
+
+```js
+const e = document.querySelector('.public-DraftEditor-content');
+e.focus();
+document.execCommand('selectAll', false, null);
+document.execCommand('insertText', false, CAPTION);
+```
+
+- クリップボード経由の Ctrl+V は効かなかった（`ClipboardEvent` の合成も不可）。
+- 入れ直したら、`e.innerText.length` と末尾（ハッシュタグ）を必ず確認する。新規行の挿入位置の違いで、末尾の1行が欠ける・重複することがある。
 

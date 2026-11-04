@@ -1,0 +1,680 @@
+{
+ "slug": "sigdeepseek",
+ "theme_dir": "20261104_signal",
+ "pack": "sigcmp_sigdeepseek",
+ "header_sub": "信号の「青」を、法令と言葉から確かめる",
+ "style": "pop",
+ "images": {
+  "intro": {
+   "file": "assets/sigcmp/art_intro.png"
+  },
+  "law": {
+   "file": "assets/sigcmp/art_law.png"
+  },
+  "world": {
+   "file": "assets/sigcmp/art_world.png"
+  }
+ },
+ "bgm": [
+  [
+   "intro",
+   "language",
+   "acoustic45"
+  ],
+  [
+   "world",
+   "end",
+   "piano37"
+  ]
+ ],
+ "chapters": [
+  {
+   "key": "intro",
+   "title": "信号の青は、緑じゃない？",
+   "chapter_title": "導入：信号の青は、緑じゃない？",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "intro",
+     "at": 0,
+     "dim": 0.55,
+     "blur": 4
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青なのに緑に見える",
+     "x": 960,
+     "y": 300,
+     "size": 104,
+     "at": 0,
+     "until": 2,
+     "plate": "yellow",
+     "rot": -1.5
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "青信号と呼ぶのに見た目は緑に近い",
+       "tag": "ふしぎ",
+       "col": "orange",
+       "until": 2
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 520,
+     "size": 50,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "text": "日本語の「青」の歴史から来た呼び方（とされる）",
+       "tag": "由来",
+       "col": "orange",
+       "until": 4
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 300,
+     "size": 48,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "text": "法令と言葉の2つの面から、確かめる",
+       "tag": "この動画",
+       "col": "green"
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 450,
+     "size": 50,
+     "gap": 16
+    }
+   ]
+  },
+  {
+   "key": "law",
+   "title": "法令では何色？",
+   "chapter_title": "法令では何色？",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "law",
+     "at": 0,
+     "dim": 0.55,
+     "blur": 4
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "法令",
+     "x": 960,
+     "y": 300,
+     "size": 120,
+     "at": 0,
+     "until": 1,
+     "plate": "yellow",
+     "rot": -2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「青色の灯火」",
+     "x": 960,
+     "y": 430,
+     "size": 120,
+     "at": 1,
+     "until": 4,
+     "plate": "yellow",
+     "rot": -2
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "道路交通法施行令に、こう書いている",
+       "tag": "第2条",
+       "col": "orange",
+       "until": 2
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 650,
+     "size": 46,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "text": "法令上の名前も「青色」",
+       "tag": "名前",
+       "col": "blue",
+       "until": 3
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 650,
+     "size": 52,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "text": "実際に光る色は緑のなかでも青みが強い（とされる）",
+       "tag": "実際の色",
+       "col": "green",
+       "until": 4
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 650,
+     "size": 44,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "名前は青 見た目は緑寄り",
+     "x": 960,
+     "y": 420,
+     "size": 100,
+     "at": 4,
+     "until": 5,
+     "plate": "yellow",
+     "rot": 1.5
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "ここにずれがある",
+     "x": 960,
+     "y": 420,
+     "size": 100,
+     "at": 5,
+     "plate": "pink",
+     "rot": -1.5
+    }
+   ]
+  },
+  {
+   "key": "history",
+   "title": "日本初の信号機",
+   "chapter_title": "日本で最初の3色信号",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "1930年",
+     "x": 960,
+     "y": 230,
+     "size": 150,
+     "at": 0,
+     "until": 1,
+     "plate": "yellow",
+     "rot": -2
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "text": "日比谷交差点に3色の灯火の信号機（とされる）",
+       "tag": "場所",
+       "col": "orange",
+       "until": 1
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 400,
+     "size": 46,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_card",
+     "inner": "img",
+     "img": "intro",
+     "box": [
+      660,
+      500,
+      1260,
+      830
+     ],
+     "rot": -1.2,
+     "at": 0,
+     "until": 1,
+     "cap": "交差点の信号機（イメージ）"
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "進めの合図を「青」と呼ぶ言い方（その後広く定着）",
+       "tag": "呼び方",
+       "col": "orange",
+       "until": 3
+      },
+      {
+       "at": 2,
+       "text": "英語の呼び名は、グリーンライト",
+       "tag": "英語",
+       "col": "blue",
+       "until": 3
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 250,
+     "size": 50,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「青」",
+     "x": 960,
+     "y": 640,
+     "size": 130,
+     "at": 1,
+     "until": 2,
+     "plate": "yellow",
+     "rot": -2
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "GREEN LIGHT",
+     "x": 960,
+     "y": 640,
+     "size": 96,
+     "at": 2,
+     "until": 3
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "text": "日本語だけが違う名前を付けたわけではない",
+       "tag": "結論",
+       "col": "green"
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 520,
+     "size": 48,
+     "gap": 16
+    }
+   ]
+  },
+  {
+   "key": "language",
+   "title": "言葉の「青」",
+   "chapter_title": "言葉の「青」",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "「青」は緑も含む色だった？",
+     "x": 960,
+     "y": 210,
+     "size": 84,
+     "at": 0,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 0,
+       "text": "昔の「青」は緑も含む広い色の名前（と考えられる）",
+       "tag": "昔の言葉",
+       "col": "orange",
+       "until": 1
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 380,
+     "size": 46,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "緑のものにも「青」が付く",
+       "tag": "例",
+       "col": "green",
+       "until": 2
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 250,
+     "size": 50,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青葉",
+     "x": 666,
+     "y": 430,
+     "size": 60,
+     "at": 1,
+     "until": 2,
+     "plate": "green"
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青菜",
+     "x": 900,
+     "y": 430,
+     "size": 60,
+     "at": 1,
+     "until": 2,
+     "plate": "green"
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青りんご",
+     "x": 1194,
+     "y": 430,
+     "size": 60,
+     "at": 1,
+     "until": 2,
+     "plate": "green"
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "text": "古い色名はあか・くろ・しろ・あおの4つ（説がある）",
+       "tag": "色名",
+       "col": "orange",
+       "until": 3
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 210,
+     "size": 46,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "あか",
+     "x": 420,
+     "y": 430,
+     "size": 76,
+     "at": 2,
+     "until": 3,
+     "plate": "red"
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "くろ",
+     "x": 780,
+     "y": 430,
+     "size": 76,
+     "at": 2,
+     "until": 3,
+     "plate": "purple"
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "しろ",
+     "x": 1140,
+     "y": 430,
+     "size": 76,
+     "at": 2,
+     "until": 3,
+     "plate": "white"
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "あお",
+     "x": 1500,
+     "y": 430,
+     "size": 76,
+     "at": 2,
+     "until": 3,
+     "plate": "blue"
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 3,
+       "text": "信号の青もこの使い方を受け継いだ名前（と説明される）",
+       "tag": "信号",
+       "col": "orange"
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 400,
+     "size": 46,
+     "gap": 16
+    }
+   ]
+  },
+  {
+   "key": "world",
+   "title": "他の国では？",
+   "chapter_title": "他の国では？",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_bgimg",
+     "img": "world",
+     "at": 0,
+     "dim": 0.55,
+     "blur": 4
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青と緑の区別は一様ではない",
+     "x": 960,
+     "y": 220,
+     "size": 76,
+     "at": 0,
+     "until": 1
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "青信号は「パランブル」（青い火）",
+       "tag": "韓国語",
+       "col": "blue",
+       "until": 3
+      },
+      {
+       "at": 2,
+       "text": "青と緑の両方を指す色の言葉がある",
+       "tag": "ベトナム語",
+       "col": "green",
+       "until": 3
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 300,
+     "size": 50,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "色の名前の切り方は言語で違う",
+     "x": 960,
+     "y": 620,
+     "size": 84,
+     "at": 3
+    }
+   ]
+  },
+  {
+   "key": "end",
+   "title": "結論",
+   "chapter_title": "結論",
+   "scene": [
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "青信号の「青」",
+     "x": 960,
+     "y": 280,
+     "size": 120,
+     "at": 0,
+     "until": 1,
+     "plate": "yellow",
+     "rot": -1.5
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 1,
+       "text": "見た目ではなく日本語の「青」の使い方（と考えられる）",
+       "tag": "名前",
+       "col": "orange",
+       "until": 4
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 230,
+     "size": 46,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_rows",
+     "items": [
+      {
+       "at": 2,
+       "text": "法令の名前も青色 光る色は緑寄り",
+       "tag": "法令",
+       "col": "blue",
+       "until": 4
+      }
+     ],
+     "x0": 150,
+     "x1": 1770,
+     "y0": 380,
+     "size": 50,
+     "gap": 16
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "緑に見えるのは間違いではない",
+     "x": 960,
+     "y": 620,
+     "size": 84,
+     "at": 3,
+     "until": 4
+    },
+    {
+     "t": "anim",
+     "name": "pop_telop",
+     "text": "信号を待つ間に思い出して",
+     "x": 960,
+     "y": 620,
+     "size": 72,
+     "at": 4
+    }
+   ]
+  }
+ ],
+ "desc": {
+  "title_main": "信号の「青」は、なぜ緑色に見えるのか",
+  "title_no": 1,
+  "titles": [
+   "信号の青は、なぜ緑に見える？ 法令と言葉から確かめる",
+   "青信号なのに緑色。その理由を「青」の歴史からたどる",
+   "青信号はなぜ「青」？ 道路交通法施行令と日本語の色名から考える"
+  ],
+  "intro": "信号の青は、緑色に見えませんか。青信号と呼ぶのに、見た目は緑に近い。この動画では、その理由を、法令と言葉の2つの面から確かめます。道路交通法施行令は、信号の灯火の意味を「青色の灯火」と書いています。一方、実際に光る色は緑寄りだとされます。日本語の「青」は、昔は緑も含む広い色の名前だったと考えられており、韓国語やベトナム語でも、青と緑の切り方は一様ではありません。",
+  "points": [
+   "道路交通法施行令では、信号の灯火の意味を「青色の灯火」と書いています（第2条。e-Gov法令検索で条文を確認できます）。",
+   "実際に光る色は、緑のなかでも青みの強い色にされているとされます（この点は規格の原文を確認できていません）。",
+   "日本で3色の灯火を使う信号機が日比谷交差点に置かれたのは1930年とされます（警察庁・警視庁の沿革として紹介されることが多い、という意味です）。",
+   "日本語の「青」は、昔は緑も含む広い色の名前だったと考えられています。青葉・青菜・青りんごのように、緑のものにも「青」が付きます。",
+   "古い日本語の色名が、あか・くろ・しろ・あおの4つだったという説があります。",
+   "韓国語では青信号を「パランブル」と言い、ベトナム語には青と緑の両方を指す色の言葉があるとされます。"
+  ],
+  "refs": [
+   "道路交通法施行令 第2条（灯火の意味。e-Gov法令検索）:https://elaws.e-gov.go.jp/",
+   "警察庁・警視庁の沿革（3色灯式信号機の設置。未確認）",
+   "国語辞典「あお」の項（古い色名についての説。未確認）",
+   "韓国語・ベトナム語の辞書（파란불、xanh。未確認）"
+  ],
+  "credit_lines": [
+   "・背景のイラスト:ChatGPT(OpenAI)による生成イラスト（イメージです。実際の交差点・信号機の写真ではありません）"
+  ],
+  "notes": [
+   "この動画で条文として確認したのは、道路交通法施行令 第2条（「青色の灯火」）です。",
+   "光る色の規格、1930年の日比谷交差点の設置、古い色名の説、韓国語・ベトナム語の語は、いずれも未確認です。本文では「とされる」「説がある」「と考えられる」と、確認できた範囲を限って述べています。",
+   "イラストはイメージで、実際の交差点・信号機を写したものではありません。"
+  ],
+  "tags": "信号, 青信号, 道路交通法, 色の名前, 日本語, 韓国語, ベトナム語, 雑学, 言葉, 解説",
+  "checks": [
+   "道路交通法施行令 第2条の原文を、公開前にもう一度 e-Gov で開いて確認する。",
+   "1930年・日比谷交差点、色の規格、韓国語・ベトナム語の語は未確認のままなので、断定に直さない。"
+  ]
+ }
+}

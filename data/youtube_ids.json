@@ -1,8 +1,12 @@
 {
  "01_world_map_distortion": {
-  "video_id": "0gpV-8L1yvg",
+  "video_id": "HtZmfkJy9Eo",
   "privacy": "private",
-  "via": "studio-manual"
+  "via": "api",
+  "superseded": [],
+  "deleted": [
+   "0gpV-8L1yvg"
+  ]
  },
  "02_honnoji_incident": {
   "video_id": "aKkNFoUYIBk",
@@ -15,9 +19,13 @@
   ]
  },
  "03_ninja_myths": {
-  "video_id": "FmJrf-t7ro8",
+  "video_id": "flajM3xInYE",
   "privacy": "private",
-  "via": "studio-manual"
+  "via": "api",
+  "superseded": [],
+  "deleted": [
+   "FmJrf-t7ro8"
+  ]
  },
  "04_edo_ichikoku": {
   "video_id": "AcW0KC8O7FY",
@@ -232,14 +240,12 @@
   ]
  },
  "21_venus_day": {
-  "video_id": "rj1bDRBWHsY",
+  "video_id": "K_I7hwpXAjE",
   "privacy": "private",
-  "via": "browser",
-  "superseded": [],
-  "deleted": [
-   "oI3kenxokCw"
-  ],
-  "finished": true
+  "via": "api",
+  "superseded": [
+   "qZBtCpOCa6o"
+  ]
  },
  "22_ocean_blue": {
   "video_id": "31mlleqtpsM",
@@ -345,12 +351,13 @@
   ]
  },
  "20_sunrise_solstice": {
-  "video_id": "mk5x-Yu9cC4",
+  "video_id": "BeY3kMjDjzs",
   "privacy": "private",
-  "via": "browser",
+  "via": "api",
   "superseded": [],
-  "deleted": [],
-  "finished": true
+  "deleted": [
+   "mk5x-Yu9cC4"
+  ]
  },
  "short_sunrise": {
   "video_id": "bbaSqiNWZeY",
@@ -545,12 +552,12 @@
   ]
  },
  "28_yamazaki": {
-  "video_id": "n4JEXCgciUc",
+  "video_id": "MYnOZK7E3yI",
   "privacy": "private",
   "via": "api",
-  "superseded": [],
-  "deleted": [
-   "KeSoTEZ8ixA"
+  "superseded": [
+   "n4JEXCgciUc",
+   "HQlEwsASVqw"
   ]
  },
  "short_yamazaki": {
@@ -563,12 +570,12 @@
   ]
  },
  "29_shizugatake": {
-  "video_id": "ZfLdJYgThuU",
+  "video_id": "1FilbONTaDw",
   "privacy": "private",
   "via": "api",
-  "superseded": [],
-  "deleted": [
-   "tNfUKRBzKCc"
+  "superseded": [
+   "ZfLdJYgThuU",
+   "ofqAjjHyLFk"
   ]
  },
  "short_shizugatake": {
@@ -622,13 +629,11 @@
   ]
  },
  "32_komaki": {
-  "video_id": "xoyPTPgWw-I",
+  "video_id": "oSzEZx2ESVI",
   "privacy": "private",
-  "via": "browser",
-  "superseded": [],
-  "deleted": [
-   "jY8SSEQrBoA",
-   "4giKa7MOdu8"
+  "via": "api",
+  "superseded": [
+   "xoyPTPgWw-I"
   ]
  },
  "short_komaki": {
@@ -641,19 +646,22 @@
   ]
  },
  "33_mikatagahara": {
-  "video_id": "mpJHV2MkIEE",
+  "video_id": "WJjnokAn-W4",
   "privacy": "private",
-  "via": "browser",
-  "superseded": [],
-  "deleted": [
-   "3Qoex9gyoLM"
+  "via": "api",
+  "superseded": [
+   "mpJHV2MkIEE",
+   "alCdwjssXlQ"
   ]
  },
  "34_anegawa": {
-  "video_id": "Ahq-u66dR2M",
+  "video_id": "DpJqWbUoJZ8",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [
+   "Ahq-u66dR2M",
+   "f1eAOxVHcpU"
+  ]
  },
  "short_anegawa": {
   "video_id": "Y9f2PwDPBY0",
@@ -1227,6 +1235,90 @@
  },
  "81_fukagawa": {
   "video_id": "T9chOUIxCwg",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_miso_mikata": {
+  "video_id": "jejDOgyZjQA",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_toiteppo_sekigahara": {
+  "video_id": "7LcFZWWrvfg",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_sandan_nagashino": {
+  "video_id": "kAfQ6KNRwf8",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_tamago_jikyu": {
+  "video_id": "B_IG0FuHibg",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_anegawa_suugyou": {
+  "video_id": "AFLE_UdETLw",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_horagatoge_yamazaki": {
+  "video_id": "rLAnCeZ8s0Q",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_yoriki_shizugatake": {
+  "video_id": "P8YEIJfbzoo",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_mitsuyaku_shizugatake": {
+  "video_id": "UGSb2LtYA6w",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_shuinjo_komaki": {
+  "video_id": "qz_atJSN6Vc",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_yonmikata_komaki": {
+  "video_id": "rvpMUlhTcCI",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_taiko_mikata": {
+  "video_id": "P9ZPDpXj4-Q",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_oyamada_mikata": {
+  "video_id": "obnWB89lMpE",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_kishomon_sekigahara": {
+  "video_id": "GnP0yjD8mSA",
+  "privacy": "private",
+  "via": "api",
+  "superseded": []
+ },
+ "short_solo_jinkae_anegawa": {
+  "video_id": "qeBOq91oMPc",
   "privacy": "private",
   "via": "api",
   "superseded": []

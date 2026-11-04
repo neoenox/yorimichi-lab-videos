@@ -18,19 +18,25 @@ def offset(points, delta):
     return [(lat, lon + delta) for lat, lon in points]
 
 BAR = offset(AXIS, -HALF) + list(reversed(offset(AXIS, HALF)))
-SEA_W = offset(AXIS, -HALF) + [(35.6650,139.7626),(35.6520,139.7626),
-        (35.6520,139.7505),(35.6930,139.7505),(35.6930,139.7705)]
-SEA_E = list(reversed(offset(AXIS, HALF))) + [(35.6520,139.7626),
-        (35.6520,139.7980),(35.6930,139.7980),(35.6930,139.7765)]
+# Extend the nonhistorical outer mask bounds beyond the camera so no artificial edge appears.
+SEA_W = offset(AXIS, -HALF) + [(35.6650,139.7626),(35.6480,139.7626),
+        (35.6480,139.7440),(35.7000,139.7440),(35.7000,139.7705)]
+SEA_E = list(reversed(offset(AXIS, HALF))) + [(35.6480,139.7626),
+        (35.6480,139.8100),(35.7000,139.8100),(35.7000,139.7765)]
+# Wider west mask for the v6 moat overview; its artificial edge stays beyond frame.
+SEA_W_FOCUS = offset(AXIS, -HALF) + [(35.6650,139.7626),(35.6480,139.7626),
+        (35.6480,139.7200),(35.7000,139.7200),(35.7000,139.7705)]
 MOATS = [offset(AXIS, 0.0016), offset(AXIS, -0.0022),
          [(35.6792,139.7660),(35.6812,139.7740),(35.6838,139.7810)],
          [(35.6646,139.7570),(35.6652,139.7650),(35.6644,139.7726)]]
 MOAT_NAMES = ['三十間堀川', '外堀', '京橋川', '汐留川']
-WATER = (42, 92, 108)
-WATER_LINE = (70, 132, 145)
-SAND = (211, 170, 94)
-FILL = (221, 169, 83)
-LAND_LINE = (184, 129, 48)
+WATER = (22, 112, 157)
+WATER_LINE = (14, 83, 118)
+SAND = (231, 158, 38)
+FILL = (224, 142, 22)
+LAND_LINE = (151, 82, 12)
+FOCUS_GOLD = (255, 218, 58)
+FOCUS_BLUE = (64, 222, 242)
 OFFWHITE = (255, 252, 242, 246)
 _FONT_PATH = Path('C:/Windows/Fonts/NotoSansJP-VF.ttf')
 _RAW = {}
@@ -130,6 +136,42 @@ def _polygon(base, points, color, alpha, outline=None, width=2):
         draw.line(points + [points[0]], fill=(*outline, int(255 * clamp(alpha))),
                   width=width, joint='curve')
     base.alpha_composite(layer)
+
+
+def _focus_polygon(base, points, color):
+    if len(points) < 3:
+        return
+    layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(layer, "RGBA")
+    closed = points + [points[0]]
+    draw.polygon(points, fill=(*color, 38))
+    draw.line(closed, fill=(5, 26, 34, 225), width=24, joint="curve")
+    draw.line(closed, fill=(*color, 255), width=14, joint="curve")
+    draw.line(closed, fill=(255, 252, 238, 245), width=4, joint="curve")
+    base.alpha_composite(layer)
+
+
+def _focus_path(base, points, color):
+    if len(points) < 2:
+        return
+    layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(layer, "RGBA")
+    draw.line(points, fill=(5, 26, 34, 235), width=32, joint="curve")
+    draw.line(points, fill=(*color, 255), width=22, joint="curve")
+    draw.line(points, fill=(255, 252, 238, 250), width=6, joint="curve")
+    base.alpha_composite(layer)
+
+
+def _focus_pin(base, point, color):
+    x, y = screen(point, _CURRENT_CAM[0])
+    r = 29
+    draw = ImageDraw.Draw(base, "RGBA")
+    draw.ellipse((x-r-5, y-r-5, x+r+5, y+r+5),
+                 outline=(5, 26, 34, 235), width=10)
+    draw.ellipse((x-r, y-r, x+r, y+r),
+                 outline=(*color, 255), width=6)
+    draw.ellipse((x-8, y-8, x+8, y+8),
+                 fill=(*color, 255), outline=(255, 252, 238, 255), width=3)
 
 
 def _font(size, weight=700):
@@ -241,6 +283,59 @@ def _status(key, idx, moat_substage, multi_step=False):
     return ''
 
 
+def _focus_plan(key, idx):
+    """Map the spoken sentence to the geographic feature it describes."""
+    if idx < 0:
+        return None
+    all_moats = [f"moat_{i}" for i in range(4)]
+    if key == "maejima":
+        if idx <= 2:
+            return {"regions": ["bar"], "color": "gold"}
+        if idx == 3:
+            return {"paths": ["axis"], "color": "gold"}
+        if idx == 4:
+            return {
+                "regions": ["bar"], "points": ["shiodome"], "color": "gold",
+                "callout": ("shiodome", "汐留方面（推定）", (470, 710)),
+            }
+        return {"points": ["ginza"], "color": "gold"}
+    if key == "west":
+        if idx == 0:
+            return {"regions": ["west"], "color": "blue"}
+        if idx == 1:
+            return {"regions": ["west"], "color": "gold"}
+        if idx == 2:
+            return {"points": ["ginza"], "color": "gold"}
+        if idx == 3:
+            return {"regions": ["west"], "points": ["ginza"], "color": "gold"}
+        return {"paths": ["axis"], "color": "gold"}
+    if key == "east":
+        if idx == 0:
+            return {
+                "regions": ["east"], "points": ["east_water"], "color": "blue",
+                "callout": ("east_water", "東側はまだ海", (1450, 620)),
+            }
+        if idx == 1:
+            return None  # The fire is a citywide event, not a single map location.
+        if idx <= 4:
+            return {"regions": ["east_fill"], "points": ["tsukiji"], "color": "gold"}
+        return {"regions": ["east_fill"], "points": ["tsukiji"], "color": "gold"}
+    if key == "moat":
+        if idx == 0:
+            return {"paths": all_moats, "points": [f"moat_mid_{i}" for i in range(4)],
+                    "color": "blue"}
+        route_for_sentence = {1: 0, 2: 1, 3: 3, 4: 2}
+        if idx in route_for_sentence:
+            route = route_for_sentence[idx]
+            return {"paths": [f"moat_{route}"], "points": [f"moat_mid_{route}"],
+                    "color": "gold"}
+        if idx in (5, 6):
+            return {"paths": all_moats, "points": [f"moat_mid_{i}" for i in range(4)],
+                    "color": "gold"}
+        return {"paths": all_moats, "points": ["ginza"], "color": "gold"}
+    return None
+
+
 def _pill(base, text):
     draw = ImageDraw.Draw(base, 'RGBA')
     box = (510, 126, 1410, 194)
@@ -254,11 +349,11 @@ def _legend(base):
     draw = ImageDraw.Draw(base, 'RGBA')
     draw.rounded_rectangle((1212, 25, 1860, 120), radius=14,
                            fill=(250, 249, 242, 221), outline=(116, 124, 113, 125), width=2)
-    draw.rounded_rectangle((1234, 42, 1266, 65), radius=5, fill=(60, 134, 157, 76),
+    draw.rounded_rectangle((1234, 42, 1266, 65), radius=5, fill=(22, 112, 157, 190),
                            outline=(56, 122, 143, 220), width=2)
     draw.text((1278, 37), '青：江戸初期の海・堀', font=_cached_font(25, 600),
               fill=(42, 66, 68, 255), anchor='lt')
-    draw.rounded_rectangle((1234, 75, 1266, 98), radius=5, fill=(221, 169, 83, 94),
+    draw.rounded_rectangle((1234, 75, 1266, 98), radius=5, fill=(224, 142, 22, 215),
                            outline=(184, 129, 48, 220), width=2)
     draw.text((1278, 70), '黄：砂州・埋立地｜国土地理院の現在地図',
               font=_cached_font(24, 600), fill=(42, 66, 68, 255), anchor='lt')
@@ -281,25 +376,33 @@ def ginza_formation_map(im, d, cx, it, a):
     key = G['SPEC']['chapters'][cx.ci]['key']
     if key not in ('maejima', 'west', 'east', 'moat'):
         return
+    moat_ch = _chapter_index('moat')
+    focus_mode = bool(G['SPEC'].get('map_focus_by_narration'))
     cam = _camera(cx)
+    if focus_mode and key == 'moat':
+        overview_start = G['TL'][moat_ch]['start']
+        overview_p = ease((cx.t - overview_start) / 5.5)
+        overview = (*geo(35.6735, 139.7690), 0.27)
+        cam = tuple(mix(cam[i], overview[i], overview_p) for i in range(3))
     _CURRENT_CAM[0] = cam
     base = _map_base(cam)
 
     west_ch = _chapter_index('west')
     east_ch = _chapter_index('east')
-    moat_ch = _chapter_index('moat')
     west_p = _sentence_progress(cx, west_ch, 1, 2.4)
     east_index = 2 if len(cx.st) >= 5 else 1
     east_p = _sentence_progress(cx, east_ch, east_index, 2.4)
     stage_idx = cx.idx()
     axis_p = _sentence_progress(cx, _chapter_index('maejima'), 3, 2.0)
+    focus = _focus_plan(key, stage_idx) if focus_mode else None
 
-    west = poly_points(SEA_W, cam)
+    west_shape = SEA_W_FOCUS if focus_mode else SEA_W
+    west = poly_points(west_shape, cam)
     east = poly_points(SEA_E, cam)
     bar = poly_points(BAR, cam)
-    _polygon(base, west, WATER, 0.12, WATER_LINE, 2)
-    _polygon(base, east, WATER, 0.12, WATER_LINE, 2)
-    _polygon(base, west, FILL, 0.28 * west_p, LAND_LINE, 3)
+    _polygon(base, west, WATER, 0.44, WATER_LINE, 2)
+    _polygon(base, east, WATER, 0.44, WATER_LINE, 2)
+    _polygon(base, west, FILL, 0.62 * west_p, LAND_LINE, 3)
     south_east = [p for p in SEA_E if p[0] <= 35.6800]
     # Clip the eastern water boundary at the map's northern edge, retaining the south/Tsukiji half.
     def _clip_lat(poly, cut):
@@ -321,10 +424,10 @@ def ginza_formation_map(im, d, cx, it, a):
         return out
     south_east = _clip_lat(SEA_E, 35.6800)
     if south_east:
-        _polygon(base, poly_points(south_east, cam), FILL, 0.28 * east_p, LAND_LINE, 3)
+        _polygon(base, poly_points(south_east, cam), FILL, 0.62 * east_p, LAND_LINE, 3)
 
     # The peninsula axis and its edges stay on the same geographic camera transform.
-    _polygon(base, bar, SAND, 0.18, (156, 112, 48), max(2, int(2 * cam[2])))
+    _polygon(base, bar, SAND, 0.54, (151, 82, 12), max(2, int(2 * cam[2])))
     axis = poly_points(AXIS, cam)
     _line(base, axis, (150, 103, 43, int(105 + 130 * axis_p)), max(3, int(4 * cam[2])))
     for edge in (offset(AXIS, -HALF), offset(AXIS, HALF)):
@@ -386,6 +489,37 @@ def ginza_formation_map(im, d, cx, it, a):
             col = tuple(int(mix(start_col[k], end_col[k], p)) for k in range(3))
             _line(base, poly_points(path, cam), (*col, 205), max(6, int(21 * cam[2])))
 
+    focus_callout = None
+    if focus:
+        east_point_focus = (35.6705, 139.7780)
+        regions = {
+            "bar": bar,
+            "west": west,
+            "east": poly_points(SEA_E, cam),
+            "east_fill": poly_points(south_east, cam) if south_east else [],
+        }
+        paths = {
+            "axis": axis,
+        }
+        for j, route in enumerate(MOATS):
+            paths[f"moat_{j}"] = poly_points(route, cam)
+        focus_points = {
+            "ginza": GINZA,
+            "east_water": (35.6745, 139.7790),
+            "tsukiji": (35.6699, 139.7800),
+            "shiodome": (35.6690, 139.7612),
+        }
+        for j, route in enumerate(MOATS):
+            focus_points[f"moat_mid_{j}"] = route[len(route)//2]
+        focus_color = FOCUS_BLUE if focus["color"] == "blue" else FOCUS_GOLD
+        for name in focus.get("regions", []):
+            _focus_polygon(base, regions[name], focus_color)
+        for name in focus.get("paths", []):
+            _focus_path(base, paths[name], focus_color)
+        for name in focus.get("points", []):
+            _focus_pin(base, focus_points[name], focus_color)
+        focus_callout = focus.get("callout")
+
     # Geographic labels are kept sparse and follow the map, not the video frame.
     pulse = 0.5 + 0.5 * math.sin(cx.t * 1.35)
     gx, gy = screen(GINZA, cam)
@@ -395,28 +529,59 @@ def ginza_formation_map(im, d, cx, it, a):
                  outline=(234, 187, 91, 255), width=4)
     mark.ellipse((gx-6, gy-6, gx+6, gy+6), fill=(216, 92, 61, 255),
                  outline=(255, 248, 222, 255), width=3)
-    _label(base, GINZA, '現在の銀座', 28, (31, 48, 52), anchor='lm', sw=5)
-    _label(base, (35.6772, 139.7687), '砂州（推定）', 29, (103, 69, 26), sw=5)
-    _label(base, (35.6805, 139.7565), '日比谷入江（推定）', 28, (28, 75, 91), sw=5,
-           opacity=max(0.58, 1 - 0.42 * west_p))
-    if west_p > 0.5:
-        _label(base, (35.6815, 139.7540), '西側の埋立地', 27, (128, 85, 34), sw=5,
-               opacity=ease((west_p - 0.5) / 0.5))
-    east_point = (35.6662, 139.7780)
-    _label(base, east_point, '築地側（推定）', 28,
-           (128, 85, 34) if east_p > 0.5 else (28, 75, 91), sw=5,
-           opacity=0.55 + 0.45 * east_p)
+    ginza_active = bool(focus and "ginza" in focus.get("points", []))
+    _label(base, GINZA, '現在の銀座', 32 if ginza_active else 28,
+           (31, 48, 52), anchor='lm', weight=900 if ginza_active else 700, sw=5)
+    sandbar_active = bool(focus_mode and key == 'maejima' and stage_idx <= 2)
+    _label(base, (35.6772, 139.7687),
+           '江戸前島（砂州）' if sandbar_active else '砂州（推定）',
+           34 if sandbar_active else 29,
+           FOCUS_GOLD if sandbar_active else (103, 69, 26),
+           weight=900 if sandbar_active else 700, sw=5)
+    hibiya_active = bool(focus_mode and key == 'west')
+    _label(base, (35.6805, 139.7565), '日比谷入江（推定）',
+           32 if hibiya_active else 28,
+           FOCUS_BLUE if hibiya_active and stage_idx == 0 else
+           (128, 85, 34) if hibiya_active else (28, 75, 91),
+           weight=900 if hibiya_active else 700, sw=5,
+           opacity=1.0 if hibiya_active else max(0.58, 1 - 0.42 * west_p))
+    west_fill_threshold = 0.03 if focus_mode and key == 'west' else 0.5
+    if west_p > west_fill_threshold:
+        west_fill_opacity = west_p if focus_mode and key == 'west' else ease((west_p - 0.5) / 0.5)
+        _label(base, (35.6815, 139.7540), '西側の埋立地',
+               31 if focus_mode and key == 'west' else 27,
+               FOCUS_GOLD if focus_mode and key == 'west' else (128, 85, 34),
+               weight=900 if focus_mode and key == 'west' else 700, sw=5,
+               opacity=west_fill_opacity)
+    east_point = (35.6705, 139.7780) if focus_mode else (35.6662, 139.7780)
+    tsukiji_active = bool(focus_mode and key == 'east' and stage_idx in (2, 3, 4, 5))
+    _label(base, east_point, '築地側（推定）', 32 if tsukiji_active else 28,
+           FOCUS_GOLD if tsukiji_active else
+           (128, 85, 34) if east_p > 0.5 else (28, 75, 91),
+           weight=900 if tsukiji_active else 700, sw=5,
+           opacity=1.0 if tsukiji_active else 0.55 + 0.45 * east_p)
     if axis_p > 0.15:
-        _label(base, (35.6800, 139.7720), '中央通り｜砂州の軸', 27,
-               (103, 69, 26), sw=5, opacity=axis_p)
+        axis_active = bool(focus and 'axis' in focus.get('paths', []))
+        _label(base, (35.6800, 139.7720), '中央通り｜砂州の軸',
+               32 if axis_active else 27,
+               FOCUS_GOLD if axis_active else (103, 69, 26), sw=5,
+               weight=900 if axis_active else 700,
+               opacity=max(axis_p, 0.88) if axis_active else axis_p)
 
     if cx.ci >= moat_ch:
         path = MOATS[active_moat]
         mid = path[len(path)//2]
-        if active_moat == 0:
+        if focus_mode and key == 'moat':
+            if 1 <= stage_idx <= 4:
+                _map_callout(base, mid, MOAT_NAMES[active_moat], (1440, 520), cam)
+        elif active_moat == 0:
             _map_callout(base, mid, MOAT_NAMES[active_moat], (1440, 520), cam)
         else:
             _label(base, mid, MOAT_NAMES[active_moat], 26, (37, 83, 91), sw=5)
+
+    if focus_callout:
+        point_id, text, center = focus_callout
+        _map_callout(base, focus_points[point_id], text, center, cam)
 
     # Screen-fixed event tag and legend stay clear of the narration subtitle band.
     status = _status(key, stage_idx, active_moat, multi_step=multi_step_moat)

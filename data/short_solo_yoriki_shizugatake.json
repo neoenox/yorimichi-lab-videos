@@ -1,0 +1,40 @@
+{
+ "title": "前田利家は、勝家の家臣？",
+ "pron": "data/shizugatake_pronunciations.json",
+ "art": "assets/shizugatake/art_dusk.png",
+ "hook": "賤ヶ岳で柴田勝家を裏切った、と言われる前田利家。利家は、勝家の家臣だったのでしょうか。",
+ "notes": "■ 動画で確かめたこと\n・利家は、勝家の家臣ではなく、与力だったと説明されます(研究者の説)。\n・与力とは、大将の指揮のもとで一緒に戦う、協力者のような立場です。\n・研究者の解説や報道の要約による内容で、原典(原本)そのものの照合は、今回は行っていません。",
+ "answer": "家臣ではなく、与力と説明される",
+ "scenes": [
+  {
+   "text": "賤ヶ岳の戦いで、前田利家は、柴田勝家を、裏切って退いた。そう語られます。",
+   "big": "前田利家は、裏切った？",
+   "art": "assets/shizugatake/art_dusk.png"
+  },
+  {
+   "text": "ところが、利家は、勝家の家臣では、なく、与力だったと、説明されます。",
+   "big": "家臣ではなく、与力",
+   "src": "研究者の説",
+   "art": "assets/shizugatake/art_docs.png",
+   "col": "white"
+  },
+  {
+   "text": "与力とは、大将の指揮のもとで、一緒に戦う、協力者のような立場です。",
+   "big": "与力＝一緒に戦う協力者",
+   "art": "assets/shizugatake/art_lake.png"
+  },
+  {
+   "text": "ただし、これは研究者の説明です。立場をどう呼ぶかで、この話の見え方は、変わります。",
+   "big": "立場で、見え方が変わる",
+   "art": "assets/shizugatake/art_dusk.png",
+   "col": "white"
+  },
+  {
+   "text": "くわしくは、長い動画で、確かめています。",
+   "end": true
+  }
+ ],
+ "long_id": "1FilbONTaDw",
+ "long_title": "賤ヶ岳の戦いを地図で解説 美濃大返し・前田利家の裏切り・七本槍は本当？",
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）"
+}

@@ -1,0 +1,71 @@
+{
+ "solstice": {
+  "夏至": {
+   "degree": 90,
+   "month": 6,
+   "day": 21,
+   "hour": 17,
+   "minute": 25
+  },
+  "冬至": {
+   "degree": 270,
+   "month": 12,
+   "day": 22,
+   "hour": 5,
+   "minute": 50
+  }
+ },
+ "tokyo_winter": {
+  "day": 22,
+  "sunrise": "6:47",
+  "sunset": "16:32",
+  "noon_alt": "30.9",
+  "day_minutes": 585,
+  "day_hhmm": "9時間45分"
+ },
+ "tokyo_summer": {
+  "day": 21,
+  "sunrise": "4:25",
+  "sunset": "19:00",
+  "noon_alt": "77.8",
+  "day_minutes": 875,
+  "day_hhmm": "14時間35分"
+ },
+ "day_diff_minutes": 290,
+ "alt_diff": 46.9,
+ "coldest_month": 1,
+ "shortest_sunshine_month": 6,
+ "jma": {
+  "11": {
+   "temp_mean": 12.5,
+   "temp_max": 16.7,
+   "temp_min": 8.8,
+   "sunshine": 149.8
+  },
+  "12": {
+   "temp_mean": 7.7,
+   "temp_max": 12.0,
+   "temp_min": 3.8,
+   "sunshine": 174.4
+  },
+  "1": {
+   "temp_mean": 5.4,
+   "temp_max": 9.8,
+   "temp_min": 1.2,
+   "sunshine": 192.6
+  },
+  "2": {
+   "temp_mean": 6.1,
+   "temp_max": 10.9,
+   "temp_min": 2.1,
+   "sunshine": 170.4
+  },
+  "6": {
+   "temp_mean": 21.9,
+   "temp_max": 26.1,
+   "temp_min": 18.5,
+   "sunshine": 124.2
+  }
+ },
+ "fetched": "2026-11-04T08:09:51"
+}
