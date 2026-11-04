@@ -15,43 +15,43 @@
    "text": "江戸図の最古版、何年でしょう？",
    "big": "最古版は何年？",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_full.png"
   },
   {
    "text": "国立国会図書館は、寛永九年ごろとしています。",
    "big": "寛永9年ごろ",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_wide.png"
   },
   {
    "text": "ところが、その解説には疑問も書かれています。",
    "big": "解説には疑問も",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_text.png"
   },
   {
    "text": "屋敷の名前は、寛永七年か八年ごろの状況を示します。",
    "big": "屋敷名は7〜8年",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_names.png"
   },
   {
    "text": "しかし版の作りから見て、もっと後という説もあります。",
    "big": "版式からは後年説",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_full.png"
   },
   {
    "text": "つまり、地図の年は複数の手がかりによる推定です。",
    "big": "手がかりは3つ",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_full.png"
   },
   {
    "text": "ですから古い地図ほど、作られた年は断定できません。",
    "big": "古い地図ほど推定",
    "sub": "",
-   "art": "assets/edo_map_date/art.png"
+   "art": "assets/edo_map_date/bg_wide.png"
   }
  ],
  "cta": false,
@@ -83,5 +83,5 @@
   }
  ],
  "needs_research": [],
- "credit": "・背景：模式図（scripts/make_edo_map_date_assets.py で作成）"
+ "credit": "・資料：国立国会図書館デジタルコレクション「武州豊嶋郡江戸〔庄〕図」（PDM）。原図の一部を暗く加工"
 }

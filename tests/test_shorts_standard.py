@@ -155,6 +155,38 @@ class ToSpecTests(unittest.TestCase):
         self.assertTrue(spec['notes'])
         self.assertEqual(spec['status'], 'ready')
 
+    def test_art_map_sets_art_per_scene(self):
+        """art_map.json（シーン数と同じ長さ）で背景をシーン別に差し替えられる。"""
+        data = sample()
+        data['status'] = 'ready'
+        data['needs_research'] = []
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'ready.json'
+            src.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            out = Path(tmp) / 'spec.json'
+            amap = Path(tmp) / 'art_map.json'
+            arts = ['assets/u/a%d.png' % i for i in range(len(data['scenes']))]
+            amap.write_text(json.dumps(arts), encoding='utf-8')
+            p = run_cli('to-spec', str(src), '--slug', 'unit_test', '--out', str(out),
+                        '--pron', 'shorts/unit/pron.json', '--art-map', str(amap))
+            self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+            spec = json.loads(out.read_text(encoding='utf-8'))
+        self.assertEqual([s['art'] for s in spec['scenes']], arts)
+
+    def test_art_map_length_mismatch_is_rejected(self):
+        data = sample()
+        data['status'] = 'ready'
+        data['needs_research'] = []
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'ready.json'
+            src.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            amap = Path(tmp) / 'art_map.json'
+            amap.write_text(json.dumps(['assets/u/only.png']), encoding='utf-8')
+            p = run_cli('to-spec', str(src), '--slug', 'unit_test',
+                        '--out', str(Path(tmp) / 'spec.json'), '--art-map', str(amap))
+            self.assertNotEqual(p.returncode, 0)
+            self.assertIn('art_map', p.stdout + p.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

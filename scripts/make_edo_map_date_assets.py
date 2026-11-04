@@ -1,20 +1,39 @@
-"""edo_map_date の背景イラスト（模式図）を作る。画像は git 管理外（assets/ は .gitignore）。
+"""edo_map_date の背景を作る。実資料（NDL・PDM）を使い、シーンごとに見せ場を変える。
+
+原本: 国立国会図書館デジタルコレクション「武州豊嶋郡江戸〔庄〕図」（PID 1286168, PDM）
+      assets/edo_map_date/src_map.jpg に IIIF 画像を取得済み（git 管理外）
 
 usage: python scripts/make_edo_map_date_assets.py
-出力: assets/edo_map_date/art.png（1600x2400, 9:16 に cover で切れる余白付き）
-中央は字幕・テロップ用に空け、下端に「模式図」と出典を明記する。
+出力: assets/edo_map_date/bg_{full,text,names,title}.png（1080x1920）
+      資料であることを画面に明記し、原図の一部を暗く加工した旨も書く。
 """
-import math
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / 'assets' / 'edo_map_date' / 'src_map.jpg'
 OUT = ROOT / 'assets' / 'edo_map_date'
-W, H = 1600, 2400
+W, H = 1080, 1920
 FONT = 'C:/Windows/Fonts/NotoSansJP-VF.ttf'
 GOLD = (239, 201, 118)
-TEAL = (120, 190, 255)
+DIM = (190, 205, 208)
+
+# 原図のどこを見せるか（元画像の比率で指定）。デジタル化の色票・物差しは除く。
+CROPS = {
+    'full': (0.070, 0.082, 0.978, 0.872),   # 全体
+    'text': (0.058, 0.585, 0.372, 0.870),   # 左下の詞書（文字ブロック）
+    'names': (0.415, 0.300, 0.720, 0.610),  # 短冊状の屋敷名が並ぶ領域
+    'wide': (0.115, 0.120, 0.940, 0.815),  # やや引き（全体より少し寄る）
+}
+LABEL = {
+    'full': '原図（全体）',
+    'text': '部分拡大：詞書',
+    'names': '部分拡大：屋敷名',
+    'wide': 'やや引き',
+}
+# 横長の帯は全体を見せる（cover だと中央だけを拡大してしまう）
+CONTAIN = set()
 
 
 def font(size, weight=500):
@@ -26,49 +45,81 @@ def font(size, weight=500):
     return f
 
 
-def main():
-    OUT.mkdir(parents=True, exist_ok=True)
+def backdrop():
     im = Image.new('RGB', (W, H), (7, 24, 36))
     d = ImageDraw.Draw(im, 'RGBA')
-
-    # 背景のグラデーション（上が少し明るい）
     for y in range(H):
         k = y / H
-        c = (int(7 + 10 * (1 - k)), int(24 + 14 * (1 - k)), int(36 + 20 * (1 - k)))
-        d.line([(0, y), (W, y)], fill=c)
+        d.line([(0, y), (W, y)], fill=(int(7 + 9 * (1 - k)), int(24 + 13 * (1 - k)), int(36 + 18 * (1 - k))))
+    return im
 
-    # 古地図風の薄い格子
-    for x in range(0, W, 100):
-        d.line([(x, 0), (x, H)], fill=GOLD + (14,), width=1)
-    for y in range(0, H, 100):
-        d.line([(0, y), (W, y)], fill=GOLD + (14,), width=1)
 
-    # 海岸線のような曲線（模式的なので数本だけ）
-    for n, (x0, amp, ph) in enumerate([(180, 70, 0.6), (980, 110, 1.9), (520, 45, 3.1)]):
-        pts = [(x0 + 320 * math.sin(y / 260 + ph), y) for y in range(120, H - 260, 24)]
-        d.line(pts, fill=TEAL + (38,), width=3)
+def place_map(im, src, box, contain=False):
+    """原図を box に入れる。contain=True は横幅に合わせて全体を見せ、上下を余白にする。"""
+    panel = im.crop(box)
+    bw, bh = box[2] - box[0], box[3] - box[1]
+    if contain:
+        s = bw / src.width
+        r = src.resize((bw, max(1, round(src.height * s))), Image.LANCZOS)
+        panel.paste(r, (0, (bh - r.height) // 2))
+        return panel
+    s = max(bw / src.width, bh / src.height)
+    r = src.resize((max(1, round(src.width * s)), max(1, round(src.height * s))), Image.LANCZOS)
+    x = (r.width - bw) // 2
+    y = (r.height - bh) // 2
+    panel.paste(r.crop((x, y, x + bw, y + bh)), (0, 0))
+    return panel
 
-    # 中央の余白を守るための薄い枠（地図の枠）
-    d.rounded_rectangle((90, 300, W - 90, H - 420), 28, outline=GOLD + (90,), width=4)
-    d.rounded_rectangle((120, 330, W - 120, H - 450), 22, outline=GOLD + (36,), width=2)
 
-    # 方位記号（右下）
-    cx, cy, r = W - 250, H - 560, 70
-    d.ellipse((cx - r, cy - r, cx + r, cy + r), outline=GOLD + (120,), width=3)
-    d.line([(cx, cy - r), (cx, cy + r)], fill=GOLD + (120,), width=2)
-    d.line([(cx - r, cy), (cx + r, cy)], fill=GOLD + (120,), width=2)
-    d.polygon([(cx, cy - r - 18), (cx - 14, cy - r + 8), (cx + 14, cy - r + 8)], fill=GOLD + (170,))
+def build(key, src):
+    im = backdrop().convert('RGB')
+    d = ImageDraw.Draw(im, 'RGBA')
 
-    # 下端の表示（模式図であることと出典）
-    d.text((W // 2, H - 400), '模式図：江戸図の年代を考える', font=font(58, 640), fill=GOLD + (235,), anchor='mm')
-    d.text((W // 2, H - 320), '出典：国立国会図書館デジタルコレクションの解説文をもとに作成',
-           font=font(34, 500), fill=(190, 205, 208, 220), anchor='mm')
-    d.text((W // 2, H - 248), '史実の再現ではなく、年表と手がかりの関係を示す図です',
-           font=font(30, 500), fill=(190, 205, 208, 170), anchor='mm')
+    # 見出し（資料であること・部分拡大の別）
+    suffix = '' if key == 'full' else '／部分拡大：%s' % LABEL[key].replace('部分拡大：', '')
+    d.text((W // 2, 452), '資料：国立国会図書館デジタルコレクション（PDM）' + suffix,
+           font=font(25, 500), fill=DIM + (225,), anchor='mm')
 
-    path = OUT / 'art.png'
+    box = (52, 500, W - 52, 1470)
+    x0, y0, x1, y1 = CROPS[key]
+    crop = src.crop((int(src.width * x0), int(src.height * y0),
+                     int(src.width * x1), int(src.height * y1)))
+    panel = place_map(im, crop, box, contain=(key in CONTAIN))
+    # 文字が乗るので少し沈める（原図の色は残す）
+    panel = ImageEnhance.Brightness(panel).enhance(0.74)
+    im.paste(panel, (box[0], box[1]))
+    d.rectangle(box, outline=GOLD + (150,), width=4)
+
+    # 加工の明示（下端。字幕パネルより下に置く）
+    d.text((W // 2, 1556), '原図の一部を暗く加工しています。史実の再現図ではありません。',
+           font=font(25, 500), fill=DIM + (200,), anchor='mm')
+    d.text((W // 2, 1608), '出典：https://dl.ndl.go.jp/pid/1286168（PDM）',
+           font=font(23, 500), fill=DIM + (170,), anchor='mm')
+
+    path = OUT / f'bg_{key}.png'
     im.save(path, optimize=True)
-    print('wrote', path, path.stat().st_size, 'bytes')
+    print('wrote', path.name, path.stat().st_size, 'bytes')
+
+
+def ensure_src():
+    """原本が無ければ NDL の IIIF から取得する（PDM）。"""
+    if SRC.exists():
+        return
+    import requests
+    url = 'https://dl.ndl.go.jp/api/iiif/1286168/R0000001/full/1600,/0/default.jpg'
+    r = requests.get(url, timeout=120)
+    r.raise_for_status()
+    SRC.parent.mkdir(parents=True, exist_ok=True)
+    SRC.write_bytes(r.content)
+    print('downloaded', SRC, SRC.stat().st_size, 'bytes')
+
+
+def main():
+    ensure_src()
+    src = Image.open(SRC).convert('RGB')
+    print('src', src.size)
+    for key in CROPS:
+        build(key, src)
 
 
 if __name__ == '__main__':
