@@ -33,9 +33,21 @@ python scripts/main_push_textonly.py --pr
 gh pr view <番号>
 gh pr merge <番号> --squash --delete-branch
 
-# 4. ローカルの master を追従させる
-git fetch --prune origin && git branch -f master origin/main
+# 4. ローカルの master を追従させる（master に居る状態で）
+git fetch --prune origin
+git merge --ff-only origin/main
 ```
+
+ステップ 4 は、PR で新規追加されたファイルがローカルでは untracked のままなので
+`Please move or remove them before you merge` で止まることが多い。
+その場合は内容が main と同一なので、次のどちらかで揃える。
+
+```bash
+git reset --hard origin/main          # 直前にテキストを全部コミット済みなら安全
+```
+
+`git branch -f master origin/main` は、そのブランチを worktree で使用中だと
+`cannot force update the branch ... used by worktree` で失敗する。使わない。
 
 `--pr` の代わりに `--direct` を付けるとブランチを作らず `main` へ直接 push する。
 過去のリビジョンから素材を除いて積みたいときは `--from <ref>` を使う。
@@ -80,4 +92,6 @@ git checkout backup/ninja-pre-mainpush-20261104 -- assets/anegawa/map_main.png
 | push が `remote end hung up` で落ちる | 素材が混ざっている。`--dry-run` で確認し、`main_push_textonly.py` を使う |
 | フックに中止された | `scripts/main_push_textonly.py --pr` に切り替える。素材を push したい場合のみ `--no-verify` |
 | `git add -A` で素材が入りそう | `.gitignore` が効いているか `git check-ignore -v <path>` で確認 |
+| マージで `Please move or remove them before you merge` | PR の新規ファイルが untracked と衝突。`git reset --hard origin/main` |
+| `cannot force update the branch ... used by worktree` | そのブランチを worktree が使用中。`git merge --ff-only origin/main` を使う |
 | ブランチ切替で素材が消えた | 素材は main に無いため checkout で削除される。退避ブランチから復元する |
