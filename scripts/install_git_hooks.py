@@ -31,7 +31,12 @@ def hooks_dir():
 def is_installed(src, dst):
     if not dst.exists():
         return False
-    return src.read_bytes() == dst.read_bytes()
+    return normalize(src.read_bytes()) == normalize(dst.read_bytes())
+
+
+def normalize(data):
+    """CRLF を LF に揃える（CRLF のフックは Git Bash で shebang が壊れる）。"""
+    return data.replace(b'\r\n', b'\n')
 
 
 def main():
@@ -58,7 +63,7 @@ def main():
         if dst.exists():
             shutil.copy2(dst, str(dst) + '.bak')
             print('%-10s 既存を %s.bak に退避' % (name, name))
-        shutil.copyfile(src, dst)
+        dst.write_bytes(normalize(src.read_bytes()))
         dst.chmod(dst.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
         print('%-10s 導入した（%s）' % (name, dst))
 
