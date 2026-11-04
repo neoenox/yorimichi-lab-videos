@@ -12,6 +12,8 @@
 
 YouTube Shorts を新規作成・改訂するときは、作業前に `shorts-standard/README.md` と `shorts-standard/PROMPT.md` を全文読んでください。`shorts-standard/output.schema.json` が納品形式、`shorts-standard/validate.py` が形式検査です。**この標準のルールを勝手に緩めないでください。** 緩和が必要だと判断したら、変更せずに理由を報告してユーザーの判断を仰ぎます。
 
+> 2026-11-04 のオーナー判断で **v1.1** に改訂済み: `claims.source_type` に `ai_assistant` を許す（AI アシスタントの回答を根拠にしてよい）。詳細は `shorts-standard/CHANGELOG.md`。`primary` は従来どおり一次資料の URL が必要。
+
 手順:
 
 1. `python scripts/shorts_standard.py new <slug> --topic "題材"` で `shorts/<slug>/brief.yaml` を作る。

@@ -136,3 +136,19 @@ python scripts/yt_api.py schedule <VIDEO_ID> "2026-11-05 20:00"   # 日本時間
 | 背景の注記が画面外 | 下端すぎる | 資料ラベルは 1556 以降、資料は 500〜1470 |
 | 色票・物差しが写る | デジタル化画像の仕様 | 切り出し比率で除外 |
 | 横長の帯が異常拡大 | cover の拡大率 | `contain`（幅合わせ）で表示 |
+
+## 8. 根拠に AI アシスタントの回答を使ってよい（v1.1・2026-11-04）
+
+オーナー判断で制作標準を v1.1 に改訂し、`claims.source_type` に `ai_assistant` を追加した（`shorts-standard/CHANGELOG.md`）。
+
+| source_type | 使いどころ | 必須 |
+| --- | --- | --- |
+| `primary` | 一次資料（官公庁・大学・企業IR・論文）。従来どおり | `source_url`（http/https）＋`evidence_note` |
+| `ai_assistant` | 一次資料にたどり着く前の構成づくり、速報性のある題材 | `evidence_note` に「何を質問し、何と答えたか」 |
+
+運用:
+
+- `ai_assistant` が 1 件でもあると `check` が **WARN** を出す（黙って通さない）。WARN を消すには一次資料の claim を足す
+- 数字・固有名詞・因果関係は特に誤りやすい。可能なら同じ主張を `primary` でも裏取りする
+- AI に聞いた日時と質問文を `evidence_note` に残す（後から検証・訂正できるように）
+- 誤りが判明したら概要欄に訂正、重大なら新IDで差し替え（`superseded` 運用）
