@@ -1,0 +1,38 @@
+{
+  "slug": "kawanakajima",
+  "theme_dir": "20261021_kawanakajima",
+  "header_sub": "川中島｜軍記の筋書きと、文書が伝えること",
+  "images": {},
+  "chapters": [
+    {
+      "key": "hook",
+      "title": "川中島の「啄木鳥戦法」は、本当にあった？",
+      "scene": []
+    },
+    {
+      "key": "setting",
+      "title": "まず、軍記が描く配置を見る",
+      "scene": []
+    },
+    {
+      "key": "plan",
+      "title": "挟み撃ちの構想",
+      "scene": []
+    },
+    {
+      "key": "counter",
+      "title": "裏をかいた、と軍記は語る",
+      "scene": []
+    },
+    {
+      "key": "records",
+      "title": "当時の文書は、何を伝えるか",
+      "scene": []
+    },
+    {
+      "key": "ending",
+      "title": "物語の動きと、記録の裏付けを分ける",
+      "scene": []
+    }
+  ]
+}

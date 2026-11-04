@@ -1,0 +1,48 @@
+{
+  "slug": "kawanakajima_battle",
+  "theme_dir": "20261021_kawanakajima_battle",
+  "header_sub": "川中島の戦い｜発端・戦況・結果",
+  "images": {},
+  "chapters": [
+    {
+      "key": "cause",
+      "title": "なぜ、川中島で戦うことになったのか",
+      "scene": []
+    },
+    {
+      "key": "deploy",
+      "title": "上杉軍は妻女山へ、武田軍は海津城へ",
+      "scene": []
+    },
+    {
+      "key": "divide",
+      "title": "武田軍が二手に分かれる",
+      "scene": []
+    },
+    {
+      "key": "night",
+      "title": "謙信が先に山を下りる",
+      "scene": []
+    },
+    {
+      "key": "clash",
+      "title": "九月十日、八幡原で激突",
+      "scene": []
+    },
+    {
+      "key": "return",
+      "title": "別動隊が戻り、上杉軍が退く",
+      "scene": []
+    },
+    {
+      "key": "result",
+      "title": "戦場では、どんな結果になったのか",
+      "scene": []
+    },
+    {
+      "key": "aftermath",
+      "title": "戦いのあと、北信濃はどう変わったのか",
+      "scene": []
+    }
+  ]
+}
