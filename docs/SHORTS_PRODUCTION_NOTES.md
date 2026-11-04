@@ -90,6 +90,29 @@ ffmpeg -ss 16 -i out/short_<slug>.mp4 -frames:v 1 -vf scale=540:-1 /tmp/f.png   
 - 字幕だけ後で入れる手順は [`VIDEO_PRODUCTION_RUNBOOK.md`](VIDEO_PRODUCTION_RUNBOOK.md) の「YouTube API の割り当てが切れた日の字幕」に従う（Studio の `translations` から手動アップロード → 公開）
 - アップロード後は `data/youtube_ids.json` に記録される。二重投稿しないため、次の制作前にこの台帳を見る
 
+### 字幕だけを Studio で入れる（APIクォータ切れ時・2026-11-04 実測）
+
+ログイン済みの Chrome を bsk（browser-skill）で操作する。座標クリックではなく VOM の ref（`@eNN`）で進める。
+
+```bash
+bsk session start --browser <instance-id> --name studio --width 1600 --height 1000 --focus
+bsk step --session studio --action navigate --json \
+  --params '{"url":"https://studio.youtube.com/video/<VIDEO_ID>/translations"}'
+bsk cooperate --session studio sync --json          # context_id を取得（以降 --context に渡す）
+bsk step --session studio --context <ctx> --action click --params '{"ref":"@e22"}'   # 手動でアップロード
+bsk upload '@e27' --file '<SRTの絶対パス>' --session studio --context <ctx>          # 続行→ファイル選択を横取り
+bsk step --session studio --context <ctx> --action click --params '{"ref":"@e21"}'   # 字幕を編集
+bsk step --session studio --context <ctx> --action click --params '{"ref":"@e30"}'   # 公開
+bsk session stop studio
+```
+
+- `@eNN` は**同期のたびに変わる**。操作の前に必ず `bsk cooperate sync` で読み直す（古い ref は `target_hidden` で失敗する）
+- 「続行」を素で押すと **OS のファイル選択ダイアログ**が開く。`bsk upload` の対象に「続行」を指定すると横取りできる
+- 完了の合図は「日本語の字幕を公開しました」。公開後に「公開」「ドラフトを保存」が disabled になるのが正常
+- **字幕の公開 ≠ 動画の公開**。動画は private のまま（確認は `scripts/yt_api.py list`）
+- 失敗したら操作を繰り返さず、まず `bsk cooperate sync` で画面の実際の状態を見る
+
+
 ## 7. 今回ハマったこと（再発防止）
 
 
