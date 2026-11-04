@@ -10,12 +10,17 @@
     python scripts/main_push_textonly.py --direct          同じ内容を main へ直接 push（fast-forward）
     python scripts/main_push_textonly.py --from ninja --pr 指定コミットの内容から素材を除いて積む
 
+他のスクリプトから使う:
+    from main_push_textonly import push_text_only
+    push_text_only(pr=True)                     # 現状をテキストのみで PR にする
+    push_text_only(direct=True, dry_run=True)   # 何が入るかだけ調べる
+
 やること:
-    1. origin/main（--base）を最新化する
+    1. origin/main（base）を最新化する
     2. 一時インデックスに「作業ツリーの現状」または「指定コミットの内容」を読み込む
        （.gitignore に従うので、素材は自然に落ちる）
     3. 素材拡張子が差分に残っていないか検査する（残っていれば中止）
-    4. origin/main の上に 1 コミットとして積み、ブランチに push（--pr なら PR も作る）
+    4. origin/main の上に 1 コミットとして積み、ブランチに push（pr=True なら PR も作る）
     5. 変更ファイル数・行数・追加バイト数を表示する
 
 注意:
@@ -23,21 +28,33 @@
 """
 import argparse
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from datetime import datetime
 from pathlib import Path
 
-# push しない拡張子（素材・原典資料・一時バイナリ）
+# 定数は rebuild_all.py などからも参照する
 MEDIA_EXT = {
     '.png', '.jpg', '.jpeg', '.gif', '.webp', '.bmp', '.tif', '.tiff',
     '.pdf', '.zip', '.npy', '.npz',
     '.mp4', '.mov', '.mkv', '.webm', '.avi', '.wav', '.mp3', '.m4a', '.aac', '.flac',
     '.glb', '.fbx', '.blend', '.blend1',
 }
+# --from で素材を落とすときのパターン（.gitignore は利かないため明示する）
+MEDIA_GLOBS = ['*' + e for e in sorted(MEDIA_EXT)]
 # 追加が大きすぎるファイルの警告しきい値
 WARN_BYTES = 5 * 1024 * 1024
+
+
+class MediaInDiff(RuntimeError):
+    """差分に素材が残っていたときの例外。"""
+
+    def __init__(self, paths):
+        super().__init__('素材ファイルが差分に含まれています（%d 件）' % len(paths))
+        self.paths = paths
 
 
 def git(args, env=None, check=True):
@@ -69,6 +86,132 @@ def human(n):
     return '%d B' % n
 
 
+def push_text_only(base='origin/main', from_ref=None, remote='origin', branch=None,
+                   message=None, pr=False, draft=False, direct=False,
+                   dry_run=False, allow_media=False, do_fetch=True, quiet=False):
+    """テキストだけを 1 コミットにまとめて main へ積む。結果を dict で返す。"""
+    def say(*a):
+        if not quiet:
+            print(*a)
+
+    if pr and direct:
+        raise ValueError('pr と direct は同時に使えません')
+
+    # 1. 土台を最新化する
+    if do_fetch:
+        git(['fetch', remote, '--prune'])
+    base_sha = git(['rev-parse', '--verify', base + '^{commit}']).strip()
+    now = datetime.now()
+    branch = branch or ('agent/text-only-%s' % now.strftime('%Y%m%d-%H%M%S'))
+
+    # 2. 一時インデックスでツリーを組み立てる（作業ツリーには触らない）
+    idx_dir = tempfile.mkdtemp(prefix='textonly-')
+    idx = os.path.join(idx_dir, 'index')
+    env = dict(os.environ, GIT_INDEX_FILE=idx)
+    try:
+        git(['read-tree', base_sha], env=env)
+        if from_ref:
+            src = git(['rev-parse', '--verify', from_ref + '^{commit}']).strip()
+            git(['read-tree', '--reset', src], env=env)
+            git(['rm', '-r', '--cached', '--quiet', '--ignore-unmatch', '--'] + MEDIA_GLOBS, env=env)
+        else:
+            git(['add', '-A', '--', '.'], env=env)  # .gitignore に従う
+        tree = git(['write-tree'], env=env).strip()
+
+        # 3. 差分に素材が残っていないか検査する
+        changed = split_z(git(['diff', '--name-only', '-z', '--no-renames', base_sha, tree]))
+        media = [p for p in changed if is_media(p)]
+        if media and not allow_media:
+            raise MediaInDiff(media)
+
+        # 4. 集計
+        rows = []
+        for p in changed:
+            out = git(['cat-file', '-s', '%s:%s' % (tree, p)], check=False).strip()
+            rows.append((int(out) if out.isdigit() else 0, p))
+        total = sum(s for s, _ in rows)
+        rows.sort(reverse=True)
+        numstat = git(['diff', '--numstat', base_sha, tree]).strip().splitlines()
+        adds = sum(int(x.split('\t')[0]) for x in numstat if x.split('\t')[0].isdigit())
+        dels = sum(int(x.split('\t')[1]) for x in numstat if x.split('\t')[1].isdigit())
+
+        say('土台      : %s (%s)' % (base, base_sha[:7]))
+        say('内容      : %s' % (from_ref if from_ref else '作業ツリーの現状（.gitignore に従う）'))
+        say('変更      : %d ファイル / +%d / -%d' % (len(changed), adds, dels))
+        say('追加容量  : %s' % human(total))
+        if rows:
+            say('最大のもの: %s  %s' % (human(rows[0][0]), rows[0][1]))
+        big = [(s, p) for s, p in rows if s > WARN_BYTES]
+        if big:
+            say('⚠ %s を超えるファイル: %d 件' % (human(WARN_BYTES), len(big)))
+            for s, p in big[:5]:
+                say('    %s  %s' % (human(s), p))
+
+        result = {
+            'base': base, 'base_sha': base_sha, 'branch': branch, 'commit': None,
+            'changed': [p for _, p in rows], 'files': len(changed),
+            'adds': adds, 'dels': dels, 'bytes': total,
+            'pushed': False, 'pr_url': None, 'messages': [],
+        }
+
+        if not changed:
+            say('差分がありません。push するものはありません。')
+            return result
+
+        if dry_run:
+            say('\n(--dry-run のため commit / push は行いません)')
+            say('含まれるファイル（先頭 20 件）:')
+            for s, p in rows[:20]:
+                say('    %8s  %s' % (human(s), p))
+            return result
+
+        # 5. コミットを作る
+        msg = message or (
+            'chore: main をテキストのみで最新化（%s）\n\n'
+            '素材（画像・動画・音声・PDF 等）は .gitignore 方針により含めない。\n'
+            'scripts/main_push_textonly.py で生成。\n' % now.strftime('%Y-%m-%d %H:%M')
+        )
+        commit = git(['commit-tree', tree, '-p', base_sha, '-m', msg]).strip()
+        git(['update-ref', 'refs/heads/' + branch, commit])
+        result['commit'] = commit
+        say('\nコミット  : %s  (%s)' % (commit[:7], branch))
+
+        # 6. push（direct なら main へ）
+        target = 'main' if direct else branch
+        git(['push', remote, '%s:%s' % (branch, target)])
+        result['pushed'] = True
+        say('push      : %s %s -> %s' % (remote, branch, target))
+
+        # 7. 必要なら PR を作る
+        if pr:
+            fd, body_path = tempfile.mkstemp(suffix='.md')
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                f.write('## 変更内容\n\n')
+                f.write('- テキストのみ（素材なし）で main を最新化\n')
+                f.write('- 変更: %d ファイル / +%d / -%d（追加 %s）\n\n' % (len(changed), adds, dels, human(total)))
+                f.write('### 主な変更ファイル\n\n')
+                for s, p in rows[:30]:
+                    f.write('- `%s`（%s）\n' % (p, human(s)))
+                if len(rows) > 30:
+                    f.write('- ... 他 %d 件\n' % (len(rows) - 30))
+                f.write('\n### 含めていないもの\n\n- 画像・動画・音声・PDF などの素材（.gitignore 方針）\n')
+            cmd = ['gh', 'pr', 'create', '--base', 'main', '--head', branch,
+                   '--title', 'chore: main をテキストのみで最新化（%s）' % now.strftime('%Y-%m-%d %H:%M'),
+                   '--body-file', body_path]
+            if draft:
+                cmd.append('--draft')
+            p = subprocess.run(cmd, text=True, encoding='utf-8', errors='replace', capture_output=True)
+            os.unlink(body_path)
+            if p.returncode != 0:
+                sys.stderr.write(p.stdout + p.stderr)
+                raise RuntimeError('PR の作成に失敗しました（push 済み）')
+            result['pr_url'] = p.stdout.strip()
+            say('PR        : %s' % result['pr_url'])
+        return result
+    finally:
+        shutil.rmtree(idx_dir, ignore_errors=True)
+
+
 def main():
     ap = argparse.ArgumentParser(description='main をテキストだけ（素材なし）で最新化する')
     ap.add_argument('--from', dest='from_ref', help='このリビジョンの内容を使う（既定: 作業ツリーの現状）')
@@ -84,134 +227,24 @@ def main():
     ap.add_argument('--no-fetch', action='store_true', help='fetch を省略する')
     a = ap.parse_args()
 
-    if a.pr and a.direct:
-        raise SystemExit('--pr と --direct は同時に使えません')
-
-    # 1. 土台を最新化する
-    if not a.no_fetch:
-        git(['fetch', a.remote, '--prune'])
-    base = git(['rev-parse', '--verify', a.base + '^{commit}']).strip()
-    now = datetime.now()
-    branch = a.branch or ('agent/text-only-%s' % now.strftime('%Y%m%d-%H%M%S'))
-
-    # 2. 一時インデックスでツリーを組み立てる（作業ツリーには触らない）
-    idx_dir = tempfile.mkdtemp(prefix='textonly-')
-    idx = os.path.join(idx_dir, 'index')
-    env = dict(os.environ, GIT_INDEX_FILE=idx)
+    t0 = time.time()
     try:
-        git(['read-tree', base], env=env)
-        if a.from_ref:
-            src = git(['rev-parse', '--verify', a.from_ref + '^{commit}']).strip()
-            git(['read-tree', '--reset', src], env=env)
-            # 素材をインデックスから落とす（.gitignore は効かないので明示的に）
-            git(['rm', '-r', '--cached', '--quiet', '--ignore-unmatch', '--'] +
-                ['*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.pdf', '*.zip', '*.npy', '*.npz',
-                 '*.mp4', '*.mov', '*.mkv', '*.webm', '*.wav', '*.mp3', '*.m4a', '*.aac', '*.flac',
-                 '*.glb', '*.fbx', '*.blend', '*.blend1'], env=env)
-        else:
-            # 作業ツリーの現状（.gitignore に従う）
-            git(['add', '-A', '--', '.'], env=env)
-
-        tree = git(['write-tree'], env=env).strip()
-
-        # 3. 差分に素材が残っていないか検査する
-        changed = split_z(git(['diff', '--name-only', '-z', '--no-renames', base, tree]))
-        media = [p for p in changed if is_media(p)]
-        if media and not a.allow_media:
-            sys.stderr.write('✖ 素材ファイルが差分に含まれています（%d 件）:\n' % len(media))
-            for p in media[:20]:
-                sys.stderr.write('    %s\n' % p)
-            if len(media) > 20:
-                sys.stderr.write('    ... 他 %d 件\n' % (len(media) - 20))
-            sys.stderr.write('  .gitignore を確認するか、--allow-media で強行してください。\n')
-            raise SystemExit(1)
-
-        # 4. 中身の集計
-        rows = []
-        for p in changed:
-            out = git(['cat-file', '-s', '%s:%s' % (tree, p)], check=False).strip()
-            rows.append((int(out) if out.isdigit() else 0, p))
-        total = sum(s for s, _ in rows)
-        rows.sort(reverse=True)
-        numstat = git(['diff', '--numstat', base, tree]).strip().splitlines()
-        adds = sum(int(x.split('\t')[0]) for x in numstat if x.split('\t')[0].isdigit())
-        dels = sum(int(x.split('\t')[1]) for x in numstat if x.split('\t')[1].isdigit())
-
-        print('土台      : %s (%s)' % (a.base, base[:7]))
-        if a.from_ref:
-            print('内容      : %s' % a.from_ref)
-        else:
-            print('内容      : 作業ツリーの現状（.gitignore に従う）')
-        print('変更      : %d ファイル / +%d / -%d' % (len(changed), adds, dels))
-        print('追加容量  : %s' % human(total))
-        if rows:
-            print('最大のもの: %s  %s' % (human(rows[0][0]), rows[0][1]))
-        big = [(s, p) for s, p in rows if s > WARN_BYTES]
-        if big:
-            print('⚠ %s を超えるファイル: %d 件' % (human(WARN_BYTES), len(big)))
-            for s, p in big[:5]:
-                print('    %s  %s' % (human(s), p))
-        if not changed:
-            print('差分がありません。push するものはありません。')
-            return 0
-
-        if a.dry_run:
-            print('\n(--dry-run のため commit / push は行いません)')
-            print('例に含まれるファイル（先頭 20 件）:')
-            for s, p in rows[:20]:
-                print('    %8s  %s' % (human(s), p))
-            return 0
-
-        # 5. コミットを作る
-        msg = a.message or (
-            'chore: main をテキストのみで最新化（%s）\n\n'
-            '素材（画像・動画・音声・PDF 等）は .gitignore 方針により含めない。\n'
-            'scripts/main_push_textonly.py で生成。\n' % now.strftime('%Y-%m-%d %H:%M')
+        r = push_text_only(
+            base=a.base, from_ref=a.from_ref, remote=a.remote, branch=a.branch,
+            message=a.message, pr=a.pr, draft=a.draft, direct=a.direct,
+            dry_run=a.dry_run, allow_media=a.allow_media, do_fetch=not a.no_fetch,
         )
-        commit = git(['commit-tree', tree, '-p', base, '-m', msg]).strip()
-        git(['update-ref', 'refs/heads/' + branch, commit])
-        print('\nコミット  : %s  (%s)' % (commit[:7], branch))
-
-        # 6. push（--direct なら main へ）
-        target = 'main' if a.direct else branch
-        git(['push', a.remote, '%s:%s' % (branch, target)])
-        print('push      : %s %s -> %s' % (a.remote, branch, target))
-
-        # 7. 必要なら PR を作る
-        if a.pr:
-            body = tempfile.NamedTemporaryFile('w', suffix='.md', delete=False, encoding='utf-8')
-            body.write('## 変更内容\n\n')
-            body.write('- テキストのみ（素材なし）で main を最新化\n')
-            body.write('- 変更: %d ファイル / +%d / -%d（追加 %s）\n\n' % (len(changed), adds, dels, human(total)))
-            body.write('### 主な変更ファイル\n\n')
-            for s, p in rows[:30]:
-                body.write('- `%s`（%s）\n' % (p, human(s)))
-            if len(rows) > 30:
-                body.write('- ... 他 %d 件\n' % (len(rows) - 30))
-            body.write('\n### 含めていないもの\n\n- 画像・動画・音声・PDF などの素材（.gitignore 方針）\n')
-            body.close()
-            cmd = ['gh', 'pr', 'create', '--base', 'main', '--head', branch,
-                   '--title', 'chore: main をテキストのみで最新化（%s）' % now.strftime('%Y-%m-%d %H:%M'),
-                   '--body-file', body.name]
-            if a.draft:
-                cmd.append('--draft')
-            p = subprocess.run(cmd, text=True, encoding='utf-8', errors='replace',
-                               capture_output=True)
-            os.unlink(body.name)
-            if p.returncode != 0:
-                sys.stderr.write(p.stdout + p.stderr)
-                raise SystemExit('PR の作成に失敗しました（push 済み）')
-            print('PR        : %s' % p.stdout.strip())
-        return 0
-    finally:
-        try:
-            os.unlink(idx)
-        except OSError:
-            pass
-        try:
-            os.rmdir(idx_dir)
-        except OSError:
-            pass
+    except MediaInDiff as e:
+        sys.stderr.write('✖ %s:\n' % e)
+        for p in e.paths[:20]:
+            sys.stderr.write('    %s\n' % p)
+        if len(e.paths) > 20:
+            sys.stderr.write('    ... 他 %d 件\n' % (len(e.paths) - 20))
+        sys.stderr.write('  .gitignore を確認するか、--allow-media で強行してください。\n')
+        return 1
+    if not a.dry_run and r['changed']:
+        print('所要      : %.1f 秒' % (time.time() - t0))
+    return 0
 
 
 if __name__ == '__main__':
