@@ -1,0 +1,87 @@
+{
+ "title": "江戸図の最古版、その年は？",
+ "hook": "古い地図の作られた年は、どうやって決めるのでしょう。",
+ "notes": "・「武州豊嶋郡江戸〔庄〕図」は無刊記だが、現存する江戸図の最古版とされると国立国会図書館が解説している。\n・同図の出版年は「寛永9（1632）頃」とされ、屋敷名は寛永7、8年ごろの状況を示す。\n・同解説は、版式からみてこの時期の刊行とするには疑問があり、後年の比較的早い時期に刊行されたのではないかとする。\n・同図の収録地域は江戸城とその北、東、南の狭い範囲に限られ、周辺部は地図の枠近くまで切除されている。",
+ "refs": [
+  "「武州豊嶋郡江戸〔庄〕図」は無刊記だが、現存する江戸図の最古版とされると国立国会図書館が解説している。 — https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+  "同図の出版年は「寛永9（1632）頃」とされ、屋敷名は寛永7、8年ごろの状況を示す。 — https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+  "同解説は、版式からみてこの時期の刊行とするには疑問があり、後年の比較的早い時期に刊行されたのではないかとする。 — https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+  "同図の収録地域は江戸城とその北、東、南の狭い範囲に限られ、周辺部は地図の枠近くまで切除されている。 — https://dl.ndl.go.jp/api/iiif/1286168/manifest.json"
+ ],
+ "pron": "shorts/edo_map_date/pron.json",
+ "art": "assets/edo_map_date/art.png",
+ "scenes": [
+  {
+   "text": "江戸図の最古版、何年でしょう？",
+   "big": "最古版は何年？",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  },
+  {
+   "text": "国立国会図書館は、寛永九年ごろとしています。",
+   "big": "寛永9年ごろ",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  },
+  {
+   "text": "ところが、その解説には疑問も書かれています。",
+   "big": "解説には疑問も",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  },
+  {
+   "text": "屋敷の名前は、寛永七年か八年ごろの状況を示します。",
+   "big": "屋敷名は7〜8年",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  },
+  {
+   "text": "しかし版の作りから見て、もっと後という説もあります。",
+   "big": "版式からは後年説",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  },
+  {
+   "text": "つまり、地図の年は複数の手がかりによる推定です。",
+   "big": "手がかりは3つ",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  },
+  {
+   "text": "ですから古い地図ほど、作られた年は断定できません。",
+   "big": "古い地図ほど推定",
+   "sub": "",
+   "art": "assets/edo_map_date/art.png"
+  }
+ ],
+ "cta": false,
+ "status": "ready",
+ "claims": [
+  {
+   "id": "c_old",
+   "statement": "「武州豊嶋郡江戸〔庄〕図」は無刊記だが、現存する江戸図の最古版とされると国立国会図書館が解説している。",
+   "source_url": "https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+   "evidence_note": "IIIFマニフェストのdescriptionに「無刊記だが現存する江戸図の最古版とされる」と記載（2026-11-04取得）。"
+  },
+  {
+   "id": "c_date",
+   "statement": "同図の出版年は「寛永9（1632）頃」とされ、屋敷名は寛永7、8年ごろの状況を示す。",
+   "source_url": "https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+   "evidence_note": "metadataのPublication Dateが「〔寛永９（１６３２）頃〕刊」。descriptionに「屋敷名は寛永7，8年ごろの状況を示す」と記載。"
+  },
+  {
+   "id": "c_doubt",
+   "statement": "同解説は、版式からみてこの時期の刊行とするには疑問があり、後年の比較的早い時期に刊行されたのではないかとする。",
+   "source_url": "https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+   "evidence_note": "descriptionに「版式からみてこの当時の刊行とするには疑問があり、後年の比較的早い時期に刊行されたのではないかとされる」と記載。"
+  },
+  {
+   "id": "c_range",
+   "statement": "同図の収録地域は江戸城とその北、東、南の狭い範囲に限られ、周辺部は地図の枠近くまで切除されている。",
+   "source_url": "https://dl.ndl.go.jp/api/iiif/1286168/manifest.json",
+   "evidence_note": "descriptionに「収録地域は江戸城とその北、東、南の狭い範囲に限られ、周辺部は地図の枠近くまで切除されている」と記載。"
+  }
+ ],
+ "needs_research": [],
+ "credit": "・背景：模式図（scripts/make_edo_map_date_assets.py で作成）"
+}
