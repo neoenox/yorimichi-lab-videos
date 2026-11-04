@@ -112,6 +112,18 @@ bsk session stop studio
 - **字幕の公開 ≠ 動画の公開**。動画は private のまま（確認は `scripts/yt_api.py list`）
 - 失敗したら操作を繰り返さず、まず `bsk cooperate sync` で画面の実際の状態を見る
 
+### 公開予約とクォータの残量（2026-11-04 実測）
+
+```bash
+python scripts/yt_api.py schedule <VIDEO_ID> "2026-11-05 20:00"   # 日本時間で指定
+# -> 公開予約(日本時間): 2026-11-05 20:00 -> 2026-11-05T11:00:00Z
+```
+
+- 予約後も `status.privacyStatus` は `private` のまま。`status.publishAt` に UTC が入る（API で確認できる）
+- **クォータは「残量」で落ち方が変わる**。同じ日に `captions.insert`（約400 units）が `quotaExceeded` で失敗しても、`videos.update`（約50 units）は通った。単価の高い操作から先に落ちる
+- 予約の変更も同じコマンド（新しい日時を渡す）。取り消して非公開のままにするときは、日時を未来のまま放置せず Studio で予約を取り消す
+
+
 
 ## 7. 今回ハマったこと（再発防止）
 
