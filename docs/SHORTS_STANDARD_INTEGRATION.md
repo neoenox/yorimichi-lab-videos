@@ -114,7 +114,12 @@ python scripts/shorts_standard.py list
 - loudnorm 実測: **-14.1 LUFS / True Peak -1.5 dBTP**（YouTube の目安に一致）
 - 字幕 SRT はナレーションと1対1（`out/short_edo_map_date_subtitles.srt`）
 
-## 8. 未対応・残課題
+## 8. Shorts の実測ノウハウ
+
+制作中に分かった制約・失敗・対処（資料画像の使い方、画面の安全領域、IIIF の取得、検証コマンド）は
+[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) に集約している。新しい知見はそちらへ追記する。
+
+## 9. 未対応・残課題
 
 - **実測音声による時間調整**: 標準は作者が start/end を書くが、既存レンダラは音声長で再計算する。変換時に目標値を保持し、実測との差は従来どおり描画側に任せている。
 - **読み（pron）の生成**: `to-spec` は `--pron` で既存の pronunciations JSON を指すだけ。新規題材の読み辞書づくりは従来どおり手作業。

@@ -25,3 +25,13 @@ YouTube Shorts を新規作成・改訂するときは、作業前に `shorts-st
 9. 既存の動画・台本・素材・レンダラ（`scripts/make_short2.py` など）を勝手に削除・上書きしない。試作は別名で作る。
 
 CI（`.github/workflows/shorts-standard.yml`）が `shorts/**/result.json` を検査し、`tests/test_shorts_standard.py` が標準ルールの緩和を検知します。
+
+## ノウハウは必ず git に残す
+
+制作・検証で分かったことは、**その場で文書に書いてコミット**してください。チャットや記憶に残さない。
+
+- 追記先: `docs/SHORTS_PRODUCTION_NOTES.md`（Shorts の実測ノウハウ）、`docs/SHORTS_STANDARD_INTEGRATION.md`（標準との統合・差分）、`docs/VIDEO_PRODUCTION_RUNBOOK.md`（長尺の手順）
+- 書く内容: 実際に試して分かった制約、失敗した症状と原因と対処、使ったコマンド、出典URLと利用条件、確認した範囲と未確認の範囲
+- 書かない内容: 推測、未検証の数値、再現できない手順
+- コマンドや切り出し比率などは、後から同じ結果を再現できる粒度で書く（例: IIIF の URL 形式、画像の切り出し比率、ffprobe の確認項目）
+- 知見が増えたら、次に作業するエージェントが最初に読む文書（この AGENTS.md・上記2文書）から辿れるようにする
