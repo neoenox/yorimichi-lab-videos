@@ -214,6 +214,25 @@ class ToSpecTests(unittest.TestCase):
             self.assertNotEqual(p.returncode, 0)
             self.assertIn('art_map', p.stdout + p.stderr)
 
+    def test_ai_assistant_claim_without_url_converts(self):
+        """source_url を持たない ai_assistant の claim でも to-spec が落ちない。"""
+        data = sample()
+        data['status'] = 'ready'
+        data['needs_research'] = []
+        data['claims'].append({'id': 'c_ai2', 'statement': 'AI に確認した事実',
+                               'source_type': 'ai_assistant',
+                               'evidence_note': 'ChatGPT に質問し回答を得た（2026-11-05）'})
+        data['scenes'][1]['claim_ids'] = ['c_ai2']
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'ready.json'
+            src.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            out = Path(tmp) / 'spec.json'
+            p = run_cli('to-spec', str(src), '--slug', 'unit_test', '--out', str(out),
+                        '--pron', 'shorts/unit/pron.json')
+            self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+            spec = json.loads(out.read_text(encoding='utf-8'))
+        self.assertTrue(any('AI アシスタント' in r for r in spec['refs']))
+
 
 if __name__ == '__main__':
     unittest.main()
