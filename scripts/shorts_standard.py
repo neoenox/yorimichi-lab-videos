@@ -221,7 +221,8 @@ def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=
             raise SystemExit('narration に空行')
     claims = data.get('claims') or []
     notes = '\n'.join('・%s' % c['statement'] for c in claims)
-    refs = ['%s — %s' % (c['statement'], c['source_url']) for c in claims]
+    refs = ['%s — %s' % (c['statement'], c.get('source_url') or '（AI アシスタントの回答。一次資料のURLなし）')
+            for c in claims]
     spec = {
         'title': data['title'],
         'hook': data['hook'],

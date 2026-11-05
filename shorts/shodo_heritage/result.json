@@ -1,0 +1,87 @@
+{
+  "title": "書道が、世界の遺産になる？",
+  "hook": "書道がユネスコの無形文化遺産に、登録される見通しです。",
+  "duration_sec": 36,
+  "status": "ready",
+  "scenes": [
+    {
+      "start": 0,
+      "end": 3,
+      "narration": "書道が、世界の遺産になる？",
+      "caption": ["書道が世界遺産に？"],
+      "visual": "墨で書かれた線が浮かび上がる模式図（筆致のアニメーション）",
+      "claim_ids": []
+    },
+    {
+      "start": 3,
+      "end": 8,
+      "narration": "ユネスコの評価機関が、登録を勧告しました。",
+      "caption": ["登録を勧告"],
+      "visual": "評価機関から勧告へ矢印が伸びる手続きの模式図",
+      "claim_ids": ["c_nhk_recommend"]
+    },
+    {
+      "start": 8,
+      "end": 13,
+      "narration": "これは、まだ「決定」の一歩手前の段階です。",
+      "caption": ["まだ決定ではない"],
+      "visual": "「勧告」と「決定」を分けて示す手続きの模式図",
+      "claim_ids": ["c_nhk_timing", "c_system"]
+    },
+    {
+      "start": 13,
+      "end": 19,
+      "narration": "無形文化遺産は、建物ではなく、人の技や慣習を守る仕組みです。",
+      "caption": ["守るのは人の技"],
+      "visual": "墨の筆致の模式図。有形の建物との対比を文字で示す",
+      "claim_ids": ["c_system"]
+    },
+    {
+      "start": 19,
+      "end": 25,
+      "narration": "勧告のあと、政府間委員会が開かれ、正式に決まります。",
+      "caption": ["委員会が正式決定"],
+      "visual": "政府間委員会の箱へ矢印が続く手続きの模式図",
+      "claim_ids": ["c_system"]
+    },
+    {
+      "start": 25,
+      "end": 30,
+      "narration": "登録はゴールではなく、次世代へ伝える仕組みです。",
+      "caption": ["登録はゴールでない"],
+      "visual": "墨の筆致が次の画面へ受け渡される様子を示す模式図",
+      "claim_ids": ["c_system"]
+    },
+    {
+      "start": 30,
+      "end": 36,
+      "narration": "書道のように、暮らしに根づいた技が対象になります。",
+      "caption": ["暮らしの技が対象"],
+      "visual": "筆と硯を並べた模式図。暮らしの道具として示す",
+      "claim_ids": ["c_nhk_recommend"]
+    }
+  ],
+  "claims": [
+    {
+      "id": "c_nhk_recommend",
+      "statement": "日本が登録を目指していた「書道」について、ユネスコの評価機関が登録がふさわしいとする勧告をまとめた。",
+      "source_type": "ai_assistant",
+      "source_url": "https://news.web.nhk/newsweb/na/nd-20261105de70701",
+      "evidence_note": "NHK NEWS WEB（2026-11-05 07:04、文化庁による）の報道を確認。一次資料（文化庁・ユネスコ）のページは未取得。"
+    },
+    {
+      "id": "c_nhk_timing",
+      "statement": "近く正式に登録される見通しと報じられている。",
+      "source_type": "ai_assistant",
+      "source_url": "https://news.web.nhk/newsweb/na/nd-20261105de70701",
+      "evidence_note": "同上の報道。「決定」ではなく「見通し」であることを画面でも区別する。"
+    },
+    {
+      "id": "c_system",
+      "statement": "無形文化遺産は評価機関の勧告のあと、政府間委員会で正式に決まる。守る対象は建物ではなく、人の技や慣習である。",
+      "source_type": "ai_assistant",
+      "evidence_note": "ユネスコ無形文化遺産の制度に関する一般的な説明（評価機関→政府間委員会）。個別の決定日・件数は本動画では扱わない。"
+    }
+  ],
+  "needs_research": []
+}
