@@ -7,7 +7,7 @@ usage: python scripts/make_shodo_heritage_assets.py
 import math
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'assets' / 'shodo_heritage'
@@ -66,9 +66,10 @@ def brush_strokes(d, cx, cy, scale=1.0):
 def build_ink():
     im, d = backdrop()
     brush_strokes(d, W / 2, 980, 1.0)
-    d.text((W // 2, 452), '模式図：墨と筆のイメージ（資料の複製ではありません）',
+    d.text((W // 2, 452), '2026.11.05 ・ 模式図：墨と筆のイメージ（資料の複製ではありません）',
            font=font(24, 500), fill=DIM + (210,), anchor='mm')
     d.rounded_rectangle((60, 560, W - 60, 1420), 24, outline=GOLD + (90,), width=3)
+    date_chip(d)
     d.text((W // 2, 1600), '出典：NHK NEWS WEB（2026-11-05）／文化庁の発表による',
            font=font(23, 500), fill=DIM + (180,), anchor='mm')
     im.save(OUT / 'bg_ink.png', optimize=True)
@@ -77,7 +78,7 @@ def build_ink():
 
 def build_flow():
     im, d = backdrop()
-    d.text((W // 2, 452), '模式図：無形文化遺産の登録手続き（一般的な流れ）',
+    d.text((W // 2, 452), '2026.11.05 ・ 模式図：無形文化遺産の登録手続き（一般的な流れ）',
            font=font(24, 500), fill=DIM + (210,), anchor='mm')
 
     boxes = [(700, '評価機関'), (940, '勧告'), (1180, '政府間委員会')]
@@ -90,16 +91,57 @@ def build_flow():
             d.line([(W // 2, y2 + 12), (W // 2, y2 + 176)], fill=DIM + (160,), width=5)
             d.polygon([(W // 2 - 16, y2 + 160), (W // 2 + 16, y2 + 160), (W // 2, y2 + 196)],
                       fill=DIM + (200,))
+    date_chip(d)
     d.text((W // 2, 1600), '出典：NHK NEWS WEB（2026-11-05）／文化庁の発表による',
            font=font(23, 500), fill=DIM + (180,), anchor='mm')
     im.save(OUT / 'bg_flow.png', optimize=True)
     print('wrote bg_flow.png')
 
 
+DATE = '2026.11.05'
+
+
+def date_chip(d):
+    """画面右上に日付を出す（ニュースの鮮度を示す）。"""
+    label = DATE
+    w = d.textlength(label, font=font(34, 640))
+    d.rounded_rectangle((W - w - 92, 296, W - 52, 360), 12, fill=(7, 24, 36, 220), outline=GOLD + (130,), width=2)
+    d.text((W - w - 72, 328), label, font=font(34, 640), fill=GOLD + (245,), anchor='lm')
+
+
+def build_generated():
+    """ChatGPT で生成した画像があれば背景に使い、無ければ墨の模式図で代用する。"""
+    cands = [OUT / 'gen_base.png', OUT / 'gen_base.jpg', OUT / 'gen_base.webp']
+    src = next((p for p in cands if p.exists()), None)
+    if src is None:
+        import shutil
+        shutil.copyfile(OUT / 'bg_ink.png', OUT / 'bg_gen.png')
+        print('wrote bg_gen.png (fallback: bg_ink)')
+        return
+    im, d = backdrop()
+    base = Image.open(src).convert('RGB')
+    s = max(W / base.width, H / base.height)
+    r = base.resize((max(1, round(base.width * s)), max(1, round(base.height * s))), Image.LANCZOS)
+    x = (r.width - W) // 2
+    y = (r.height - H) // 2
+    photo = r.crop((x, y, x + W, y + H))
+    photo = ImageEnhance.Brightness(photo).enhance(0.52)
+    im.paste(photo, (0, 0))
+    d = ImageDraw.Draw(im, 'RGBA')
+    d.text((W // 2, 452), '2026.11.05 ・ イメージ：AI生成（資料の複製ではありません）',
+           font=font(24, 500), fill=DIM + (215,), anchor='mm')
+    date_chip(d)
+    d.text((W // 2, 1600), '出典：NHK NEWS WEB（2026-11-05）／文化庁の発表による',
+           font=font(23, 500), fill=DIM + (200,), anchor='mm')
+    im.save(OUT / 'bg_gen.png', optimize=True)
+    print('wrote bg_gen.png from', src.name)
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     build_ink()
     build_flow()
+    build_generated()
 
 
 if __name__ == '__main__':
