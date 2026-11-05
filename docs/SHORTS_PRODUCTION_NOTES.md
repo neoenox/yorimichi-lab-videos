@@ -205,3 +205,29 @@ python scripts/chatgpt_image.py --reuse-last --prompt x --out ...   # 生成済�
 2. ブラウザ経由を続けるなら、**ダウンロードは手動1クリック**にして、生成と保存先の用意だけ自動化する
 3. 生成した画像は `assets/<slug>/gen_base.png` に置けば、`scripts/make_shodo_heritage_assets.py` のような合成スクリプトが背景に取り込む（日付・出典・「AI生成」の注記を焼き込む）
 
+### 10.1 CDP 方式（推奨・2026-11-05 実測で成功）
+
+bsk はクリックが弾かれる・ラベルが壊れることがあるため、**Chrome を DevTools プロトコルで起動して Playwright で操作**する。こちらは安定して最後まで通った。
+
+```bash
+# 1. 自動化用プロファイルで Chrome を起動（初回のみ、このウィンドウで ChatGPT にログイン）
+chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\Users\neoen\.chrome-automation
+
+# 2. ログイン確認（未ログインなら exit 2 で止まる）
+python scripts/gen_image_cdp.py --check
+
+# 3. 生成して保存
+python scripts/gen_image_cdp.py --prompt "縦長9:16、濃紺の背景に筆と硯、文字なし" \
+  --out assets/<slug>/gen_base.png --timeout 300
+
+# 4. 生成済みの画像だけ取り直す（送信しない）
+python scripts/gen_image_cdp.py --reuse --out assets/<slug>/gen_base.png
+```
+
+実測で分かった要点:
+
+- **送信ボタン**: `button[data-testid="send-button"]` は今回のUIでは見つからず、`button[aria-label*="送信"]` で押せた（両方試す実装にしてある）
+- **生成画像の URL は `blob:https://chatgpt.com/...`**。`oaiusercontent` ではないため、URL を直接 fetch できない。**ページ内で canvas に描いて `toDataURL`** で取り出すのが確実
+- 生成は 30〜60秒程度。`--timeout` は 300 秒あれば十分
+- ログインはプロファイルに保持される（失効時のみ再ログイン）。未ログインを検知したら**明確に止まる**
+
