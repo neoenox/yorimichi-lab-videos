@@ -1485,5 +1485,280 @@
   "via": "api",
   "superseded": [],
   "deleted": []
+ },
+ "short_solo_hikyaku_40x_nl": {
+  "video_id": "NasAC3IKVg4",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_takarakuji100_nl": {
+  "video_id": "iFWhf76eGhQ",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_jinko_suitei_nl": {
+  "video_id": "G7XKv6zX0y8",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_kashihon_800_nl": {
+  "video_id": "wFYvSyt-CpA",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_sleep14h_nl": {
+  "video_id": "3EKfIrCdby4",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_kido_pass_nl": {
+  "video_id": "4NvuvcafZMY",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_literacy_shiga_nl": {
+  "video_id": "xSPmt8bDE9U",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_meals_region_nl": {
+  "video_id": "K53X4JvsY6Y",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_nukemairi_hishaku_nl": {
+  "video_id": "uh6TvjxOnc0",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_ooka_shirakoya_nl": {
+  "video_id": "fO5gRT1qS4M",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_oyatsu_yatsu_nl": {
+  "video_id": "L6PaYryUeNA",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_recycle_shinyo_nl": {
+  "video_id": "D0vaibUDsLk",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_ryo_soba_nl": {
+  "video_id": "pi9rzJgen2w",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_sankin_tabi10_nl": {
+  "video_id": "yihM_zNjw4g",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_shorui_niwatori_nl": {
+  "video_id": "ZUR5R9xLvmY",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_sushi_two_nl": {
+  "video_id": "jk_VUUbz480",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_travel_tokaido_nl": {
+  "video_id": "CWgTDSuyPoU",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_yachin_rokubai_nl": {
+  "video_id": "lUOHbEsH4kw",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_yakurei_menkyo_nl": {
+  "video_id": "07bs0uqJWmc",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_yoigoshi_hi_nl": {
+  "video_id": "sQmMe3p-iNY",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_komugi_jikyu_nl": {
+  "video_id": "m8F9ZsgKgXo",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_galileo_sore_nl": {
+  "video_id": "Ru0b5MD-cUY",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_brain_origin_nl": {
+  "video_id": "BTjz7NZExfk",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_columbus_flat_nl": {
+  "video_id": "jht-JeLp0bc",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_moon_dark_nl": {
+  "video_id": "sLk85oIUQQM",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_bukka_katei_nl": {
+  "video_id": "k8Qm7_0EM-o",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_brain_damage_nl": {
+  "video_id": "W2Wh6ccWaxo",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_jikyu_yunyusaki_nl": {
+  "video_id": "Sq8w95w-rJI",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_sunrise_hayai": {
+  "video_id": "MRcp8VaHEsw",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_rice_hanbun": {
+  "video_id": "FpMDnLdwiiM",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_oceanblue_sora": {
+  "video_id": "Hn0S-Uxmwz4",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_magnitude_32": {
+  "video_id": "gRKqGI569xU",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_islands_kazu": {
+  "video_id": "2QegxztoVw4",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_vitaminc_kaze": {
+  "video_id": "10a-XRaX79Q",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_forest_oecd": {
+  "video_id": "m8nbKxbkkrc",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_vein_aoi": {
+  "video_id": "SdalO8INdc4",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_sunrise_osoi": {
+  "video_id": "iNvoawlbykU",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_rice_nenn": {
+  "video_id": "XRvnqrUwlA8",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_oceanblue_iro": {
+  "video_id": "deiRCiNrCIM",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_magnitude_shindo": {
+  "video_id": "p2VOnAwECAE",
+  "privacy": "private",
+  "via": "studio",
+  "superseded": []
+ },
+ "short_solo_news_kanto_rain": {
+  "video_id": "EwAkqy257pY",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_news_spain": {
+  "video_id": "aCor0vsvA2Y",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_news_shohizei": {
+  "video_id": "1kuVX1m-tgI",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_solo_news_arara": {
+  "video_id": "WnuginQ3rHQ",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
+ },
+ "short_shodo_heritage": {
+  "video_id": "8D0TWxHM6ko",
+  "privacy": "public",
+  "via": "api+studio",
+  "superseded": [],
+  "deleted": []
  }
 }
