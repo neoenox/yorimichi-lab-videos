@@ -32,6 +32,7 @@ CI（`.github/workflows/shorts-standard.yml`）が `shorts/**/result.json` を�
 
 制作・検証で分かったことは、**その場で文書に書いてコミット**してください。チャットや記憶に残さない。
 
+- **入口**: [`docs/KNOWHOW.md`](docs/KNOWHOW.md)（何がどこに書いてあるかの索引。まずこれを更新する）
 - 追記先: `docs/SHORTS_PRODUCTION_NOTES.md`（Shorts の実測ノウハウ）、`docs/SHORTS_STANDARD_INTEGRATION.md`（標準との統合・差分）、`docs/VIDEO_PRODUCTION_RUNBOOK.md`（長尺の手順）
 - 書く内容: 実際に試して分かった制約、失敗した症状と原因と対処、使ったコマンド、出典URLと利用条件、確認した範囲と未確認の範囲
 - 書かない内容: 推測、未検証の数値、再現できない手順
