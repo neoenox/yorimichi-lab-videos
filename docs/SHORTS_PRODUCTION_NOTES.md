@@ -173,3 +173,35 @@ bsk session stop research
 - 画面の VOM には過去のチャット履歴（個人的な話題）も含まれる。作業ログや PR に貼らない
 - 回答は `source_type: ai_assistant` で記録し、可能なら同じ主張を `primary` でも裏取りする
 
+## 10. 画像生成の自動化（ChatGPT web・2026-11-05 実測）
+
+背景画像を AI 生成にしたいときの自動化。`scripts/chatgpt_image.py` が bsk 経由で操作する。
+
+```bash
+python scripts/chatgpt_image.py --prompt "縦長9:16、濃紺の背景に筆と硯、文字なし" \
+  --out assets/<slug>/gen_base.png --timeout 300
+python scripts/chatgpt_image.py --reuse-last --prompt x --out ...   # 生成済みチャットから取得だけ
+```
+
+### 動くところ / 動かないところ（実測）
+
+| 工程 | 状態 | 補足 |
+| --- | --- | --- |
+| セッション開始・最大化 | 動く | `bsk session start --browser <id> --width 1600 --height 1000 --focus` |
+| プロンプト送信 | 動く（要検証） | `https://chatgpt.com/?q=<urlencoded>` で入力欄を埋め、「送信」を click。**click が弾かれることがある**ので、送信後に VOM で「あなたの発言」を確認し、無ければ1回だけ再クリックする |
+| 生成 | 動く | 90〜150秒。VOM に「画像を作成中 32%」等が出る |
+| ダウンロード | **未解決** | 生成後 `cooperate sync` が `unchanged`（observation を返さない）ままになることがあり、「ダウンロード」ボタンの ref を取れない |
+
+### 分かった制約
+
+- `bsk cooperate sync` は**変更が無いと observation 本文を返さない**。ポーリングで待つと、生成完了後も古い本文のまま止まることがある
+- セッションは**約5分の idle で切れる**。長い待ちを挟むなら1回のスクリプト内で完結させる
+- 画面の VOM には**過去のチャット履歴（個人的な話題）が含まれる**。ログや PR に貼らない
+- 画像の権利・表記: 生成画像は「イメージ」と明記する（資料と混同させない）
+
+### 推奨（今後の自動化）
+
+1. **画像だけは API を使う**（`OPENAI_API_KEY` があれば `images.generate` で完結し、ブラウザ不要）。ブラウザ自動化は UI 変更に弱い
+2. ブラウザ経由を続けるなら、**ダウンロードは手動1クリック**にして、生成と保存先の用意だけ自動化する
+3. 生成した画像は `assets/<slug>/gen_base.png` に置けば、`scripts/make_shodo_heritage_assets.py` のような合成スクリプトが背景に取り込む（日付・出典・「AI生成」の注記を焼き込む）
+
