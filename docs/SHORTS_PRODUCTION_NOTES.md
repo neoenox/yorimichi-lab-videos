@@ -231,3 +231,30 @@ python scripts/gen_image_cdp.py --reuse --out assets/<slug>/gen_base.png
 - 生成は 30〜60秒程度。`--timeout` は 300 秒あれば十分
 - ログインはプロファイルに保持される（失効時のみ再ログイン）。未ログインを検知したら**明確に止まる**
 
+## 11. Studio の公開設定・字幕を CDP で操作（2026-11-05 実測で成功）
+
+API のクォータが尽きたときは、**自動化用 Chrome を Playwright で操作**すれば公開も字幕も通る（bsk より安定）。
+
+前提: `chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\Users\neoen\.chrome-automation` で起動し、
+そのウィンドウで **寄り道ラボ**（`UCN_do9fcssctmkrNsRWOO9A`）にログインしておく。
+
+```bash
+python scripts/studio_cdp.py check                                   # チャンネルIDの確認（違えば停止）
+python scripts/studio_cdp.py publish --video-id <ID>                 # 公開に変更
+python scripts/studio_cdp.py captions --video-id <ID> --srt upload/<pack>/subtitles_ja.srt
+```
+
+### 実測で分かった DOM の要点
+
+| 操作 | セレクタ/手順 |
+| --- | --- |
+| 公開設定を開く | `ytcp-icon-button#select-button`（**同じ id が4つある**ので `ytcp-icon-button` で限定する） |
+| 公開を選ぶ | `get_by_role('radio', name='公開', exact=True).check()` |
+| ダイアログを閉じる | `get_by_role('button', name='完了')` |
+| 保存 | `get_by_role('button', name='保存')`（ページ右上。`完了` の後なら有効） |
+| 字幕アップロード | 「手動でアップロード」→ `expect_file_chooser` で「続行」→ `set_files(srt)` → 「字幕を編集」→「公開」 |
+
+- 公開すると `#visibility-text` が「公開」になり、`https://www.youtube.com/oembed?...` が **200** を返す（非公開なら 403）。これが最速の確認方法
+- bsk（拡張機能経由）は同じ操作でクリックが弾かれる／ラベルが文字化けする。**Studio は CDP 方式を使う**
+- チャンネル取り違え防止のため、`studio_cdp.py` は最初に URL のチャンネルIDを検証し、違えば何もせず終了する
+
