@@ -128,6 +128,10 @@ def build_generated():
     photo = ImageEnhance.Brightness(photo).enhance(0.52)
     im.paste(photo, (0, 0))
     d = ImageDraw.Draw(im, 'RGBA')
+    # 字幕パネルの下になる下半分を追加で暗くする（明るい紙の上でも文字が読めるように）
+    for yy in range(1150, H):
+        k = (yy - 1150) / (H - 1150)
+        d.line([(0, yy), (W, yy)], fill=(4, 12, 20, int(200 * (k ** 0.8))))
     d.text((W // 2, 452), '2026.11.05 ・ イメージ：AI生成（資料の複製ではありません）',
            font=font(24, 500), fill=DIM + (215,), anchor='mm')
     date_chip(d)
