@@ -14,7 +14,7 @@
    "text": "書道が、世界の遺産になる？",
    "big": "書道が世界遺産に？",
    "sub": "",
-   "art": "assets/shodo_heritage/bg_ink.png"
+   "art": "assets/shodo_heritage/bg_gen.png"
   },
   {
    "text": "ユネスコの評価機関が、登録を勧告しました。",
@@ -32,7 +32,7 @@
    "text": "無形文化遺産は、建物ではなく、人の技や慣習を守る仕組みです。",
    "big": "守るのは人の技",
    "sub": "",
-   "art": "assets/shodo_heritage/bg_ink.png"
+   "art": "assets/shodo_heritage/bg_gen.png"
   },
   {
    "text": "勧告のあと、政府間委員会が開かれ、正式に決まります。",
@@ -44,13 +44,13 @@
    "text": "登録はゴールではなく、次世代へ伝える仕組みです。",
    "big": "登録はゴールでない",
    "sub": "",
-   "art": "assets/shodo_heritage/bg_ink.png"
+   "art": "assets/shodo_heritage/bg_gen.png"
   },
   {
    "text": "書道のように、暮らしに根づいた技が対象になります。",
    "big": "暮らしの技が対象",
    "sub": "",
-   "art": "assets/shodo_heritage/bg_ink.png"
+   "art": "assets/shodo_heritage/bg_gen.png"
   }
  ],
  "cta": false,
@@ -78,5 +78,5 @@
   }
  ],
  "needs_research": [],
- "credit": "・背景：模式図（scripts/make_shodo_heritage_assets.py で作成）"
+ "credit": "・背景：AI生成画像／模式図（scripts/make_shodo_heritage_assets.py）"
 }
