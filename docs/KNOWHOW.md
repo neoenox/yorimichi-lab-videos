@@ -39,7 +39,10 @@
 - 画面の安全領域: タイトル y≈200（**全角18文字まで**）／大テロップ y≈520／字幕 1470–1540／注記は 1556 以降
 - 背景は **シーンごとに変える**（`art_map.json`）。同じ絵が続くと単調
 - 明るい画像の上に字幕を置くときは、**下半分に暗幕**を入れる（入れないと読めない）
-- **TikTok 向けの制作は 2026-11-08 に廃止**。`data/short_tiktok_*.json`、`docs/TIKTOK_*.md`、`scripts/{check_tiktok,tiktok_launch_audit,tiktok_post}.py`、`out/short_tiktok_*`、`assets/*/tiktok/` は削除済み（必要になったら git 履歴から戻す）
+- **TikTok 向けの制作は継続**（15本を 11/04〜12/07 に投稿予定）。手順：`python scripts/check_tiktok.py` → `python scripts/tiktok_launch_audit.py` → `out/TIKTOK_LAUNCH_SHEET.md` を見てアプリで投稿 → `python scripts/tiktok_post.py <slug>` のキャプション・固定コメントを貼る
+  - 描画は `python scripts/make_short2.py tiktok_<slug>`（spec は `data/short_tiktok_<slug>.json`、`platform: tiktok` でエンドカードとキャプションが切り替わる）
+  - **2026-11-08 に一度削除→復元した**。git 管理の spec・スクリプト・手順書は `git revert` で戻ったが、**mp4 と `assets/<slug>/tiktok/bg_*.png` は git 管理外で戻らず、再描画した**
+  - 再描画時の背景は、元画像（`aerial_1936.png` / `relief.png` / `fillmap_N.png`）のコピーで代用した：hibiya の `bg_base`/`bg_stage1`/`bg_stage3`、ginza の `bg_base`/`bg_relief`、fukagawa の `bg_base`/`bg_kiba`/`bg_relief`、shibuya の `bg_1936`/`bg_relief`/`bg_1961`/`bg_now`。**元のトリミングとは見た目が違う可能性がある**
 
 ### 根拠
 - claims は `source_type: primary`（一次資料URL必須）か `ai_assistant`（AI回答可・WARN が出る）
