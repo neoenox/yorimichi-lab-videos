@@ -68,6 +68,11 @@
   - `out/*_narration.wav` / `out/*_bgm.wav` は描画時に毎回作り直される中間ファイル。描画後に読むスクリプトは無い
   - 例外：`scripts/build_earth_film.py` / `build_youtube_trial.py` は `out/earth_narration.wav` / `out/trial_narration.wav` を入力にするので、その2本を作り直すときは先に wav を再生成する
   - `out/_archive/superseded_renders/` は置き換え済みの旧版。コードからの参照ゼロを確認して削除した（4.4GB）
+- **レビュー用の派生物も削除してよい**（2026-11-08 実施、計 3.9GB）。
+  - 削除：`out/*_watch/*.png`（フレーム確認用。`audio_report.txt` などのテキストは残す）、`out/*_review/`、`out/*_pv/`、`out/cs*`（コンタクトシート）、`out/qa_tiktok/`、モデル比較の `*_video.mp4`、`upload/80_ginza_*_candidate` などの候補 mp4、`out/ginza_*_work/` の `cache/` と `out/*.mp4`
+  - 残す：`out/ginza_*_work/scripts`・`data`・`assets`（`scripts/make_spec_ginza.py` が `out/ginza_remaster_work/assets/ginza_street/*.jpg` を参照）、`out/codex/`（`docs/` から参照）
+  - 残す：`out/short_tiktok_*.mp4`、`out/short_mikatagahara.mp4`、`out/short_solo_news_tohoku.mp4`（台帳にキーが無く、アップロード済みか確認できない）
+  - `docs/` には `out/oke_review/sheet_*.png` のような**削除済みパスへの記述が残る**（当時の確認記録なので書き換えない）
 
 ## 4. 直近の実例（時系列）
 
