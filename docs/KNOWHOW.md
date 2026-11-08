@@ -64,6 +64,10 @@
   - 対象は `out/<key>.mp4`、`upload/<key>/video.mp4`、および `scripts/make_upload_pack.py` の対応表にある長尺の元ファイル（`out/gm_video.mp4` など）
   - 台帳にキーが無いもの（`out/short_tiktok_*`、`80_ginza_*_candidate`、モデル比較の `*_video.mp4`）は消さない
   - 再生成は `scripts/make_spec_*.py` → `scripts/vp.py` / `scripts/make_short2.py`。元の台本・素材（`docs/themes/`、`assets/`、`data/*_spec.json`）は残す
+- **中間音声（`out/*.wav`）と旧版レンダー（`out/_archive/`）も削除してよい**（2026-11-08）。
+  - `out/*_narration.wav` / `out/*_bgm.wav` は描画時に毎回作り直される中間ファイル。描画後に読むスクリプトは無い
+  - 例外：`scripts/build_earth_film.py` / `build_youtube_trial.py` は `out/earth_narration.wav` / `out/trial_narration.wav` を入力にするので、その2本を作り直すときは先に wav を再生成する
+  - `out/_archive/superseded_renders/` は置き換え済みの旧版。コードからの参照ゼロを確認して削除した（4.4GB）
 
 ## 4. 直近の実例（時系列）
 
