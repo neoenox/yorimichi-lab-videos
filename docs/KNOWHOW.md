@@ -60,6 +60,10 @@
 ### 記録
 - 失敗したら「症状 → 原因 → 対処」を [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) に追記する
 - 再現できる粒度で書く（URL形式、切り出し比率、セレクタ、コマンド）
+- **アップロード済みの動画はローカルから消す**（2026-11-08 実施）。台帳は `data/youtube_ids.json`（全キーに `video_id` がある）
+  - 対象は `out/<key>.mp4`、`upload/<key>/video.mp4`、および `scripts/make_upload_pack.py` の対応表にある長尺の元ファイル（`out/gm_video.mp4` など）
+  - 台帳にキーが無いもの（`out/short_tiktok_*`、`80_ginza_*_candidate`、モデル比較の `*_video.mp4`）は消さない
+  - 再生成は `scripts/make_spec_*.py` → `scripts/vp.py` / `scripts/make_short2.py`。元の台本・素材（`docs/themes/`、`assets/`、`data/*_spec.json`）は残す
 
 ## 4. 直近の実例（時系列）
 
