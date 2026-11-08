@@ -3,6 +3,7 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit
 R = Path(__file__).resolve().parents[1]
 spec = dict(slug='moon', theme_dir='20261030_moon', pack='15_moon_rotation', header_sub='月の自転をNASAの解説で確かめる',
  images={},
@@ -55,20 +56,6 @@ spec = dict(slug='moon', theme_dir='20261030_moon', pack='15_moon_rotation', hea
   tags='月, 自転, 公転, 潮汐ロック, 月の裏側, NASA, 科学, 宇宙, 雑学, 検証',
   checks=['NASA Science「Moon Facts」「Tidal Locking」の原文を、公開前にもう一度開いて確認する(`docs/themes/20261030_moon/08_fact_check.md`)', '周期の小数(27.3日など)を言うなら、別の公式資料(NASA Moon Fact Sheet・国立天文台)で確認する']),
  thumb=dict(bg='assets/moon/thumb_art.png', lines=[['月は', 120, 'white'], ['自転して', 100, 'white'], ['いない？', 130, 'gold']], sub='NASAの解説で確かめる', shade_col=[22,12,52], accent=[130,225,255], bar_col=[130,225,255], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

@@ -3,6 +3,7 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject, inject2
+from spec_common import _fit
 R = Path(__file__).resolve().parents[1]
 NOTE = 'イメージ（生成画像）。実際の場面の再現ではありません'
 spec = dict(slug='rain30', theme_dir='20261029_rain30', pack='14_rain_probability', header_sub='降水確率の意味を気象庁の解説で確かめる',
@@ -55,20 +56,6 @@ spec = dict(slug='rain30', theme_dir='20261029_rain30', pack='14_rain_probabilit
   tags='降水確率, 天気予報, 気象庁, 降水量, 1ミリ, 検証, 天気, 科学, 雑学',
   checks=['気象庁の各ページの原文を、公開前にもう一度開いて確認する(`docs/themes/20261029_rain30/08_fact_check.md`)', '模式図が実測と誤解されないか(画面の注記)を、通し視聴で確認する']),
  thumb=dict(bg='assets/rain30/thumb_art.png', lines=[['降水確率30%', 90, 'white'], ['地域の30%に', 90, 'white'], ['降る？', 140, 'gold']], sub='気象庁の解説で確かめる', shade_col=[6,38,46], accent=[130,250,205], bar_col=[130,250,205], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
-
 
 _fit(spec)
 inject(spec, dict(intro='intro', **{'def': 'def'}, meaning='meaning', amount='amount', verify='verify', end='end'))

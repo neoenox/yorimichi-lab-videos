@@ -3,8 +3,8 @@ import json, shutil, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import TOP
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 # サムネイル用の絵を、終章の背景にも使う（art_<name>.png の名前にそろえる）
 _src = R / 'assets' / 'akashi' / 'thumb_art.png'; _dst = R / 'assets' / 'akashi' / 'art_clockglobe.png'
 if _src.exists() and not _dst.exists(): shutil.copy(_src, _dst)

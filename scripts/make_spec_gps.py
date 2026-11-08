@@ -3,8 +3,8 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import TOP
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 import shutil
 _src = R / 'assets' / 'gps' / 'thumb_art.png'; _dst = R / 'assets' / 'gps' / 'art_finale.png'
 if _src.exists() and not _dst.exists(): shutil.copy(_src, _dst)

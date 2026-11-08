@@ -4,9 +4,9 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import TOP
 import nagashino_maps as NM
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 BOX = [60, 250, 1860, 850]
 BLUE = (90, 150, 255); RED = (238, 96, 84); GRN = (110, 214, 140); GOLD = (239, 201, 118); WATER = (130, 195, 255)
 CROPS = json.loads((R / 'data' / 'nagashino_crops.json').read_text(encoding='utf8'))

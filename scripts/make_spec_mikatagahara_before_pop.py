@@ -5,9 +5,9 @@
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import _starts, TOP
 import mikatagahara_maps as MM
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 BOX = [60, 250, 1860, 850]
 BLUE = (90, 150, 255); RED = (238, 96, 84); GRN = (110, 214, 140); GOLD = (239, 201, 118); WATER = (130, 195, 255)
 NC = json.loads((R / 'data' / 'nagashino_crops.json').read_text(encoding='utf8'))
@@ -185,22 +185,6 @@ images = dict(
     ravine=dict(file='assets/mikatagahara/art_ravine.png'), castle=dict(file='assets/mikatagahara/art_castle.png'))
 
 
-def _line_to_sentence_starts():
-    import re
-    t = (R / 'docs' / 'themes' / '20261128_mikatagahara' / '09_script_v2.md').read_text(encoding='utf8')
-    out = []
-    for c in re.split(r'\n## ', t)[1:]:
-        if not re.match(r'章(\d+)　', c.split('\n')[0]): continue
-        starts, n = [], 0
-        for l in c.split('\n'):
-            if re.match(r'^\d+\. ', l):
-                body = re.sub(r'〔[^〕]*〕', '', re.sub(r'^\d+\. ', '', l)).strip()
-                starts.append(n); n += len([x for x in body.split('。') if x.strip()])
-        starts.append(n)
-        out.append(starts)
-    return out
-
-
 def _remap(o, st):
     f = lambda i: None if i is None else st[min(i, len(st) - 1)]
     if isinstance(o, dict):
@@ -212,7 +196,7 @@ def _remap(o, st):
         for v in o: _remap(v, st)
 
 
-_S = _line_to_sentence_starts()
+_S = _starts('20261128_mikatagahara')
 assert len(_S) == len(chapters), (len(_S), len(chapters))
 for _ch, _st in zip(chapters, _S):
     _remap(_ch['scene'], _st)

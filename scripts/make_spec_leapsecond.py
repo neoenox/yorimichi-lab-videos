@@ -3,8 +3,8 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit, TOP
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 spec = dict(slug='leapsecond', theme_dir='20261105_leapsecond', pack='19_leap_second', header_sub='うるう秒を入れた理由とやめる理由を、資料で確かめる',
  images={},
  bgm=[['intro', 'why_in', 'piano36'], ['why_out', 'change', 'piano12'], ['end', 'end', 'piano40']],
@@ -53,20 +53,6 @@ spec = dict(slug='leapsecond', theme_dir='20261105_leapsecond', pack='19_leap_se
   tags='うるう秒, 協定世界時, 国際度量衡総会, 時刻, 原子時計, 日本標準時, 総務省, 科学, 雑学, 検証',
   checks=['BIPMの決議5の原文を、公開前にもう一度開いて確認する(`docs/themes/20261105_leapsecond/08_fact_check.md`)', '決議の採択日がページに出ているか確認する(出ていれば説明に足せる)', '2017年以降にうるう秒が入ったか、入っていないかは未確認(動画では言っていない)']),
  thumb=dict(bg='assets/leapsecond/thumb_art.png', lines=[['うるう秒', 140, 'white'], ['なぜやめる？', 100, 'gold']], sub='総務省・国際度量衡総会の資料で', shade_col=[14, 30, 60], accent=[170, 200, 255], bar_col=[170, 200, 255], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

@@ -3,8 +3,8 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit, TOP
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 spec = dict(slug='oceanblue', theme_dir='20261110_oceanblue', pack='22_ocean_blue', header_sub='海の色を、NOAAとウッズホール海洋研究所の解説で確かめる',
  images={},
  bgm=[['intro', 'light', 'piano36'], ['colors', 'colors', 'piano12'], ['end', 'end', 'piano40']],
@@ -58,20 +58,6 @@ spec = dict(slug='oceanblue', theme_dir='20261110_oceanblue', pack='22_ocean_blu
   tags='海, 海の色, 青, 水, 光, 吸収, 散乱, NOAA, 科学, 雑学, 検証',
   checks=['NOAAとWHOIの原文を、公開前にもう一度開いて確認する(`docs/themes/20261110_oceanblue/08_fact_check.md`)', 'WHOIの「浅い砂底」の説明の前提(水の澄み具合)を原文で確認する']),
  thumb=dict(bg='assets/oceanblue/thumb_art.png', lines=[['海が青いのは', 90, 'white'], ['空が映って', 90, 'white'], ['いるから？', 120, 'gold']], sub='NOAAとWHOIの解説で確かめる', shade_col=[6, 30, 60], accent=[120, 215, 255], bar_col=[120, 215, 255], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

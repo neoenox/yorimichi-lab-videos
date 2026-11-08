@@ -1,5 +1,13 @@
 """make_spec_<slug>.py の共通部分。台本（09_script_v2.md）の行番号 at/until を文の番号に直し、画面の枠を調整し、背景イラストを差し込んで spec を書く。
-usage（各 make_spec_*.py の末尾）: from spec_common import finalize; finalize(spec, ART)"""
+
+ここが唯一の定義元。各 make_spec_*.py は同じ処理をコピーせず、ここから import する。
+- TOP        … 標準の画面枠 [60, 170, 1860, 235]
+- _starts(t) … 台本の章ごとの「行の先頭が何文目か」を返す
+- _fit(o)    … panel の文字サイズ・枠を詰める
+- _remap(o, st) … at/until/title_at/at2 の行番号を文の番号へ直す
+- finalize(spec, art, art2=None) … 上記をまとめて適用し data/<slug>_spec.json を書く
+usage（各 make_spec_*.py の末尾）: from spec_common import finalize; finalize(spec, ART)
+"""
 import json, re, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))

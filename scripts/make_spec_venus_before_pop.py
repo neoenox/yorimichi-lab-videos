@@ -3,8 +3,8 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit, TOP
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 spec = dict(slug='venus', theme_dir='20261108_venus', pack='21_venus_day', header_sub='金星の自転と公転を、NASAの表で確かめる',
  images={},
  bgm=[['intro', 'sun', 'piano36'], ['why', 'why', 'piano12'], ['end', 'end', 'piano40']],
@@ -63,20 +63,6 @@ spec = dict(slug='venus', theme_dir='20261108_venus', pack='21_venus_day', heade
   tags='金星, 自転, 公転, 1日, 1年, NASA, 太陽系, 天文, 雑学, 検証',
   checks=['NASAのファクトシートとNotesの原文を、公開前にもう一度開いて確認する(`docs/themes/20261108_venus/08_fact_check.md`)', '「天王星の自転周期にもマイナスが付く」の根拠(NASAの天王星の表)を開き直して確認する']),
  thumb=dict(bg='assets/venus/thumb_art.png', lines=[['金星の一日は', 90, 'white'], ['一年より', 100, 'white'], ['長い？', 150, 'gold']], sub='NASAの表で確かめる', shade_col=[8, 46, 52], accent=[255, 190, 110], bar_col=[255, 190, 110], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

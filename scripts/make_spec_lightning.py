@@ -1,9 +1,11 @@
 """Writes data/lightning_spec.json（雷）。台本：docs/themes/20261119_forest/09_script_v2.md
 文の番号（at）は `python scripts/vp.py forest sents` の番号。図は棒グラフ（自作）のみ。"""
 import json
+import sys
 from pathlib import Path
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import TOP
 
 
 def pn(text, at, until=None, size=40, hi=True, col=None, box=TOP):

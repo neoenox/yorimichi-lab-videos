@@ -24,8 +24,15 @@
 | `scripts/pack_short.py` | 投稿パック作成（`--tags=` で単独 Shorts も可） | 2026-11-04 |
 | `scripts/main_push_textonly.py` | 素材を含めずに main を更新（`--path` で範囲限定） | 2026-11-04 |
 | `scripts/install_git_hooks.py` | pre-push（素材の push 防止）/ pre-commit（Shorts 検査） | 2026-11-04 |
+| `scripts/spec_common.py` | `make_spec_*.py` の共通部品（`TOP`／`_starts`／`_fit`／`_remap`／`finalize`）。**ここが唯一の定義元** | 2026-11-08 |
 
 ## 3. これだけは覚えておく（要点）
+
+### コード
+- `scripts/` は 300 本以上の単発スクリプトが平坦に並ぶ。**共通部品は `spec_common.py`（spec 生成）／`specart.py`（画像差し込み）／`vp.py`（描画）** に寄せる
+- `make_spec_*.py` は「データ（台本の行番号と画面要素）」だけを書き、`TOP`・`_starts`・`_fit`・`_remap` は `spec_common` から import する（コピーしない）
+- `scripts/*_before_*.py` は過去のスナップショット。**現行版ではない**ので、動かす前に `vp.py` / `make_spec_<slug>.py` のどれが現行か確認する
+- `data/*_spec.json` は生成物だが、スクリプトが古いと**古い形式で上書きされる**。生成し直す前に `git diff data/` を見る
 
 ### 制作
 - Shorts は **brief → result.json → check → to-spec → 描画**。`needs_review` のままでは `to-spec` が通らない

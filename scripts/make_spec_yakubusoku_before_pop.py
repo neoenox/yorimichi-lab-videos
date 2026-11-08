@@ -3,6 +3,7 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit
 R = Path(__file__).resolve().parents[1]
 spec = dict(slug='yakubusoku', theme_dir='20261103_yakubusoku', pack='18_yakubusoku_meaning', header_sub='「役不足」の意味を文化庁の調査で確かめる',
  images={},
@@ -49,20 +50,6 @@ spec = dict(slug='yakubusoku', theme_dir='20261103_yakubusoku', pack='18_yakubus
   tags='役不足, 力不足, 言葉, 日本語, 誤用, 文化庁, 国語に関する世論調査, 雑学, 検証',
   checks=['文化庁の平成14・18年度の原文を、公開前にもう一度開いて確認する(`docs/themes/20261103_yakubusoku/08_fact_check.md`)', '令和年度の調査に「役不足」が含まれるか、文化庁の報告書で確認する(確認できれば最新の数字を足す)']),
  thumb=dict(bg='assets/yakubusoku/thumb_art.png', lines=[['役不足', 150, 'white'], ['逆の意味？', 105, 'gold']], sub='文化庁の調査で確かめる', shade_col=[58,10,16], accent=[255,205,90], bar_col=[255,255,255], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

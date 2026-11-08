@@ -3,6 +3,7 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit
 R = Path(__file__).resolve().parents[1]
 spec = dict(slug='magnitude', theme_dir='20261101_magnitude', pack='17_magnitude_energy', header_sub='マグニチュードと震度を気象庁の解説で確かめる',
  images={},
@@ -55,20 +56,6 @@ spec = dict(slug='magnitude', theme_dir='20261101_magnitude', pack='17_magnitude
   tags='マグニチュード, 震度, 地震, エネルギー, 32倍, 気象庁, 防災, 科学, 雑学, 検証',
   checks=['気象庁の原文を、公開前にもう一度開いて確認する(`docs/themes/20261101_magnitude/08_fact_check.md`)', '「震源から離れた場所の震度は小さくなることがある」の根拠を、気象庁の資料で確認する(ChatGPTは同ページに記載ありと述べたが、こちらは未確認)']),
  thumb=dict(bg='assets/magnitude/thumb_art.png', lines=[['M+1で', 130, 'white'], ['10倍強？', 130, 'gold']], sub='気象庁の解説で確かめる', shade_col=[48,16,6], accent=[255,150,70], bar_col=[255,150,70], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

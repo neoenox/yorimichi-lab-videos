@@ -3,8 +3,8 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import TOP
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 spec = dict(slug='rice', theme_dir='20261031_rice', pack='23_rice', header_sub='お米の供給量を、農林水産省の食料需給表で確かめる',
  images={},
  bgm=[['intro', 'recent', 'piano36'], ['what', 'trend', 'piano12'], ['end', 'end', 'piano40']],

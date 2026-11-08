@@ -5,9 +5,9 @@
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from spec_common import _starts, TOP
 import shizugatake_maps as SM
 R = Path(__file__).resolve().parents[1]
-TOP = [60, 170, 1860, 235]
 BOX = [60, 250, 1860, 850]
 BLUE = (90, 150, 255); RED = (238, 96, 84); GRN = (110, 214, 140); GOLD = (239, 201, 118); WATER = (130, 195, 255)
 CY = json.loads((R / 'data' / 'yamazaki_crops.json').read_text(encoding='utf8'))
@@ -218,24 +218,6 @@ images = dict(
     docs=dict(file='assets/shizugatake/art_docs.png'), dusk=dict(file='assets/shizugatake/art_dusk.png'))
 
 
-def _line_to_sentence_starts():
-    """台本の番号つきの行（1行に複数の文があることがある）→ 各行の最初の文の番号（vp.py の sentences と同じく「。」で区切る）。
-    この spec の at / until / legs / title_at は『行の番号（0始まり）』で書き、ここで文の番号に直す。"""
-    import re
-    t = (R / 'docs' / 'themes' / '20261219_shizugatake' / '09_script_v2.md').read_text(encoding='utf8')
-    out = []
-    for c in re.split(r'\n## ', t)[1:]:
-        if not re.match(r'章(\d+)　', c.split('\n')[0]): continue
-        starts, n = [], 0
-        for l in c.split('\n'):
-            if re.match(r'^\d+\. ', l):
-                body = re.sub(r'〔[^〕]*〕', '', re.sub(r'^\d+\. ', '', l)).strip()
-                starts.append(n); n += len([x for x in body.split('。') if x.strip()])
-        starts.append(n)
-        out.append(starts)
-    return out
-
-
 def _remap(o, st, drop=()):
     sh = lambda i: i - sum(1 for d in drop if d < i)
     f = lambda i: None if i is None else st[min(sh(i), len(st) - 1)]
@@ -248,7 +230,7 @@ def _remap(o, st, drop=()):
         for v in o: _remap(v, st, drop)
 
 
-_S = _line_to_sentence_starts()
+_S = _starts('20261219_shizugatake')
 assert len(_S) == len(chapters), (len(_S), len(chapters))
 for _ch, _st in zip(chapters, _S):
     _remap(_ch['scene'], _st, DROP.get(_ch['key'], ()))
