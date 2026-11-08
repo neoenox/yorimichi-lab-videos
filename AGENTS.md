@@ -12,6 +12,8 @@
 
 YouTube Shorts を新規作成・改訂するときは、作業前に `shorts-standard/README.md` と `shorts-standard/PROMPT.md` を全文読んでください。`shorts-standard/output.schema.json` が納品形式、`shorts-standard/validate.py` が形式検査です。**この標準のルールを勝手に緩めないでください。** 緩和が必要だと判断したら、変更せずに理由を報告してユーザーの判断を仰ぎます。
 
+> 2026-11-04 のオーナー判断で **v1.1** に改訂済み: `claims.source_type` に `ai_assistant` を許す（AI アシスタントの回答を根拠にしてよい）。詳細は `shorts-standard/CHANGELOG.md`。`primary` は従来どおり一次資料の URL が必要。
+
 手順:
 
 1. `python scripts/shorts_standard.py new <slug> --topic "題材"` で `shorts/<slug>/brief.yaml` を作る。
@@ -25,3 +27,14 @@ YouTube Shorts を新規作成・改訂するときは、作業前に `shorts-st
 9. 既存の動画・台本・素材・レンダラ（`scripts/make_short2.py` など）を勝手に削除・上書きしない。試作は別名で作る。
 
 CI（`.github/workflows/shorts-standard.yml`）が `shorts/**/result.json` を検査し、`tests/test_shorts_standard.py` が標準ルールの緩和を検知します。
+
+## ノウハウは必ず git に残す
+
+制作・検証で分かったことは、**その場で文書に書いてコミット**してください。チャットや記憶に残さない。
+
+- **入口**: [`docs/KNOWHOW.md`](docs/KNOWHOW.md)（何がどこに書いてあるかの索引。まずこれを更新する）
+- 追記先: `docs/SHORTS_PRODUCTION_NOTES.md`（Shorts の実測ノウハウ）、`docs/SHORTS_STANDARD_INTEGRATION.md`（標準との統合・差分）、`docs/VIDEO_PRODUCTION_RUNBOOK.md`（長尺の手順）
+- 書く内容: 実際に試して分かった制約、失敗した症状と原因と対処、使ったコマンド、出典URLと利用条件、確認した範囲と未確認の範囲
+- 書かない内容: 推測、未検証の数値、再現できない手順
+- コマンドや切り出し比率などは、後から同じ結果を再現できる粒度で書く（例: IIIF の URL 形式、画像の切り出し比率、ffprobe の確認項目）
+- 知見が増えたら、次に作業するエージェントが最初に読む文書（この AGENTS.md・上記2文書）から辿れるようにする

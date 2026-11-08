@@ -74,6 +74,33 @@ class CheckTests(unittest.TestCase):
         self.assertTrue(ok, [m for lv, m in issues if lv == 'ERROR'])
         self.assertEqual(errors(issues), [])
 
+    def test_ai_assistant_source_is_allowed_with_warning(self):
+        data = sample()
+        data['claims'].append({
+            'id': 'c_ai', 'statement': 'AI に確認した事実',
+            'source_type': 'ai_assistant',
+            'evidence_note': 'ChatGPT に「〇〇はいつか」と質問し「△△年」と回答を得た（2026-11-04）',
+        })
+        data['scenes'][1]['claim_ids'] = ['c_ai']
+        ok, issues = S.check_data(data)
+        self.assertTrue(ok, [m for lv, m in issues if lv == 'ERROR'])
+        self.assertTrue(any('AI アシスタント' in m for lv, m in issues if lv == 'WARN'))
+
+    def test_primary_requires_source_url(self):
+        data = sample()
+        data['claims'][0].pop('source_url', None)
+        data['claims'][0]['source_type'] = 'primary'
+        ok, issues = S.check_data(data)
+        self.assertTrue(any('source_url' in m for m in errors(issues)))
+
+    def test_ai_assistant_requires_evidence_note(self):
+        data = sample()
+        data['claims'][0] = {'id': 'c_ai', 'statement': 'x', 'source_type': 'ai_assistant',
+                             'evidence_note': ''}
+        data['scenes'][1]['claim_ids'] = ['c_ai']
+        ok, issues = S.check_data(data)
+        self.assertTrue(any('evidence_note' in m for m in errors(issues)))
+
     def test_gap_between_scenes_is_error(self):
         data = sample()
         data['scenes'][1]['start'] += 0.5
@@ -154,6 +181,57 @@ class ToSpecTests(unittest.TestCase):
         self.assertEqual(len(spec['refs']), len(data['claims']))
         self.assertTrue(spec['notes'])
         self.assertEqual(spec['status'], 'ready')
+
+    def test_art_map_sets_art_per_scene(self):
+        """art_map.json（シーン数と同じ長さ）で背景をシーン別に差し替えられる。"""
+        data = sample()
+        data['status'] = 'ready'
+        data['needs_research'] = []
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'ready.json'
+            src.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            out = Path(tmp) / 'spec.json'
+            amap = Path(tmp) / 'art_map.json'
+            arts = ['assets/u/a%d.png' % i for i in range(len(data['scenes']))]
+            amap.write_text(json.dumps(arts), encoding='utf-8')
+            p = run_cli('to-spec', str(src), '--slug', 'unit_test', '--out', str(out),
+                        '--pron', 'shorts/unit/pron.json', '--art-map', str(amap))
+            self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+            spec = json.loads(out.read_text(encoding='utf-8'))
+        self.assertEqual([s['art'] for s in spec['scenes']], arts)
+
+    def test_art_map_length_mismatch_is_rejected(self):
+        data = sample()
+        data['status'] = 'ready'
+        data['needs_research'] = []
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'ready.json'
+            src.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            amap = Path(tmp) / 'art_map.json'
+            amap.write_text(json.dumps(['assets/u/only.png']), encoding='utf-8')
+            p = run_cli('to-spec', str(src), '--slug', 'unit_test',
+                        '--out', str(Path(tmp) / 'spec.json'), '--art-map', str(amap))
+            self.assertNotEqual(p.returncode, 0)
+            self.assertIn('art_map', p.stdout + p.stderr)
+
+    def test_ai_assistant_claim_without_url_converts(self):
+        """source_url を持たない ai_assistant の claim でも to-spec が落ちない。"""
+        data = sample()
+        data['status'] = 'ready'
+        data['needs_research'] = []
+        data['claims'].append({'id': 'c_ai2', 'statement': 'AI に確認した事実',
+                               'source_type': 'ai_assistant',
+                               'evidence_note': 'ChatGPT に質問し回答を得た（2026-11-05）'})
+        data['scenes'][1]['claim_ids'] = ['c_ai2']
+        with tempfile.TemporaryDirectory() as tmp:
+            src = Path(tmp) / 'ready.json'
+            src.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            out = Path(tmp) / 'spec.json'
+            p = run_cli('to-spec', str(src), '--slug', 'unit_test', '--out', str(out),
+                        '--pron', 'shorts/unit/pron.json')
+            self.assertEqual(p.returncode, 0, p.stdout + p.stderr)
+            spec = json.loads(out.read_text(encoding='utf-8'))
+        self.assertTrue(any('AI アシスタント' in r for r in spec['refs']))
 
 
 if __name__ == '__main__':

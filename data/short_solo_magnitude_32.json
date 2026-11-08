@@ -1,0 +1,43 @@
+{
+ "title": "地震のエネルギー、10倍ずつ？",
+ "pron": "data/magnitude_pronunciations.json",
+ "art": "assets/magnitude/art_energy.png",
+ "hook": "マグニチュードが一つ大きくなると、地震のエネルギーは、十倍強になる。気象庁の解説で、確かめます。",
+ "notes": "■ 動画で確かめたこと\n・気象庁の解説では、マグニチュードの値が1大きくなると、エネルギーは約32倍になります。2大きくなると、約1000倍です。\n・約32倍を2回かけると、約1000です(自作の計算)。\n・つまり、エネルギーは「10倍強」ではなく、1大きくなるごとに、約32倍です。\n",
+ "answer": "1で約32倍、2で約1000倍",
+ "scenes": [
+  {
+   "text": "マグニチュードが一つ大きくなると、地震のエネルギーは、十倍強になる。そう思っていませんか。",
+   "big": "エネルギーは、10倍強？",
+   "art": "assets/magnitude/art_intro.png"
+  },
+  {
+   "text": "気象庁の解説では、マグニチュードが一つ大きくなると、エネルギーは、約三十二倍です。",
+   "big": "1大きいと、約32倍",
+   "src": "気象庁",
+   "art": "assets/magnitude/art_energy.png",
+   "col": "white"
+  },
+  {
+   "text": "二つ大きくなると、約千倍になります。",
+   "big": "2大きいと、約1000倍",
+   "src": "気象庁",
+   "art": "assets/magnitude/art_diff.png"
+  },
+  {
+   "text": "約三十二倍を、二回かけると、約千です。「十倍強」では、ありません。",
+   "big": "「10倍強」ではない",
+   "src": "自作の計算",
+   "art": "assets/magnitude/art_energy.png",
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true
+  }
+ ],
+ "long_id": "q18--lhsm_8",
+ "long_title": "17_magnitude_energy",
+ "nolong": true,
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+}

@@ -56,3 +56,7 @@ secrets/
 # ローカルツール（インストール物）
 .kilo/
 
+
+# ローカルツール・計測用
+.benchmarks/
+.freebuff/

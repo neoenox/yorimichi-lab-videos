@@ -138,8 +138,12 @@ def extra_checks(data, path=None):
     if len(claim_ids) != len(set(claim_ids)):
         issues.append(err('claims の id が重複している'))
     for c in claims:
+        kind = c.get('source_type', 'primary')
         url = (c.get('source_url') or '').strip()
-        if not re.match(r'https?://', url):
+        if kind == 'ai_assistant':
+            issues.append(warn('claim %s: AI アシスタントの回答を根拠にしている（一次資料での裏取りは未実施）'
+                               % c.get('id')))
+        elif not re.match(r'https?://', url):
             issues.append(err('claim %s: source_url が http(s) ではない' % c.get('id')))
         if len((c.get('evidence_note') or '').strip()) < 5:
             issues.append(err('claim %s: evidence_note が短すぎる（何を確認したか書く）' % c.get('id')))
@@ -203,15 +207,22 @@ def brief_check(path):
     return issues
 
 
-def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=None):
+def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=None, credit=None, art_map=None):
     """標準 JSON → 既存レンダラ（scripts/make_short2.py）の spec。"""
+    if art_map is None:
+        mp = ROOT / 'shorts' / slug / 'art_map.json'
+        if mp.exists():
+            art_map = json.loads(mp.read_text(encoding='utf-8'))
+    if art_map is not None and (not isinstance(art_map, list) or len(art_map) != len(data['scenes'])):
+        raise SystemExit('art_map はシーン数と同じ長さの配列にする（%d シーン）' % len(data['scenes']))
     src = ' '.join(s.get('narration') or '' for s in data['scenes'])
     for line in src.splitlines():
         if len(line) > 0 and not line.strip():
             raise SystemExit('narration に空行')
     claims = data.get('claims') or []
     notes = '\n'.join('・%s' % c['statement'] for c in claims)
-    refs = ['%s — %s' % (c['statement'], c['source_url']) for c in claims]
+    refs = ['%s — %s' % (c['statement'], c.get('source_url') or '（AI アシスタントの回答。一次資料のURLなし）')
+            for c in claims]
     spec = {
         'title': data['title'],
         'hook': data['hook'],
@@ -223,8 +234,8 @@ def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=
             'text': s['narration'],
             'big': (s.get('caption') or [''])[0],
             'sub': (s.get('caption') or ['', ''])[1] if len(s.get('caption') or []) > 1 else '',
-            'art': art or 'assets/%s/art.png' % slug,
-        } for s in data['scenes']],
+            'art': (art_map[i] if art_map and i < len(art_map) and art_map[i] else (art or 'assets/%s/art.png' % slug)),
+        } for i, s in enumerate(data['scenes'])],
         # 制作標準: 無意味な登録誘導は禁止 → 既定でCTAを付けない
         'cta': False,
         'status': data.get('status'),
@@ -235,6 +246,8 @@ def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=
         spec['long_id'] = long_id
     if long_title:
         spec['long_title'] = long_title
+    if credit:
+        spec['credit'] = credit
     dest = Path(out) if out else ROOT / 'shorts' / slug / 'short_spec.json'
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf-8')
@@ -291,7 +304,13 @@ def cmd_to_spec(args):
         print('  未確認: %s' % ', '.join(data.get('needs_research') or ['(needs_research が空)']))
         return 1
     slug = args.slug or Path(args.result).resolve().parent.name
-    dest, spec = to_spec(data, slug, args.art, args.pron, args.out, args.long_id, args.long_title)
+    art_map = None
+    if getattr(args, 'art_map', None):
+        art_map = load_json(args.art_map)
+        if not isinstance(art_map, list):
+            raise SystemExit('art_map は JSON 配列にしてください: %s' % args.art_map)
+    dest, spec = to_spec(data, slug, args.art, args.pron, args.out, args.long_id,
+                         args.long_title, args.credit, art_map)
     print('作成:', dest)
     print('  シーン %d / caption・art を確認し、python scripts/make_short2.py %s で描画（VOICEVOX 起動が必要）'
           % (len(spec['scenes']), slug))
@@ -344,6 +363,8 @@ def main():
     p.add_argument('--out')
     p.add_argument('--long-id')
     p.add_argument('--long-title')
+    p.add_argument('--credit', help='概要欄のクレジット行（素材の実態に合わせる）')
+    p.add_argument('--art-map', help='シーン別の背景リスト（JSON配列。シーン数と同じ長さ）')
     p.set_defaults(func=cmd_to_spec)
 
     p = sub.add_parser('list', help='shorts/ の制作状況')

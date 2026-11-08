@@ -1,0 +1,42 @@
+{
+ "title": "月の裏側は、ずっと暗い？",
+ "pron": "data/moon_pronunciations.json",
+ "art": "assets/moon/art_dark.png",
+ "hook": "地球から見えない月の裏側を、「暗い側」と呼ぶ人がいます。本当に、ずっと暗いのでしょうか。",
+ "notes": "■ 動画で確かめたこと\n・地球から見えない側を、「暗い側」と呼ぶ人もいます。\n・月では、時間とともに、日光が当たる場所と、暗くなる場所が入れ替わります。地球から見えない側も、ずっと暗いわけではありません(NASA Science『Moon Facts』)。\n・同じ面が地球に見え続けるのは、自転と公転の時間が同じだからです。\n",
+ "answer": "裏側にも、昼と夜がある",
+ "scenes": [
+  {
+   "text": "地球から見えない月の裏側を、「暗い側」と呼ぶ人がいます。",
+   "big": "月の裏側は、「暗い側」？",
+   "art": "assets/moon/art_dark.png"
+  },
+  {
+   "text": "ところが、月では、時間とともに、日光が当たる場所と、暗くなる場所が、入れ替わります。",
+   "big": "日光が当たる場所は、入れ替わる",
+   "src": "NASA Science",
+   "art": "assets/moon/art_motion.png",
+   "col": "white"
+  },
+  {
+   "text": "地球から見えない側も、ずっと暗いわけでは、ありません。",
+   "big": "裏側にも、昼と夜がある",
+   "src": "NASA Science",
+   "art": "assets/moon/art_why.png"
+  },
+  {
+   "text": "同じ面が見え続けるのは、自転と公転の時間が、同じだからです。",
+   "big": "同じ面が見えるのは、周期が同じだから",
+   "src": "NASA Science",
+   "art": "assets/moon/art_sync.png",
+   "col": "white"
+  },
+  {
+   "text": "くわしくは、長い動画で、確かめています。",
+   "end": true
+  }
+ ],
+ "long_id": "q8-ufW5IuA0",
+ "long_title": "月はいつも同じ面を見せる。自転していない？",
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）"
+}
