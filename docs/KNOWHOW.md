@@ -39,6 +39,7 @@
 - 画面の安全領域: タイトル y≈200（**全角18文字まで**）／大テロップ y≈520／字幕 1470–1540／注記は 1556 以降
 - 背景は **シーンごとに変える**（`art_map.json`）。同じ絵が続くと単調
 - 明るい画像の上に字幕を置くときは、**下半分に暗幕**を入れる（入れないと読めない）
+- **TikTok 向けの制作は 2026-11-08 に廃止**。`data/short_tiktok_*.json`、`docs/TIKTOK_*.md`、`scripts/{check_tiktok,tiktok_launch_audit,tiktok_post}.py`、`out/short_tiktok_*`、`assets/*/tiktok/` は削除済み（必要になったら git 履歴から戻す）
 
 ### 根拠
 - claims は `source_type: primary`（一次資料URL必須）か `ai_assistant`（AI回答可・WARN が出る）
