@@ -1,0 +1,47 @@
+{
+ "title": "鳥取の渇え殺し 米の買い占めは本当？",
+ "platform": "tiktok",
+ "bgm": "none",
+ "hook_card": false,
+ "pron": "data/tottori_pronunciations.json",
+ "art": "assets/tottori/art_mountain.png",
+ "hook": "鳥取城の戦いの、有名な話。「秀吉は、米を買い占めた」は、同時代の記録にあるのでしょうか。",
+ "notes": "■ 動画で確かめたこと\n・天正9年10月25日、鳥取城が開城しました。\n・『信長公記』は、秀吉の包囲の様子と、城内の飢え、降伏、開城後の死を書きます。米の買い占めは書いていません。\n・米の買い占めは、後世の『陰徳太平記』などが書くと解説されます。",
+ "refs": [
+  "『信長公記』（公開されている翻刻）",
+  "『陰徳太平記』（後世の書物）"
+ ],
+ "credit": "・画像：ChatGPT(OpenAI)による生成画像（イメージです。実際の場面・資料の再現ではありません）",
+ "hashtags": "#鳥取城 #豊臣秀吉 #戦国時代 #日本史 #歴史",
+ "scenes": [
+  {
+   "text": "鳥取城は飢えて開城しました。「鳥取の渇え殺し」です。",
+   "big": "鳥取の渇え殺し",
+   "sub": "1581年12月1日",
+   "art": "assets/tottori/art_mountain.png"
+  },
+  {
+   "text": "有名な話があります。秀吉は周りの米を買い占め、城を飢えさせた。",
+   "big": "「米の買い占め」",
+   "art": "assets/tottori/art_castle.png"
+  },
+  {
+   "text": "ところが、信長公記は米の買い占めを書いていません。",
+   "big": "『信長公記』には、ない",
+   "sub": "同時代に近い記録",
+   "art": "assets/tottori/art_docs.png"
+  },
+  {
+   "text": "米の話は、後世の『陰徳太平記』などが書くと解説されます。",
+   "big": "後世の書物",
+   "sub": "『陰徳太平記』など",
+   "art": "assets/tottori/art_docs.png"
+  },
+  {
+   "text": "同時代の記録と、後世の話は、分けて見ます。",
+   "end": true,
+   "art": "assets/tottori/art_mountain.png"
+  }
+ ],
+ "answer": "同時代の記録には、ない"
+}

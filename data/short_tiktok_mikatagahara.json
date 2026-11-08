@@ -1,0 +1,44 @@
+{
+ "title": "三方ヶ原 犀ヶ崖の夜襲は本当？",
+ "platform": "tiktok",
+ "bgm": "none",
+ "pron": "data/mikatagahara_pronunciations.json",
+ "art": "assets/mikatagahara/art_plateau.png",
+ "hook": "三方ヶ原の戦いの、有名な逸話。「犀ヶ崖の夜襲」と「空城の計」は、同時代の記録にあるのでしょうか。",
+ "notes": "■ 動画で確かめたこと\n・元亀3年12月22日、三方ヶ原で、武田信玄の軍が、徳川・織田の軍に勝ちました。\n・『信長公記』は、この戦いを短い一節で書き、犀ヶ崖の夜襲、城門を開けて湯漬けを食べた話には触れていません。\n・城門・湯漬け・高いびき・犀ヶ崖の話は、江戸時代後期に幕府が編纂した『東照宮御実紀』にあります。\n・犀ヶ崖の戦いは江戸幕府の編纂史料が初出で、同時代の史料にはない、という解説があります。",
+ "refs": [
+  "『信長公記』『東照宮御実紀』（公開されている翻刻）"
+ ],
+ "credit": "・画像：ChatGPT(OpenAI)による生成画像（イメージです。実際の場面・資料の再現ではありません）",
+ "hashtags": "#三方ヶ原 #徳川家康 #戦国時代 #日本史 #歴史",
+ "scenes": [
+  {
+   "text": "三方ヶ原で、家康は信玄に大敗しました。",
+   "big": "家康、大敗",
+   "sub": "1573年2月4日",
+   "art": "assets/mikatagahara/art_plateau.png"
+  },
+  {
+   "text": "家康は城門を開け、湯漬けを食べ、高いびきで寝た、といいます。",
+   "big": "「空城の計」",
+   "art": "assets/mikatagahara/art_castle.png"
+  },
+  {
+   "text": "その夜、犀ヶ崖で武田軍に夜襲をかけた、という話もあります。",
+   "big": "「犀ヶ崖の夜襲」",
+   "art": "assets/mikatagahara/art_ravine.png"
+  },
+  {
+   "text": "ところが、信長公記は、これらの話に触れていません。",
+   "big": "『信長公記』には、ない",
+   "sub": "同時代に近い記録",
+   "art": "assets/mikatagahara/art_docs.png"
+  },
+  {
+   "text": "城門や湯漬けの話は、江戸時代の『東照宮御実紀』にあります。",
+   "end": true,
+   "art": "assets/mikatagahara/art_docs.png"
+  }
+ ],
+ "answer": "同時代の記録には、ない"
+}

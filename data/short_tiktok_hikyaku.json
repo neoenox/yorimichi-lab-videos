@@ -1,0 +1,52 @@
+{
+ "title": "急ぎの飛脚は、並便の40倍？",
+ "long_title": "江戸の手紙は、大坂まで何日で届いた？ 飛脚の日数と値段を確かめる",
+ "pron": "data/hikyaku_pronunciations.json",
+ "art": "assets/hikyaku/art_intro.png",
+ "hook": "江戸の飛脚には、急ぎの便があったそうです。値段が、どれだけ違ったか、計算で確かめます。",
+ "notes": "■ 動画で確かめたこと\n・解説記事によると、町飛脚の「並便」は10日以内に届ける便で、料金は30文。最短5日ほどの便は1200文です(二次情報)。\n・1200÷30＝40倍です(自作の計算)。\n・料金の原典は確認していません。",
+ "answer": "約40倍の差（記事の数字）",
+ "scenes": [
+  {
+   "text": "江戸の飛脚には、急ぎの便が、あったそうです。",
+   "big": "急ぎの飛脚は、いくら？",
+   "art": "assets/hikyaku/art_intro.png"
+  },
+  {
+   "text": "並便は、10日以内に届けて、30文でした。",
+   "big": "並便：10日以内で30文",
+   "src": "解説記事（二次情報）",
+   "art": "assets/hikyaku/art_shop.png",
+   "col": "white"
+  },
+  {
+   "text": "最短5日ほどの便は1,200文。30で割ると、40倍です。",
+   "big": "5日ほどの便は1200文",
+   "sub": "1200÷30＝40倍",
+   "src": "解説記事・自作の計算",
+   "art": "assets/hikyaku/art_road.png"
+  },
+  {
+   "text": "日数は半分、値段は40倍。ただし原典は未確認です。",
+   "big": "日数は半分、値段は40倍",
+   "sub": "料金の原典は未確認",
+   "src": "自作のまとめ",
+   "art": "assets/hikyaku/art_shop.png",
+   "col": "white"
+  },
+  {
+   "text": "日数は半分、値段は40倍です。",
+   "end": true,
+   "art": "assets/hikyaku/art_shop.png"
+  }
+ ],
+ "long_id": "X_kRK4fGItU",
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作",
+ "platform": "tiktok",
+ "bgm": "none",
+ "end_text": "日数は半分、値段は40倍です。",
+ "refs": [
+  "町飛脚の料金に関する解説記事（二次情報）"
+ ],
+ "hashtags": "#江戸時代 #飛脚 #歴史 #雑学"
+}
