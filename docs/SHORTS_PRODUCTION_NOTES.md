@@ -383,3 +383,12 @@ eeds_research は空にできず、**status: ready にはできない**（標準
 proto_fv_kamakura_seiritsu は、**この内容でよい**とオーナーが判断した。原文照合の未了は 
 eeds_research に残したままとし、status は 
 eeds_review のまま（標準のルールは緩めない）。アップロードする場合は、概要欄の出典・AI生成の明記と、YouTube の「AIの使用」を「はい」にする。
+### アップロードと公開予約（2026-11-11、kamakura_seiritsu）
+
+- 台帳キー: short_solo_kamakura_seiritsu / video id: **bi8n0NrsQAo** / 長さ PT45S
+- アップロード用パック: upload/short_solo_kamakura_seiritsu/（title.txt・description.txt・tags.txt・video.mp4・subtitles_ja.srt）。scripts/yt_api.py upload <pack> は **private 固定**で上げる
+- **公開予約: 2026-11-16 17:00（日本時間）= 2026-11-16T08:00:00Z**。同日 12:00 に short_solo_skytree があるので、時刻を分けた
+- **AI の使用（containsSyntheticMedia）を True に設定**した（videos().update(part=status) で publishAt と同時に）。ただし **API の読み戻しでは None** が返るので、Studio の「詳細設定 → AI の使用」で「はい」になっているか目視確認が必要
+- 字幕: 日本語が 2 本（asr = 自動生成、standard = アップロードした SRT）。SRT は out/short_proto_fv_kamakura_seiritsu_subtitles.srt
+- 概要欄: 出典の原文照合が未了であること、AI 生成であること、出典（NDLレファレンス・朝日・Wikipedia）、クレジットを明記
+- 確認: oEmbed が **403**（= 非公開のまま、予約待ち）。タイトル・タグ・概要欄の先頭は API で読み戻して一致を確認
