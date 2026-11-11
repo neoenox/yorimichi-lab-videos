@@ -130,7 +130,8 @@ def draw_viz(im, sc, A, tt):
                 continue
             y = y0 + i * step
             d.ellipse((132, y - 18, 168, y + 18), fill=(RED if v.get('red') == i else GOLD) + (int(255 * a * A / 255),))
-            box((200 + int((1 - a) * 60), y - 62, 1010, y + 62), a=a, outline=GOLD)
+            hh = 62 if step >= 124 else step // 2 - 4   # 5項目以上で枠が重ならないよう、間隔が狭いときだけ枠の高さを縮める(4項目以下は従来どおり)
+            box((200 + int((1 - a) * 60), y - hh, 1010, y + hh), a=a, outline=GOLD)
             d.text((226 + int((1 - a) * 60), y - 30), dt, font=font(34, True), fill=GOLD + (int(255 * a * A / 255),), anchor='lm')
             d.text((226 + int((1 - a) * 60), y + 20), tx, font=font(42, True), fill=WHITE + (int(255 * a * A / 255),), anchor='lm')
     elif typ == 'bars':

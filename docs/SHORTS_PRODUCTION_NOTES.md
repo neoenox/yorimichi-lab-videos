@@ -270,3 +270,25 @@ python scripts/studio_cdp.py captions --video-id <ID> --srt upload/<pack>/subtit
 - **Windows の注意**：python scripts/shorts_standard.py は PYTHONUTF8=1 を付けないと日本語の出力が文字化けし、rief-check は何も表示しない（終了コードのみ）。PowerShell では $env:PYTHONUTF8=1 を先に設定する
 - **未確認（
 eeds_research に記載）**：『吾妻鏡』『山槐記』の原文、教科書の実物、大百科全書・国史大辞典の原文、川合康の指摘の原典
+### 試作の描画（2026-11-11 proto_kamakura_seiritsu）
+
+status: needs_review のため標準の 	o-spec は拒否する（正しい動作）。**試作**として、scripts/make_spec_kamakura_seiritsu.py が検査（ERROR なし）を確認したうえで 	o_spec() を直接呼び、**別名 proto_ で** data/short_proto_kamakura_seiritsu.json を出力する。esult.json は 
+eeds_review のまま。
+
+```powershell
+$env:PYTHONUTF8=1
+$env:Path += ';C:\Users\neoen\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.1-full_build\bin'
+python scripts/make_spec_kamakura_seiritsu.py                  # 背景 assets/kamakura_seiritsu/bg_*.png も再生成
+python scripts/make_short2.py proto_kamakura_seiritsu --kana   # 読みと長さだけ先に確認（44.4秒）
+python scripts/make_short2.py proto_kamakura_seiritsu          # 描画（VOICEVOX 起動が必要。約70秒）
+```
+
+- **ffmpeg が PATH に無い**（FileNotFoundError: [WinError 2]）。winget 版が上記にあるので、そのセッションだけ PATH に足す。E:\ 全体の再帰検索は遅いので使わない
+- **背景は自作の暗色グラデーション**（画像素材・AI 画像なし）。ssets/ の png は git 管理外だが、spec 生成スクリプトで再生成できる
+- **
+olong は付けない**：付けると make_short2.py が最後の場面のナレーションを「チャンネル登録も、お願いします」に差し替える（標準は無意味な登録誘導を禁止）。本編リンクは 
+olink: true で消す。hook_card: false（結論先出しカードは疑問型には合わない）
+- **make_short2.py の 	imeline を修正**：項目が5つだと枠（高さ±62px）が重なる。間隔が狭いときだけ枠を縮める（4項目以下は従来どおり）
+- **確認した範囲**：ffprobe（1080x1920／30fps／44.43秒／h264＋aac）、全フレームのデコード（エラーなし）、音量 -14.0 LUFS／ピーク -1.5 dBFS、12時点の静止画（出典・模式図の表示、字幕の位置、図の重なりなし）、字幕 SRT・説明欄の生成
+- **未確認の範囲**：連続再生での動きの滑らかさ、ナレーション全編の実聴（読みは kana 出力で確認したのみ）、BGM とのバランスの聴感、スマホ実機表示、出典の原文照合（
+eeds_research の4点）。**投稿可の判断はしていない**
