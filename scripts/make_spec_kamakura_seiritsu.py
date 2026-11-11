@@ -2,10 +2,13 @@
 
 標準 JSON は status=needs_review（出典の原文照合が未了）なので、`shorts_standard.py to-spec` は拒否する。
 このスクリプトは**試作用**に to_spec() を直接呼び、別名 proto_ で出力する（ready の動画ではない）。
-背景は自作の暗色グラデーション（AI画像・実写資料は使わない）。assets/ の png は git 管理外なので、このスクリプトで再生成できる。
+背景は既定では自作の暗色グラデーション（assets/ の png は git 管理外なので、このスクリプトで再生成できる）。
+--fv を付けると、FreeVideo の AI 生成クリップ（assets/kamakura_seiritsu/fv/clip1..7.mp4）を背景にした別名 proto_fv_ を出力する。
+既存の単独 Shorts と同じ方式（場面の vid、dim=0.7、クレジットに『AI生成・イメージ』を明記）。クリップは scripts/gen_fv_prompts_kamakura_seiritsu.py → solo_ship.py clips で作る。
 
-  python scripts/make_spec_kamakura_seiritsu.py
-  python scripts/make_short2.py proto_kamakura_seiritsu      # VOICEVOX 起動が必要（--kana で読みだけ確認）
+  python scripts/make_spec_kamakura_seiritsu.py            # 単色背景版 → data/short_proto_kamakura_seiritsu.json
+  python scripts/make_spec_kamakura_seiritsu.py --fv       # FreeVideo 背景版 → data/short_proto_fv_kamakura_seiritsu.json
+  python scripts/make_short2.py proto_fv_kamakura_seiritsu   # VOICEVOX 起動が必要（--kana で読みだけ確認）
 """
 import json
 import sys
@@ -18,7 +21,8 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 import shorts_standard as S  # noqa: E402
 
 SLUG = 'kamakura_seiritsu'
-PROTO = 'proto_' + SLUG
+FV = '--fv' in sys.argv
+PROTO = ('proto_fv_' if FV else 'proto_') + SLUG
 W, H = 1080, 1920
 
 # 場面ごとの背景の色味（暗い紺を基調に、場面の話題で少し変える）
@@ -37,6 +41,10 @@ SCENES = [
     dict(src='模式図', viz=dict(type='compare', l_label='1185年', l_val='実質', r_label='1192年', r_val='名実とも')),
 ]
 
+CREDIT_FV = ('・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の風景・史実の再現ではありません\n'
+             '・図・表：自作の模式図（実在の資料の複製ではありません）\n'
+             '・出典：国立国会図書館レファレンス協同データベース（登録番号 1000197449・1000344905）、朝日新聞 asahi.com（2008-02-28）、Wikipedia「鎌倉幕府」\n'
+             '・【試作】出典の原文照合は未了です（吾妻鏡・山槐記・教科書の実物など）')
 CREDIT = ('・図・表：自作の模式図（実在の資料の複製ではありません）\n'
           '・背景：自作の単色グラデーション（画像素材は使用していません）\n'
           '・出典：国立国会図書館レファレンス協同データベース（登録番号 1000197449・1000344905）、朝日新聞 asahi.com（2008-02-28）、Wikipedia「鎌倉幕府」\n'
@@ -67,17 +75,25 @@ def main():
     errs = [m for lv, m in issues if lv == 'ERROR']
     if errs:
         sys.exit('標準の検査に ERROR: %s' % errs)
-    art_map = [make_bg(i, TINTS[i]) for i in range(len(data['scenes']))]
+    art_map = [make_bg(i, TINTS[i]) for i in range(len(data['scenes']))]   # FV 版でも、クリップが無い場面の予備として作る
+    if FV:
+        miss = [i + 1 for i in range(len(data['scenes'])) if not (ROOT / 'assets' / SLUG / 'fv' / f'clip{i + 1}.mp4').exists()]
+        if miss:
+            sys.exit('FreeVideo のクリップが足りない: clip%s（scripts/solo_ship.py clips %s で生成）' % (miss, SLUG))
     out = ROOT / 'shorts' / SLUG / 'proto_spec.json'
-    _, spec = S.to_spec(data, SLUG, art=art_map[0], pron='shorts/%s/pron.json' % SLUG, out=out, credit=CREDIT, art_map=art_map)
-    for sc, extra in zip(spec['scenes'], SCENES):
+    _, spec = S.to_spec(data, SLUG, art=art_map[0], pron='shorts/%s/pron.json' % SLUG, out=out, credit=CREDIT_FV if FV else CREDIT, art_map=art_map)
+    for i, (sc, extra) in enumerate(zip(spec['scenes'], SCENES)):
         sc.update(extra)
-        sc['dim'] = 0.95
+        if FV:   # 既存の単独 Shorts と同じ：場面ごとの動画背景。図が読めるよう暗めにする(dim=0.7)
+            sc['vid'] = f'assets/{SLUG}/fv/clip{i + 1}.mp4'
+            sc['dim'] = 0.7
+        else:
+            sc['dim'] = 0.95
     # nolong は付けない（付けると make_short2.py が最後の場面のナレーションを登録誘導に差し替える）。概要欄の本編リンクは nolink で消す
     spec.update(
         hook_card=False, nolink=True, cta=False, platform='youtube', head='鎌倉幕府は1192年？',
         proto=True,
-        notes=spec['notes'] + '\n\n【試作】出典の原文照合が未了のため、この動画は公開前の確認用です。')
+        notes=spec['notes'] + '\n\n【試作】出典の原文照合が未了のため、この動画は公開前の確認用です。' + ('\n背景の映像は FreeVideo(MiniMax H3)によるAI生成で、イメージです。実際の風景・史実の再現ではありません。' if FV else ''))
     # 最後の場面（end）は付けない（登録誘導なし。標準：無意味な登録誘導は禁止）
     dest = ROOT / 'data' / f'short_{PROTO}.json'
     dest.write_text(json.dumps(spec, ensure_ascii=False, indent=1), encoding='utf-8')
