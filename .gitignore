@@ -60,3 +60,8 @@ secrets/
 # ローカルツール・計測用
 .benchmarks/
 .freebuff/
+
+# 使い捨てのキュー/再生成シェル（一時パスを参照するため再現できない。再生成は make_spec_*.py → vp.py / make_short2.py）
+scripts/_queue*.sh
+scripts/_regen*.sh
+scripts/_schedule*.sh
