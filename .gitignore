@@ -18,6 +18,7 @@ assets/fx_hn/
 assets/naturalearth/
 # 生成物・バックアップ・大きなメディア
 *.bak
+*.old
 *.mp4
 *.wav
 *.mp3
