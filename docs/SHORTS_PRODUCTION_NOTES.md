@@ -399,8 +399,9 @@ eeds_review のまま（標準のルールは緩めない）。アップロー�
 - 旧版の根拠は Wikipedia のみで、画面の出典ラベルも Wikipedia だった。文化庁「平成26年度 国語に関する世論調査」報告書 p.82/86/90（n=1,942）で **51.7% / 41.7%** を確認し、台本・出典ラベル・概要欄を更新して再描画した（`scripts/gen_solo_koharu.py` を修正 → `make_short2.py solo_koharu`）
 - 新版: **-TytIoEbUdE**（private）／長さ 59.82秒／1080x1920・30fps・1794フレーム／-14.14 LUFS・TP -1.47
 - **公開予約: 2026-11-17 12:00（日本時間）= 2026-11-17T03:00:00Z**。同日 17:00 の short_solo_leonids と衝突しないことを台帳全件で確認
-- **AI の使用（containsSyntheticMedia）を True に設定**（publishAt と同時の `videos().update(part=status)`）。API の読み戻しは None のため **Studio の目視確認は未了**
+- **AI の使用（containsSyntheticMedia）を True に設定**（publishAt と同時の `videos().update(part=status)`）。API の読み戻しは None だが、**Studio（2026-11-12 08:03）で「はい、AI を使用しました」が選択済みなのを目視確認**した
 - 字幕: `ja` / `standard` を SRT から `captions.insert` で投入（API で読み戻し確認）
 - **タグを修正**: 旧版は長尺 43_bukka のタグ（家計・年収・消費者物価指数…）を引き継いでいた。新版は `小春日和,季語,日本語,言葉,雑学,Shorts`
 - 台帳: `superseded` に旧 ID を記録。旧版は 2026-11-12 に **unlisted（限定公開）へ変更**（オーナー判断。統計と URL は保持し、削除はしない）。これで同題材の重複公開を避け、新版の公開後に旧版の統計を見て残す/消すを決められる
-- Studio 確認の前提: 自動化プロファイル（`C:\Users\neoen\.chrome-automation`）が **未ログイン**で `accounts.google.com` にリダイレクトされた。目視確認には、このウィンドウで「寄り道ラボ」にログインしてから `python scripts/studio_cdp.py check` を実行する
+- **Studio 目視（2026-11-12 08:03、ログイン後）**: 寄り道ラボのチャンネルで確認。公開設定「**公開予約**」／子ども向け「いいえ」／**AI の使用「はい、AI を使用しました」選択済み**／動画の言語「日本語」／動画リンク `https://youtube.com/shorts/-TytIoEbUdE`／字幕ページに「日本語の字幕」を確認。概要欄は API の読み戻しと投稿パックが 2,221B で一致
+  - 確認スクリプト: `out/check_studio_koharu.py`（CDP 9222・Playwright。チャンネルID不一致なら停止）。**自動化プロファイルは事前に `寄り道ラボ` でログインが必要**（未ログインだと accounts.google.com にリダイレクトされる）
