@@ -1,6 +1,6 @@
 # ノウハウの入口（まずこれを読む）
 
-更新日: 2026-11-05。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+更新日: 2026-11-11。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
 ## 1. 動画を作るときに読む順番
 
@@ -39,10 +39,11 @@
 - 画面の安全領域: タイトル y≈200（**全角18文字まで**）／大テロップ y≈520／字幕 1470–1540／注記は 1556 以降
 - 背景は **シーンごとに変える**（`art_map.json`）。同じ絵が続くと単調
 - 明るい画像の上に字幕を置くときは、**下半分に暗幕**を入れる（入れないと読めない）
-- **TikTok 向けの制作は継続**（15本を 11/04〜12/07 に投稿予定）。手順：`python scripts/check_tiktok.py` → `python scripts/tiktok_launch_audit.py` → `out/TIKTOK_LAUNCH_SHEET.md` を見てアプリで投稿 → `python scripts/tiktok_post.py <slug>` のキャプション・固定コメントを貼る
-  - 描画は `python scripts/make_short2.py tiktok_<slug>`（spec は `data/short_tiktok_<slug>.json`、`platform: tiktok` でエンドカードとキャプションが切り替わる）
-  - **2026-11-08 に一度削除→復元した**。git 管理の spec・スクリプト・手順書は `git revert` で戻ったが、**mp4 と `assets/<slug>/tiktok/bg_*.png` は git 管理外で戻らず、再描画した**
-  - 再描画時の背景は、元画像（`aerial_1936.png` / `relief.png` / `fillmap_N.png`）のコピーで代用した：hibiya の `bg_base`/`bg_stage1`/`bg_stage3`、ginza の `bg_base`/`bg_relief`、fukagawa の `bg_base`/`bg_kiba`/`bg_relief`、shibuya の `bg_1936`/`bg_relief`/`bg_1961`/`bg_now`。**元のトリミングとは見た目が違う可能性がある**
+- **TikTok 向けの制作は廃止**（2026-11-11 オーナー判断：投稿しても動画が再生されないため）。**新規制作・投稿準備・背景の作り直しはしない**。`check_tiktok.py` / `tiktok_launch_audit.py` / `tiktok_post.py` も実行不要
+  - 既存の物は**削除せず残す**（方針A）：`out/short_tiktok_*.mp4`、`data/short_tiktok_*.json`、`assets/*/tiktok/`、`docs/TIKTOK_*.md`、関連スクリプト。再開する場合の参考資料扱い
+  - `docs/TIKTOK_STRATEGY.md` / `docs/TIKTOK_POSTING_PACK.md` は廃止前の計画（11/02 時点）。**現行の方針ではない**
+  - 経緯：11/08 に一度「廃止」として削除→同日 `git revert` で復元。git 管理外の mp4 と `assets/<slug>/tiktok/bg_*.png` は戻らず、元画像（`aerial_1936.png` / `relief.png` / `fillmap_N.png`）のコピーで再描画した（hibiya・ginza・fukagawa・shibuya の背景。元のトリミングとは違う可能性あり）。代用背景の見た目確認は、廃止により行わない
+  - 再生されない原因は**未調査**（アカウント側か動画側か不明。推測は書かない）
 
 ### 根拠
 - claims は `source_type: primary`（一次資料URL必須）か `ai_assistant`（AI回答可・WARN が出る）
