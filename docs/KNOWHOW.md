@@ -87,7 +87,15 @@
 | 2026-11-05 | `shodo_heritage`（書道の無形文化遺産） | ニュース題材、AI生成背景、日付表示、CDP での画像取得と Studio 操作 |
 | 2026-11-11 | `kamakura_seiritsu`（鎌倉幕府の成立年） | 図書館レファレンス（NDL crd）を根拠にする方法、`ai_assistant` の使い方、EUC-JP 記事の取得。**needs_review のまま。試作を描画済み（`proto_`・投稿不可）**（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 
-## 5. 未対応・残課題
+## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
+
+| 文書 | 内容 | 要点 |
+| --- | --- | --- |
+| [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
+| [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
+| [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
+
+## 6. 未対応・残課題
 
 - 画像は API（`OPENAI_API_KEY`）にできれば最も安定（ブラウザは UI 変更に弱い）
 - 既存の `data/short_*.json`（旧形式）の標準形式への移行
