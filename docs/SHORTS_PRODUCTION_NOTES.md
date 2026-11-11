@@ -393,6 +393,13 @@ eeds_review のまま（標準のルールは緩めない）。アップロー�
 - 概要欄: 出典の原文照合が未了であること、AI 生成であること、出典（NDLレファレンス・朝日・Wikipedia）、クレジットを明記
 - 確認: oEmbed が **403**（= 非公開のまま、予約待ち）。タイトル・タグ・概要欄の先頭は API で読み戻して一致を確認
 
+### 同時刻の二重予約を見つけたら（2026-11-12）
+
+- `data/youtube_ids.json` の全エントリを走査して `publishAt` の重複を確認する。2026-11-12 12:00 に `short_solo_elnino` と `short_solo_osaka_hohei` が**同じ時刻で予約**されていた（どちらも 03:00Z）
+- チャンネルの通常枠は **12:00 と 17:00**。片方（osaka_hohei）を 17:00（`2026-11-12T08:00:00Z`）へ移し、`videos().update(part='status')` で `publishAt` を変更、台帳も更新した
+- `videos().update` で status を更新するときは `containsSyntheticMedia` を明示する（API は読み戻さないため。地理院タイル背景の osaka_hohei は False、AI 背景の elnino は True のまま）
+- 予約の重複チェックは、日付をまたぐ前に必ず行う
+
 ### koharu（小春日和）の作り直しと新版アップ（2026-11-12）
 
 - **旧版はすでに public だった**: `data/youtube_ids.json` の `short_solo_koharu` は **NdsORT8RZH4**（2026-11-09 00:30Z 公開、91再生、タイトル「…約57秒で整理」）。アップロード前に台帳の既存キーを確認していなかったため、後から判明した。**今後はアップロード前に `short_<slug>` キーの有無を必ず見る**
