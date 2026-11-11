@@ -1,0 +1,26 @@
+topic: 冬至は、一年でいちばん寒い日？
+viewer_question: 冬至は一年でいちばん寒い日なのか。昼が最短なのだから、気温も最低なのだろうか。
+audience: 一般視聴者・予備知識なし
+source_urls:
+  - https://www.data.jma.go.jp/stats/etrn/view/nml_sfc_ym.php?prec_no=44&block_no=47662
+  - https://www.data.jma.go.jp/stats/etrn/view/nml_sfc_10d.php?prec_no=44&block_no=47662&year=&month=&day=&view=p1
+  - https://www.data.jma.go.jp/stats/etrn/view/nml_sfc_d.php?prec_no=44&block_no=47662&year=&month=1&day=&view=p1
+  - https://www.nao.ac.jp/faq/a0109.html
+  - https://www.nao.ac.jp/faq/a0104.html
+  - https://eco.mtk.nao.ac.jp/koyomi/yoko/2026/rekiyou262.html
+  - https://eco.mtk.nao.ac.jp/koyomi/wiki/B5A8C0E12FC6F3BDBDBBCDC0E1B5A4A4C8A4CFA1A9.html
+verified_facts:
+  - 冬至は、太陽の南中高度が最も低い日（国立天文台FAQ「太陽の南中高度はどうやって計算する？」）。
+  - 冬至は、1年のうちで昼間が最も短い日（国立天文台FAQ「1年のうちで、日の出、日の入が一番早い日(遅い日)はいつ？」）。
+  - 2026年の冬至は12月22日5時50分（国立天文台 暦要項 令和8年）。
+  - 東京（地点47662）の1991〜2020年平年値では、月平均気温は1月が最低で5.4℃（12月7.7℃、2月6.1℃）。
+  - 同じ平年値の日別値では、日平均気温の底は1月21日・22日の5.1℃。
+  - 2026年の冬至（12月22日）から日平均気温の底（1月21〜22日）まで、約30日（約1か月）。
+  - 日の出が最も遅い日は冬至の半月ほど後、日の入りが最も早い日は冬至の半月ほど前（国立天文台FAQ a0104）。
+  - 二十四節気は古代中国北方で成立した概念で、現代の日本の気候に必ず合うとは限らない（国立天文台 暦Wiki）。
+caveats:
+  - 気温の数値は東京（地点47662）の1991〜2020年平年値（30年平均）であり、特定の年の気温ではない。
+  - 東京以外の平年値は確認しておらず、「全国で約1か月後」とは言えない。
+  - 「気温の底は1月下旬〜2月上旬」「冬至より約1か月半」という言い方は、東京の1991〜2020年平年値では支持されない（2月上旬は上昇に転じている）。
+  - 平年値の版管理番号は未確認。
+visual_assets: 自作の気温グラフ（月別の平均気温に、冬至12/22と底1/21-22の縦線を重ねる）。実写素材は使わない。画面内に「気象庁 平年値（東京・1991〜2020年）」「国立天文台」のクレジットを表示する。

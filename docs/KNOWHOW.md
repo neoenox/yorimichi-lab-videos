@@ -100,6 +100,8 @@
 | [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
 | [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
+| [`research/20261112_toji_sources.md`](research/20261112_toji_sources.md) | 冬至 Short の根拠（気象庁平年値・国立天文台） | 東京の1991〜2020年平年値では気温の底は**1月下旬（日別1/21〜22）**、冬至から**約1か月**。NEXT_TOPICS の「2月上旬」「1か月半」は不支持。日の出最遅は半月後・日の入最早は半月前 |
+| [`research/20261112_edo_shuiki_sources.md`](research/20261112_edo_shuiki_sources.md) | 江戸朱引図の到達性（12/10 枠） | 公文書館「旧江戸朱引内図」は高精細画像2コマが認証なしで取得可（IIIF非対応）、NDL切絵図は IIIF+PDM。**朱引＝御府内／墨引＝町奉行支配**で前提修正が必要。二次利用条件と朱引線の視認は未了 |
 
 ## 6. 未対応・残課題
 
