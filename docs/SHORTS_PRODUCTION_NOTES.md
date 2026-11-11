@@ -292,3 +292,16 @@ olink: true で消す。hook_card: false（結論先出しカードは疑問型�
 - **確認した範囲**：ffprobe（1080x1920／30fps／44.43秒／h264＋aac）、全フレームのデコード（エラーなし）、音量 -14.0 LUFS／ピーク -1.5 dBFS、12時点の静止画（出典・模式図の表示、字幕の位置、図の重なりなし）、字幕 SRT・説明欄の生成
 - **未確認の範囲**：連続再生での動きの滑らかさ、ナレーション全編の実聴（読みは kana 出力で確認したのみ）、BGM とのバランスの聴感、スマホ実機表示、出典の原文照合（
 eeds_research の4点）。**投稿可の判断はしていない**
+### 背景映像は FreeVideo（AI生成動画）を使う（2026-11-11 の取り違えの記録）
+
+- **症状**：kamakura_seiritsu の試作を、背景を自作の単色グラデーションで描画した。既存の単独 Shorts（gen_solo_*.py、data/short_solo_*.json）は背景に **FreeVideo（MiniMax H3）の AI 生成クリップ**（ssets/<slug>/fv/clip1..N.mp4）を使っており、既存の方式と違った
+- **原因**：描画前に、既存の単独 Shorts の背景の作り方（id キー、ssets/*/fv/prompts.json、scripts/freevideo_batch.py）を調べなかった。rief.yaml の isual_assets にも背景の方式を書いていなかった
+- **対処（手順）**：
+  1. ssets/<slug>/fv/prompts.json に、場面ごとの英語プロンプト [{"name":"clip1","sec":7,"text":"..."}] を書く（既存例：ssets/tempura/fv/prompts.json。**人物・手・文字・ロゴ・現代物を出さない**ため 
+o people, no hands, no text, no letters, no logos, no buildings, no modern objects を末尾に付ける）
+  2. FreeVideo を起動する：E:\FreeVideo\FreeVideo.exe のランチャーで「Launch FreeVideo」を押す。http://127.0.0.1:8188 が応答すること（python scripts/freevideo_api.py status）
+  3. python scripts/freevideo_batch.py assets/<slug>/fv/prompts.json assets/<slug>/fv（1本ずつ順に生成。失敗は最大3回やり直す。縦 544x960・約7秒）
+  4. spec の各場面に id=assets/<slug>/fv/clip<N>.mp4、dim=0.7 を付ける（make_short2.py が id を優先して背景にする）
+  5. クレジットに「背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の風景・史実の再現ではありません」を入れる
+- **注意**：FreeVideo が止まっていると reevideo_api.py は WinError 10061（接続拒否）で落ちる。過去のログには、RAM／コミット領域の不足で生成が失敗した記録（MemoryError: RAM guard: system_or_commit_pressure）がある。他の重い処理を止めてから実行し、失敗したらバッチの再試行に任せる
+- **未確認**：ランチャーを使わず CLI だけで ComfyUI を起動する方法（ランチャーの内部起動コマンドは推測で叩かない）
