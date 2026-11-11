@@ -199,7 +199,7 @@ def draw_viz(im, sc, A, tt):
 
 def draw_hook(im, spec, t):
     """冒頭1.6秒に「結論」を1枚だけ出す。答えを先に見せて、離脱を減らす。"""
-    ans = spec.get('answer')
+    ans = spec.get('hook_text') or spec.get('answer')   # hook_text=冒頭だけ別の文(疑問)を出す場合。無ければ従来どおり結論
     if not ans or t > 1.9:
         return
     a = min(1.0, t / 0.18)
@@ -214,7 +214,7 @@ def draw_hook(im, spec, t):
     h = 340 if len(lns) == 1 else 430
     d.rounded_rectangle((60, 470, 1020, 470 + h), 20, fill=(7, 24, 36, int(255 * a)),
                         outline=GOLD + (A,), width=4)
-    d.text((540, 545), '結論', font=font(44, True), fill=GOLD + (A,), anchor='mm')
+    d.text((540, 545), spec.get('hook_label') or '結論', font=font(44, True), fill=GOLD + (A,), anchor='mm')
     y = 650 if len(lns) == 1 else 618
     for ln in lns:
         d.text((540, y), ln, font=font(fs, True), fill=WHITE + (A,), anchor='mm')
@@ -339,6 +339,8 @@ def main():
     segs, total = synth(dict(pron=spec['pron'], scenes=[dict(text=t, kind='') for t in texts]), work)
     (ROOT / 'out' / f'short_{slug}_kana.txt').write_text('\n'.join(f"{s['text']}\n    {s['kana']}" for s in segs), encoding='utf8')
     print('narration', round(total, 1), 's')
+    if '--kana' in sys.argv:   # 背景クリップを待たずに、読みと長さだけ先に確かめる
+        return
     raw = work / 'raw.mp4'; render(spec, segs, total, raw, slug)
     mix(spec, work, total, raw, ROOT / 'out' / f'short_{slug}.mp4')
     spec['sec'] = round(total)
