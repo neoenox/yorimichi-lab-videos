@@ -334,7 +334,7 @@ def main():
     if is_tt and spec.get('end_text'):
         texts[-1] = spec['end_text']
     elif spec.get('nolong'):
-        texts[-1] = '出典は、説明欄にまとめています。チャンネル登録も、お願いします。'
+        texts[-1] = (spec.get('end_q') or '') + '出典は、説明欄にまとめています。チャンネル登録も、お願いします。'
     elif spec.get('cta', True) and not is_tt:   # 最後の場面の読み上げに、登録の呼びかけを足す
         texts[-1] = texts[-1] + '続きが気になったら、チャンネル登録も、お願いします。'
     segs, total = synth(dict(pron=spec['pron'], scenes=[dict(text=t, kind='') for t in texts]), work)
