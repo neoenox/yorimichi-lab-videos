@@ -261,7 +261,7 @@ python scripts/studio_cdp.py captions --video-id <ID> --srt upload/<pack>/subtit
 
 ## 実測：図書館レファレンス事例を根拠にする題材（2026-11-11 kamakura_seiritsu）
 
-題材「鎌倉幕府の成立年（1185 と 1192）」。**status は needs_review のまま**（	o-spec は拒否される。これは標準どおり）。描画・音声・動画は未実施。
+題材「鎌倉幕府の成立年（1185 と 1192）」。**status は needs_review のまま**（`to-spec` は拒否される。これは標準どおり）。描画・音声・動画は未実施。
 
 - **使えた資料**：国立国会図書館レファレンス協同データベース（https://crd.ndl.go.jp/reference/entry/index.php?id=<番号>&page=ref_view）。図書館が事典・教科書を実際に調べた回答で、本文を HTTP で取得できる。使ったのは 1000197449（成立年の5説・7説）と 1000344905（東京書籍の教科書の記述の変遷）
 - **使えなかった資料**：帝国書院 Q&A（/q_and_a/history/）は 404。朝日 sahi.com/edu/student/kyoukashow/TKY200802270241.html は **EUC-JP** で、そのまま取得すると文字化けする（RawContentStream を uc-jp でデコードして読んだ）
@@ -272,7 +272,7 @@ python scripts/studio_cdp.py captions --video-id <ID> --srt upload/<pack>/subtit
 eeds_research に記載）**：『吾妻鏡』『山槐記』の原文、教科書の実物、大百科全書・国史大辞典の原文、川合康の指摘の原典
 ### 試作の描画（2026-11-11 proto_kamakura_seiritsu）
 
-status: needs_review のため標準の 	o-spec は拒否する（正しい動作）。**試作**として、scripts/make_spec_kamakura_seiritsu.py が検査（ERROR なし）を確認したうえで 	o_spec() を直接呼び、**別名 proto_ で** data/short_proto_kamakura_seiritsu.json を出力する。esult.json は 
+status: needs_review のため標準の `to-spec` は拒否する（正しい動作）。**試作**として、scripts/make_spec_kamakura_seiritsu.py が検査（ERROR なし）を確認したうえで `to_spec()` を直接呼び、**別名 proto_ で** data/short_proto_kamakura_seiritsu.json を出力する。esult.json は 
 eeds_review のまま。
 
 ```powershell
@@ -288,7 +288,7 @@ python scripts/make_short2.py proto_kamakura_seiritsu          # 描画（VOICEV
 - **
 olong は付けない**：付けると make_short2.py が最後の場面のナレーションを「チャンネル登録も、お願いします」に差し替える（標準は無意味な登録誘導を禁止）。本編リンクは 
 olink: true で消す。hook_card: false（結論先出しカードは疑問型には合わない）
-- **make_short2.py の 	imeline を修正**：項目が5つだと枠（高さ±62px）が重なる。間隔が狭いときだけ枠を縮める（4項目以下は従来どおり）
+- **make_short2.py の `timeline` を修正**：項目が5つだと枠（高さ±62px）が重なる。間隔が狭いときだけ枠を縮める（4項目以下は従来どおり）
 - **確認した範囲**：ffprobe（1080x1920／30fps／44.43秒／h264＋aac）、全フレームのデコード（エラーなし）、音量 -14.0 LUFS／ピーク -1.5 dBFS、12時点の静止画（出典・模式図の表示、字幕の位置、図の重なりなし）、字幕 SRT・説明欄の生成
 - **未確認の範囲**：連続再生での動きの滑らかさ、ナレーション全編の実聴（読みは kana 出力で確認したのみ）、BGM とのバランスの聴感、スマホ実機表示、出典の原文照合（
 eeds_research の4点）。**投稿可の判断はしていない**
