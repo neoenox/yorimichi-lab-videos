@@ -14,10 +14,10 @@ fv_prompts('kamakura_seiritsu', [
     'A mountain stream splitting into several thin channels over dark mossy rocks, clear water flowing in different directions, soft cold light, the camera slowly gliding along the water.',
     # 3 1185 守護・地頭(土地を治める):稲穂の広がる田
     'A wide field of golden rice stalks swaying in a gentle wind at dusk, distant low hills, warm low light, the camera slowly gliding sideways.',
-    # 4 1192 征夷大将軍(任命・権威):古い巻物と筆(無地)
-    'Close-up of an empty plain blank aged washi paper scroll slowly unrolling on a dark wooden desk, soft warm candlelight flickering, the camera slowly pushing in. No pens, no books, no objects on the desk.',
-    # 5 教科書の年表(1192→1185):和紙の上に墨が一筋のびる(文字にならない線)
-    'A single thick line of black ink slowly spreading across a blank sheet of washi paper, soft lamplight, the camera slowly pushing in. No brush, no hands, no characters.',
+    # 4 1192 征夷大将軍(任命・権威):竹林の光。室内は現代物(エアコン)と文字の掛け軸が出たため屋外にした(2026-11-11 2回目の取り直し)
+    'A quiet tall bamboo grove with soft light filtering through the green stalks swaying gently in a light wind, dappled shadows moving slowly on the earthen ground, the camera slowly pushing forward.',
+    # 5 教科書の年表(1192→1185):水に墨が広がる。筆・紙・文字は出さない(2026-11-11 に取り直し)
+    'Deep black ink slowly spreading and swirling in a glass of clear water, soft light from behind, gentle drifting motion, the camera slowly pushing in. No brush, no hands, no paper, no characters.',
     # 6 欄外の諸説:薄れる灯り・複数の光
     'Several small paper lanterns without any markings glowing softly in the dark and drifting slowly on a calm river at night, gentle reflections, the camera slowly gliding forward.',
     # 7 段階を踏んで整う:夜明け、石段をのぼる光
