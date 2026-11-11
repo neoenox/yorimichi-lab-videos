@@ -305,3 +305,23 @@ o people, no hands, no text, no letters, no logos, no buildings, no modern objec
   5. クレジットに「背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の風景・史実の再現ではありません」を入れる
 - **注意**：FreeVideo が止まっていると reevideo_api.py は WinError 10061（接続拒否）で落ちる。過去のログには、RAM／コミット領域の不足で生成が失敗した記録（MemoryError: RAM guard: system_or_commit_pressure）がある。他の重い処理を止めてから実行し、失敗したらバッチの再試行に任せる
 - **未確認**：ランチャーを使わず CLI だけで ComfyUI を起動する方法（ランチャーの内部起動コマンドは推測で叩かない）
+### FreeVideo 背景版の実測（2026-11-11 proto_fv_kamakura_seiritsu）
+
+**生成の手順（実際に動いたもの）**：scripts/gen_fv_prompts_kamakura_seiritsu.py（v_prompts() で ssets/<slug>/fv/prompts.json）→ ComfyUI を起動して scripts/solo_ship.py clips <slug> → python scripts/make_spec_kamakura_seiritsu.py --fv → python scripts/make_short2.py proto_fv_<slug>。
+
+```powershell
+# ComfyUI(FreeVideo)。サーバー起動と生成を同じバックグラウンドジョブにまとめる
+cd E:\FreeVideo\runtime\ComfyUI
+$srv = Start-Process 'E:\FreeVideo\runtime\FreeVideo-engine\envs\comfyui-e0766581f8a2729a\Scripts\python.exe' -ArgumentList '-u','-B','main.py','--listen','127.0.0.1','--port','8188','--disable-auto-launch','--disable-all-custom-nodes','--whitelist-custom-nodes','FreeVideo' -RedirectStandardOutput "$env:TEMP\comfy.log" -RedirectStandardError "$env:TEMP\comfy.err" -PassThru -WindowStyle Hidden
+# 8188 が開くまで待ってから: python scripts/solo_ship.py clips <slug>   → 終わったら Stop-Process $srv.Id
+# VOICEVOX（描画に必要）。プロジェクト内にある
+Start-Process 'E:\rekishikaisetu-honnoji\tools\voicevox\windows-cpu\run.exe' -ArgumentList '--host','127.0.0.1','--port','50021' -WindowStyle Hidden
+```
+
+- **生成時間**：7本（各 7.3 秒・544x960）で約 1.2 時間。1本目は 28 分（モデル読み込み込み）、2本目以降は約 8〜11 分
+- **ジョブが切れる**：DSH アプリが再起動（接続先が変わる）すると、バックグラウンドジョブも中の ComfyUI も止まる。**完成済みのクリップは残る**ので、足りない分だけ python scripts/freevideo_batch.py assets/<slug>/fv/prompts.json assets/<slug>/fv clipN で取り直す
+- **描画**：約 140 秒。Broken pipe が出るが、出力は全フレームのデコードにエラーなし・44.43 秒で完成している（背景クリップを読む ffmpeg が、場面の終わりで読み残したまま閉じられるためと推測。未検証）
+- **確認した範囲**：1080x1920／30fps／44.43秒、全フレームのデコード（エラーなし）、-14.0 LUFS／ピーク -1.5 dBFS、12時点の静止画と場面4の全画面
+- **プロンプトが守られなかった例**：clip4（無地の和紙の巻物）に、**本のページに文字のような模様**と**筆**が映った（指示は 
+o text・No pens）。clip5（墨の線）にも筆先が映る。AI の擬似文字は読めないが、「史料の実物」に見えないよう画面に『模式図』と AI 生成の明記を残している。**公開版では取り直しを検討する**
+- **未確認**：連続再生での背景の動き（minterpolate の補間の見え方）、ナレーション全編の実聴、BGM の聴感、スマホ実機、出典の原文照合。**投稿可の判断はしていない**
