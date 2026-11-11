@@ -258,3 +258,15 @@ python scripts/studio_cdp.py captions --video-id <ID> --srt upload/<pack>/subtit
 - bsk（拡張機能経由）は同じ操作でクリックが弾かれる／ラベルが文字化けする。**Studio は CDP 方式を使う**
 - チャンネル取り違え防止のため、`studio_cdp.py` は最初に URL のチャンネルIDを検証し、違えば何もせず終了する
 
+
+## 実測：図書館レファレンス事例を根拠にする題材（2026-11-11 kamakura_seiritsu）
+
+題材「鎌倉幕府の成立年（1185 と 1192）」。**status は needs_review のまま**（	o-spec は拒否される。これは標準どおり）。描画・音声・動画は未実施。
+
+- **使えた資料**：国立国会図書館レファレンス協同データベース（https://crd.ndl.go.jp/reference/entry/index.php?id=<番号>&page=ref_view）。図書館が事典・教科書を実際に調べた回答で、本文を HTTP で取得できる。使ったのは 1000197449（成立年の5説・7説）と 1000344905（東京書籍の教科書の記述の変遷）
+- **使えなかった資料**：帝国書院 Q&A（/q_and_a/history/）は 404。朝日 sahi.com/edu/student/kyoukashow/TKY200802270241.html は **EUC-JP** で、そのまま取得すると文字化けする（RawContentStream を uc-jp でデコードして読んだ）
+- **スキーマ上の注意**：claims.source_type は primary / i_assistant の二択。図書館回答・報道・Wikipedia は一次資料ではないが、AI の回答でもない。このため i_assistant を使い、**vidence_note の冒頭に「AIの回答ではない。○○を取得して確認」と明記**した（標準は緩めていない）
+- **検査で出た WARN と対処**：ナレーション速度（目安 4.0〜5.5 文字/秒）超過が3場面 → 文を短くして解消。i_assistant 由来の WARN と Scene 1 の claim_ids 空（疑問提示の場面なので意図どおり）は残した
+- **Windows の注意**：python scripts/shorts_standard.py は PYTHONUTF8=1 を付けないと日本語の出力が文字化けし、rief-check は何も表示しない（終了コードのみ）。PowerShell では $env:PYTHONUTF8=1 を先に設定する
+- **未確認（
+eeds_research に記載）**：『吾妻鏡』『山槐記』の原文、教科書の実物、大百科全書・国史大辞典の原文、川合康の指摘の原典

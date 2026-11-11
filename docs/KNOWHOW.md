@@ -85,6 +85,7 @@
 | --- | --- | --- |
 | 2026-11-04 | `edo_map_date`（江戸図の年代） | NDL の IIIF 画像利用、資料の切り出し、タイトル文字数、`long_id` 任意化 |
 | 2026-11-05 | `shodo_heritage`（書道の無形文化遺産） | ニュース題材、AI生成背景、日付表示、CDP での画像取得と Studio 操作 |
+| 2026-11-11 | `kamakura_seiritsu`（鎌倉幕府の成立年） | 図書館レファレンス（NDL crd）を根拠にする方法、`ai_assistant` の使い方、EUC-JP 記事の取得。**needs_review のまま・未描画**（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 
 ## 5. 未対応・残課題
 
