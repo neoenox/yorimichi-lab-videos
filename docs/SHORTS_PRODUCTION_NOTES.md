@@ -402,5 +402,5 @@ eeds_review のまま（標準のルールは緩めない）。アップロー�
 - **AI の使用（containsSyntheticMedia）を True に設定**（publishAt と同時の `videos().update(part=status)`）。API の読み戻しは None のため **Studio の目視確認は未了**
 - 字幕: `ja` / `standard` を SRT から `captions.insert` で投入（API で読み戻し確認）
 - **タグを修正**: 旧版は長尺 43_bukka のタグ（家計・年収・消費者物価指数…）を引き継いでいた。新版は `小春日和,季語,日本語,言葉,雑学,Shorts`
-- 台帳: `superseded` に旧 ID を記録。旧版は **public のまま**（非公開化・削除は未実施、オーナー判断待ち）
+- 台帳: `superseded` に旧 ID を記録。旧版は 2026-11-12 に **unlisted（限定公開）へ変更**（オーナー判断。統計と URL は保持し、削除はしない）。これで同題材の重複公開を避け、新版の公開後に旧版の統計を見て残す/消すを決められる
 - Studio 確認の前提: 自動化プロファイル（`C:\Users\neoen\.chrome-automation`）が **未ログイン**で `accounts.google.com` にリダイレクトされた。目視確認には、このウィンドウで「寄り道ラボ」にログインしてから `python scripts/studio_cdp.py check` を実行する
