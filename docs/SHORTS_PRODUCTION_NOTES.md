@@ -325,3 +325,15 @@ Start-Process 'E:\rekishikaisetu-honnoji\tools\voicevox\windows-cpu\run.exe' -Ar
 - **プロンプトが守られなかった例**：clip4（無地の和紙の巻物）に、**本のページに文字のような模様**と**筆**が映った（指示は 
 o text・No pens）。clip5（墨の線）にも筆先が映る。AI の擬似文字は読めないが、「史料の実物」に見えないよう画面に『模式図』と AI 生成の明記を残している。**公開版では取り直しを検討する**
 - **未確認**：連続再生での背景の動き（minterpolate の補間の見え方）、ナレーション全編の実聴、BGM の聴感、スマホ実機、出典の原文照合。**投稿可の判断はしていない**
+### Muse によるレビュー（2026-11-11 proto_fv_kamakura_seiritsu）
+
+手順は E:\rekishikaisetu\docs\SOLO_SHORT_PROCEDURE.md の第6節（このリポジトリには無い。別の作業ツリー）。**標準フロー（esult.json）の動画でも同じ手順で送れた**。
+
+- **送り方（実際に動いたもの）**：360p 圧縮 fmpeg -i out/short_<slug>.mp4 -vf scale=360:-2 -c:v libx264 -crf 30 -preset fast -c:a aac -b:a 64k E:\rekishikaisetu\sigcmp_view\muse_<slug>.mp4（1.2MB）→ CDP の Chrome（chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\Users\neoen\.chrome-automation https://muse.ai/）に Playwright（connect_over_cdp）で接続 → input[type=file] に set_input_files → 入力欄（[contenteditable=true]）をクリックして keyboard.insert_text（文字数と末尾を確認）→ 送信ボタンを座標クリック（約 522,871）→ ページ本文から、依頼文の末尾「問題点は時刻つきで具体的にお願いします。」の後ろを読む
+- **sk は使えない**：デーモンを起動できない（Job Object ... does not allow breakaway、os error 5）。CDP 版を使う
+- **ログイン**：自動操作用プロファイルは、初回だけ Muse に手でログインが必要（メール/電話の認証は代行できない）。以降は .chrome-automation に残る
+- **Muse は1本の長い会話**。新規チャットを作らず、同じ画面に添付して送る。返答は **2分**で届いた（手順書の 5〜12分より速い）。返答本文は out/muse_reply_<slug>.txt に保存した
+- **Muse の判定：公開可**（FreeVideo 版）。書き起こしは台本と**一致率 98.4%**（差は「一」→「1」の表記と、「守護と地頭」→「守護・地頭」の1か所のみ。読み違いではない）
+- **裏取り（手元の計測）**：平均 -17.3 dB は一致。**最大音量は Muse が -0.4 dB、手元の元ファイルは -1.5 dB**（Muse は 360p に圧縮後のファイルを測ったため、圧縮で変わる。元ファイルを正とする）。無音は手元では検出なし（Muse は冒頭 0.4 秒と言う）。ナレーション終了は Muse が約 43.1 秒、字幕の最終時刻は 43.47 秒（概ね一致）
+- **Muse が読めないこと**：実際の聴感（BGM とのバランス）、元画質。**Muse の「公開可」は、出典の原文照合の代わりにならない**。Muse は「出典原文は未照合とのことだったので、こちらで照合」として NDL レファレンスと Wikipedia を根拠にしたが、これは私が使った資料と同じ二次資料である
+- **Muse の判断のうち、鵜呑みにしなかった点**：clip4 の本のページの擬似文字を「ピンボケで判読できず、背景の質感の範囲」とした。実際のフレーム（16〜22 秒）では、**文字らしい行が見える**。公開版では取り直すか、画面の明記を維持する（判断はユーザー）
