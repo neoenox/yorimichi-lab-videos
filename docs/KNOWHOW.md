@@ -60,6 +60,7 @@
 
 ### 公開
 - API は**常に private** でアップロード。公開は Studio（または `studio_cdp.py publish`）
+- **アップロード前に `data/youtube_ids.json` に同じ `short_<slug>` キーが無いか確認する**（koharu は既に public で登録済みなのに「未アップロード」と誤認し、新版を別IDで上げることになった。作り直しは `--new-version`、旧IDは `superseded` に残る）
 - 公開判定は `https://www.youtube.com/oembed?url=...&format=json` が **200/403** で確認できる
 - API クォータは**残量で落ち方が変わる**（captions 400 units が落ちても videos.update 50 units は通ることがある）
 - 1日のクォータ回復は太平洋時間の深夜（日本時間の夕方ごろ）

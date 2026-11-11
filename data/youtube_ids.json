@@ -2003,12 +2003,14 @@
   "publishAt": null
  },
  "short_solo_koharu": {
-  "video_id": "NdsORT8RZH4",
-  "privacy": "public",
+  "video_id": "-TytIoEbUdE",
+  "privacy": "private",
   "via": "api",
-  "superseded": [],
+  "superseded": [
+   "NdsORT8RZH4"
+  ],
   "deleted": [],
-  "publishAt": null
+  "publishAt": "2026-11-17T03:00:00Z"
  },
  "short_solo_sakayaki": {
   "video_id": "X1alXmESkDg",

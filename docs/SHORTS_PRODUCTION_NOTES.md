@@ -392,3 +392,15 @@ eeds_review のまま（標準のルールは緩めない）。アップロー�
 - 字幕: 日本語が 2 本（asr = 自動生成、standard = アップロードした SRT）。SRT は out/short_proto_fv_kamakura_seiritsu_subtitles.srt
 - 概要欄: 出典の原文照合が未了であること、AI 生成であること、出典（NDLレファレンス・朝日・Wikipedia）、クレジットを明記
 - 確認: oEmbed が **403**（= 非公開のまま、予約待ち）。タイトル・タグ・概要欄の先頭は API で読み戻して一致を確認
+
+### koharu（小春日和）の作り直しと新版アップ（2026-11-12）
+
+- **旧版はすでに public だった**: `data/youtube_ids.json` の `short_solo_koharu` は **NdsORT8RZH4**（2026-11-09 00:30Z 公開、91再生、タイトル「…約57秒で整理」）。アップロード前に台帳の既存キーを確認していなかったため、後から判明した。**今後はアップロード前に `short_<slug>` キーの有無を必ず見る**
+- 旧版の根拠は Wikipedia のみで、画面の出典ラベルも Wikipedia だった。文化庁「平成26年度 国語に関する世論調査」報告書 p.82/86/90（n=1,942）で **51.7% / 41.7%** を確認し、台本・出典ラベル・概要欄を更新して再描画した（`scripts/gen_solo_koharu.py` を修正 → `make_short2.py solo_koharu`）
+- 新版: **-TytIoEbUdE**（private）／長さ 59.82秒／1080x1920・30fps・1794フレーム／-14.14 LUFS・TP -1.47
+- **公開予約: 2026-11-17 12:00（日本時間）= 2026-11-17T03:00:00Z**。同日 17:00 の short_solo_leonids と衝突しないことを台帳全件で確認
+- **AI の使用（containsSyntheticMedia）を True に設定**（publishAt と同時の `videos().update(part=status)`）。API の読み戻しは None のため **Studio の目視確認は未了**
+- 字幕: `ja` / `standard` を SRT から `captions.insert` で投入（API で読み戻し確認）
+- **タグを修正**: 旧版は長尺 43_bukka のタグ（家計・年収・消費者物価指数…）を引き継いでいた。新版は `小春日和,季語,日本語,言葉,雑学,Shorts`
+- 台帳: `superseded` に旧 ID を記録。旧版は **public のまま**（非公開化・削除は未実施、オーナー判断待ち）
+- Studio 確認の前提: 自動化プロファイル（`C:\Users\neoen\.chrome-automation`）が **未ログイン**で `accounts.google.com` にリダイレクトされた。目視確認には、このウィンドウで「寄り道ラボ」にログインしてから `python scripts/studio_cdp.py check` を実行する
