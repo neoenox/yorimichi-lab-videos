@@ -92,6 +92,7 @@
 | 2026-11-05 | `shodo_heritage`（書道の無形文化遺産） | ニュース題材、AI生成背景、日付表示、CDP での画像取得と Studio 操作 |
 | 2026-11-11 | `kamakura_seiritsu`（鎌倉幕府の成立年） | 図書館レファレンス（NDL crd）を根拠にする方法、`ai_assistant` の使い方、EUC-JP 記事の取得。**needs_review のまま。試作を描画済み（`proto_`・投稿不可）**（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 | 2026-11-12 | `koharu`（小春日和） | 文化庁世論調査の原典PDF（p.82/86/90）で数値を確認し、Wikipedia の丸め（約5割/約4割）を 51.7%/41.7% に差し替え。画面の出典ラベル（Wikipedia→文化庁・辞書・歳時記）も同時に更新。59.8秒で描画 |
+| 2026-11-12 | `yoritomo_zo`（伝源頼朝像＝足利直義説） | 「昔の説→いまの説」型（高年齢層向け）。文化庁DBで国宝指定名称を直接確認、所蔵者（神護寺）の反論も公式ページで確認。**PD の肖像画像を Commons から使い、`sub` パネル・画像の上端境界・`flow` 図の偏りを実測で直した**。**needs_review のまま。試作のみ**（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 
 ## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
 
@@ -102,6 +103,7 @@
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
 | [`research/20261112_toji_sources.md`](research/20261112_toji_sources.md) | 冬至 Short の根拠（気象庁平年値・国立天文台） | 東京の1991〜2020年平年値では気温の底は**1月下旬（日別1/21〜22）**、冬至から**約1か月**。NEXT_TOPICS の「2月上旬」「1か月半」は不支持。日の出最遅は半月後・日の入最早は半月前 |
 | [`research/20261112_edo_shuiki_sources.md`](research/20261112_edo_shuiki_sources.md) | 江戸朱引図の到達性（12/10 枠） | 公文書館「旧江戸朱引内図」は高精細画像2コマが認証なしで取得可（IIIF非対応）、NDL切絵図は IIIF+PDM。**朱引＝御府内／墨引＝町奉行支配**で前提修正が必要。二次利用条件と朱引線の視認は未了 |
+| [`research/20261112_yoritomo_zo_sources.md`](research/20261112_yoritomo_zo_sources.md) | 神護寺「伝源頼朝像」＝足利直義説の根拠到達性 | 文化庁の2DBで名称「絹本著色伝源頼朝像」・国宝1951.06.09・神護寺蔵を直接確認。**所蔵者は公式サイトで新説に反論**。願文の年は1345年（帝国書院FAQのみ1354年で不一致→動画では年を言わない）。教科書の会社別・年度別比較は未取得。Commons の画像は PD だが**撮影者不明** |
 
 ## 6. 未対応・残課題
 

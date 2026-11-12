@@ -272,7 +272,8 @@ python scripts/studio_cdp.py captions --video-id <ID> --srt upload/<pack>/subtit
 eeds_research に記載）**：『吾妻鏡』『山槐記』の原文、教科書の実物、大百科全書・国史大辞典の原文、川合康の指摘の原典
 ### 試作の描画（2026-11-11 proto_kamakura_seiritsu）
 
-status: needs_review のため標準の `to-spec` は拒否する（正しい動作）。**試作**として、scripts/make_spec_kamakura_seiritsu.py が検査（ERROR なし）を確認したうえで `to_spec()` を直接呼び、**別名 proto_ で** data/short_proto_kamakura_seiritsu.json を出力する。esult.json は 
+status: needs_review のため標準の `to-spec` は拒否する（正しい動作）。**試作**として、scripts/make_spec_kamakura_seiritsu.py が検査（ERROR なし）を確認したうえで `to_spec()` を直接呼び、**別名 proto_ で** data/short_proto_kamakura_seiritsu.json を出力する。
+esult.json は 
 eeds_review のまま。
 
 ```powershell
@@ -327,7 +328,8 @@ o text・No pens）。clip5（墨の線）にも筆先が映る。AI の擬似�
 - **未確認**：連続再生での背景の動き（minterpolate の補間の見え方）、ナレーション全編の実聴、BGM の聴感、スマホ実機、出典の原文照合。**投稿可の判断はしていない**
 ### Muse によるレビュー（2026-11-11 proto_fv_kamakura_seiritsu）
 
-手順は E:\rekishikaisetu\docs\SOLO_SHORT_PROCEDURE.md の第6節（このリポジトリには無い。別の作業ツリー）。**標準フロー（esult.json）の動画でも同じ手順で送れた**。
+手順は E:\rekishikaisetu\docs\SOLO_SHORT_PROCEDURE.md の第6節（このリポジトリには無い。別の作業ツリー）。**標準フロー（
+esult.json）の動画でも同じ手順で送れた**。
 
 - **送り方（実際に動いたもの）**：360p 圧縮 fmpeg -i out/short_<slug>.mp4 -vf scale=360:-2 -c:v libx264 -crf 30 -preset fast -c:a aac -b:a 64k E:\rekishikaisetu\sigcmp_view\muse_<slug>.mp4（1.2MB）→ CDP の Chrome（chrome.exe --remote-debugging-port=9222 --user-data-dir=C:\Users\neoen\.chrome-automation https://muse.ai/）に Playwright（connect_over_cdp）で接続 → input[type=file] に set_input_files → 入力欄（[contenteditable=true]）をクリックして keyboard.insert_text（文字数と末尾を確認）→ 送信ボタンを座標クリック（約 522,871）→ ページ本文から、依頼文の末尾「問題点は時刻つきで具体的にお願いします。」の後ろを読む
 - **sk は使えない**：デーモンを起動できない（Job Object ... does not allow breakaway、os error 5）。CDP 版を使う
@@ -362,7 +364,8 @@ o text は守られていない。
 **到達できたもの**
 - **国立公文書館デジタルアーカイブ『吾妻鏡』（金澤文庫本、重要文化財、請求番号 特103-0001）**: 簿冊 https://www.digital.archives.go.jp/file/4503889 → 各巻 https://www.digital.archives.go.jp/item/<id> → ビューア https://www.digital.archives.go.jp/img/<id> → IIIF manifest https://www.digital.archives.go.jp/api/iiif/<id>/manifest.json
   - 巻一=2589952、巻三=2589954、**巻五=2589947**（68コマ）、巻十=2589956。ID は巻順ではないので、ile/4503889 の HTML から item/<id> を全部拾って title を引く
-  - 画像 URL: manifest の canvas → esource.service['@id'] + /full/max/0/native.jpg。**Referer と User-Agent を付けないと 403**（Referer: https://www.digital.archives.go.jp/img/<id>）
+  - 画像 URL: manifest の canvas → 
+esource.service['@id'] + /full/max/0/native.jpg。**Referer と User-Agent を付けないと 403**（Referer: https://www.digital.archives.go.jp/img/<id>）
   - 画像は 1 コマ＝見開き。解像度は十分で、**くずし字が読める**（実測: 巻五のコマ58〜60で「八日 丁巳」「十一日 庚申」「十二日 甲子」など）
 - **CiNii Research（論文＝標準の一次資料に該当）**: 川合康「鎌倉幕府の成立を問い直す」『歴史地理教育』815号 p.10（https://cir.nii.ac.jp/crid/1010282257135043585、NDL書誌 025173719）。同号には河野通郷「高校の授業 日本史「鎌倉幕府の成立年」を話し合う」p.48-51 も収録（NDLレファレンス crd 1000197449 が参照）
 
@@ -412,3 +415,61 @@ eeds_review のまま（標準のルールは緩めない）。アップロー�
 - 台帳: `superseded` に旧 ID を記録。旧版は 2026-11-12 に **unlisted（限定公開）へ変更**（オーナー判断。統計と URL は保持し、削除はしない）。これで同題材の重複公開を避け、新版の公開後に旧版の統計を見て残す/消すを決められる
 - **Studio 目視（2026-11-12 08:03、ログイン後）**: 寄り道ラボのチャンネルで確認。公開設定「**公開予約**」／子ども向け「いいえ」／**AI の使用「はい、AI を使用しました」選択済み**／動画の言語「日本語」／動画リンク `https://youtube.com/shorts/-TytIoEbUdE`／字幕ページに「日本語の字幕」を確認。概要欄は API の読み戻しと投稿パックが 2,221B で一致
   - 確認スクリプト: `out/check_studio_koharu.py`（CDP 9222・Playwright。チャンネルID不一致なら停止）。**自動化プロファイルは事前に `寄り道ラボ` でログインが必要**（未ログインだと accounts.google.com にリダイレクトされる）
+
+### yoritomo_zo（伝源頼朝像＝足利直義説）の試作（2026-11-12）
+
+題材は「学校で源頼朝の顔として覚えたあの肖像画は、いまは『伝源頼朝像』と呼ばれ、足利直義とする説がある」。
+高年齢層向けの「昔の説 → いまの説」型。標準フロー（brief → result.json → check）は通したが、
+原著・一次史料の照合が未了なので `status` は `needs_review`、描画は **試作 `proto_` のみ**（投稿可の判断はしていない）。
+
+| 項目 | 値 |
+| --- | --- |
+| brief | `shorts/yoritomo_zo/brief.yaml`（brief-check 指摘0） |
+| 台本 | `shorts/yoritomo_zo/result.json`（43秒・7シーン、check は ERROR 0 / WARN 4） |
+| 試作 spec | `scripts/make_spec_yoritomo_zo.py` → `data/short_proto_yoritomo_zo.json` |
+| 背景の生成 | `scripts/make_assets_yoritomo_zo.py` → `assets/yoritomo_zo/bg_0..6.png` |
+| 描画 | `python scripts/make_short2.py proto_yoritomo_zo` |
+| 出力 | `out/short_proto_yoritomo_zo.mp4`（git 管理外） |
+
+**実測（確認した範囲）**: 1080x1920 / 30fps / **43.63秒** / h264 + AAC 48kHz。全編デコードでエラーなし。
+loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音は冒頭 0.37 秒のみ（文間の音切れなし）。
+字幕 SRT は 11 ブロックで、ナレーションと1対1（`out/short_proto_yoritomo_zo_subtitles.srt`）。
+8時点（2/6/12/16.5/26/28/36/41秒）の静止画で、図・字幕・資料名の重なりを目視確認した。
+
+**資料画像の扱い（重要）**
+
+- Wikimedia Commons `File:Minamoto no Yoritomo.jpg`（1584x1974）を使用。ライセンスは `PD-Art` + `PD-old-100-expired`（deathyear=1205）
+- ただし同ファイルページの `source` は **`{{unknown|source}}`＝出典・撮影者不明**。所蔵者（神護寺）撮影の画像ではないため、
+  京都国立博物館の画像利用規程（インターネット 11,000円/年・申請2週間）の対象外と判断した。**この判断は法的助言ではない**
+- 画面下（y>1610）に「資料：伝源頼朝像（神護寺蔵・国宝）／画像：Wikimedia Commons（PD-Art）」を焼き込む
+- 画像は `assets/` 配下（`.gitignore` の `*.jpg` / `*.png` で追跡外）。再取得は
+  `https://upload.wikimedia.org/wikipedia/commons/7/76/Minamoto_no_Yoritomo.jpg`
+
+**描画で詰まった点と対処（すべて実際に踏んだもの）**
+
+1. **`sub` パネルが肖像の顔を隠す**。`make_short2.py` は `sub` を y=800〜960 の固定パネルに描く。肖像の顔は
+   その位置に来るため、**図の無い場面では `sub` を空にした**（`make_spec_yoritomo_zo.py` で機械的に処理）。
+   顔を y≈1060 に置き、`big`（y=520）と字幕（1470〜1540）の間に顔が収まるように背景を作った
+2. **肖像の上端が横一直線に見える**。画像をそのまま貼ると、絵の上部境界が硬い線として出る。
+   `compose()` で上端を `top_feather=340px` でぼかし、左右・下端も 140px ぼかして地の色になじませた
+3. **引き出し線（冠・太刀）は失敗**。線が字幕域（1240〜1540）を横切り、ラベル「太刀」が笏と袍の上に落ちて読めなかった。
+   **実物への加筆はやめ**、根拠は `timeline` の図（文字の札）で示す方針に変えた
+4. **`flow` 図は左右に余白が偏る**。3列の `mid` と下端の `leaf` を同時に使うと、左の箱が画面端に寄り、
+   `leaf` と `src` ラベル（y≈1200）が近接した。**`timeline` に置き換えた**（項目2つの `timeline` が最も読みやすい）
+5. **左端 65px が切れる**。`bg_fit=1.12` と Ken Burns で左右が切れるため、焼き込んだ資料名を x=36 から **x=92** へ移した
+6. **ffmpeg が PATH に無い**（`FileNotFoundError: [WinError 2]`）。そのセッションだけ
+   `$env:Path += ';C:\Users\neoen\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.1-full_build\bin'` を足す
+7. **`python - <<'PY'`（ヒアドキュメント）は PowerShell では動かない**。`ParserError` になる。一時 `.py` ファイルを書いて実行する
+
+**台本で避けたこと（根拠の都合）**
+
+- 「足利直義で確定」と書かない。**所蔵者の神護寺が公式サイトで「表記を変更する必要はない」と明言**しており、論争は続いている
+- 「全国の教科書が一斉に変わった」と書かない。確認できたのは nippon.com・テレビ朝日・帝国書院FAQ の記述のみで、
+  会社別・年度別の一次比較（金沢大学『教育実践研究』41号のPDF）は取得先のメンテナンスで未取得
+- **願文の年を言わない**。神護寺公式・nippon.com・Wikipedia は「康永4年＝1345年」、帝国書院FAQ だけが「1354年」で1桁違う。
+  動画では「南北朝時代の願文」とだけ述べた
+- 「40代以上」は nippon.com 1社の表現なので、ナレーションでは使わず `<br>` 概要欄の根拠にも入れていない
+
+**未確認の範囲**: 米倉迪夫『源頼朝像 沈黙の肖像画』（平凡社1995）・黒田日出男・宮島新一・近藤好和の原著、
+『足利直義願文』の原本、各社教科書の紙面、ナレーション全編の実聴、連続再生での動きの滑らかさ、スマホ実機表示、BGM の聴感。
+**投稿可の判断はしていない**
