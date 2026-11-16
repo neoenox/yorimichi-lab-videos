@@ -62,7 +62,8 @@ def main():
     if a.ai:
         text += '※背景映像はAI生成のイメージです\n'
     text += f'https://www.youtube.com/shorts/{a.video}\n' + a.tags
-    when = f"{MONTHS[a.month - 1]} {a.day}, {a.year} at " + (f"{a.hour}:{a.min:02d} " ) + ('PM' if a.hour >= 12 else 'AM')
+    h12 = a.hour % 12 or 12
+    when = f"{MONTHS[a.month - 1]} {a.day}, {a.year} at {h12}:{a.min:02d} " + ('PM' if a.hour >= 12 else 'AM')
 
     from playwright.sync_api import sync_playwright
 

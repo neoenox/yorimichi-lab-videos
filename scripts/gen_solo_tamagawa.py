@@ -1,0 +1,46 @@
+"""単独Short(江戸の暮らし／インフラ)：江戸の水道は、ポンプなしで43km(solo_tamagawa)。根拠は東京都水道局「玉川上水」「玉川上水の歴史」(2026年11月16日に原文を確認 https://www.waterworks.metro.tokyo.lg.jp/kouhou/meisho/tamagawa 、https://www.waterworks.metro.tokyo.lg.jp/kouhou/pr/tamagawa/rekishishiritai/rekishi )。nolong, nolink。背景はFreeVideoのAI映像(イメージ)、図は自作。"""
+import sys
+sys.path.insert(0, r'E:\rekishikaisetu-honnoji\scripts')
+from solo_spec import build, T, fv_prompts
+W = '東京都水道局「玉川上水」「玉川上水の歴史」'
+pron = {'玉川上水': 'タマガワジョウスイ', '羽村': 'ハムラ', '四谷大木戸': 'ヨツヤオオキド',
+        '上水': 'ジョウスイ', '樋': 'ヒ', '石樋': 'イシビ', '木樋': 'キビ', '勾配': 'コウバイ',
+        '武蔵野台地': 'ムサシノダイチ', '玉川兄弟': 'タマガワキョウダイ'}
+scenes = [
+    dict(text='江戸の水道は、ポンプなしで43キロ。どう流した？ 答えは、高低差92メートルで、自然に流しました。1653年のことです。',
+         big='ポンプなしで、43キロ', sub='1653年着工、8か月で完成', src=W,
+         viz=T(2.6, [('区間', '羽村→四谷大木戸'), ('距離', '約43km'), ('年', '1653年')])),
+    dict(text='多摩川の羽村から、四谷大木戸まで、約43キロ。着工から8か月で、完成したと伝えられています。',
+         big='8か月で、43キロ', sub='請け負ったのは玉川兄弟', src=W,
+         viz=T(2.8, [('着工', '1653年4月4日'), ('完成', '8か月後'), ('請負', '玉川兄弟')])),
+    dict(text='水は、低い方へ流れます。武蔵野台地の地形を使って、92メートルの差で、自然に流れるようにしました。',
+         big='標高差は、92メートル', sub='地形を巧みに使った', src=W,
+         viz=T(2.8, [('高低差', '92m'), ('距離', '43km'), ('流し方', '地形で自然に流す')])),
+    dict(text='江戸の町では、石や木の水道管で、水を送りました。開渠の約30キロが、今も国の史跡です。2026年11月16日時点の情報です。',
+         big='今も、国の史跡', sub='市中は石樋・木樋で配水', src=W,
+         viz=T(2.8, [('市中', '石樋・木樋'), ('史跡', '開渠30km'), ('時点', '2026年11月16日')])),
+]
+bg = ['山あいの川に組まれた石の堰と、そこから引かれる細い水路(人物なし・文字なし)',
+      '草の生えた野を、まっすぐに延びる土の水路(人物なし・文字なし)',
+      '木でできた樋の中を、水が流れる映像(人物なし・手なし・文字なし)',
+      '木々に囲まれた、静かな水路(人物なし・文字なし)']
+notes = ('■ 2026年11月16日に、東京都水道局「玉川上水」(https://www.waterworks.metro.tokyo.lg.jp/kouhou/meisho/tamagawa )と「玉川上水の歴史」(https://www.waterworks.metro.tokyo.lg.jp/kouhou/pr/tamagawa/rekishishiritai/rekishi )を読んで作った整理です。2026年11月16日時点の情報です。\n'
+         '・使った事実(同)：玉川上水は、多摩川中流の羽村取水口から四谷大木戸までの約43kmが素掘りの開渠で、江戸市中は暗渠。約43kmを約92mの標高差で流す設計。承応2(1653)年4月4日着工、わずか8か月後の11月15日に完成したと伝えられる(この年は閏年で6月が2度あるため8か月)。請負は庄右衛門・清右衛門兄弟で、褒賞として玉川の姓を賜った。翌年6月には市中の地下に石樋・木樋の配水管を布設し、江戸城・四谷・麹町・赤坂・芝・京橋方面へ給水。武蔵野台地の地形を活用し、自然に水が下流へ流れるようにした。平成15年に開削350周年と国の史跡指定。\n'
+         '・年の表記のゆれ：「東京水道名所」のページは「承応3(1654)年」とし、「玉川上水の歴史」のページは「承応2(1653)年4月着工・11月完成」とする。動画では歴史ページの1653年を採った。\n'
+         '・言い過ぎを避けた点：「8か月で完成したと伝えられます」(市中への配水管の布設は翌年6月)。国の史跡に指定されたのは、暗渠などを除いた開渠部分の約30kmで、43km全体ではない。43kmは羽村から四谷大木戸までの上水路の長さで、江戸市中の配水区間とは別。\n'
+         '・レビューで直した点(ChatGPT・Gemini、2026年11月16日。裏取りして採用)：「高低差92メートルだけで」→「高低差92メートルで」、「8か月で、掘りました」→「完成したと伝えられています」、「今も、国の史跡として残っています」→「開渠の約30キロが、今も国の史跡です」、「石の樋と木の樋」→ナレーションでは「石や木の水道管」(「樋(とい)」が「問い」と同音のため。画面のカードには石樋・木樋と表示)。\n'
+         '・不採用にした指摘(Gemini)：「2026年11月16日時点の情報です」を削る案(チャンネルの運用で、非ニュースでも時点を書く)、冒頭で答えを引っ張る案(手順の方針は「答えを先に出す」)。\n'
+         '・動画では使っていないこと：神田上水・溜池の上水、分水33か所(1791年頃)、水番屋・水番人・芥留、野火止用水、青山・三田・千川の3上水、通船、『上水記』。\n'
+         '・未確認：『上水記』原文、「玉川上水紀元并野火留分水口之訳書」、玉川兄弟の事績の一次史料。\n'
+         '・背景の映像はAI生成で、実際の玉川上水の映像ではない(イメージです)。\n')
+if __name__ == '__main__':
+    build('tamagawa', '江戸の水道は、ポンプなしで43km。どう流した？ 玉川上水の高低差', '江戸の水道、43キロ', '高低差92mで、43kmを流した', pron, scenes, bg, notes,
+          bg_note='・動画内の図(年表・比較)は自作です。背景の映像は FreeVideo(MiniMax H3)によるAI生成で、イメージです。実際の玉川上水の映像ではありません。\n',
+          credit='・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の玉川上水の映像ではありません\n・図・表：自作',
+          end_q='皆さんの家の水道は、どこから来ているか、知っていますか？',          tags=['玉川上水', '江戸時代', '水道', '上水', '東京都水道局', 'インフラ', '歴史', '雑学', 'Shorts'])
+    fv_prompts('tamagawa', [
+        'A clear mountain river with a simple stone weir, water flowing into a narrow earth channel, early morning light, mist over the water, no people, no text, the camera slowly gliding forward.',
+        'A narrow earth channel filled with shallow clear water, seen from a low angle close to the water surface, grassy banks on both sides filling the frame, water flowing toward the camera, soft afternoon light, no people, no text, the camera slowly moving forward.',
+        'Inside a wooden water pipe made of thick planks, clear water flowing steadily, warm wood grain, close view, no people, no hands, no text, the camera slowly gliding forward.',
+        'A quiet narrow waterway under old trees, calm clear water reflecting soft light, moss and stones at the edge, no people, no text, the camera slowly drifting sideways.'],
+        allow_buildings=False)
