@@ -138,7 +138,8 @@ if __name__ == '__main__':
 - Gemini(`https://gemini.google.com/app`): 入力欄(スクリーンショットで位置を見る。1568×744で約(820,372))をクリック → `type` → `Return` キー。**送信されなかったら(ページが「何から始めますか？」のまま)、クリックからやり直す**。返答は `document.body.innerText` の「Gemini の回答」以降を読む。固まったらタブを閉じて開き直す。
 - **背景(ComfyUI)を生成している間は、Chromeが重くなる**: `screenshot` が30秒でタイムアウト、`type` が30秒でタイムアウトすることがある。`get_page_text` やJSで読む。画面が「思考」のまま進まなければ、**再読み込みして送り直す(会話が消えていることがある。履歴は残らない前提)**。`browser_batch` で「クリック→入力→送信→待つ」を1回にまとめると、往復が減る。
 - ChatGPTの返答には、広告・関連候補が混ざる。評価の本文(「修正すべき点」など)だけを読む。「思考」の表示が続くときは1〜3分かかる。
-- **レビューが終わったタブは、その場で閉じる**(2026-11-16 ユーザー指示)。レビュー用に自分で開いたタブ(ChatGPT・Gemini・Muse など)を開いたままにするとメモリを食い、背景生成(ComfyUI)のRAM不足やChromeのタイムアウトの原因になる。**閉じてよいのは、自分で開いたレビュー用のタブだけ**。Gmail・カレンダー・X・YouTube Studio など、ユーザーが使っているタブは閉じない。Muse は GIF のレビューが終わるまで、Studio/X は投稿の確認が終わるまで残す。
+- **レビューが終わったタブは、その場で閉じる**(2026-11-16 ユーザー指示)。レビュー用に自分で開いたタブ(ChatGPT・Gemini など)を開いたままにするとメモリを食い、背景生成(ComfyUI)のRAM不足やChromeのタイムアウトの原因になる。**閉じてよいのは、自分で開いたレビュー用のタブだけ**。Gmail・カレンダー・X・YouTube Studio など、ユーザーが使っているタブは閉じない。
+- **Muse はタブグループでは呼べない**(2026-11-16 実測)。拡張機能のブラウザからは `input[type=file]` にファイルを渡せず(`browser_type` は失敗)、ページ内JSでローカル動画を `fetch` する方法も **CSP** で遮断される。Muse は `python scripts/muse_review.py <slug> --video out/short_solo_<slug>.mp4` で、専用プロファイル(`.chrome-automation`、CDP 9222)のChromeを使う。**スクリプトが自分で起動したChromeは、終了時に自動で閉じる**(2026-11-16 に `close_launched()` を追加。ユーザーのChromeには触らない)。ウィンドウを残さない。
 
 ### 4-3 合わせ方
 - 史実の一般化・裏取りは ChatGPT を優先。Gemini は甘く、出典にない断言をすることがある。Gemini からは、同音語の補足・テンポ・コメントを呼ぶ問いの案を取り入れる。
@@ -176,6 +177,7 @@ if __name__ == '__main__':
 ### 5-2 AI映像(FreeVideo)
 - `fv_prompts(slug, [英語の指示文×4], allow_buildings=False, allow_modern=False)` が `prompts.json` を書く。人物・文字・建物・現代物は共通の末尾で禁止(建物が主役なら `allow_buildings=True`)。
 - 生成: `bash scripts/fv_clips.sh <slug>`(全部)/`bash scripts/fv_clips.sh <slug> clip1 clip3`(作り直し)。ComfyUI を起動→生成→停止する。**1本約9分(4本で約36分)**。`run_in_background` で動かし、通知を待つ(ポーリングしない)。待つ間に台本レビューを進める。
+  - Windows で素の `bash` は **WSL に解決されて失敗する**(WSL未導入。2026-11-16)。**`C:\Program Files\Git\bin\bash.exe` を絶対パスで呼ぶ**。`fv_clips.sh` は `/e/...` のパスを使うので Git Bash が必要。
 - **指示文は、ナレーションの具体物と動きに合わせる**(雰囲気の風景で済ませない)。江戸の場面は "no power lines, no utility poles, no wires, no asphalt" を足す。
 - **文字・額・紋・刻印が写ったら作り直す**(看板、額の疑似文字、暖簾の紋、包丁の刻印、掛け軸)。**写したくない物の名前を指示文に書かない**(「no hanging scroll」と書くと、かえって巨大な掛け軸が出た)。見せたい物だけを書き、構図で外す(壁の入らないアップ、"plain empty wall")。場面の中身を変えるほうが確実なこともある(暖簾→土間の台所)。
 - 4コマを並べて目で見る(文字、近代的な物=吊り照明・雨どい・電線、人物)。作り直し前のクリップは `fv/old/` に退避。
@@ -189,6 +191,7 @@ if __name__ == '__main__':
 ## 6. ビルドと機械検査
 
 - VOICEVOX が必要: `tools/voicevox/windows-cpu/run.exe --host 127.0.0.1 --port 50021`(**セッションをまたぐと止まる**。`curl http://127.0.0.1:50021/version` で確認して、止まっていれば起動し直す)。
+- **ffmpeg / ffprobe に PATH が通っていないと、ビルドは `FileNotFoundError: [WinError 2]` で落ちる**(`make_short2.py` は 'ffmpeg' を素で呼ぶ)。同じシェルで先に `$env:PATH = "E:\rekishikaisetu-honnoji\tools\ffmpeg\bin;" + $env:PATH` を実行する(2026-11-16)。
 - `python scripts/solo_ship.py build solo_<slug>` → `E:\rekishikaisetu\sigcmp_view\short_solo_<slug>.mp4`、`out\short_solo_<slug>.mp4`、`out\short_solo_<slug>_kana.txt`、`out\short_solo_<slug>_frames.png`。
 - 長さを見る。**55秒を超えたら、ナレーションを削って作り直す**。
 - 機械検査(すべて実行):
@@ -231,7 +234,13 @@ if __name__ == '__main__':
 ## 9. X(@yorimichi_lab1)の紹介投稿を予約する
 
 - **新作は、アップ・予約した日のうちに、X の予約投稿も入れる**(公開時刻の5分後。抜けた日がある)。投稿は1日2〜3本まで(新作+過去動画の紹介1本=21:30)。過去動画の紹介は、日付のない題材を1日1本、21:30に。
-- ブラウザは **Playwright の専用ブラウザ**(内蔵ブラウザはログインが消える)。ユーザーがログイン済み。ブラウザが途中で閉じても、`browser_navigate` し直せばログインは残っている。
+- ブラウザは **Playwright の専用ブラウザ**(`mcp__playwright-mcp__*`)。ユーザーがその窓で @yorimichi_lab1 にログイン済み。ブラウザが途中で閉じても、`browser_navigate` し直せばログインは残っている(専用プロファイルに保存されている)。
+- **Xは、拡張機能側のChromeでは投稿しない**(2026-11-16 ユーザー指示)。専用プロファイルは `C:\Users\neoen\AppData\Local\ms-playwright-mcp\mcp-chrome-666d4fb`(x.com のログインあり。Cookiesで確認)。`python scripts/x_schedule.py --video <ID> --day 21 --hour 12 --min 5 --question "問い" --ai` が、アカウント確認→予約日時の設定→本文→事前チェック→投稿→予約一覧での重複確認まで行う(`--dry-run` で送信前に止まる。2026-11-16 に x32F4QhOUSI で成功)。投稿後は予約一覧(`/compose/post/unsent/scheduled`)で同じ動画IDが1件だけか数える。
+  - **理由と決まり(2026-11-13の経緯)**: Claude in Chrome がつなぐのは**ユーザーの普段のChrome**で、普段のアカウントでログインしている。寄り道ラボのXは**別アカウント**なので、**普段のChromeや内蔵ブラウザ(`mcp__Claude_Browser__*`)ではXを開かない・ログインしない**(別アカウントで投稿する事故を防ぐ。内蔵ブラウザはペインが開き直されるとログインも消えた)。Chromeのプロフィールを私が切り替えることはできないため、「別プロファイルのChromeを立ち上げる」方式は採っていない。
+  - **プロファイルの場所(2026-11-16に調べた)**: `C:\Users\neoen\AppData\Local\ms-playwright-mcp\mcp-chrome-666d4fb`(Playwright MCPが作る独立したフォルダ。中のプロファイル名は `Default`。Chromeの「Profile 1」のような名前は付いていない)。**このフォルダのCookieにだけ x.com / twitter.com が入っている**(同じ場所の他の5つの `mcp-chrome-*` にはXのログインが無い)。
+  - 確認のしかた: `mcp__playwright-mcp__browser_navigate https://x.com/compose/post` を開き、投稿画面が出て、予約ボタン(`[data-testid=scheduleOption]`)があればログイン済み。ログイン画面が出たら、**別のプロファイル(別のmcp-chromeフォルダ)を使っている可能性**がある(作業フォルダが変わると別のフォルダになる、と推測。未確認)。その場合はユーザーに知らせる。自分でログイン操作はしない。
+  - ユーザーの普段のChromeは、`list_connected_browsers` で「Browser 1」と出る(Claude in Chrome。YouTube Studio・ChatGPT・Gemini・Museには使うが、**Xには使わない**)。
+  - Playwrightの窓でログインが消えていたら、**ユーザーにその窓でログインしてもらう**(私はパスワード・認証コードを入力しない)。ログインできるまでXの投稿はしない。
 - 手順(1投稿):
   1. `browser_navigate https://x.com/compose/post`
   2. `browser_evaluate`: 予約ボタン(`[data-testid=scheduleOption]`)をクリック → `#SELECTOR_1`(月)`#SELECTOR_2`(日)`#SELECTOR_3`(年)`#SELECTOR_4`(時)`#SELECTOR_5`(分)にselectの値を設定(`Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype,'value').set.call(s, v)` と change イベント)→ テキストが `Confirm` の要素をクリック。
@@ -332,6 +341,9 @@ async (page) => {
 | 題材 | Wikipediaの文を、出典で確認せずに言う(「庶民は使えなかった」) | 出典(資料館通信など)で確認できた部分だけ |
 | 資料 | PDFの文字が取れない・文字化け | 画像PDFは `fitz` でPNGにして目で読む。表示は `PYTHONUTF8=1` |
 | 実行 | **Windowsでの `python - <<EOF` や置換で、日本語が文字化けして構文エラー** | 日本語の文字列編集は `Write`/`Edit` ツール。`python` の出力は `PYTHONUTF8=1` |
+| 実行 | **素の `bash` が WSL に解決されて `fv_clips.sh` が動かない**(WSL未導入。2026-11-16) | `& "C:\Program Files\Git\bin\bash.exe" scripts/fv_clips.sh <slug>` と絶対パスで呼ぶ |
+| ビルド | **`ffmpeg` が PATH に無く `FileNotFoundError: [WinError 2]`**(2026-11-16) | ビルドの前に `$env:PATH = "E:\rekishikaisetu-honnoji\tools\ffmpeg\bin;" + $env:PATH` |
+| 読み | **「873件」が「サンゲン」と読まれる**(2026-11-16) | `pron` は文字列置換。`'873件': 'ハッピャクナナジュウサンケン'` のように登録する(字幕の表示は変わらない) |
 | 背景 | `Port 8188 is already in use` | 前回のComfyUIが生きていれば、その上で進む(`/queue` で確認) |
 | 背景 | 生成中にChromeが固まる(screenshot・typeが30秒でタイムアウト) | `get_page_text`・JSで操作。画面が進まなければ再読み込みして送り直す |
 | 台本 | 同じ動画内の同音語(債権/再建、俳諧/徘徊)、長い比較カードの値(枠からはみ出す) | 言い換える/値を短く(右ラベルと値で分ける) |
