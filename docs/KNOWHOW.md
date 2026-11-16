@@ -104,9 +104,12 @@
 | [`research/20261112_toji_sources.md`](research/20261112_toji_sources.md) | 冬至 Short の根拠（気象庁平年値・国立天文台） | 東京の1991〜2020年平年値では気温の底は**1月下旬（日別1/21〜22）**、冬至から**約1か月**。NEXT_TOPICS の「2月上旬」「1か月半」は不支持。日の出最遅は半月後・日の入最早は半月前 |
 | [`research/20261112_edo_shuiki_sources.md`](research/20261112_edo_shuiki_sources.md) | 江戸朱引図の到達性（12/10 枠） | 公文書館「旧江戸朱引内図」は高精細画像2コマが認証なしで取得可（IIIF非対応）、NDL切絵図は IIIF+PDM。**朱引＝御府内／墨引＝町奉行支配**で前提修正が必要。二次利用条件と朱引線の視認は未了 |
 | [`research/20261112_yoritomo_zo_sources.md`](research/20261112_yoritomo_zo_sources.md) | 神護寺「伝源頼朝像」＝足利直義説の根拠到達性 | 文化庁の2DBで名称「絹本著色伝源頼朝像」・国宝1951.06.09・神護寺蔵を直接確認。**所蔵者は公式サイトで新説に反論**。願文の年は1345年（帝国書院FAQのみ1354年で不一致→動画では年を言わない）。教科書の会社別・年度別比較は未取得。Commons の画像は PD だが**撮影者不明** |
+| [`research/20261116_rakuten_api_and_terms.md`](research/20261116_rakuten_api_and_terms.md) | 楽天アフィリエイト・楽天ウェブサービスの制約 | 基本料率2〜4%、料率アップ5〜20%は**上限（1商品1,000円／月3,000円）対象外**。**レビュー本文はAPIに無く、転載・編集・複製はガイドラインで禁止**。料率アップ一覧のAPIは無い。`webservice.rakuten.co.jp` は参照日 **503** |
+| [`research/20261116_ad_rules_and_platform_policy.md`](research/20261116_ad_rules_and_platform_policy.md) | 景表法・ステマ規制・薬機法・著作権・YouTubeポリシー | **Shorts の説明欄 URL はクリックできない**（YouTube公式）。ステマは動画全編で「PR」表示が望ましい。AI量産はスパムポリシーの例示に近い。薬機法66条・68条は「何人も」対象 |
 
 ## 6. 未対応・残課題
 
+- **楽天アフィリエイト（商品起点）は設計段階**。[`RAKUTEN_AFFILIATE_PIPELINE.md`](RAKUTEN_AFFILIATE_PIPELINE.md) に制約と設計をまとめた。実装は未着手。**Shorts の説明欄リンクが踏めない**ため、導線はチャンネルプロフィールか YouTube ショッピング（YPP 必要）に限られる
 - 画像は API（`OPENAI_API_KEY`）にできれば最も安定（ブラウザは UI 変更に弱い）
 - 既存の `data/short_*.json`（旧形式）の標準形式への移行
 - 長尺と Shorts の自動ペアリング（現在は手動）
