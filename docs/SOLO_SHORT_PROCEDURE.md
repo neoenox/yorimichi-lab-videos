@@ -139,7 +139,8 @@ if __name__ == '__main__':
 - **背景(ComfyUI)を生成している間は、Chromeが重くなる**: `screenshot` が30秒でタイムアウト、`type` が30秒でタイムアウトすることがある。`get_page_text` やJSで読む。画面が「思考」のまま進まなければ、**再読み込みして送り直す(会話が消えていることがある。履歴は残らない前提)**。`browser_batch` で「クリック→入力→送信→待つ」を1回にまとめると、往復が減る。
 - ChatGPTの返答には、広告・関連候補が混ざる。評価の本文(「修正すべき点」など)だけを読む。「思考」の表示が続くときは1〜3分かかる。
 - **レビューが終わったタブは、その場で閉じる**(2026-11-16 ユーザー指示)。レビュー用に自分で開いたタブ(ChatGPT・Gemini など)を開いたままにするとメモリを食い、背景生成(ComfyUI)のRAM不足やChromeのタイムアウトの原因になる。**閉じてよいのは、自分で開いたレビュー用のタブだけ**。Gmail・カレンダー・X・YouTube Studio など、ユーザーが使っているタブは閉じない。
-- **Muse はタブグループでは呼べない**(2026-11-16 実測)。拡張機能のブラウザからは `input[type=file]` にファイルを渡せず(`browser_type` は失敗)、ページ内JSでローカル動画を `fetch` する方法も **CSP** で遮断される。Muse は `python scripts/muse_review.py <slug> --video out/short_solo_<slug>.mp4` で、専用プロファイル(`.chrome-automation`、CDP 9222)のChromeを使う。**スクリプトが自分で起動したChromeは、終了時に自動で閉じる**(2026-11-16 に `close_launched()` を追加。ユーザーのChromeには触らない)。ウィンドウを残さない。
+- **Muse はタブグループでは呼べない**(2026-11-16 実測)。拡張機能のブラウザからは `input[type=file]` にファイルを渡せず(`browser_type` は `E:\...` も `file:///E:/...` も失敗)、ページ内JSでローカル動画を `fetch` する方法も **CSP** で遮断される。DSHの公式プラグインにも添付機能は無い。Muse は `python scripts/muse_review.py <slug> --video out/short_solo_<slug>.mp4` で、専用プロファイル(`.chrome-automation`、CDP 9222)のChromeを使う。
+  - **ユーザーの判断(2026-11-16)**: 別ウィンドウは許容。ただし**終わったら自動で閉じる**こと(窓を残さない)。`muse_review.py` は `close_launched()`(atexit)で、**自分が起動したChromeだけ**を閉じる(ユーザーのChromeには触らない)。X用の `scripts/x_schedule.py` にも同じ自動クローズを入れた。`--dry-run` で「起動 → 終了 → 残り0」を確認済み。
 
 ### 4-3 合わせ方
 - 史実の一般化・裏取りは ChatGPT を優先。Gemini は甘く、出典にない断言をすることがある。Gemini からは、同音語の補足・テンポ・コメントを呼ぶ問いの案を取り入れる。
@@ -329,6 +330,7 @@ async (page) => {
 | Muse | 座標が違う(枠が1568×698/744) | 直前のスクリーンショットの枠で指定 |
 | Chrome | 拡張機能が切れる/タブがグループから外れる/screenshotがタイムアウト | 再接続を頼む/タブを取り直す/JSで直接操作 |
 | Chrome | **レビューが終わってもタブを開いたままにする** | 自分で開いたレビュー用のタブは、終わったらその場で閉じる(4-2)。ユーザーのタブ(Gmail・X・Studio など)は閉じない |
+| Chrome | **Muse・X用の専用Chromeの窓が残る** | `muse_review.py`・`x_schedule.py` は atexit の `close_launched()` で、自分が起動したChromeだけを閉じる。確認は `Get-CimInstance Win32_Process -Filter "Name='chrome.exe'"` の CommandLine を `chrome-automation` / `mcp-chrome-666d4fb` で絞って数える(2026-11-16は0件を確認) |
 | アップ | tags.txt が前の動画のまま | 毎回書き直す |
 | アップ | 確認行が `publishAt=None` | APIで読み直す。台帳に追記 |
 | X | 投稿後に `/i/graduated-access` へ飛ぶ | 投稿は通っている(重複しない) |
