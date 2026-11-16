@@ -141,12 +141,25 @@ def main():
             print('--dry-run: 送信しない')
             return
 
-        sb = pg.locator('button[aria-label]').filter(has_text=re.compile('送信|Send')).first
-        if sb.count():
-            sb.click()
-        else:   # 送信ボタンにラベルが無いときは、入力欄の右下を座標で押す
-            bb = box.bounding_box()
-            pg.mouse.click(bb['x'] + bb['width'] + 62, bb['y'] + bb['height'] - 18)
+        # 送信: Enter を押し、入力欄が空になったかで「送れた」ことを確かめる（2026-11-16: 送信ボタン頼みで失敗した）
+        box.click()
+        pg.keyboard.press('Enter')
+        pg.wait_for_timeout(2500)
+        free = pg.evaluate("""() => { const el = document.querySelector('[contenteditable=true], textarea');
+            if (!el) return -1; return (el.tagName === 'TEXTAREA' ? el.value : el.innerText).trim().length; }""")
+        if free not in (0, -1):
+            sb = pg.locator('button[aria-label]').filter(has_text=re.compile('送信|Send')).first
+            if sb.count():
+                sb.click()
+            else:
+                bb = box.bounding_box()
+                pg.mouse.click(bb['x'] + bb['width'] + 62, bb['y'] + bb['height'] - 18)
+            pg.wait_for_timeout(2500)
+            free = pg.evaluate("""() => { const el = document.querySelector('[contenteditable=true], textarea');
+                if (!el) return -1; return (el.tagName === 'TEXTAREA' ? el.value : el.innerText).trim().length; }""")
+        if free not in (0, -1):
+            pg.screenshot(path=str(ROOT / 'out' / f'muse_{a.slug}_sendfail.png'))
+            raise SystemExit('送信できていない（入力欄に文字が残っている）。スクリーンショット: out/muse_%s_sendfail.png' % a.slug)
         print('送信した。返答を待つ（最大 %d 秒）' % a.timeout)
 
         t0 = time.time()
