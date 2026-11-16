@@ -3,18 +3,19 @@ from solo_spec import build, T, fv_prompts
 W = '東京消防庁「江戸の火消」「宵ごしの銭と江戸の華」'
 W2 = '内閣府 災害教訓(明暦江戸大火)・東京消防庁'
 pron = {'大火': 'タイカ', '町火消': 'マチビケシ', '定火消': 'ジョウビケシ', '明暦': 'メイレキ',
-        '死活問題': 'シカツモンダイ', '華': 'ハナ', '壊す': 'コワス', '幕府': 'バクフ'}
+        '死活問題': 'シカツモンダイ', '華': 'ハナ', '壊す': 'コワス', '幕府': 'バクフ',
+        '873件': 'ハッピャクナナジュウサンケン'}
 scenes = [
-    dict(text='江戸の火事は、なぜ「華」と呼ばれた？ 答えは、華ではなく、やけっぱちの強がりでした。火事が絶えない町だったからです。',
+    dict(text='江戸の火事は、なぜ「華」と呼ばれた？ 答えは、華ではなく、やけっぱちの強がりでした。',
          big='江戸の華は、強がり', sub='「火事と喧嘩は江戸の華」の正体', src=W,
          viz=T(2.6, [('問い', '江戸の火事は、なぜ華？'), ('答え', '華ではなく、強がり'), ('背景', '火事が絶えない町')])),
-    dict(text='江戸から明治までの317年間、主な火事は873件。うち大火は110件です。当時は、火を消すだけでなく、家を壊して、燃え広がりを止めました。',
+    dict(text='火事が絶えない江戸では、317年間で主な火事が873件。うち大火は110件。当時は、火を消すだけでなく、家を壊して燃え広がりを止めました。',
          big='873件と、壊す消火', sub='水より、家を壊して止めた', src=W,
          viz=T(2.8, [('主な火事', '873件'), ('うち大火', '110件'), ('消し方', '家を壊して止める')])),
-    dict(text='江戸の町火消は、64組。中心は、とび職でした。遠くから見れば炎は華でも、住む人には、家を失う死活問題です。',
+    dict(text='町火消は、64組。中心は、とび職でした。遠くから見れば炎は華でも、住む人には、家を失う死活問題です。',
          big='町火消は、64組', sub='1718年、とび職が中心', src=W,
          viz=dict(type='compare', l_label='遠くから見た人', l_val='華', r_label='江戸の住民', r_val='死活問題')),
-    dict(text='明暦の大火のあと、幕府は定火消をつくりました。これが、今の消防署の元とされます。2026年11月16日時点の情報です。',
+    dict(text='明暦の大火のあと、幕府は定火消をつくりました。これが、今の消防署の元とされます。2026年11月16日時点です。',
          big='消防署の元は、定火消', sub='1657年、明暦の大火のあと', src=W2,
          viz=T(2.8, [('1657年', '明暦の大火'), ('そのあと', '定火消ができる'), ('今の', '消防署の元')])),
 ]
@@ -48,5 +49,5 @@ if __name__ == '__main__':
         'Rooftops of a dense old Japanese wooden town at night, seen slightly from above, deep blue night sky, a distant orange glow of fire and drifting smoke on the horizon, tiled roofs and wooden houses, no people, no text, the camera slowly drifting forward.',
         'Traditional Japanese firefighting tools of the Edo period laid on packed earth in front of a white plaster storehouse wall: a long wooden pole with a metal hook, a large saw, thick quilted cotton jackets folded in a stack, dim warm light, no people, no hands, no text, the camera slowly gliding sideways.',
         'Sparks and glowing embers floating up into the dark night sky above silhouetted wooden rooftops, warm orange light, gentle drifting motion, no people, no text, the camera slowly tilting up.',
-        'A tall wooden fire watchtower with a bell frame silhouetted against a pale dawn sky, thin mist over the town below, no people, no text, the camera slowly pushing in.'],
+        'A tall wooden fire watchtower of the Edo period seen from below against a wide empty dawn sky, wooden ladder and a small bell frame at the top, thin mist and one dark ridge of hills far behind, cool blue to pale pink gradient, no people, no text, the camera slowly tilting up.'],
         allow_buildings=True)

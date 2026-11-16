@@ -10,6 +10,7 @@
   （Chrome の file_upload は作業フォルダの外を受け付けないため）。
 """
 import argparse
+import atexit
 import json
 import os
 import re
@@ -31,6 +32,7 @@ VIEW = Path('E:/rekishikaisetu/sigcmp_view')
 MUSE_MARK = '問題点は時刻つきで具体的にお願いします。'
 TEXTBOX = '[contenteditable=true], textarea, [role=textbox]'   # Muse は contenteditable とは限らない（実測: textarea か role=textbox）
 FFMPEG = shutil.which('ffmpeg') or r'C:\Users\neoen\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.1-full_build\bin\ffmpeg.exe'
+LAUNCHED = []   # このスクリプトが起動した Chrome のプロセス（終了時に閉じる）
 
 TEMPLATE = ('この動画のレビューをお願いします。添付は、{topic}のYouTube Shorts(約{sec}秒)です。'
             '背景は{background}で、概要欄に出典とAI生成の明示を書きます。{notes}'
@@ -49,16 +51,31 @@ def port_open(port, timeout=1.0):
 
 
 def ensure_chrome():
-    """CDP の Chrome が無ければ起動する。DSH の再起動で落ちていても、ここで立て直す。"""
+    """CDP の Chrome が無ければ起動する。DSH の再起動で落ちていても、ここで立て直す。
+
+    自分で起動したときは、プロセスを LAUNCHED に控えておき、終了時に閉じる
+    （2026-11-16 ユーザー指示: ウィンドウが増えるのがイヤ。レビューが終わったら残さない）。
+    """
     if port_open(CDP_PORT):
         return False
-    subprocess.Popen([CHROME, f'--remote-debugging-port={CDP_PORT}', f'--user-data-dir={PROFILE}',
-                      'https://muse.ai/'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    proc = subprocess.Popen([CHROME, f'--remote-debugging-port={CDP_PORT}', f'--user-data-dir={PROFILE}',
+                             'https://muse.ai/'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    LAUNCHED.append(proc)
     for _ in range(30):
         if port_open(CDP_PORT):
             return True
         time.sleep(1)
     raise SystemExit('Chrome(CDP %d) を起動できない。手で起動してから再実行する' % CDP_PORT)
+
+
+def close_launched():
+    """このスクリプトが起動した Chrome だけを閉じる（ユーザーのChromeには触らない）。"""
+    for p in LAUNCHED:
+        subprocess.run(['taskkill', '/PID', str(p.pid), '/T', '/F'], capture_output=True)
+    LAUNCHED.clear()
+
+
+atexit.register(close_launched)
 
 
 def compress(src, slug):
