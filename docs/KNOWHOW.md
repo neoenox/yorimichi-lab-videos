@@ -106,6 +106,7 @@
 | [`research/20261112_yoritomo_zo_sources.md`](research/20261112_yoritomo_zo_sources.md) | 神護寺「伝源頼朝像」＝足利直義説の根拠到達性 | 文化庁の2DBで名称「絹本著色伝源頼朝像」・国宝1951.06.09・神護寺蔵を直接確認。**所蔵者は公式サイトで新説に反論**。願文の年は1345年（帝国書院FAQのみ1354年で不一致→動画では年を言わない）。教科書の会社別・年度別比較は未取得。Commons の画像は PD だが**撮影者不明** |
 | [`research/20261116_rakuten_api_and_terms.md`](research/20261116_rakuten_api_and_terms.md) | 楽天アフィリエイト・楽天ウェブサービスの制約 | 基本料率2〜4%、料率アップ5〜20%は**上限（1商品1,000円／月3,000円）対象外**。**レビュー本文はAPIに無く、転載・編集・複製はガイドラインで禁止**。料率アップ一覧のAPIは無い。`webservice.rakuten.co.jp` は参照日 **503** |
 | [`research/20261116_ad_rules_and_platform_policy.md`](research/20261116_ad_rules_and_platform_policy.md) | 景表法・ステマ規制・薬機法・著作権・YouTubeポリシー | **Shorts の説明欄 URL はクリックできない**（YouTube公式）。ステマは動画全編で「PR」表示が望ましい。AI量産はスパムポリシーの例示に近い。薬機法66条・68条は「何人も」対象 |
+| [`research/20261116_shorts_genre_scan.md`](research/20261116_shorts_genre_scan.md) | 商品画像を出さずに成立する Shorts ジャンルの実測 | 先頭フレームで判定（本編視聴は0本）。**画像なしが成立**: スマホ設定裏技267万・電気代節約169万・一人暮らし節約317万。**実写必須**: 収納・掃除・防災・キッチン・高齢者グッズ |
 
 ## 6. 未対応・残課題
 
