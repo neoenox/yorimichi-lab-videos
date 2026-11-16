@@ -8,6 +8,7 @@
   投稿前に、URLが1つだけ・ボタンが有効・予約日時が意図どおり、を確かめ、合わなければ投稿しない。
 """
 import argparse
+import atexit
 import os
 import socket
 import subprocess
@@ -21,6 +22,7 @@ CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 PROFILE = r'C:\Users\neoen\AppData\Local\ms-playwright-mcp\mcp-chrome-666d4fb'   # ここに x.com のログインがある
 CDP = 9223
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+LAUNCHED = []   # このスクリプトが起動した Chrome（終了時に閉じる。ユーザーのChromeには触らない）
 
 
 def port_open(port, timeout=1.0):
@@ -34,14 +36,25 @@ def port_open(port, timeout=1.0):
 def ensure_chrome():
     if port_open(CDP):
         return False
-    subprocess.Popen([CHROME, f'--remote-debugging-port={CDP}', f'--user-data-dir={PROFILE}',
-                      '--no-first-run', '--no-default-browser-check', 'https://x.com/home'],
-                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    proc = subprocess.Popen([CHROME, f'--remote-debugging-port={CDP}', f'--user-data-dir={PROFILE}',
+                             '--no-first-run', '--no-default-browser-check', 'https://x.com/home'],
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    LAUNCHED.append(proc)
     for _ in range(40):
         if port_open(CDP):
             return True
         time.sleep(1)
     raise SystemExit('Chrome(CDP %d) を起動できない' % CDP)
+
+
+def close_launched():
+    """このスクリプトが起動した Chrome だけを閉じる（2026-11-16 ユーザー指示：終わったら自動で閉じる）。"""
+    for p in LAUNCHED:
+        subprocess.run(['taskkill', '/PID', str(p.pid), '/T', '/F'], capture_output=True)
+    LAUNCHED.clear()
+
+
+atexit.register(close_launched)
 
 
 def main():
