@@ -119,8 +119,16 @@ def main():
         ctx.set_default_timeout(8000)   # 既定30秒の待ちで止まらないようにする
         pg = next((x for x in ctx.pages if 'muse.ai' in x.url), None) or ctx.new_page()
         if 'muse.ai' not in pg.url:
-            pg.goto('https://muse.ai/', wait_until='domcontentloaded')
+            pg.goto('https://muse.ai/', wait_until='domcontentloaded', timeout=60000)
         pg.bring_to_front()
+        # チャットUIが描画されるまで待つ（読み込み途中で操作すると送信できない。2026-11-17）
+        for _ in range(40):
+            if pg.locator(TEXTBOX).count() and pg.locator('input[type=file]').count():
+                break
+            pg.wait_for_timeout(1500)
+        pg.wait_for_timeout(2500)
+        pg.keyboard.press('Escape')   # 設定パネル等が開いていたら閉じる
+        pg.wait_for_timeout(800)
         if 'Chat' not in pg.title() and pg.locator(TEXTBOX).count() == 0:
             raise SystemExit('Muse にログインしていない（この Chrome のプロファイルで手でログインする）')
 
@@ -141,19 +149,27 @@ def main():
             print('--dry-run: 送信しない')
             return
 
-        # 送信: Enter を押し、入力欄が空になったかで「送れた」ことを確かめる（2026-11-16: 送信ボタン頼みで失敗した）
+        # 送信: 送信ボタンが出るのを待ってから押す。押せたら入力欄が空になったかで確かめる（2026-11-17）
+        try:
+            pg.wait_for_selector('button[aria-label*="送信"], button[aria-label*="Send"]', timeout=30000)
+        except Exception:
+            pass
         box.click()
-        pg.keyboard.press('Enter')
-        pg.wait_for_timeout(2500)
+        pressed = False
+        sb = pg.locator('button[aria-label*="送信"], button[aria-label*="Send"]').first
+        if sb.count():
+            try:
+                sb.click(timeout=8000, force=True)
+                pressed = True
+            except Exception:
+                pressed = False
+        if not pressed:
+            pg.keyboard.press('Enter')
+        pg.wait_for_timeout(3000)
         free = pg.evaluate("""() => { const el = document.querySelector('[contenteditable=true], textarea');
             if (!el) return -1; return (el.tagName === 'TEXTAREA' ? el.value : el.innerText).trim().length; }""")
         if free not in (0, -1):
-            sb = pg.locator('button[aria-label]').filter(has_text=re.compile('送信|Send')).first
-            if sb.count():
-                sb.click()
-            else:
-                bb = box.bounding_box()
-                pg.mouse.click(bb['x'] + bb['width'] + 62, bb['y'] + bb['height'] - 18)
+            pg.keyboard.press('Enter')
             pg.wait_for_timeout(2500)
             free = pg.evaluate("""() => { const el = document.querySelector('[contenteditable=true], textarea');
                 if (!el) return -1; return (el.tagName === 'TEXTAREA' ? el.value : el.innerText).trim().length; }""")

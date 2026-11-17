@@ -111,3 +111,4 @@
 - 画像は API（`OPENAI_API_KEY`）にできれば最も安定（ブラウザは UI 変更に弱い）
 - 既存の `data/short_*.json`（旧形式）の標準形式への移行
 - 長尺と Shorts の自動ペアリング（現在は手動）
+| [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) | 2026-11-17追記: Analyticsの日別区切りは**太平洋時間**（JST 17:00）／**離脱は4〜7秒**（Ask Studio実測）／未予約在庫94本は既出の別版が多い |
