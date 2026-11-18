@@ -127,3 +127,26 @@ python scripts/shorts_standard.py list
 - **レンダリング確認**: サンプルは JSON と検証まで。VOICEVOX を起動した描画・全編の聴取・スマホ確認は行っていない。
 - **既存 Shorts の移行**: `data/short_*.json`（旧形式）は変換していない。移行は別作業。
 - **標準の更新**: `shorts-standard/` は原本コピー。上流が更新されたら差分を確認して置き換える（ルールを独断で変えない）。
+
+## 10. 単独Short経路との関係（2026-11-18の判断）
+
+日々の単独Shortは、制作標準（`shorts/<slug>/brief.yaml` → `result.json` → `check` → `to-spec`）ではなく、
+`scripts/gen_solo_<slug>.py` → `data/short_solo_<slug>.json` → `scripts/make_short2.py` の経路で作っている。
+2026-11-18の年賀状（`nenga`、11/26 19:00枠）では、オーナーの判断でこの経路を選んだ。
+
+**選んだ理由**
+
+- 11/26の枠に間に合わせるには、実績のある経路が最短。
+- 2026-11-17に実測したKPI検証（4〜6秒に数字を置く型）は、単独Shortの4場面・約55秒の形式で行われている。形式を変えると比較条件が崩れる。
+- 制作標準の `to-spec` は `status: ready`（全claimsの原文照合済み）を要求する。今回の年賀状は、公式FAQと歴史資料の確認は済んだが、地域差・販売開始日など未確認が残るため、`ready` にできない。
+
+**この判断の範囲**
+
+- 制作標準のルール（`shorts-standard/README.md` の固定ルール、`validate.py`）は**変更していない**。標準に沿う案件は従来どおり `shorts/<slug>/` で作り、`check` を通す。
+- 単独Short経路の成果物は `shorts/<slug>/result.json` を持たないため、CIの標準検査（`.github/workflows/shorts-standard.yml`）の対象外になる。
+- 標準へ移行するときは、`brief.yaml` と `result.json` を新規に作り、`scripts/shorts_standard.py check` を通す。既存の `data/short_solo_*.json` は移行していない。
+
+**未確認・残課題**
+
+- 単独Short経路の台本にも、標準の`claims`に相当する根拠の対応表を機械可読で持たせられていない（現在は `notes` の文章）。
+- 標準の「1行14文字・2行以内」「30〜45秒・5〜7シーン」と、単独Shortの「4場面・50〜58秒」は異なる。どちらを正とするかは案件ごとに決める（今回は単独Short）。
