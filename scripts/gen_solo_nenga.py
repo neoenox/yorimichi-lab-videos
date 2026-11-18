@@ -38,7 +38,7 @@ if __name__ == '__main__':
           end_q='皆さんは、年賀状をいつ出しますか？',
           tags=['年賀状', '日本郵便', '年賀はがき', '郵便', '元日', '12月27日', '暮らし', '雑学', 'Shorts'])
     fv_prompts('nenga', [
-        'Extreme close-up of a neat stack of plain white postcards on a wooden desk, soft morning light from the side, shallow depth of field, no text, no writing, no people, no hands, the camera slowly gliding sideways.',
+        'Extreme close-up of the layered edges of a thick stack of blank paper sheets on a wooden desk, only the paper edges visible from the side, soft morning light, shallow depth of field, no text, no writing, no printing, no people, no hands, the camera slowly gliding sideways.',
         'Extreme close-up of textured Japanese washi paper, visible fibers and a soft warm light, a faint shadow moving slowly across the surface, no text, no writing, no people, the camera slowly pushing in.',
         'Close-up of a narrow dark mail slot set in a plain wooden surface, soft daylight falling across the wood grain, no text, no labels, no people, the camera slowly tilting up.',
-        'A plain white postcard standing upright on a windowsill, late afternoon light and a long shadow slowly moving across it, quiet interior, no text, no writing, no people, the camera fixed.'])
+        'A completely blank unprinted sheet of paper leaning upright against a plain warm plaster wall, late afternoon light and a long shadow slowly moving across the paper and the wall, quiet interior, no window, no exterior view, no text, no writing, no printing, no people, the camera fixed.'])
