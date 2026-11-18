@@ -231,9 +231,12 @@ def display(t):
 def chunks(text, maxc=15, lines=2):
     """字幕を、句読点で区切って、1画面 maxc字×lines行 に収まる塊に分ける。"""
     parts = [p for p in re.split(r'(?<=[、。？！?!])', text) if p]   # 「？」「！」でも区切る(質問文の末尾に「出典は」がぶら下がるのを防ぐ。2026-11-16、Museの指摘)
+    marks = lambda s: len(re.findall(r'[、。？！?!]', s))
     out, cur = [], ''
     for p in parts:
-        if len(cur) + len(p) <= maxc * lines:
+        # 文字数だけでなく、句読点の数（＝画面の行数）も lines 以下に抑える。
+        # 3文を1塊にすると、エンドカードが3行になる（2026-11-18、nengaの1秒ごと確認）。
+        if len(cur) + len(p) <= maxc * lines and marks(cur) + marks(p) <= lines:
             cur += p
         else:
             if cur: out.append(cur)
