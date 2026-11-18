@@ -57,6 +57,7 @@
 - Chrome は `--remote-debugging-port=9222 --user-data-dir=C:\Users\neoen\.chrome-automation` で起動
 - 未ログイン・チャンネル違いを検知したら**止まる**（無限リトライしない）
 - ChatGPT の生成画像は `blob:` URL。**ページ内 canvas → toDataURL** で取り出す
+- **Muse の添付確認は、ファイル名ではなく `video` の blob URL が増えたかで判定する**（Muse はファイル名を本文に出さない。`muse_review.py`、2026-11-18）
 - Studio の公開設定は `ytcp-icon-button#select-button`（同じ id が4つあるので限定する）
 
 ### 公開

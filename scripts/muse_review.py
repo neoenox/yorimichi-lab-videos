@@ -132,21 +132,21 @@ def main():
         if 'Chat' not in pg.title() and pg.locator(TEXTBOX).count() == 0:
             raise SystemExit('Muse にログインしていない（この Chrome のプロファイルで手でログインする）')
 
+        # 添付が付いたか確認（付かないまま送ると、過去の動画に回答される）
+        # Muse はファイル名を本文に出さず、動画のサムネイル(<video src="blob:...">)だけを出す。
+        # 添付前後の video の blob URL を比べ、新しいものが増えたら添付成功と判定する(2026-11-18)。
+        before_v = set(pg.eval_on_selector_all('video', 'els => els.map(e => e.currentSrc || e.src).filter(Boolean)'))
         pg.locator('input[type=file]').first.set_input_files(str(clip))
-        # 添付が付いたか確認（付かないまま送ると、過去の動画に回答される。2026-11-18）
         attached = False
-        for _ in range(10):
+        for _ in range(20):
             pg.wait_for_timeout(1500)
+            now_v = set(pg.eval_on_selector_all('video', 'els => els.map(e => e.currentSrc || e.src).filter(Boolean)'))
+            if now_v - before_v:
+                attached = True
+                break
             if pg.evaluate("(n) => (document.body.innerText || '').includes(n)", clip.name):
                 attached = True
                 break
-        if not attached:
-            pg.locator('input[type=file]').first.set_input_files(str(clip))
-            for _ in range(10):
-                pg.wait_for_timeout(1500)
-                if pg.evaluate("(n) => (document.body.innerText || '').includes(n)", clip.name):
-                    attached = True
-                    break
         print('添付:', 'ok' if attached else 'NG')
         if not attached:
             pg.screenshot(path=str(ROOT / 'out' / f'muse_{a.slug}_noattach.png'))
