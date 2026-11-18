@@ -133,14 +133,27 @@ def main():
             raise SystemExit('Muse にログインしていない（この Chrome のプロファイルで手でログインする）')
 
         # 添付が付いたか確認（付かないまま送ると、過去の動画に回答される）
-        # Muse はファイル名を本文に出さず、動画のサムネイル(<video src="blob:...">)だけを出す。
-        # 添付前後の video の blob URL を比べ、新しいものが増えたら添付成功と判定する(2026-11-18)。
-        before_v = set(pg.eval_on_selector_all('video', 'els => els.map(e => e.currentSrc || e.src).filter(Boolean)'))
+        # Muse はファイル名を本文に出さず、サムネイル(<img src="blob:...">)と
+        # 「添付ファイルを削除」ボタンを出す。前回の下書きが残っていると新しい添付が
+        # 追加されないため、まず既存の添付を消す(2026-11-18)。
+        for _ in range(5):
+            rm = pg.locator('button[aria-label="添付ファイルを削除"]')
+            if not rm.count():
+                break
+            try:
+                rm.first.click(timeout=3000)
+            except Exception:
+                break
+            pg.wait_for_timeout(800)
+        before_v = set(pg.eval_on_selector_all('img,video', 'els => els.map(e => e.currentSrc || e.src).filter(s => s && s.startsWith("blob:"))'))
         pg.locator('input[type=file]').first.set_input_files(str(clip))
         attached = False
         for _ in range(20):
             pg.wait_for_timeout(1500)
-            now_v = set(pg.eval_on_selector_all('video', 'els => els.map(e => e.currentSrc || e.src).filter(Boolean)'))
+            if pg.locator('button[aria-label="添付ファイルを削除"]').count():
+                attached = True
+                break
+            now_v = set(pg.eval_on_selector_all('img,video', 'els => els.map(e => e.currentSrc || e.src).filter(s => s && s.startsWith("blob:"))'))
             if now_v - before_v:
                 attached = True
                 break
