@@ -133,6 +133,24 @@ def main():
             raise SystemExit('Muse にログインしていない（この Chrome のプロファイルで手でログインする）')
 
         pg.locator('input[type=file]').first.set_input_files(str(clip))
+        # 添付が付いたか確認（付かないまま送ると、過去の動画に回答される。2026-11-18）
+        attached = False
+        for _ in range(10):
+            pg.wait_for_timeout(1500)
+            if pg.evaluate("(n) => (document.body.innerText || '').includes(n)", clip.name):
+                attached = True
+                break
+        if not attached:
+            pg.locator('input[type=file]').first.set_input_files(str(clip))
+            for _ in range(10):
+                pg.wait_for_timeout(1500)
+                if pg.evaluate("(n) => (document.body.innerText || '').includes(n)", clip.name):
+                    attached = True
+                    break
+        print('添付:', 'ok' if attached else 'NG')
+        if not attached:
+            pg.screenshot(path=str(ROOT / 'out' / f'muse_{a.slug}_noattach.png'))
+            raise SystemExit('動画が添付できていない（過去の動画に回答される事故を防ぐため送信しない）')
         box = pg.locator(TEXTBOX).first
         box.click()
         # 前回の下書きが残っていることがある（dry-run の後など）。先に空にしてから入力する
