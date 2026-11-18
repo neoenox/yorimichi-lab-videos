@@ -230,7 +230,7 @@ def display(t):
 
 def chunks(text, maxc=15, lines=2):
     """字幕を、句読点で区切って、1画面 maxc字×lines行 に収まる塊に分ける。"""
-    parts = [p for p in re.split(r'(?<=[、。])', text) if p]
+    parts = [p for p in re.split(r'(?<=[、。？！?!])', text) if p]   # 「？」「！」でも区切る(質問文の末尾に「出典は」がぶら下がるのを防ぐ。2026-11-16、Museの指摘)
     out, cur = [], ''
     for p in parts:
         if len(cur) + len(p) <= maxc * lines:
@@ -238,6 +238,8 @@ def chunks(text, maxc=15, lines=2):
         else:
             if cur: out.append(cur)
             cur = p
+        if re.search(r'[？！?!]\s*$', p):   # 質問・感嘆の文末で必ず区切る(次の文が前の塊にぶら下がらない)
+            out.append(cur); cur = ''
     if cur: out.append(cur)
     return out
 
