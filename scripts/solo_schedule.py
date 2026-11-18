@@ -6,6 +6,8 @@ from pathlib import Path
 R = Path(__file__).resolve().parents[1]
 os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 sys.stdout.reconfigure(encoding='utf8')
+sys.path.insert(0, str(R / 'scripts'))
+import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
 slug, when = sys.argv[1], sys.argv[2]
 key = f'short_{slug}'
 sys.argv = ['x']

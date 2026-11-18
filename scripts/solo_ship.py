@@ -40,7 +40,12 @@ def build(slug, pack_long='43_bukka'):
     if not out.exists():
         print(r.stdout[-1500:], r.stderr[-1500:]); sys.exit('動画ができていません')
     # 2. パック
-    sh([PY, 'scripts/pack_short.py', slug, pack_long])
+    if spec.get('tags'):
+        # 台本ファイルの tags=[...] を使う(長尺のタグを引き継がない)
+        sh([PY, 'scripts/pack_short.py', slug, '--tags=' + ','.join(spec['tags'])])
+    else:
+        sh([PY, 'scripts/pack_short.py', slug, pack_long])
+        todo.append('tags未指定: 前の動画(43_bukka=物価)のタグが入っている。台本ファイルに tags=[...] を足して再ビルドする')
     up = R / 'upload' / f'short_{slug}'
     desc = up / 'description.txt'
     t = desc.read_text(encoding='utf8')
@@ -110,6 +115,8 @@ def publish(slug):
 
 
 if __name__ == '__main__':
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
     c = sys.argv[1] if len(sys.argv) > 1 else ''
     if c == 'clips' and len(sys.argv) > 2: clips(sys.argv[2])
     elif c == 'build' and len(sys.argv) > 2: build(*sys.argv[2:4])

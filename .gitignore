@@ -66,3 +66,10 @@ secrets/
 scripts/_queue*.sh
 scripts/_regen*.sh
 scripts/_schedule*.sh
+
+# 手順書の読み取り確認の印(各自のローカルだけ。共有しない)
+data/.procedure_ack.json
+data/.procedure_read.json
+
+# エージェント固有のローカル設定(絶対パスを含む。手順書ゲートは各スクリプトが呼ぶ)
+.claude/
