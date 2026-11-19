@@ -19,7 +19,18 @@
 | 接続不可（TLS/タイムアウト） | 4 |
 | 500（Amazon） | 1 |
 
-## 死んだリンク（要対応）
+## 死んだリンク（2026-11-19に4件とも差し替え済み）
+
+| ステータス | 旧URL | 差し替え後 | 箇所 |
+|---|---|---|---|
+| 404 | `digital.library.adelaide.edu.au/items/39c...` | `https://cordis.europa.eu/article/id/435748-is-glass-really-a-slow-moving-liquid`（EU研究紹介。下が厚いのは製造工程と明記） | `20261017_batch2/03_candidates_codex.md:138` |
+| 404 | `chuko.co.jp/shinsho/portal/128511.html` | `https://web.archive.org/web/20260723130449/http://www.chuko.co.jp/shinsho/portal/128511.html`（Wayback保存版） | `20261212_yamazaki/08_fact_check.md:7` |
+| 302ループ | `city.komaki.aichi.jp/.../bunkazai/9161.html` | `https://web.archive.org/web/20260711171715/https://www.city.komaki.aichi.jp/admin/soshiki/kyoiku/bunkazai/1_1/2/bunkazai/9161.html`（Wayback保存版） | `20261226_komaki_nagakute/08_fact_check.md:8` |
+| 410 | `nssl.noaa.gov/education/svrwx101/lightning/faq/` | `https://www.noaa.gov/stories/5-striking-facts-versus-myths-about-lightning-you-should-know`（「同じ場所に二度落ちない」を否定） | `20261018_batch3/03_candidates_codex.md:161` |
+
+差し替え後URLは4件すべて到達確認済み（CORDIS 200、Wayback 200×2、NOAA 200）。
+
+旧URL（記録用）:
 
 | ステータス | URL | 使われている場所 |
 |---|---|---|
