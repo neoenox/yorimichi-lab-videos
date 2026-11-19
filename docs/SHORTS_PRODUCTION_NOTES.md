@@ -561,6 +561,21 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 - `python scripts/check_slots.py`（前日〜3日先。`--days 7` で拡張）
 - 1件ずつ変えるときは `python scripts/yt_api.py schedule <video_id> "2026-11-22 12:00"`（JST。チャンネルID検証と `containsSyntheticMedia` の引き継ぎは実装済み）
 
+**7. 追補（2026-11-19 15:00、上の「残り」のうち7件を移動）**
+| 動画 | 変更前 | 変更後 |
+| --- | --- | --- |
+| `short_solo_travel_tokaido_nl` CWgTDSuyPoU | 11/20 12:00 | 12/09 12:00 |
+| `short_solo_yakurei_menkyo_nl` 07bs0uqJWmc | 11/21 12:00 | 12/05 12:00 |
+| `short_solo_netsuden` vOqfTUfFExM | 11/21 19:00 | 11/24 19:00 |
+| `28_shomi` asBXlN_49tk | 11/21 19:00 | 11/28 19:00 |
+| `short_shomi` qX1IAFU91ak | 11/22 20:00 | 11/28 20:00 |
+| `27_forest` wD8rSfy5y0I | 11/22 19:00 | 12/03 19:00 |
+| `short_forest` piQdBb8SsNY | 11/22 20:00 | 12/03 20:00 |
+
+- 結果：`check_slots.py --days 21` の同時刻重複は **16 → 11**。11/20・11/21 は1枠1本、11/22 は 12:00 の3本だけが残る。移動先は実行直前に空きを確認した。
+- **`netsuden` はFreeVideoのAI背景**。`yt_api.py schedule` が `containsSyntheticMedia` を False に戻すため、移動後に `videos().update(part='status', … containsSyntheticMedia=True)` をやり直した（他6件はAI映像背景ではない）。
+- 残り11件の内訳：`_nl`（再投稿）が7枠に残る／新作同士の衝突が5枠（11/22・11/23・11/25・11/26・11/28の12:00）／長尺2本が2枠（11/27・11/29の19:00）。12/11以降の空き12:00は11枠、空き19:00は8枠あるが、全部は収まらないため方針の決定が必要（`_nl`を後ろへ送る／新作の一部を17:00へ／再投稿を間引く）。
+
 ## 実測：伊能忠敬の単独Short（2026-11-19 inou）
 
 **題材**：伊能忠敬は歩幅だけで日本地図を作った？ → 実際は縄・鉄鎖・星で測った（足掛け17年）。根拠は国土地理院「“伊能図”近代地図の原点」(PDF)と「測量・地図ミニ人物伝：伊能忠敬」（2026-11-19に取得。PDFの本文は `out/_inoh_pdf.txt` に抽出）。台本は `scripts/gen_solo_inou.py`、描画は `python scripts/make_short2.py solo_inou`。
