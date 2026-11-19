@@ -560,3 +560,14 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 **6. 検証コマンド**
 - `python scripts/check_slots.py`（前日〜3日先。`--days 7` で拡張）
 - 1件ずつ変えるときは `python scripts/yt_api.py schedule <video_id> "2026-11-22 12:00"`（JST。チャンネルID検証と `containsSyntheticMedia` の引き継ぎは実装済み）
+
+## 実測：伊能忠敬の単独Short（2026-11-19 inou）
+
+**題材**：伊能忠敬は歩幅だけで日本地図を作った？ → 実際は縄・鉄鎖・星で測った（足掛け17年）。根拠は国土地理院「“伊能図”近代地図の原点」(PDF)と「測量・地図ミニ人物伝：伊能忠敬」（2026-11-19に取得。PDFの本文は `out/_inoh_pdf.txt` に抽出）。台本は `scripts/gen_solo_inou.py`、描画は `python scripts/make_short2.py solo_inou`。
+
+- **背景clip1の作り直し（AI生成の文字）**：「古い手描きの地図」を頼むと、1回目は**世界地図**（日本列島でない）、2回目は日本沿岸図だが**漢字の列が写った**。通ったプロンプトは「巻物状の無地の紙＋墨の海岸線1本＋赤い細線1本、それ以外は白紙」を明示し、no writing / no characters / no calligraphy / no cartouches / no seals / no numerals を並べたもの。0.5・2.5・4.5・6.5秒の静止画で文字がないことを確認した（`out/_chk_in_c1c.png`）
+- **`scripts/fv_clips.sh` のクリップ指定は `clipN`（番号だけは不可）**：`bash scripts/fv_clips.sh inou 1` は `freevideo_batch.py` の名前一致で何も作らず、**28.9秒で「ALL OK」・exit 0**（`clip1.mp4` のmtimeも不変）。正しくは `bash scripts/fv_clips.sh inou clip1`。生成は469.7秒（ComfyUI起動込み。544x960・24fps・7.30秒・690,076バイト）
+- **描画はクリップ差し替えの完了後に行う**：13:14 の描画は差し替え前のclip1（世界地図）で `raw.mp4` を作っており、その生映像は捨てた
+- **大テロップの読点**：`solo_spec.build()` が `big`/`sub` の `、` を削除するため、「方角は方位盤、緯度は星」は「方角は方位盤緯度は星」と連結して読めない。台本側で `／` を書く（今回は「方角は方位盤／緯度は星」「大図214枚／1821年」「足掛け17年／縄・鎖・星で測量」に修正して再描画）
+- **実測（最終）**：1080x1920／30fps／60.33秒／h264+aac 48kHz stereo、全フレームのデコードでエラーなし、Integrated −13.9 LUFS、True peak −1.5 dBFS。字幕18区間（各2行以内）
+- **未確認**：全編の実聴（読み・間・BGMバランス）、連続再生での背景の動き、スマホ実機、投稿可否。尺は60.33秒で、直近の単独Short（yubin_ju 56.9秒）より長い

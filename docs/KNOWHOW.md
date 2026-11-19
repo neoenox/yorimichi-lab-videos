@@ -39,6 +39,7 @@
 - Shorts は **brief → result.json → check → to-spec → 描画**。`needs_review` のままでは `to-spec` が通らない
 - 画面の安全領域: タイトル y≈200（**全角18文字まで**）／大テロップ y≈520／字幕 1470–1540／注記は 1556 以降
 - 背景は **シーンごとに変える**（`art_map.json`）。同じ絵が続くと単調
+- **FreeVideoのクリップ指定は `scripts/fv_clips.sh <slug> clipN`**（`1` だと該当なしで何も作らず「ALL OK」。2026-11-19）。「古い地図」を頼むとAIは擬似文字を描くので、「無地の紙＋線だけ」を明示する（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)）
 - 明るい画像の上に字幕を置くときは、**下半分に暗幕**を入れる（入れないと読めない）
 - **TikTok 向けの制作は廃止**（2026-11-11 オーナー判断：投稿しても動画が再生されないため）。**新規制作・投稿準備・背景の作り直しはしない**。`check_tiktok.py` / `tiktok_launch_audit.py` / `tiktok_post.py` も実行不要
   - 既存の物は**削除せず残す**（方針A）：`out/short_tiktok_*.mp4`、`data/short_tiktok_*.json`、`assets/*/tiktok/`、`docs/TIKTOK_*.md`、関連スクリプト。再開する場合の参考資料扱い
