@@ -520,3 +520,43 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 - `chunks()` が「15字×2行」の文字数だけで塊を作ると、3文が1塊になり、エンドカードが3行になった（nenga）。
 - 句読点の数（＝画面の行数）も `lines` 以下に制限するよう修正。SRTの1塊が2行を超えない。
 - 1秒ごとの52コマを並べた確認で見つけた。Museの「サンプリング」だけでは、行数の違反は拾えないことがある。
+
+## 2026-11-19: 同時刻の重複が5枠になった（3系統のキューが独立に予約）
+
+**1. 症状（API実測）**
+- 11/19 12:00 に単独Short 2本（`short_solo_shorui_niwatori_nl` ZUR5R9xLvmY と `short_solo_tokusei` MXSp6vn7t6A）。
+- 11/19 19:00 に**長尺2本**（`27_forest` wD8rSfy5y0I と `79_hibiya` OrGGevmW-tU）＋単独Short 1本（`short_solo_ryounkaku` Y4l8Tyf15j4）。
+- 同種の重複が 11/20 12:00、11/21 12:00、11/21 19:00 にもあった（11/21 19:00 も長尺2本：`28_shomi` と `32_komaki`）。
+
+**2. 原因**
+- 予約を入れる経路が3つに分かれ、**互いの枠を見ていない**。
+  - ① 長尺の波：`PRODUCTION_CYCLE.md` の「19:00 長尺／20:00 同題材 Short」。
+  - ② `_nl` 一括再投稿（Studio で作り直した旧作）：12:00/17:00 を 11/21 まで埋める。
+  - ③ 新作の単独Short：12:00/17:00 に加え、スワイプ率検証のため 19:00 にも入れた。
+- 19:00 に単独Shortを入れたのは `docs/kpi_swipe_tracking.md` と `docs/themes/20271101_hibiya/05_gates.md` が、それぞれ独立に「11/19 19:00」と決めたため。**両方とも、その枠が長尺の枠だと認識していない。**
+
+**3. 見落とした理由（重要）**
+- `data/youtube_ids.json` の `publishAt` は**予約したときにしか書かれない**。API 実測では予約がもっと入っているのに、台帳には一部しか載っていない。**台帳は予約の正ではない。**
+- `scripts/check_publish.py --check` は **2026-10-21 のスナップショット**を基準にしているため、今走らせると「予約がずれた」の誤検知になる（基準の更新が必要）。
+- 対策として **`scripts/check_slots.py`** を追加（`videos().list` のみ・336本で約7ユニット。重複があれば終了コード1）。予約を入れる前後で必ず走らせる。
+
+**4. 処置（2026-11-19 09:30、`scripts/yt_api.py schedule` で4件）**
+| 動画 | 変更前 | 変更後 | 理由 |
+| --- | --- | --- | --- |
+| `short_solo_shorui_niwatori_nl` ZUR5R9xLvmY | 11/19 12:00 | 11/22 12:00 | 新作 `tokusei` を 12:00 に残す（`_nl` は後日で損がない） |
+| `27_forest` wD8rSfy5y0I | 11/19 19:00 | 11/22 19:00 | 19:00 は長尺1本に。単発在庫なので動かす損が小さい |
+| `short_forest` piQdBb8SsNY | 11/20 20:00 | 11/22 20:00 | 長尺とセット（片方だけ動かすと概要欄リンクが非公開を指す） |
+| `short_solo_ryounkaku` Y4l8Tyf15j4 | 11/19 19:00 | 11/19 20:00 | 19:00 長尺の直後。今日はここしか空きが無い |
+- **hibiya を残した理由**：`PLV4MJdcpAGpM`「東京の低地」の1本目で、翌日の渋谷と並べる設計（サムネ・字幕・再生リストまで仕込み済み）。
+- 結果（API読み戻し）：11/19 は 12:00 tokusei／17:00 sushi_two_nl／19:00 hibiya（長尺）／20:00 ryounkaku。**当日の重複はゼロ**、11/22 も 12:00/19:00/20:00 に1本ずつ。台帳の `publishAt` も4件更新した。
+
+**5. 残り（未処置・11/20〜11/21）**
+- 11/20 12:00（`short_solo_minatomirai` × `short_solo_travel_tokaido_nl`）
+- 11/21 12:00（`short_solo_edo_kaji` × `short_solo_yakurei_menkyo_nl`）
+- 11/21 19:00（長尺 `28_shomi` × 長尺 `32_komaki` × `short_solo_netsuden`）
+- これらは**玉突き移動**になるので、`data/slot_table.json` のような枠表を1つ作ってから一括で直す。今日の公開には影響しない。
+- 方針案：単独Shortは 12:00/17:00 に1本ずつ、19:00 は長尺1本、20:00 は 19:00 長尺と同題材の Short。`_nl`（再投稿）は新作より後ろへ送る。
+
+**6. 検証コマンド**
+- `python scripts/check_slots.py`（前日〜3日先。`--days 7` で拡張）
+- 1件ずつ変えるときは `python scripts/yt_api.py schedule <video_id> "2026-11-22 12:00"`（JST。チャンネルID検証と `containsSyntheticMedia` の引き継ぎは実装済み）

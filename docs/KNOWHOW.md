@@ -1,6 +1,6 @@
 # ノウハウの入口（まずこれを読む）
 
-更新日: 2026-11-18。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+更新日: 2026-11-19。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
 ## 1. 動画を作るときに読む順番
 
@@ -20,6 +20,7 @@
 | `scripts/gen_image_cdp.py` | **ChatGPT の画像生成**（Chrome を CDP で操作、blob 画像を canvas 経由で取得） | 2026-11-05 |
 | `scripts/studio_cdp.py` | **Studio の公開設定・字幕**（Playwright、チャンネルID検証つき） | 2026-11-05 |
 | `scripts/chatgpt_image.py` | bsk 経由の画像生成（**不安定・非推奨**。CDP 版を使う） | 2026-11-05 |
+| `scripts/check_slots.py` | **公開予約の実測**（時刻の重複を API で検査。重複ありで終了コード1） | 2026-11-19 |
 | `scripts/make_short2.py` | 縦型 Short の描画（1080x1920、VOICEVOX、FFmpeg） | 既存 |
 | `scripts/pack_short.py` | 投稿パック作成（`--tags=` で単独 Shorts も可） | 2026-11-04 |
 | `scripts/main_push_textonly.py` | 素材を含めずに main を更新（`--path` で範囲限定） | 2026-11-04 |
@@ -62,6 +63,7 @@
 
 ### 公開
 - API は**常に private** でアップロード。公開は Studio（または `studio_cdp.py publish`）
+- **同時刻の予約重複は `python scripts/check_slots.py` で API 実測して確認する**（`videos().list` のみ・約7ユニット。重複ありで終了コード1）。**`data/youtube_ids.json` の `publishAt` は予約時にしか書かれず実態より古いので、台帳を正にしない**（2026-11-19、11/19 19:00 の長尺2本を見落とした）。予約経路は3系統（長尺／`_nl` 一括再投稿／新作単独Short）あり、互いの枠を見ていない。枠の原則は 12:00・17:00 に単独Short 1本ずつ、19:00 に長尺1本、20:00 に 19:00 長尺と同題材の Short（`PRODUCTION_CYCLE.md`）
 - **「AI の使用」の設定確認は Studio の radio を CDP+Playwright で読む**（`get_by_role('radio')` は shadow DOM を貫通する。`aria-checked` と `aria-label` で「はい、AI を使用しました」が選択済みか判定。`containsSyntheticMedia` は API で書き込めても読み戻しは None）
 - Studio の自動化は CDP 9222 の Chrome（`--user-data-dir=%USERPROFILE%\.chrome-automation`）で、**寄り道ラボにログイン済み**であること。未ログインだと `accounts.google.com` へ飛ぶ
 - **アップロード前に `data/youtube_ids.json` に同じ `short_<slug>` キーが無いか確認する**（koharu は既に public で登録済みなのに「未アップロード」と誤認し、新版を別IDで上げることになった。作り直しは `--new-version`、旧IDは `superseded` に残る）
@@ -96,6 +98,7 @@
 | 2026-11-12 | `koharu`（小春日和） | 文化庁世論調査の原典PDF（p.82/86/90）で数値を確認し、Wikipedia の丸め（約5割/約4割）を 51.7%/41.7% に差し替え。画面の出典ラベル（Wikipedia→文化庁・辞書・歳時記）も同時に更新。59.8秒で描画 |
 | 2026-11-12 | `yoritomo_zo`（伝源頼朝像＝足利直義説） | 「昔の説→いまの説」型（高年齢層向け）。文化庁DBで国宝指定名称を直接確認、所蔵者（神護寺）の反論も公式ページで確認。**PD の肖像画像を Commons から使い、`sub` パネル・画像の上端境界・`flow` 図の偏りを実測で直した**。**needs_review のまま。試作のみ**（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 | 2026-11-18 | `nenga`（年賀状の元日配達） | 2027年用は**受付開始2026/12/20・元日配達の目安12/27**（日本郵便FAQ）。過年度の12/15・12/25を一般則にしない。ChatGPTの「場面3が誤解を招く」指摘を採用、Geminiの「年内に届く」は公式に説明がないため不採用。**単独Short経路で制作中（11/26 19:00枠）**（[`research/20261118_nenga_sources.md`](research/20261118_nenga_sources.md) / [`research/20261118_nenga_reviews.md`](research/20261118_nenga_reviews.md)） |
+| 2026-11-19 | 予約枠の棚卸し（同時刻の重複） | API 実測で 11/19〜11/21 の5枠に同時刻予約。11/19 19:00 は**長尺2本**（`27_forest` と `79_hibiya`）。原因は予約経路が3系統に分かれていること。**台帳の `publishAt` は実態より古い**ので `scripts/check_slots.py`（API実測）で確認する。当日分4件を移動し重複ゼロ（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 
 ## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
 

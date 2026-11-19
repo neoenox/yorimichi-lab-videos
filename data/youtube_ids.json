@@ -471,7 +471,8 @@
   "video_id": "wD8rSfy5y0I",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-11-22T10:00:00Z"
  },
  "28_shomi": {
   "video_id": "asBXlN_49tk",
@@ -498,7 +499,8 @@
   "superseded": [],
   "deleted": [
    "raoPuxJEnEI"
-  ]
+  ],
+  "publishAt": "2026-11-22T11:00:00Z"
  },
  "29_lightning": {
   "video_id": "3lDoDELmraA",
@@ -1577,7 +1579,8 @@
   "video_id": "ZUR5R9xLvmY",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-11-22T03:00:00Z"
  },
  "short_solo_sushi_two_nl": {
   "video_id": "jk_VUUbz480",
@@ -2411,7 +2414,7 @@
   "via": "api",
   "superseded": [],
   "deleted": [],
-  "publishAt": "2026-11-19T10:00:00Z"
+  "publishAt": "2026-11-19T11:00:00Z"
  },
  "short_solo_netsuden": {
   "video_id": "vOqfTUfFExM",
