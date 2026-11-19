@@ -1,5 +1,5 @@
 {
- "_doc": "チャンネルの傾向。scripts/topic_pick.py が、候補の『新しさ』『カテゴリの偏り』『シリーズ接続』『伸びの傾向』を計算するのに使う。views などの実績は Studio のアナリティクスの数字を、人が（またはClaudeがブラウザで読んで）追記する。空欄(null)は『まだ実績なし』として中立に扱う。",
+ "_doc": "チャンネルの傾向。scripts/topic_pick.py が、候補の『新しさ』『カテゴリの偏り』『シリーズ接続』『伸びの傾向』を計算するのに使う。views などの実績は Studio のアナリティクスの数字を、人が（またはClaudeがブラウザで読んで）追記する。空欄(null)は『まだ実績なし』として中立に扱う。2026-11-19以降、views は Short の再生数で統一し、どの動画から取ったかを views_video_id / views_source_key に残す（対応表: docs/channel_profile_map.md）。",
  "formula": "よくある思い込み → 公的な一次資料で確かめる → 数字と図で見せる（約4〜7分、ナレーション＋自作の動く図＋生成イラスト）",
  "videos": [
   {
@@ -13,10 +13,13 @@
     "NOAA"
    ],
    "status": "public",
-   "views": 1208,
-   "short_views": 1208,
-   "avg_view_pct": null,
-   "published": "2026-10-18"
+   "views": 1213,
+   "short_views": 1213,
+   "avg_view_pct": 79.4,
+   "published": "2026-10-18",
+   "views_video_id": "60hEGrmryiY",
+   "views_source_key": "short_drain",
+   "updated": "2026-11-19"
   },
   {
    "slug": "vein",
@@ -31,7 +34,11 @@
    "status": "scheduled",
    "views": 1238,
    "published": "2026-10-20",
-   "short_views": 1238
+   "short_views": 1238,
+   "views_video_id": "MI4uSQhWuTE",
+   "views_source_key": "short_vein",
+   "avg_view_pct": 73.6,
+   "updated": "2026-11-19"
   },
   {
    "slug": "koku",
@@ -47,7 +54,11 @@
    "status": "scheduled",
    "views": 1226,
    "published": "2026-10-21",
-   "short_views": 1226
+   "short_views": 1226,
+   "views_video_id": "ku6FuXKerlI",
+   "views_source_key": "short_koku",
+   "avg_view_pct": 123.1,
+   "updated": "2026-11-19"
   },
   {
    "slug": "compass",
@@ -61,9 +72,13 @@
     "国土地理院"
    ],
    "status": "scheduled",
-   "views": 1207,
+   "views": 1221,
    "published": "2026-10-23",
-   "short_views": 1207
+   "short_views": 1221,
+   "views_video_id": "RlCfl7JxMsk",
+   "views_source_key": "short_compass",
+   "avg_view_pct": 73.5,
+   "updated": "2026-11-19"
   },
   {
    "slug": "gdp",
@@ -76,9 +91,13 @@
     "内閣府"
    ],
    "status": "scheduled",
-   "views": 1174,
+   "views": 1175,
    "published": "2026-10-25",
-   "short_views": 1174
+   "short_views": 1175,
+   "views_video_id": "Y7hBNfHyxcQ",
+   "views_source_key": "short_gdp",
+   "avg_view_pct": 53.7,
+   "updated": "2026-11-19"
   },
   {
    "slug": "season",
@@ -92,9 +111,13 @@
     "日の出"
    ],
    "status": "scheduled",
-   "views": 1257,
+   "views": 1260,
    "published": "2026-10-27",
-   "short_views": 1257
+   "short_views": 1260,
+   "views_video_id": "X0gVeS9KdNw",
+   "views_source_key": "short_season",
+   "avg_view_pct": 72.1,
+   "updated": "2026-11-19"
   },
   {
    "slug": "scurvy",
@@ -107,9 +130,13 @@
     "ビタミン"
    ],
    "status": "scheduled",
-   "views": 1209,
+   "views": 1210,
    "published": "2026-10-29",
-   "short_views": 1209
+   "short_views": 1210,
+   "views_video_id": "holp8pd66r8",
+   "views_source_key": "short_scurvy",
+   "avg_view_pct": 143.6,
+   "updated": "2026-11-19"
   },
   {
    "slug": "calendar",
@@ -123,9 +150,13 @@
     "国立天文台"
    ],
    "status": "scheduled",
-   "views": 1177,
+   "views": 1255,
    "published": "2026-10-30",
-   "short_views": 1177
+   "short_views": 1255,
+   "views_video_id": "2waqm6-Kqg4",
+   "views_source_key": "short_calendar",
+   "avg_view_pct": 54.6,
+   "updated": "2026-11-19"
   },
   {
    "slug": "einstein",
@@ -137,9 +168,13 @@
     "学歴"
    ],
    "status": "scheduled",
-   "views": 1026,
+   "views": 1031,
    "published": "2026-11-03",
-   "short_views": 1026
+   "short_views": 1031,
+   "views_video_id": "5LTjdjdQDR4",
+   "views_source_key": "short_einstein",
+   "avg_view_pct": 74.7,
+   "updated": "2026-11-19"
   },
   {
    "slug": "zenzen",
@@ -152,8 +187,13 @@
     "青空文庫"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-06"
+   "views": 0,
+   "published": "2026-11-06",
+   "views_video_id": "1zdEPEveReY",
+   "views_source_key": "short_zenzen",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "ninja",
@@ -166,8 +206,13 @@
     "国立国会図書館"
    ],
    "status": "draft",
-   "views": null,
-   "published": null
+   "views": 98,
+   "published": null,
+   "views_video_id": "BpZ7pce2htQ",
+   "views_source_key": "short_ninja",
+   "short_views": 98,
+   "avg_view_pct": 39.7,
+   "updated": "2026-11-19"
   },
   {
    "slug": "gm",
@@ -192,8 +237,13 @@
     "戦国"
    ],
    "status": "draft",
-   "views": null,
-   "published": null
+   "views": 2,
+   "published": null,
+   "views_video_id": "bsbf0T-RslY",
+   "views_source_key": "short_honnoji",
+   "short_views": 2,
+   "avg_view_pct": 74.9,
+   "updated": "2026-11-19"
   },
   {
    "slug": "okehazama",
@@ -205,8 +255,13 @@
     "信長"
    ],
    "status": "draft",
-   "views": null,
-   "published": null
+   "views": 7,
+   "published": null,
+   "views_video_id": "id1hjqjrztY",
+   "views_source_key": "14_okehazama",
+   "short_views": null,
+   "avg_view_pct": 0.0,
+   "updated": "2026-11-19"
   },
   {
    "slug": "nagashino",
@@ -220,8 +275,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-27"
+   "views": 2,
+   "published": "2026-11-27",
+   "views_video_id": "kAfQ6KNRwf8",
+   "views_source_key": "short_solo_sandan_nagashino",
+   "short_views": 2,
+   "avg_view_pct": 85.6,
+   "updated": "2026-11-19"
   },
   {
    "slug": "sekigahara",
@@ -235,9 +295,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": 291,
+   "views": 1027,
    "published": "2026-12-05",
-   "short_views": 291
+   "short_views": 1027,
+   "views_video_id": "HVdstpUra9E",
+   "views_source_key": "short_sekigahara",
+   "avg_view_pct": 81.8,
+   "updated": "2026-11-19"
   },
   {
    "slug": "sunrise",
@@ -251,8 +315,13 @@
     "国立天文台"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-07"
+   "views": 0,
+   "published": "2026-11-07",
+   "views_video_id": "bbaSqiNWZeY",
+   "views_source_key": "short_sunrise",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "akashi",
@@ -266,8 +335,13 @@
     "国立天文台"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-12"
+   "views": 173,
+   "published": "2026-11-12",
+   "views_video_id": "LgePZBLaOTk",
+   "views_source_key": "short_akashi",
+   "short_views": 173,
+   "avg_view_pct": 51.4,
+   "updated": "2026-11-19"
   },
   {
    "slug": "leapsecond",
@@ -280,8 +354,13 @@
     "NICT"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-05"
+   "views": 0,
+   "published": "2026-11-05",
+   "views_video_id": "HFqz24ruHQM",
+   "views_source_key": "short_leapsecond",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "oceanblue",
@@ -294,8 +373,13 @@
     "レイリー散乱"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-10"
+   "views": 172,
+   "published": "2026-11-10",
+   "views_video_id": "dYAFL198wT4",
+   "views_source_key": "short_oceanblue",
+   "short_views": 172,
+   "avg_view_pct": 52.3,
+   "updated": "2026-11-19"
   },
   {
    "slug": "islands",
@@ -308,8 +392,13 @@
     "計数"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-10-31"
+   "views": 2,
+   "published": "2026-10-31",
+   "views_video_id": "UIDRLw9UOXg",
+   "views_source_key": "16_islands_count",
+   "short_views": null,
+   "avg_view_pct": 21.1,
+   "updated": "2026-11-19"
   },
   {
    "slug": "rain30",
@@ -322,8 +411,13 @@
     "確率"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-10-29"
+   "views": 994,
+   "published": "2026-10-29",
+   "views_video_id": "myjfHXMUQ-4",
+   "views_source_key": "short_rain30",
+   "short_views": 994,
+   "avg_view_pct": 47.1,
+   "updated": "2026-11-19"
   },
   {
    "slug": "gps",
@@ -336,8 +430,13 @@
     "測位"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-14"
+   "views": 672,
+   "published": "2026-11-14",
+   "views_video_id": "j1WZYf-TXqU",
+   "views_source_key": "short_gps",
+   "short_views": 672,
+   "avg_view_pct": 53.1,
+   "updated": "2026-11-19"
   },
   {
    "slug": "shomi",
@@ -350,8 +449,13 @@
     "消費者庁"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-21"
+   "views": 0,
+   "published": "2026-11-21",
+   "views_video_id": "qX1IAFU91ak",
+   "views_source_key": "short_shomi",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "rice",
@@ -364,8 +468,13 @@
     "統計"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-16"
+   "views": 378,
+   "published": "2026-11-16",
+   "views_video_id": "i6uM3eAXmlM",
+   "views_source_key": "short_rice",
+   "short_views": 378,
+   "avg_view_pct": 103.2,
+   "updated": "2026-11-19"
   },
   {
    "slug": "yakubusoku",
@@ -378,8 +487,13 @@
     "世論調査"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-03"
+   "views": 330,
+   "published": "2026-11-03",
+   "views_video_id": "YdOyg6W-954",
+   "views_source_key": "short_yakubusoku",
+   "short_views": 330,
+   "avg_view_pct": 54.7,
+   "updated": "2026-11-19"
   },
   {
    "slug": "coldvirus",
@@ -406,8 +520,13 @@
     "エネルギー"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-01"
+   "views": 0,
+   "published": "2026-11-01",
+   "views_video_id": "3dU7_-zVeQ0",
+   "views_source_key": "short_magnitude",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "moon",
@@ -436,8 +555,13 @@
     "NASA"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-08"
+   "views": 2,
+   "published": "2026-11-08",
+   "views_video_id": "mCTDtQPfdbg",
+   "views_source_key": "short_venus",
+   "short_views": 2,
+   "avg_view_pct": 18.9,
+   "updated": "2026-11-19"
   },
   {
    "slug": "forest",
@@ -450,8 +574,13 @@
     "統計"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-19"
+   "views": 0,
+   "published": "2026-11-19",
+   "views_video_id": "piQdBb8SsNY",
+   "views_source_key": "short_forest",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "lightning",
@@ -464,8 +593,13 @@
     "日本海"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-23"
+   "views": 0,
+   "published": "2026-11-23",
+   "views_video_id": "smfBjHIV_zA",
+   "views_source_key": "short_lightning",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "yamazaki",
@@ -479,8 +613,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-12-12"
+   "views": 1184,
+   "published": "2026-12-12",
+   "views_video_id": "_iQG1kUdoTc",
+   "views_source_key": "short_yamazaki",
+   "short_views": 1184,
+   "avg_view_pct": 106.7,
+   "updated": "2026-11-19"
   },
   {
    "slug": "shizugatake",
@@ -493,8 +632,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-12-19"
+   "views": 967,
+   "published": "2026-12-19",
+   "views_video_id": "y1E14uWhmgg",
+   "views_source_key": "short_shizugatake",
+   "short_views": 967,
+   "avg_view_pct": 62.3,
+   "updated": "2026-11-19"
   },
   {
    "slug": "brain10",
@@ -507,8 +651,13 @@
     "ジェームズ"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2027-01-23"
+   "views": 0,
+   "published": "2027-01-23",
+   "views_video_id": "lwsPMoWRaDU",
+   "views_source_key": "short_brain10",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "jikyu",
@@ -520,8 +669,13 @@
     "カロリー"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2027-01-30"
+   "views": 0,
+   "published": "2027-01-30",
+   "views_video_id": "UEw9NhQ3EJk",
+   "views_source_key": "short_jikyu",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "bukka",
@@ -534,8 +688,13 @@
     "家計"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2027-02-06"
+   "views": 0,
+   "published": "2027-02-06",
+   "views_video_id": "3QfMB3NnOzQ",
+   "views_source_key": "short_bukka",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "galileo",
@@ -548,8 +707,13 @@
     "バレッティ"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2027-02-13"
+   "views": 0,
+   "published": "2027-02-13",
+   "views_video_id": "MDUddXa0gos",
+   "views_source_key": "short_galileo",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "takarakuji",
@@ -562,8 +726,13 @@
     "収益金"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2027-02-20"
+   "views": 0,
+   "published": "2027-02-20",
+   "views_video_id": "xd1r2JzphLI",
+   "views_source_key": "short_takarakuji",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "flatearth",
@@ -575,8 +744,13 @@
     "俗説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-12-09"
+   "views": 0,
+   "published": "2026-12-09",
+   "views_video_id": "PhT8Bjmx3Tw",
+   "views_source_key": "short_flatearth",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "vitaminc",
@@ -588,8 +762,13 @@
     "Cochrane"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-12-02"
+   "views": 0,
+   "published": "2026-12-02",
+   "views_video_id": "wJyBVJRvdeE",
+   "views_source_key": "short_vitaminc",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "komaki",
@@ -602,8 +781,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-01"
+   "views": 0,
+   "published": "2026-11-01",
+   "views_video_id": "T9dn5K9Rgvg",
+   "views_source_key": "short_komaki",
+   "short_views": 0,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "mikatagahara",
@@ -616,8 +800,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-05"
+   "views": 7,
+   "published": "2026-11-05",
+   "views_video_id": "WJjnokAn-W4",
+   "views_source_key": "33_mikatagahara",
+   "short_views": null,
+   "avg_view_pct": 13.8,
+   "updated": "2026-11-19"
   },
   {
    "slug": "anegawa",
@@ -630,8 +819,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-07"
+   "views": 931,
+   "published": "2026-11-07",
+   "views_video_id": "Y9f2PwDPBY0",
+   "views_source_key": "short_anegawa",
+   "short_views": 931,
+   "avg_view_pct": 57.9,
+   "updated": "2026-11-19"
   },
   {
    "slug": "tottori",
@@ -644,8 +838,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-15"
+   "views": 261,
+   "published": "2026-11-15",
+   "views_video_id": "o_eahLXJpl0",
+   "views_source_key": "short_tottori",
+   "short_views": 261,
+   "avg_view_pct": 81.0,
+   "updated": "2026-11-19"
   },
   {
    "slug": "tedorigawa",
@@ -658,8 +857,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-17"
+   "views": 201,
+   "published": "2026-11-17",
+   "views_video_id": "fOclvHna2bg",
+   "views_source_key": "short_tedorigawa",
+   "short_views": 201,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   },
   {
    "slug": "shimabara",
@@ -671,8 +875,13 @@
     "戦況解説"
    ],
    "status": "scheduled",
-   "views": null,
-   "published": "2026-11-18"
+   "views": 143,
+   "published": "2026-11-18",
+   "views_video_id": "SJsfLzzAq1c",
+   "views_source_key": "short_shimabara",
+   "short_views": 143,
+   "avg_view_pct": null,
+   "updated": "2026-11-19"
   }
  ]
 }
