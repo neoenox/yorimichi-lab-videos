@@ -598,6 +598,16 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 - AI背景の `suiban`(AOkbmQp3UGU) と `toji`(1vhIFZrNpdc) は、`schedule` 後に `containsSyntheticMedia=True` を再設定した。
 - 残る不揃い（同時刻ではない）：`20_sunrise_solstice`(12/06 19:00) の同題材Short `short_sunrise` は12/19 20:00、`62_sankin`(12/07 19:00) のShort `short_solo_sankin_tabi10` は未予約。ペアを揃えるなら 12/06 20:00 と 12/07 20:00 が空き。
 
+**9. 予約を動かしたら、Xの紹介投稿も同じだけ動かす（2026-11-19 15:35）**
+- 動画の公開時刻とX予約（`x.com/compose/post/unsent/scheduled`）を突き合わせたところ、**4件がずれていた**。Xの予約は動画の予約とは独立で、動画を移しても自動では追従しない。
+- 修正した4件（Xの「編集」→ 日時を変更 → Update → Schedule。各1件のまま重複なしを確認）
+  - `Y4l8Tyf15j4` 凌雲閣: 11/19 19:05 → **20:05**（動画を20:00へ移したため）
+  - `vOqfTUfFExM` 発電: 11/21 19:05 → **11/24 19:05**
+  - `AOkbmQp3UGU` 玉川上水: 11/22 12:05 → **12/06 17:05**
+  - `1vhIFZrNpdc` 冬至: 11/28 12:05 → **12/22 12:05**
+- 手順: `unsentTweet` をクリック → `scheduledTweetIndicator` をクリック → `#SELECTOR_1..5`（月・日・年・時・分）を設定 → 「Update」→ 表示が変わるのを確認 → 「Schedule」。Playwrightの通常クリックは背景divに遮られるので、JSの`.click()`を使う。
+- 確認: 予約一覧を読み直し、各動画IDが1件・新しい時刻であること。
+
 ## 実測：伊能忠敬の単独Short（2026-11-19 inou）
 
 **題材**：伊能忠敬は歩幅だけで日本地図を作った？ → 実際は縄・鉄鎖・星で測った（足掛け17年）。根拠は国土地理院「“伊能図”近代地図の原点」(PDF)と「測量・地図ミニ人物伝：伊能忠敬」（2026-11-19に取得。PDFの本文は `out/_inoh_pdf.txt` に抽出）。台本は `scripts/gen_solo_inou.py`、描画は `python scripts/make_short2.py solo_inou`。
