@@ -576,6 +576,28 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 - **`netsuden` はFreeVideoのAI背景**。`yt_api.py schedule` が `containsSyntheticMedia` を False に戻すため、移動後に `videos().update(part='status', … containsSyntheticMedia=True)` をやり直した（他6件はAI映像背景ではない）。
 - 残り11件の内訳：`_nl`（再投稿）が7枠に残る／新作同士の衝突が5枠（11/22・11/23・11/25・11/26・11/28の12:00）／長尺2本が2枠（11/27・11/29の19:00）。12/11以降の空き12:00は11枠、空き19:00は8枠あるが、全部は収まらないため方針の決定が必要（`_nl`を後ろへ送る／新作の一部を17:00へ／再投稿を間引く）。
 
+**8. 追補2（2026-11-19 15:01、残り14件を移動して同時刻0に）**
+| 動画 | 変更前 | 変更後 |
+| --- | --- | --- |
+| `short_solo_shorui_niwatori_nl` ZUR5R9xLvmY | 11/22 12:00 | 12/12 12:00 |
+| `short_solo_suiban` AOkbmQp3UGU | 11/22 12:00 | 12/06 17:00 |
+| `short_solo_yoriki_shizugatake` P8YEIJfbzoo | 11/23 12:00 | 12/07 17:00 |
+| `short_solo_komugi_jikyu_nl` m8F9ZsgKgXo | 11/24 12:00 | 12/14 12:00 |
+| `short_solo_galileo_sore_nl` Ru0b5MD-cUY | 11/24 17:00 | 12/15 12:00 |
+| `short_solo_brain_origin_nl` BTjz7NZExfk | 11/25 12:00 | 12/16 12:00 |
+| `short_solo_mitsuyaku_shizugatake` UGSb2LtYA6w | 11/25 12:00 | 12/08 17:00 |
+| `short_solo_columbus_flat_nl` jht-JeLp0bc | 11/25 17:00 | 12/17 12:00 |
+| `short_solo_moon_dark_nl` sLk85oIUQQM | 11/26 12:00 | 12/18 12:00 |
+| `short_solo_yonmikata_komaki` rvpMUlhTcCI | 11/26 12:00 | 12/10 17:00 |
+| `short_solo_bukka_katei_nl` k8Qm7_0EM-o | 11/26 17:00 | 12/19 12:00 |
+| `20_sunrise_solstice` BeY3kMjDjzs | 11/27 19:00 | 12/06 19:00 |
+| `short_solo_toji` 1vhIFZrNpdc | 11/28 12:00 | 12/22 12:00（冬至当日） |
+| `62_sankin` NFzaQWPs97c | 11/29 19:00 | 12/07 19:00 |
+
+- 結果：`check_slots.py --days 35` の同時刻重複 **0**。12/23・12/25・12/30の12:00は空けた。
+- AI背景の `suiban`(AOkbmQp3UGU) と `toji`(1vhIFZrNpdc) は、`schedule` 後に `containsSyntheticMedia=True` を再設定した。
+- 残る不揃い（同時刻ではない）：`20_sunrise_solstice`(12/06 19:00) の同題材Short `short_sunrise` は12/19 20:00、`62_sankin`(12/07 19:00) のShort `short_solo_sankin_tabi10` は未予約。ペアを揃えるなら 12/06 20:00 と 12/07 20:00 が空き。
+
 ## 実測：伊能忠敬の単独Short（2026-11-19 inou）
 
 **題材**：伊能忠敬は歩幅だけで日本地図を作った？ → 実際は縄・鉄鎖・星で測った（足掛け17年）。根拠は国土地理院「“伊能図”近代地図の原点」(PDF)と「測量・地図ミニ人物伝：伊能忠敬」（2026-11-19に取得。PDFの本文は `out/_inoh_pdf.txt` に抽出）。台本は `scripts/gen_solo_inou.py`、描画は `python scripts/make_short2.py solo_inou`。

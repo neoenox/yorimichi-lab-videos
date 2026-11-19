@@ -357,7 +357,8 @@
   "superseded": [],
   "deleted": [
    "mk5x-Yu9cC4"
-  ]
+  ],
+  "publishAt": "2026-12-06T10:00:00.000Z"
  },
  "short_sunrise": {
   "video_id": "bbaSqiNWZeY",
@@ -1019,7 +1020,8 @@
   "video_id": "NFzaQWPs97c",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-07T10:00:00.000Z"
  },
  "63_sushi": {
   "video_id": "w6k5tZt9F7E",
@@ -1285,13 +1287,15 @@
   "video_id": "P8YEIJfbzoo",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-07T08:00:00.000Z"
  },
  "short_solo_mitsuyaku_shizugatake": {
   "video_id": "UGSb2LtYA6w",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-08T08:00:00.000Z"
  },
  "short_solo_shuinjo_komaki": {
   "video_id": "qz_atJSN6Vc",
@@ -1303,7 +1307,8 @@
   "video_id": "rvpMUlhTcCI",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-10T08:00:00.000Z"
  },
  "short_solo_taiko_mikata": {
   "video_id": "P9ZPDpXj4-Q",
@@ -1582,7 +1587,7 @@
   "privacy": "private",
   "via": "studio",
   "superseded": [],
-  "publishAt": "2026-11-22T03:00:00Z"
+  "publishAt": "2026-12-12T03:00:00.000Z"
  },
  "short_solo_sushi_two_nl": {
   "video_id": "jk_VUUbz480",
@@ -1620,37 +1625,43 @@
   "video_id": "m8F9ZsgKgXo",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-14T03:00:00.000Z"
  },
  "short_solo_galileo_sore_nl": {
   "video_id": "Ru0b5MD-cUY",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-15T03:00:00.000Z"
  },
  "short_solo_brain_origin_nl": {
   "video_id": "BTjz7NZExfk",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-16T03:00:00.000Z"
  },
  "short_solo_columbus_flat_nl": {
   "video_id": "jht-JeLp0bc",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-17T03:00:00.000Z"
  },
  "short_solo_moon_dark_nl": {
   "video_id": "sLk85oIUQQM",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-18T03:00:00.000Z"
  },
  "short_solo_bukka_katei_nl": {
   "video_id": "k8Qm7_0EM-o",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-19T03:00:00.000Z"
  },
  "short_solo_brain_damage_nl": {
   "video_id": "W2Wh6ccWaxo",
@@ -2322,7 +2333,7 @@
   "via": "api",
   "superseded": [],
   "deleted": [],
-  "publishAt": "2026-11-28T03:00:00Z"
+  "publishAt": "2026-12-22T03:00:00.000Z"
  },
  "short_solo_minatomirai": {
   "video_id": "QQ9rUhVqwDs",
@@ -2410,7 +2421,7 @@
   "via": "api",
   "superseded": [],
   "deleted": [],
-  "publishAt": "2026-11-22T03:00:00Z"
+  "publishAt": "2026-12-06T08:00:00.000Z"
  },
  "short_solo_ryounkaku": {
   "video_id": "Y4l8Tyf15j4",
