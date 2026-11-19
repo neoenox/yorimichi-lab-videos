@@ -58,8 +58,10 @@ def ensure_chrome():
     """
     if port_open(CDP_PORT):
         return False
-    proc = subprocess.Popen([CHROME, f'--remote-debugging-port={CDP_PORT}', f'--user-data-dir={PROFILE}',
-                             'https://muse.ai/'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # 最小化して起動する(2026-11-19 ユーザー指示: chromeを立ち上げるときは最小化して開いて)
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from chrome_launch import launch_minimized
+    proc = launch_minimized(CHROME, CDP_PORT, PROFILE, 'https://muse.ai/')
     LAUNCHED.append(proc)
     for _ in range(30):
         if port_open(CDP_PORT):

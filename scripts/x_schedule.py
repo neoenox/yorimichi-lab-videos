@@ -36,9 +36,10 @@ def port_open(port, timeout=1.0):
 def ensure_chrome():
     if port_open(CDP):
         return False
-    proc = subprocess.Popen([CHROME, f'--remote-debugging-port={CDP}', f'--user-data-dir={PROFILE}',
-                             '--no-first-run', '--no-default-browser-check', 'https://x.com/home'],
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # 最小化して起動する(2026-11-19 ユーザー指示: chromeを立ち上げるときは最小化して開いて)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from chrome_launch import launch_minimized
+    proc = launch_minimized(CHROME, CDP, PROFILE, 'https://x.com/home')
     LAUNCHED.append(proc)
     for _ in range(40):
         if port_open(CDP):
