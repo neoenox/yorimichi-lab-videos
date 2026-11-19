@@ -164,6 +164,19 @@ def main():
         if not attached:
             pg.screenshot(path=str(ROOT / 'out' / f'muse_{a.slug}_noattach.png'))
             raise SystemExit('動画が添付できていない（過去の動画に回答される事故を防ぐため送信しない）')
+        # アップロードの完了を待つ（サムネイルが出ても、送信側の取り込みが終わっていないと
+        # 「届いていない」と返ってくる。2026-11-19）。進捗表示が消え、送信ボタンが有効になるまで待つ。
+        pg.wait_for_timeout(6000)
+        for _ in range(40):
+            busy = pg.evaluate("""() => {
+                const t = (document.body.innerText || '');
+                const spin = document.querySelectorAll('[role=progressbar], [aria-busy=true], svg[class*=spin], [class*=uploading]').length;
+                return {spin, uploading: /アップロード中|Uploading|処理中/.test(t)};
+            }""")
+            if not busy['spin'] and not busy['uploading']:
+                break
+            pg.wait_for_timeout(2000)
+        pg.wait_for_timeout(4000)
         box = pg.locator(TEXTBOX).first
         box.click()
         # 前回の下書きが残っていることがある（dry-run の後など）。先に空にしてから入力する
@@ -225,6 +238,14 @@ def main():
         out.write_text(reply, encoding='utf8')
         pg.screenshot(path=str(ROOT / 'out' / f'muse_reply_{a.slug}.png'))
         print('返答 %d 文字 (%.0f秒) -> %s' % (len(reply), time.time() - t0, out))
+        # 返答が本当に今回の動画の話か検査する(2026-11-19: 「届いていない」「別の動画」の返答を成功と誤認した)
+        bad = [w for w in ('届いてない', '届いていない', '見当たらない', 'もう一度添付', '添付してもらえる') if w in reply]
+        if bad:
+            print('警告: 返答が「動画が届いていない」系です:', bad, '→ レビューとして採用しない')
+            raise SystemExit(3)
+        if len(reply.strip()) < 400 or '書き起こし' not in reply:
+            print('警告: 返答が短い/書き起こしが無い。レビューとして採用しない')
+            raise SystemExit(4)
 
 
 if __name__ == '__main__':
