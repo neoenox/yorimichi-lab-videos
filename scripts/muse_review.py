@@ -27,7 +27,7 @@ sys.stdout.reconfigure(encoding='utf8')
 ROOT = Path(__file__).resolve().parents[1]
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 PROFILE = r'C:\Users\neoen\.chrome-automation'
-CDP_PORT = 9222
+CDP_PORT = int(os.getenv('MUSE_CDP_PORT', '9222'))
 VIEW = Path('E:/rekishikaisetu/sigcmp_view')
 MUSE_MARK = '問題点は時刻つきで具体的にお願いします。'
 TEXTBOX = '[contenteditable=true], textarea, [role=textbox]'   # Muse は contenteditable とは限らない（実測: textarea か role=textbox）
@@ -241,10 +241,12 @@ def main():
         pg.screenshot(path=str(ROOT / 'out' / f'muse_reply_{a.slug}.png'))
         print('返答 %d 文字 (%.0f秒) -> %s' % (len(reply), time.time() - t0, out))
         # 返答が本当に今回の動画の話か検査する(2026-11-19: 「届いていない」「別の動画」の返答を成功と誤認した)
-        # 単語の部分一致だと「0.0 dB には届いてない」「偽文字も見当たらない」を誤検知する(2026-11-19 inou)。
-        # 動画・添付を主語にした文だけを「届いていない」とみなす。
-        bad = re.findall(r'(動画|映像|ファイル|添付)[^。\n]{0,20}(届いていな|届いていません|届いてない|届いてません|見当たらな|見当たらず|見当たりません|確認できません|確認できず)'
-                         r'|(届いていな|届いてない|見当たらな|見当たりません)[^。\n]{0,10}(動画|映像|ファイル|添付)'
+        # 単語の部分一致だと「0.0 dB には届いてない」「偽文字も見当たらない」
+        # 「AI生成映像の不自然さは見当たらない」を誤検知する(2026-11-19 inou/1yen)。
+        # 届来・確認・受取の否定だけを対象にし、「見当たらない」は動画/ファイルが主語のときだけ見る。
+        bad = re.findall(r'(動画|映像|ファイル|添付)[^。\n]{0,12}(届いていな|届いていません|届いてない|届いてません|確認できません|確認できず|受け取れな)'
+                         r'|(?:動画|ファイル|添付)(?:が|は)?見当たらな'
+                         r'|(?:届いていな|届いてない)[^。\n]{0,8}(動画|ファイル|映像)'
                          r'|もう一度添付|添付してもらえる', reply)
         if bad:
             print('警告: 返答が「動画が届いていない」系です:', bad, '→ レビューとして採用しない')
