@@ -660,4 +660,12 @@ younkaku を置いた）。
 - **既存の扱い**: `data/short_*.json` は284本。全件遡及せず、CI は PR の変更分、pre-commit はステージ分だけを検査する（祖父化）。
 - **`seijin` の根拠**: 未公開の `short_seijin` を再利用。内閣府2ページ＋名古屋大学の法令DB（e-Gov の代替、evidence_note に明記）で6主張を裏取り。`short_solo_seijin1115` は「1949〜1999年」が二次情報のため `superseded` に記録して非公開。
 - **KPIの中間値**: `python scripts/yt_analytics.py videos` で旧型の平均視聴率（玉川上水 74.2%、プラニマル 97.7%）は取得。凌雲閣・発電はまだ ANALYTICS に出ておらず、スワイプ率は API に無い。判定は 11/26 に後ろ倒し（`kpi_swipe_tracking.md` 更新）。
-- **未確認（完了扱いにしない）**: ChatGPT/Gemini の台本レビュー（CDP 127.0.0.1:9222 が応答せず実行不可）、凌雲閣・発電のスワイプ率（Studio 要ログイン）、`short_seijin` / `48_seijin` の連続視聴・全編実聴・スマホ実機、1/11 の公開予約。公開可否の判断はしていない。
+- **未確認（当時）**: ChatGPT/Gemini の台本レビュー（当時CDPが応答せず）、凌雲閣・発電のスワイプ率（Studio 要ログイン）、`short_seijin` / `48_seijin` の連続視聴・全編実聴・スマホ実機、1/11 の公開予約。公開可否の判断はしていない。
+
+## 実測：CDP 台本レビューの実行（2026-11-20 続き）
+
+- **起動**: 通常プロファイルの Chrome には `--remote-debugging-port` が付いていない。自動化プロファイルを `Start-Process chrome.exe -ArgumentList '--remote-debugging-port=9222','--user-data-dir=C:\Users\neoen\.chrome-automation','--no-first-run','about:blank'` で起動すると `127.0.0.1:9222` が LISTEN した。ChatGPT / Gemini ともプロファイルにログイン済み。
+- **スクリプト**: `scripts/review_short_cdp.py <slug> chatgpt|gemini`。プロンプトは spec の6シーン・根拠テーブル・未確認から自動生成（2257字）。Gemini は `div[aria-label="Gemini へのプロンプトを入力"]` に fill して Enter で送信、応答は保存できた。
+- **ChatGPT のDOM変更**: 旧セレクタ `div[data-message-author-role="assistant"]` は2026-11-20時点で**0件**。現在の応答は `div[class*="DilResponseRoot"]` にあり、これをセレクタに変更して取得した。初回は旧セレクタのまま300秒待ってタイムアウトした（`--reuse` で再送信せず回収）。
+- **結果**: 両方とも「公開可」。ChatGPTは軽微な改善案（シーン5の文言、シーン1の読点、シーン6のCTA）、Geminiは小テロップ提案（必須ではない）。再利用動画なので採用すれば再描画＋新ID＋予約・X差し替えが必要で、事実誤りではないため今回は不採用。採否は [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md)。
+- **未確認（残り）**: 連続視聴・全編実聴・スマホ実機、凌雲閣・発電のスワイプ率、1/11 の公開予約。

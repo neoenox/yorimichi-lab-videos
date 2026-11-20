@@ -20,6 +20,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | --- | --- | --- |
 | `scripts/shorts_standard.py` | 標準 JSON の検査（`validate.py` 実行＋追加規則）とレンダラ spec への変換 | 2026-11-04 |
 | `scripts/check_short_evidence.py` | **`data/short_*.json` の根拠テーブル検査**。アップ前・CI・pre-commit で変更分のみ | 2026-11-20 |
+| `scripts/review_short_cdp.py` | **ChatGPT / Gemini へ台本を送る**（CDP、ログイン済みセッション）。応答は `out/<site>_review_<slug>_short.txt`。ChatGPTの応答要素は `div[class*="DilResponseRoot"]`（2026-11-20時点） | 2026-11-20 |
 | `scripts/gen_image_cdp.py` | **ChatGPT の画像生成**（Chrome を CDP で操作、blob 画像を canvas 経由で取得） | 2026-11-05 |
 | `scripts/studio_cdp.py` | **Studio の公開設定・字幕**（Playwright、チャンネルID検証つき） | 2026-11-05 |
 | `scripts/chatgpt_image.py` | bsk 経由の画像生成（**不安定・非推奨**。CDP 版を使う） | 2026-11-05 |
@@ -105,12 +106,13 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | 2026-11-12 | `yoritomo_zo`（伝源頼朝像＝足利直義説） | 「昔の説→いまの説」型（高年齢層向け）。文化庁DBで国宝指定名称を直接確認、所蔵者（神護寺）の反論も公式ページで確認。**PD の肖像画像を Commons から使い、`sub` パネル・画像の上端境界・`flow` 図の偏りを実測で直した**。**needs_review のまま。試作のみ**（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 | 2026-11-18 | `nenga`（年賀状の元日配達） | 2027年用は**受付開始2026/12/20・元日配達の目安12/27**（日本郵便FAQ）。過年度の12/15・12/25を一般則にしない。ChatGPTの「場面3が誤解を招く」指摘を採用、Geminiの「年内に届く」は公式に説明がないため不採用。**単独Short経路で制作中（11/26 19:00枠）**（[`research/20261118_nenga_sources.md`](research/20261118_nenga_sources.md) / [`research/20261118_nenga_reviews.md`](research/20261118_nenga_reviews.md)） |
 | 2026-11-19 | 予約枠の棚卸し（同時刻の重複） | API 実測で 11/19〜11/21 の5枠に同時刻予約。11/19 19:00 は**長尺2本**（`27_forest` と `79_hibiya`）。原因は予約経路が3系統に分かれていること。**台帳の `publishAt` は実態より古い**ので `scripts/check_slots.py`（API実測）で確認する。当日分4件を移動し重複ゼロ（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
-| 2026-11-20 | 根拠テーブルゲート＋`seijin` 再利用 | `data/short_*.json` に `claims` を埋め、アップ前・CI・pre-commit で検査。既存284本は祖父化。成人の日は未公開の `short_seijin` を再利用し、1/11 19:00 長尺＋20:00 Short のペア公開を予定（**予約・AIレビュー・実聴は未実施**）。[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md) |
+| 2026-11-20 | 根拠テーブルゲート＋`seijin` 再利用 | `data/short_*.json` に `claims` を埋め、アップ前・CI・pre-commit で検査。既存284本は祖父化。成人の日は未公開の `short_seijin` を再利用し、1/11 19:00 長尺＋20:00 Short のペア公開を予定（**AIレビューは両方「公開可」完了。実聴・予約は未実施**）。[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md) |
 
 ## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
 
 | 文書 | 内容 | 要点 |
 | --- | --- | --- |
+| [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md) | 成人の日Shortの ChatGPT/Gemini 台本レビュー | 両方「公開可」。軽微な改善提案（シーン5の文言・小テロップ等）は、再描画と新ID差し替えが必要なため今回は不採用。次回の新規制作の候補として記録 |
 | [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
 | [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
