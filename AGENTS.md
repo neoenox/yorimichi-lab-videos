@@ -10,7 +10,7 @@
 
 ## レビューは Google AI モードを使う（2026-11-20 オーナー指示）
 
-動画・台本のレビューは **Muse ではなく Google AI モード**（https://www.google.com/ai）で行ってください。`python scripts/google_ai_review.py <slug> --mode script|video [--video ...]` を使う。AIの指摘は必ず根拠の原文と照合してから採用・不採用を決め、採用判断を `docs/research/` に記録する。Muse は起動しない。
+動画レビューは **Google AI モード**（https://www.google.com/ai）のみを使い、`python scripts/google_ai_review.py <slug> --mode video --video out/...mp4` で行う。**台本レビューは Google AI モードと ChatGPT を併用**し、Google AI モードは `python scripts/google_ai_review.py <slug> --mode script`、ChatGPT は `python scripts/review_short_cdp.py <slug> chatgpt` で実行する。Gemini は必須ではない。AIの指摘は必ず根拠の原文と照合してから採用・不採用を決め、`docs/research/` に記録する。Muse は起動しない。
 
 ## Shorts は制作標準（shorts-standard/）に従う
 

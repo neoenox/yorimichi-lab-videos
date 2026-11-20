@@ -727,6 +727,7 @@ younkaku を置いた）。
 ## 実測：Google AI モードへのレビュー移行（2026-11-20）
 
 - オーナー指示で、動画・台本のレビューを Muse から Google AI モード（https://www.google.com/ai）に変更。
+- 追加指示（同日）: 台本レビューは **Google AI モード＋ChatGPT の併用**。動画レビューは Google AI モードのみ。Gemini は必須ではない。
 - `scripts/google_ai_review.py` を追加。`--mode script` は spec から依頼文を自動生成、`--mode video` は動画を添付。CDP 9222 が無ければ自動起動し、送信ボタンが有効になるまで待つ。
 - 実動確認: `solo_ambulance --mode script` で台本レビューを取得（`out/google_ai_review_solo_ambulance_script.txt`）。消防白書の数値・定義が一致すると判定。
 - 過去の指摘で一次資料と食い違うもの（Gemini の「46.9% は軽症単体」）は不採用とし、採用判断を research に記録する運用を継続。

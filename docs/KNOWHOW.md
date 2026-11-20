@@ -15,7 +15,7 @@
 Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md)。日々の Short は `data/short_*.json` に `claims` を書き、`scripts/check_short_evidence.py` を通さないとアップできない。
 
 ## レビューは Google AI モード（2026-11-20 オーナー指示）
-動画・台本のレビューは Muse ではなく **Google AI モード**（https://www.google.com/ai）を使う。`python scripts/google_ai_review.py <slug> --mode script|video [--video out/...mp4]` で、CDP 9222 が落ちていても自動起動する。AIの指摘は根拠の原文と照合して採用・不採用を決め、判断を `docs/research/` に残す。Muse は起動しない。
+動画レビューは **Google AI モード**（https://www.google.com/ai）のみ。**台本レビューは Google AI モード＋ChatGPT の併用**（`python scripts/google_ai_review.py <slug> --mode script` と `python scripts/review_short_cdp.py <slug> chatgpt`）。Gemini は必須ではない。`python scripts/google_ai_review.py <slug> --mode script|video [--video out/...mp4]` で、CDP 9222 が落ちていても自動起動する。AIの指摘は根拠の原文と照合して採用・不採用を決め、判断を `docs/research/` に残す。Muse は起動しない。
 
 ## 2. ツール（スクリプト）と役割
 
