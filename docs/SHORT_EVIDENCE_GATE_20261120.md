@@ -36,11 +36,11 @@ B：成長（KPI）は A の内側での最適化、C：量・カデンスは最
 - `python -m unittest discover -s tests -p 'test_short_evidence.py'` → 11 tests OK
 - `python scripts/check_short_evidence.py data/short_seijin.json` → OK（ERROR 0 / WARN 0）
 - `sh -n scripts/hooks/pre-commit` → 構文 OK
-- `python scripts/yt_analytics.py videos` → 旧型の平均視聴率（玉川上水 74.2% / プラニマル 97.7%）を取得。凌雲閣・発電・スワイプ率は未取得
+- `python scripts/yt_analytics.py videos` → 旧型の平均視聴率（玉川上水 74.2% / プラニマル 97.7%）を取得。凌雲閣は Studio でスワイプ90.0% / 継続10.0% / 平均視聴割合53.3%を取得（11/20時点、n=1のため判定保留）
 
 ## 未実施（未確認を完了扱いにしない）
 
 - **ChatGPT / Gemini による 6シーン台本レビュー**: 完了。両方とも「公開可」。指摘は軽微な改善提案のみで、今回は再描画しない（採用しない理由を含め [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md) に記録）。
-- **凌雲閣・発電のスワイプ率（Studio のショート動画分析）**：API に項目が無く、ブラウザ/login が必要。11/26 に n=2 を揃えてから判定。
-- **`short_seijin` / `48_seijin` の連続視聴・全編実聴・スマホ実機確認**：未実施。`VIDEO_CREATION_PRECHECK.md` に従い、技術検査と視聴品質は別ゲートとして残す。
+- **スワイプ率**: 凌雲閣は取得済み（スワイプ90.0%／継続10.0%／平均視聴割合53.3%）。発電は11/24公開のため11/26まで未取得。矛盾したシグナルのためn=2で判定する。
+- **連続視聴・全編実聴・スマホ実機確認**: 圧縮版の全編デコード・音量・字幕時刻、Gemini による Short の動画レビュー（公開可）、代表フレームの目視は完了（[`research/20261120_seijin_video_qa.md`](research/20261120_seijin_video_qa.md)）。元解像度・スマホ実機・人間の実聴は未実施。
 - **1/11 の公開予約**: 未実施。連続視聴・全編実聴・スマホ確認が済んでから行う。

@@ -66,6 +66,8 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 - ChatGPT の生成画像は `blob:` URL。**ページ内 canvas → toDataURL** で取り出す
 - **Muse の添付確認は、`img` の blob URL と「添付ファイルを削除」ボタンで判定する**（Muse はファイル名を本文に出さない。前回の下書きが残っていると新しい添付が付かないので、先に削除ボタンを押す。`muse_review.py`、2026-11-18）
 - **Muse の「届いていない」検知は、動画・添付を主語にした文だけを見る**（部分一致だと `0.0 dB には届いてない` `偽文字も見当たらない` で誤検知して有効な返答を捨てる。2026-11-19 inou）
+- **非公開動画の確認用コピーは Studio のプレビュー配信から取れる**: `studio.youtube.com/video/<id>/edit` の `<video>.currentSrc` を CDP で読み、`context.request.get()` で保存すると 360x640（Short）／640x360（長尺）の圧縮版が得られる。元解像度の確認にはならない（2026-11-20 seijin）。
+- **Gemini の動画添付は「アップロードとツール」ボタンを押すと `input[type=file]` が出る**。Short（3.8MB）は送信・回答まで成功したが、長尺（6.7MB）はアップロードが完了せず送信ボタンが無効のまま。Enter ではなく `button[aria-label="プロンプトを送信"]` の有効化を確認する。
 - Studio の公開設定は `ytcp-icon-button#select-button`（同じ id が4つあるので限定する）
 
 ### 公開
@@ -113,6 +115,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | 文書 | 内容 | 要点 |
 | --- | --- | --- |
 | [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md) | 成人の日Shortの ChatGPT/Gemini 台本レビュー | 両方「公開可」。軽微な改善提案（シーン5の文言・小テロップ等）は、再描画と新ID差し替えが必要なため今回は不採用。次回の新規制作の候補として記録 |
+| [`research/20261120_seijin_video_qa.md`](research/20261120_seijin_video_qa.md) | 成人の日Short/長尺の動画確認 | Studio プレビュー配信から非公開動画を取得。全編デコード・音量・字幕時刻＋Gemini 動画レビュー（Short は「公開可」）＋代表フレーム目視。元解像度・スマホ実機・人間の実聴は未実施 |
 | [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
 | [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
