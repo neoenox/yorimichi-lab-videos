@@ -116,6 +116,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | 文書 | 内容 | 要点 |
 | --- | --- | --- |
 | [`research/20261120_channel_performance_28d.md`](research/20261120_channel_performance_28d.md) | 過去28日間のパフォーマンス要約 | Shorts 72,467回／長尺198回。Shorts優先方針の裏付け。11/16に視聴回数の集計仕様変更あり |
+| [`SHORTS_ANALYTICS_20261120.md`](SHORTS_ANALYTICS_20261120.md) / [`data/shorts_analytics_20261120.json`](../data/shorts_analytics_20261120.json) | 全Shorts（127本）のアナリティクス調査と戦略 | 30〜45秒が中値715回、歴史622回、再生率>100%の13本は918回。新型フックはスワイプ悪化で11/26まで保留 |
 | [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md) | 成人の日Shortの ChatGPT/Gemini 台本レビュー | 両方「公開可」。軽微な改善提案（シーン5の文言・小テロップ等）は、再描画と新ID差し替えが必要なため今回は不採用。次回の新規制作の候補として記録 |
 | [`research/20261120_seijin_video_qa.md`](research/20261120_seijin_video_qa.md) | 成人の日Short/長尺の動画確認 | Studio プレビュー配信から非公開動画を取得。全編デコード・音量・字幕時刻＋Gemini 動画レビュー（Short は「公開可」）＋代表フレーム目視。元解像度・スマホ実機・人間の実聴は未実施 |
 | [`research/20261120_islands_reviews.md`](research/20261120_islands_reviews.md) | 日本の島の数Shortの台本レビューと候補変更 | ChatGPT「公開可」／Gemini「修正必要」（表現のみ）。計算表現に難のあった magnitude 候補から差し替え。国土地理院の報道発表本文を確認 |
