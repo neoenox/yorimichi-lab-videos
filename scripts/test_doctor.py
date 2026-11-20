@@ -60,3 +60,31 @@ def test_monitor_creates_log_directory_on_fresh_checkout(tmp_path, monkeypatch):
     sample = json.loads(records[0])
     assert sample['processes'] == []
     assert sample['gpu'] == 'tool unavailable'
+
+def test_monitor_serializes_matching_process_name(tmp_path, monkeypatch):
+    class StopAfterOneSample(Exception):
+        pass
+
+    class FakeProcess:
+        pid = 123
+        info = {'cmdline': ['render_blender'], 'name': 'render_blender'}
+
+        def memory_info(self):
+            return type('MemoryInfo', (), {'rss': 456})()
+
+        def cpu_times(self):
+            return (1.0, 2.0)
+
+    monkeypatch.setattr(d, 'ROOT', tmp_path)
+    monkeypatch.setattr(d.psutil, 'process_iter', lambda attrs: iter((FakeProcess(),)))
+    monkeypatch.setattr(d, 'command', lambda args: {'returncode': 127, 'output': 'tool unavailable'})
+    monkeypatch.setattr(d.time, 'sleep', lambda seconds: (_ for _ in ()).throw(StopAfterOneSample()))
+
+    with pytest.raises(StopAfterOneSample):
+        d.monitor()
+
+    output = tmp_path / 'logs' / 'resources.jsonl'
+    sample = json.loads(output.read_text(encoding='utf8').splitlines()[0])
+    assert sample['processes'][0]['name'] == 'render_blender'
+    assert sample['processes'][0]['rss'] == 456
+    assert sample['processes'][0]['cpu_seconds'] == 3.0
