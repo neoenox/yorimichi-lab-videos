@@ -1,0 +1,66 @@
+"""単独Short(暦・暮らし)：春分や秋分に昼と夜は同じ？(solo_equinox)。
+
+根拠は国立天文台FAQ「質問3-3 春分の日・秋分の日には、昼と夜の長さは同じになるの？」
+https://www.nao.ac.jp/faq/a0303.html （2026-11-20に本文確認）と、
+「質問1-2 どうなったときが『日の出』『日の入り』？」
+https://www.nao.ac.jp/faq/a0102.html （同日確認）。
+3-3の2020年3月20日・東京の例（日の出5:45／日の入17:53、昼12時間8分／夜11時間52分）をそのまま使う。
+nolong, nolink。背景はFreeVideoのAI映像(イメージ)、図は自作。
+描画は11/26のKPI形式判定を待ってから。"""
+from solo_spec import build, T, fv_prompts
+A = '国立天文台「春分の日・秋分の日には、昼と夜の長さは同じになるの？」'
+B = '国立天文台「どうなったときが日の出・日の入り？」'
+pron = {'春分': 'シュンブン', '秋分': 'シュウブン', '地平線': 'チヘイセン', '屈折': 'クッセツ',
+        '三十五分八秒角': 'サンジュウゴフンハチビョウカク',
+        '東京': 'トウキョウ', '大気': 'タイキ', '太陽': 'タイヨウ', '上辺': 'ジョウヘン'}
+claims = [
+    {'id': 'equinox-not-equal', 'statement': '春分・秋分でも昼と夜は同じにならない。2020年3月20日・東京では昼12時間8分、夜11時間52分だった',
+     'source_type': 'primary', 'source_url': 'https://www.nao.ac.jp/faq/a0303.html',
+     'evidence_note': '国立天文台FAQ質問3-3の本文で「実際にはそうではありません」および2020年春分の日の東京の日の出5時45分・日の入17時53分、昼12時間8分・夜11時間52分を確認（2026-11-20）'},
+    {'id': 'sun-upper-limb', 'statement': '日の出・日の入りは太陽の上辺が地平線と一致する瞬間と定義されている',
+     'source_type': 'primary', 'source_url': 'https://www.nao.ac.jp/faq/a0102.html',
+     'evidence_note': '国立天文台FAQ質問1-2の本文で「太陽の上辺が地平線（または水平線）に一致する時刻」という定義を確認（2026-11-20）。3-3もこの定義を理由に挙げている'},
+    {'id': 'refraction', 'statement': '大気屈折により地平線近くの天体は35分8秒角浮き上がって見え、昼の時間がさらに長くなる',
+     'source_type': 'primary', 'source_url': 'https://www.nao.ac.jp/faq/a0303.html',
+     'evidence_note': '国立天文台FAQ質問3-3の本文で「日の出・入の計算をするときには35分8秒角浮き上がるとして計算」「この効果によって昼の時間はさらに長くなります」を確認（2026-11-20）'},
+]
+needs_research = [
+    '2027年の春分・秋分の日付は暦要項の一次確認が未了。このShortは2020年のFAQの例を使うため答えに影響しない',
+]
+scenes = [
+    dict(text='春分の日は、昼と夜がぴったり同じ。そう思っていませんか。2020年の東京では、昼が12時間8分でした。',
+         big='本当に同じ？', sub='2020年・東京の例／昼12時間8分', src=A, claim_ids=['equinox-not-equal'],
+         viz=T(2.8, [('思い込み', '昼と夜は同じ'), ('計算', '昼12時間8分'), ('場所', '2020年・東京')])),
+    dict(text='2020年3月20日の東京では、日の出が5時45分、日の入りが17時53分。日の出から日の入りまでを昼とすると、12時間8分です。',
+         big='昼12時間8分', sub='夜は11時間52分／2020年・東京', src=A, claim_ids=['equinox-not-equal'],
+         viz=T(2.8, [('日の出', '5:45'), ('日の入り', '17:53'), ('昼−夜', '約16分')])),
+    dict(text='理由は二つ。まず、日の出と日の入りは、太陽の中心ではなく、上辺が地平線に一致する瞬間と決められています。',
+         big='定義は太陽の上辺', sub='中心ではない', src=B, claim_ids=['sun-upper-limb'],
+         viz=T(2.8, [('定義', '太陽の上辺'), ('中心ではない', '昼が少し長い'), ('出典', '国立天文台FAQ')])),
+    dict(text='もう一つは、大気で光が曲がること。計算上は三十五分八秒角、角度の分と秒で、浮き上がるとしています。だから昼がさらに長くなります。',
+         big='大気屈折でさらに長く', sub='35分8秒角は角度の単位', src=A, claim_ids=['refraction'],
+         viz=T(2.8, [('大気屈折', '35分8秒角'), ('見え方', '少し浮かぶ'), ('結果', '昼がさらに長い')])),
+]
+bg = [
+    'A clean horizontal horizon line at dawn with a soft gradient sky from deep blue to pale orange, no sun disk, no people, no text, the camera very slowly panning right',
+    'A quiet city skyline silhouette at sunrise with a pale sky, no letters, no signs, no people, the camera slowly tilting up',
+    'A minimal diagram-like scene of a thin glowing arc just touching a straight horizontal line, abstract and unlettered, no people, no text, the camera slowly pushing in',
+    'A calm blue atmosphere fading into a warm horizon glow, soft layered translucent bands suggesting refraction, no people, no text, the camera slowly drifting upward',
+]
+notes = ('■ 2026年11月20日に、国立天文台FAQ「質問3-3 春分の日・秋分の日には、昼と夜の長さは同じになるの？」'
+         '(https://www.nao.ac.jp/faq/a0303.html )と「質問1-2 どうなったときが『日の出』『日の入り』？」'
+         '(https://www.nao.ac.jp/faq/a0102.html )を読んで作った整理です。\n'
+         '・使った事実(同)：3-3は「実際にはそうではありません」と明記。理由は(1)日の出・日の入りの定義が太陽の上辺が地平線と一致する瞬間であること、(2)大気屈折で地平線近くの天体が35分8秒角浮き上がって見えること。2020年春分の日(3月20日)の東京では日の出5時45分、日の入り17時53分で、昼12時間8分、夜11時間52分。\n'
+         '・言い過ぎを避けた点：「同じにならない」と-only一般化するのではなく、FAQが例示した2020年・東京の数値を添える。35分8秒角は角度であって時間ではないと明記する。「夜が短い」は計算上の比較であって体感ではない。\n'
+         '・使っていないこと：春分・秋分の日付そのもの、2027年の暦表から自作計算した値、大気屈折の詳細な理論、薄明の長さ。3-3の関連リンク(暦計算室「昼と夜の等しい日」)は2026-11-20時点で404だった。\n'
+         '・未確認：2027年の春分・秋分の日付(暦要項の一次確認未了)。このShortは2020年の例を使うため答えに影響しない。\n'
+         '・レビューで直した点(2026-11-20 ChatGPT/Gemini)：冒頭で「2020年・東京の例」を明示し、数字を一般化しないようにした。場面2は「日の出から日の入りまでを昼とすると」という前提を追加。場面4は「計算上は」と「角度の分と秒」を入れ、35分8秒角を時間と誤解されないようにした(小テロップにも「角度の単位」と明記)。\n')
+if __name__ == '__main__':
+    build('equinox', '春分や秋分に、昼と夜は本当に同じ？ 12時間8分で確かめる #Shorts',
+          '春分の昼は12時間8分', '同じではない。昼が少し長い', pron, scenes, bg, notes,
+          claims=claims, needs_research=needs_research,
+          bg_note='・動画内の図(比較・タイムライン)は自作です。背景の映像は FreeVideo(MiniMax H3)によるAI生成で、イメージです。実際の風景の記録ではありません。\n',
+          credit='・出典：国立天文台FAQ「質問3-3」「質問1-2」\n・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです\n・図・表：自作',
+          end_q='昼と夜が同じだと思っていたのは、どんな話でしたか？',
+          tags=['春分', '秋分', '昼と夜', '国立天文台', '暦', '天文', '雑学', '検証', 'Shorts'])
+    fv_prompts('equinox', bg)

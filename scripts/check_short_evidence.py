@@ -17,9 +17,8 @@ import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
-FIRST_PARTY_SUFFIX = '.go.jp'          # 官公庁の公式ドメイン
-REPRINT_HOSTS = ('web.archive.org',)   # 法定保存
-REPRINT_SUFFIXES = ('.ac.jp',)         # 大学が掲載する法令・資料の再掲
+FIRST_PARTY_SUFFIXES = ('.go.jp', '.ac.jp')  # 官公庁・大学・研究機関の公式ドメイン
+REPRINT_HOSTS = ('web.archive.org', 'jahis.law.nagoya-u.ac.jp')  # 法定保存・大学の法令DB再掲
 VALID_SOURCE_TYPES = ('primary', 'ai_assistant')
 MIN_NOTE = 8
 JUSTIFY_TOKENS = ('答えは変わらない', '答えに影響しない', '影響しない', '答えに効かない')
@@ -28,6 +27,9 @@ JUSTIFY_TOKENS = ('答えは変わらない', '答えに影響しない', '影�
 def err(msg):
     return ('ERROR', msg)
 
+def is_reprint(url):
+    host = _host(url)
+    return host in REPRINT_HOSTS
 
 def warn(msg):
     return ('WARN', msg)
@@ -40,9 +42,6 @@ def _host(url):
         return ''
 
 
-def is_reprint(url):
-    host = _host(url)
-    return host in REPRINT_HOSTS or host.endswith(REPRINT_SUFFIXES)
 
 
 def check_spec(path):
@@ -82,7 +81,7 @@ def check_spec(path):
                 issues.append(err(f'{tag}: primary なのに source_url が http(s) でない'))
             elif is_reprint(url) and '代替' not in note:
                 issues.append(err(f'{tag}: 再掲URLなのに evidence_note に「代替」が無い'))
-            elif not is_reprint(url) and not _host(url).endswith(FIRST_PARTY_SUFFIX):
+            elif not is_reprint(url) and not _host(url).endswith(FIRST_PARTY_SUFFIXES):
                 issues.append(warn(f'{tag}: 公式ドメイン外。一次資料として妥当か人を確認 ({_host(url)})'))
         elif kind == 'ai_assistant' and '質問' not in note:
             issues.append(err(f'{tag}: ai_assistant は「何を質問し何と答えたか」を evidence_note に書く'))

@@ -678,3 +678,11 @@ younkaku を置いた）。
 - **ゲートと検査**: `check_short_evidence.py` は両方の spec で OK。`check_slots.py --days 60` で 1/11 12:00 の重複なしを確認。
 - **予約操作**: 既存の非公開動画は再アップせず `yt_api.py schedule <video_id> "2027-01-11 12:00"` で予約。予約解除は `videos().update` の `publishAt=None`（`replace_shorts_cta.py` の実例を参考）。予約後に API から publishAt を読み戻して台帳も更新した。
 - **未確認**: 元解像度・スマホ実機・人間の全編実聴。Gemini への動画添付はこの日も「ファイルを開けない」失敗が続いた。
+
+## 実測：春分／秋分Shortの台本まで（2026-11-20）
+
+- **手順書の再確認**: `procedure_gate` の印が24時間で切れていたため、`read_procedure.py` の全4部分と確認問題をやり直してから生成した。
+- **生成器の拡張**: `solo_spec.build()` に `claims=` / `needs_research=` を追加（省略時は従来どおり）。`scenes[].claim_ids` は `dict(s, ...)` でそのまま保持される。旧ジェネレーターは無変更で動く。
+- **ゲートの誤検知を修正**: `.ac.jp` をすべて「大学による再掲」と判定していたため、発行主体の国立天文台（`www.nao.ac.jp`）が「代替明記なし」で落ちた。再掲先を `web.archive.org` と `jahis.law.nagoya-u.ac.jp` の明示ホストに限定し、`.go.jp` / `.ac.jp` を一次発行主体として扱う回帰テストを追加（全12件OK）。
+- **レビュー反映**: ChatGPTは公開可、Geminiは修正必要。共通指摘（2020年・東京の明示、35分8秒角が角度であること）を描画前に台本へ反映。`pron` に「三十五分八秒角」を登録。
+- **未実施**: 背景生成・ビルド・Muse・予約。11/26のKPI判定待ち。

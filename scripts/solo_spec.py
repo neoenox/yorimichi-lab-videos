@@ -11,7 +11,7 @@ CREDIT = '・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イ�
 T = lambda gap, ev: dict(type='timeline', gap=gap, events=ev)
 
 
-def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None, credit=None, end_vid=None, hook_text=None, hook_label=None, end_q=None, tags=None):
+def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None, credit=None, end_vid=None, hook_text=None, hook_label=None, end_q=None, tags=None, claims=None, needs_research=None):
     import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
     (R / 'data' / f'{slug}_pron.json').write_text(json.dumps(pron, ensure_ascii=False), encoding='utf8')
     V = lambda n: f'assets/{slug}/fv/clip{n}.mp4'
@@ -24,6 +24,10 @@ def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None,
     sc.append(dict(text='', end=True, vid=(end_vid or V(1)), dim=0.7))
     o = dict(title=title, head=head, pron=f'data/{slug}_pron.json', art='assets/tohoku/bg_one.png', hook=scenes[0]['text'], notes=notes + (bg_note or BG_NOTE), answer=answer, hook_text=hook_text, hook_label=hook_label, end_q=end_q, tags=tags,
              credit=(credit or CREDIT), suffix='整理', nolong=True, nolink=True, long_id=IDS['43_bukka']['video_id'], long_title='43_bukka', scenes=sc)
+    if claims:
+        o['claims'] = claims
+    if needs_research:
+        o['needs_research'] = needs_research
     (R / 'data' / f'short_solo_{slug}.json').write_text(json.dumps(o, ensure_ascii=False, indent=1), encoding='utf8')
     L = [f'タイトル案: {title} 約60秒で整理 #Shorts', f'冒頭の結論カード: {answer}', '', '【場面ごとの台本(ナレーション)・画面の文字・図・背景の予定】']
     for i, s in enumerate(scenes):

@@ -93,6 +93,13 @@ class GateTests(unittest.TestCase):
         d['claims'][0]['evidence_note'] += '。e-Govから取得できず大学DBの条文を代替として確認'
         self.assertEqual(errors(self.check(d)), [])
 
+    def test_research_institute_ac_domain_is_first_party(self):
+        d = copy.deepcopy(self.data)
+        d['claims'][0]['source_url'] = 'https://www.nao.ac.jp/faq/a0303.html'
+        issues = self.check(d)
+        self.assertEqual(errors(issues), [])
+        self.assertFalse(any('代替' in m or '公式ドメイン外' in m for _, m in issues))
+
     def test_ai_assistant_cannot_back_assertion(self):
         d = copy.deepcopy(self.data)
         d['claims'][0]['source_type'] = 'ai_assistant'
