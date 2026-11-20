@@ -10,6 +10,14 @@ sys.path.insert(0, str(R / 'scripts'))
 import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
 slug, when = sys.argv[1], sys.argv[2]
 key = f'short_{slug}'
+# 根拠テーブルゲート（2026-11-20 のオーナー確認）。根拠が無い spec はアップしない。
+_ev = subprocess.run([sys.executable, str(R / 'scripts' / 'check_short_evidence.py'),
+                      str(R / 'data' / f'{key}.json')], cwd=R, capture_output=True,
+                     text=True, encoding='utf8', errors='replace')
+print(_ev.stdout, end='')
+if _ev.returncode:
+    print(_ev.stderr, end='')
+    sys.exit(f'根拠テーブル検査に通りません。アップロードしません: {key}')
 sys.argv = ['x']
 sp = importlib.util.spec_from_file_location('yt', R / 'scripts' / 'yt_api.py'); yt = importlib.util.module_from_spec(sp); sp.loader.exec_module(yt)
 r = subprocess.run([sys.executable, str(R / 'scripts' / 'yt_api.py'), 'upload', key], cwd=R, capture_output=True, text=True, encoding='utf8', errors='replace')

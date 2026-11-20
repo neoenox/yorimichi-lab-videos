@@ -4,11 +4,12 @@
 # 導入: python scripts/install_git_hooks.py
 # 手動で実行: python scripts/shorts_standard.py check shorts/<slug>/result.json
 # 仕組み: shorts-standard/validate.py（形式）＋ scripts/shorts_standard.py の追加規則
-files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^shorts/[^/]+/result\.json$')
-[ -z "$files" ] && exit 0
+std_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^shorts/[^/]+/result\.json$')
+short_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^data/short_[^/]+\.json$')
+[ -z "$std_files" ] && [ -z "$short_files" ] && exit 0
 
 status=0
-for f in $files; do
+for f in $std_files; do
     if ! python scripts/shorts_standard.py check "$f" >/dev/null 2>&1; then
         printf '\n✖ 制作標準の検査に通りません: %s\n\n' "$f" >&2
         python scripts/shorts_standard.py check "$f" >&2 || true
@@ -16,8 +17,16 @@ for f in $files; do
     fi
 done
 
+for f in $short_files; do
+    if ! python scripts/check_short_evidence.py "$f" >/dev/null 2>&1; then
+        printf '\n✖ 根拠テーブル検査に通りません: %s\n\n' "$f" >&2
+        python scripts/check_short_evidence.py "$f" >&2 || true
+        status=1
+    fi
+done
+
 if [ "$status" -ne 0 ]; then
-    printf '  直してから再コミットしてください（PROMPT.md と README.md が基準）。\n' >&2
-    printf '  検査だけ実行: python scripts/shorts_standard.py check <result.json>\n' >&2
+    printf '  直してから再コミットしてください（PROMPT.md / README.md / 根拠テーブルの基準）。\n' >&2
+    printf '  検査だけ実行: python scripts/shorts_standard.py check <result.json> / python scripts/check_short_evidence.py <spec.json>\n' >&2
 fi
 exit "$status"

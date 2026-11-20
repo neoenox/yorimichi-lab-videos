@@ -816,7 +816,9 @@
   "video_id": "LqC67ebqzMA",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [
+   "gcU2WVPr9Vg"
+  ]
  },
  "49_frequency": {
   "video_id": "vUkgD2jioQM",
@@ -861,7 +863,8 @@
   "superseded": [],
   "deleted": [
    "w66PqhoDdYE"
-  ]
+  ],
+  "note": "根拠「1949〜1999年」が二次情報のため公開しない。後継: short_seijin（2026-11-20判断）"
  },
  "short_solo_freq_why": {
   "video_id": "Q8d5dqHtx_Y",

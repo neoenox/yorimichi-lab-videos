@@ -150,3 +150,11 @@ python scripts/shorts_standard.py list
 
 - 単独Short経路の台本にも、標準の`claims`に相当する根拠の対応表を機械可読で持たせられていない（現在は `notes` の文章）。
 - 標準の「1行14文字・2行以内」「30〜45秒・5〜7シーン」と、単独Shortの「4場面・50〜58秒」は異なる。どちらを正とするかは案件ごとに決める（今回は単独Short）。
+- **2026-11-20 に上記の「根拠対応表が無い」を解消した**。標準そのものは変更せず、`data/short_*.json`（solo＋ペア）に `claims[]` / `needs_research[]` を埋め、`scripts/check_short_evidence.py` をアップ前・CI・pre-commit で通す。既存284本は祖父化。詳細は [`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md)。
+
+## 11. 根拠テーブルゲートの運用（2026-11-20 追加）
+
+- ゲートは `scripts/check_short_evidence.py`。`scripts/solo_schedule.py` の `procedure_gate.require()` 直後に呼び、ERROR があればアップロードしない。
+- CI は PR で変更された `data/short_*.json` のみ、pre-commit はステージされた同ファイルのみを検査する。既存ファイル全件への遡及はしない。
+- 長尺は対象外。`docs/themes/<theme>/08_fact_check.md` と `10_review_log.md` のサインオフで代替する（1/11 の `48_seijin` もこの扱い）。
+- `ready` / `needs_review` という標準の状態遷移は変更しない。標準に沿う案件は従来どおり `shorts/<slug>/result.json` を検査する。

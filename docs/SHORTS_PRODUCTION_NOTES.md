@@ -492,11 +492,13 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 
 - 維持率カーブでは、**0〜3秒は100%前後でほぼ横ばい**。**4〜7秒で 105%→66%（約40%の急落）**が起きる。上位動画は同じ区間で282%→253%と緩やか。
 - 対策（Ask Studioの提案）: 4〜6秒目に「意外な数字や結論の断片」を置く。前提説明を先に語らない。
-- 適用例: younkaku（明治の浅草12階）は、場面1の冒頭2文で問いと答え、直後に「1890年11月」「8階まで」の数字を置いた。
+- 適用例: 
+younkaku（明治の浅草12階）は、場面1の冒頭2文で問いと答え、直後に「1890年11月」「8階まで」の数字を置いた。
 
 **3. 未予約のShorts在庫は「既出題材の別版」が多い**
 - 未予約・非公開で40〜70秒のShortsは**94本**あるが、タイトルを見るかぎり既出題材の別版（_nl など）が多い。
-- 薄い日（11/19・11/20）を埋めるとき、在庫をそのまま出すと**同じ題材の再掲**になりやすい。**新作を薄い日に置く方が安全**（11/19 19:00 に younkaku を置いた）。
+- 薄い日（11/19・11/20）を埋めるとき、在庫をそのまま出すと**同じ題材の再掲**になりやすい。**新作を薄い日に置く方が安全**（11/19 19:00 に 
+younkaku を置いた）。
 
 ## 2026-11-18: 年賀状の日付は年ごとに変わる／AIレビューの採否
 
@@ -649,3 +651,13 @@ loudnorm 実測 **-14.0 LUFS / True Peak -1.5 dBTP**。`silencedetect` で無音
 - **実測**: 1080x1920／30fps／43.97秒、全編デコードエラーなし。最大音量 -0.9 dB（Muse）。背景はFreeVideo、図は自作。
 - **最終状態**: `vlnDxTPnAkA`（非公開→2026-11-20 20:00 JST、`containsSyntheticMedia=True`）、X予約は同じ枠の20:05（予約一覧で新IDのみ1件）。`check_slots.py` で重複なしを確認。
 - **未確認**: 全編の実聴、スマホ実機表示、StudioのAI開示UI（APIで設定済み）。
+
+## 実測：根拠テーブルゲートの実装（2026-11-20）
+
+- **背景**: 単独Short経路は `shorts/<slug>/result.json` を持たず CI の標準検査対象外だった（`SHORTS_STANDARD_INTEGRATION.md` §10）。2026-11-20 のオーナー確認で、標準を緩めずに `data/short_*.json` へ `claims` / `needs_research` / `scenes[].claim_ids` を追加し、アップ前に検査する方針に決定。[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md)
+- **検査**: `python scripts/check_short_evidence.py data/short_seijin.json` → OK（ERROR 0 / WARN 0）。`python -m unittest discover -s tests -p 'test_short_evidence.py'` → 11 tests OK。`sh -n scripts/hooks/pre-commit` → OK。
+- **差し込み先**: `scripts/solo_schedule.py` は `procedure_gate.require()` の直後、キー `short_<slug>` から `data/<key>.json` を導いて検査する。`make_short2.py` は追加キーを `spec.get()` で無視するため描画系は未変更。
+- **既存の扱い**: `data/short_*.json` は284本。全件遡及せず、CI は PR の変更分、pre-commit はステージ分だけを検査する（祖父化）。
+- **`seijin` の根拠**: 未公開の `short_seijin` を再利用。内閣府2ページ＋名古屋大学の法令DB（e-Gov の代替、evidence_note に明記）で6主張を裏取り。`short_solo_seijin1115` は「1949〜1999年」が二次情報のため `superseded` に記録して非公開。
+- **KPIの中間値**: `python scripts/yt_analytics.py videos` で旧型の平均視聴率（玉川上水 74.2%、プラニマル 97.7%）は取得。凌雲閣・発電はまだ ANALYTICS に出ておらず、スワイプ率は API に無い。判定は 11/26 に後ろ倒し（`kpi_swipe_tracking.md` 更新）。
+- **未確認（完了扱いにしない）**: ChatGPT/Gemini の台本レビュー（CDP 127.0.0.1:9222 が応答せず実行不可）、凌雲閣・発電のスワイプ率（Studio 要ログイン）、`short_seijin` / `48_seijin` の連続視聴・全編実聴・スマホ実機、1/11 の公開予約。公開可否の判断はしていない。
