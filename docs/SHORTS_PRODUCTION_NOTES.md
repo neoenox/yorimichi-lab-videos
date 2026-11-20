@@ -696,3 +696,10 @@ younkaku を置いた）。
 - **アップ**: `solo_schedule.py` はゲートを通してからアップする。`containsSyntheticMedia=True` はAPIで別途設定（Studioの現行UIにAI開示ラジオが出ないためUI確認不可）。タイトルの `#Shorts` 重複はAPIで修正。
 - **公開状態**: `ZSRepHwe500` を2027-01-12 12:00に予約。台帳・`check_slots.py` で確認済み。
 - **X予約**: `x_schedule.py --month 1 --day 12 --year 2027 --hour 12 --min 5 --ai` で12:05に予約。dry-runでアカウント・日時・URLを確認してから送信し、予約一覧で動画IDが1件だけであることを確認した。
+
+## 実測：長尺予約の一括解除（2026-11-20）
+
+- 対象は台帳キーが `^\d+_` の動画のうち、APIの `status.publishAt` が設定されているもの。+60日窓37件に対し全体では49件（60日超先の12件を含む）。
+- `videos().update(part='status')` で `publishAt=None` を設定。`privacyStatus`・`selfDeclaredMadeForKids`・`embeddable`・`license`・`containsSyntheticMedia` は読み戻した値をそのまま渡し、他の設定は変えない。
+- 49件すべて成功、失敗0。再読み取りで長尺の予約0件、Shorts 74件、重複なしを確認。
+- 予約の付け替えはユーザー確認済み（「長尺動画の新規公開は一旦止めて」）。解禁時は台帳の動画IDから再予約する。
