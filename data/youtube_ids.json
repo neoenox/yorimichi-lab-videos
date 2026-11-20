@@ -2592,5 +2592,13 @@
   "superseded": [],
   "deleted": [],
   "publishAt": "2026-11-22T11:00:00Z"
+ },
+ "short_solo_ambulance": {
+  "video_id": "p9NEj_GkHaA",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": [],
+  "publishAt": "2026-11-23T11:00:00Z"
  }
 }

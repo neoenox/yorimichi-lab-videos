@@ -126,6 +126,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | [`research/20261120_equinox_video_qa.md`](research/20261120_equinox_video_qa.md) | 同Shortの動画確認と予約 | 56.5秒・-14.08 LUFS・ASR一致。出典行の見切れを直してMuse「公開可」。`ZSRepHwe500` を1/12 12:00に予約 |
 | [`research/20261120_proto_tatsumaki.md`](research/20261120_proto_tatsumaki.md) | 戦略を試す試作（竜巻注意報） | 今日のニュースを30〜45秒で検証。44.0秒・Muse「公開可」。背景は既存クリップ流用で、未アップ・未予約 |
 | [`research/20261120_rain0.md`](research/20261120_rain0.md) | 降水確率0%ショートの調査・制作 | 0%=5%未満の丸め＋1ミリ未満対象外。気象庁＋市立気象館を確認。44.1秒・Muse公開可。11/22 20:00予約 |
+| [`research/20261120_ambulance.md`](research/20261120_ambulance.md) | 救急車の軽症ショート | Ask Studioの提案から選択。消防庁の46.9%=軽症＋その他を一次確認。Google AIモードで公開可。11/23 20:00予約 |
 | [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
 | [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
