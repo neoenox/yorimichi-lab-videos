@@ -2548,5 +2548,13 @@
   "superseded": [],
   "deleted": [],
   "publishAt": "2027-01-12T03:00:00Z"
+ },
+ "short_solo_proto_tatsumaki": {
+  "video_id": "-UesQbXnpCY",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": [],
+  "publishAt": "2026-12-06T10:00:00Z"
  }
 }
