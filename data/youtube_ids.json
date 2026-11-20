@@ -888,7 +888,8 @@
   "video_id": "Q8d5dqHtx_Y",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-27T10:00:00Z"
  },
  "short_solo_freq_move": {
   "video_id": "Ueln3msL1ks",
@@ -904,7 +905,8 @@
   "superseded": [],
   "deleted": [
    "GKXPIjBF1T4"
-  ]
+  ],
+  "publishAt": null
  },
  "50_twomeals": {
   "video_id": "BTwSqOf3U_w",
@@ -998,7 +1000,8 @@
   "video_id": "xRLKG_jd7bA",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-30T10:00:00Z"
  },
  "56_bath": {
   "video_id": "eSi79N7gZhI",
@@ -1427,7 +1430,8 @@
   "video_id": "kbyOHtC_30U",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2027-01-03T10:00:00Z"
  },
  "short_solo_brain_damage": {
   "video_id": "wGBxb4DzOKM",
@@ -1440,19 +1444,22 @@
   "video_id": "xibAH_kbh1g",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2027-01-02T10:00:00Z"
  },
  "short_solo_bukka_katei": {
   "video_id": "9qa6GOtP4VQ",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-28T10:00:00Z"
  },
  "short_solo_columbus_flat": {
   "video_id": "lg38vwKjeGs",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2027-01-01T10:00:00Z"
  },
  "short_solo_okehazama_ukai": {
   "video_id": "urYihA6-BDk",
@@ -1486,7 +1493,8 @@
   "video_id": "E0BobLdScvU",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-31T10:00:00Z"
  },
  "short_solo_jikyu_yunyusaki": {
   "video_id": "uin4Sr64t4U",
