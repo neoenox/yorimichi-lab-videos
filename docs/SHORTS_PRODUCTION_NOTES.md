@@ -669,3 +669,12 @@ younkaku を置いた）。
 - **ChatGPT のDOM変更**: 旧セレクタ `div[data-message-author-role="assistant"]` は2026-11-20時点で**0件**。現在の応答は `div[class*="DilResponseRoot"]` にあり、これをセレクタに変更して取得した。初回は旧セレクタのまま300秒待ってタイムアウトした（`--reuse` で再送信せず回収）。
 - **結果**: 両方とも「公開可」。ChatGPTは軽微な改善案（シーン5の文言、シーン1の読点、シーン6のCTA）、Geminiは小テロップ提案（必須ではない）。再利用動画なので採用すれば再描画＋新ID＋予約・X差し替えが必要で、事実誤りではないため今回は不採用。採否は [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md)。
 - **未確認（残り）**: 連続視聴・全編実聴・スマホ実機、凌雲閣・発電のスワイプ率、1/11 の公開予約。
+
+## 実測：Shorts優先方針への切替と1/11枠（2026-11-20）
+
+- **方針変更**: オーナー判断で Shorts を優先し、長尺の新規公開を一旦停止。`48_seijin` の1/11 19:00予約は立てず、既存予約の `66_yakurei` も解除した（動画は削除せず private 維持）。
+- **候補の差し替え**: 当初 `short_solo_magnitude_32` に根拠テーブルを追加したが、Gemini が「32倍を二回かける」の計算表現を修正必要と指摘。Aを優先して `short_solo_islands_kazu`（国土地理院の一次情報）に変更。両方の根拠テーブルは残すが、予約するのは islands のみ。
+- **根拠の裏取り**: 国土地理院の報道発表（2023-02-28）を curl で取得し、6,852島・14,125島・測量技術による地図表現の詳細化・国際的な取り決めなし、の4点を本文で確認（`docs/research/20261120_islands_reviews.md`）。Python の urllib は SSL legacy renegotiation で失敗したため `curl -k` を使った。
+- **ゲートと検査**: `check_short_evidence.py` は両方の spec で OK。`check_slots.py --days 60` で 1/11 12:00 の重複なしを確認。
+- **予約操作**: 既存の非公開動画は再アップせず `yt_api.py schedule <video_id> "2027-01-11 12:00"` で予約。予約解除は `videos().update` の `publishAt=None`（`replace_shorts_cta.py` の実例を参考）。予約後に API から publishAt を読み戻して台帳も更新した。
+- **未確認**: 元解像度・スマホ実機・人間の全編実聴。Gemini への動画添付はこの日も「ファイルを開けない」失敗が続いた。

@@ -9,27 +9,40 @@
   {
    "text": "マグニチュードが一つ大きくなると、地震のエネルギーは、十倍強になる。そう思っていませんか。",
    "big": "エネルギーは、10倍強？",
-   "art": "assets/magnitude/art_intro.png"
+   "art": "assets/magnitude/art_intro.png",
+   "claim_ids": [
+    "jma-32"
+   ]
   },
   {
    "text": "気象庁の解説では、マグニチュードが一つ大きくなると、エネルギーは、約三十二倍です。",
    "big": "1大きいと、約32倍",
    "src": "気象庁",
    "art": "assets/magnitude/art_energy.png",
-   "col": "white"
+   "col": "white",
+   "claim_ids": [
+    "jma-32"
+   ]
   },
   {
    "text": "二つ大きくなると、約千倍になります。",
    "big": "2大きいと、約1000倍",
    "src": "気象庁",
-   "art": "assets/magnitude/art_diff.png"
+   "art": "assets/magnitude/art_diff.png",
+   "claim_ids": [
+    "jma-1000"
+   ]
   },
   {
    "text": "約三十二倍を、二回かけると、約千です。「十倍強」では、ありません。",
    "big": "「10倍強」ではない",
    "src": "自作の計算",
    "art": "assets/magnitude/art_energy.png",
-   "col": "white"
+   "col": "white",
+   "claim_ids": [
+    "jma-32",
+    "jma-1000"
+   ]
   },
   {
    "text": "",
@@ -39,5 +52,24 @@
  "long_id": "q18--lhsm_8",
  "long_title": "17_magnitude_energy",
  "nolong": true,
- "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作",
+ "claims": [
+  {
+   "id": "jma-32",
+   "statement": "マグニチュードが1大きくなると、地震のエネルギーは約32倍になる",
+   "source_type": "primary",
+   "source_url": "https://www.jma.go.jp/jma/kishou/know/faq/faq27.html",
+   "evidence_note": "気象庁FAQ「Mの値が1大きくなるとエネルギーは約32倍に」の記述を本文で確認（2026-11-20）"
+  },
+  {
+   "id": "jma-1000",
+   "statement": "マグニチュードが2大きくなると、エネルギーは約1000倍になる",
+   "source_type": "primary",
+   "source_url": "https://www.jma.go.jp/jma/kishou/know/faq/faq27.html",
+   "evidence_note": "気象庁FAQ「Mの値が2大きくなると約1,000倍」の記述を本文で確認。32倍を2回かける自作計算（約1024倍）とも整合（2026-11-20）"
+  }
+ ],
+ "needs_research": [
+  "地震波の振幅が10倍になるかどうかは気象庁FAQでは確認していないが、このShortはエネルギーの比だけを扱うため答えに影響しない"
+ ]
 }

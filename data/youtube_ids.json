@@ -864,7 +864,8 @@
   "deleted": [
    "w66PqhoDdYE"
   ],
-  "note": "根拠「1949〜1999年」が二次情報のため公開しない。後継: short_seijin（2026-11-20判断）"
+  "note": "根拠「1949〜1999年」が二次情報のため公開しない。後継: short_seijin（2026-11-20判断）",
+  "publishAt": null
  },
  "short_solo_freq_why": {
   "video_id": "Q8d5dqHtx_Y",
@@ -1054,7 +1055,8 @@
   "video_id": "EcvUcO3EJRk",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "69_nukemairi": {
   "video_id": "FmzVEBK2aa4",
@@ -1706,7 +1708,8 @@
   "video_id": "2QegxztoVw4",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2027-01-11T03:00:00Z"
  },
  "short_solo_vitaminc_kaze": {
   "video_id": "10a-XRaX79Q",

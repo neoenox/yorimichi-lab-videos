@@ -9,33 +9,49 @@
   {
    "text": "日本の島の数として公表された数字が、六千八百五十二島から、一万四千百二十五島に、変わりました。",
    "big": "6,852島 → 14,125島",
-   "art": "assets/islands/art_count.png"
+   "art": "assets/islands/art_count.png",
+   "claim_ids": [
+    "islands-6852",
+    "islands-14125"
+   ]
   },
   {
    "text": "六千八百五十二島は、海上保安庁が、昭和六十二年に公表した数字です。",
    "big": "6,852島：海上保安庁（昭和62年）",
    "src": "国土地理院の説明",
    "art": "assets/islands/art_nums.png",
-   "col": "white"
+   "col": "white",
+   "claim_ids": [
+    "islands-6852"
+   ]
   },
   {
    "text": "一万四千百二十五島は、国土地理院が、二〇二三年二月に公表した数字です。",
    "big": "14,125島：国土地理院（2023年2月）",
    "src": "国土地理院",
-   "art": "assets/islands/art_new.png"
+   "art": "assets/islands/art_new.png",
+   "claim_ids": [
+    "islands-14125"
+   ]
   },
   {
    "text": "国土地理院は、測量技術の進歩による、地図表現の詳細化が、大きく影響していると、説明しています。",
    "big": "地図表現の詳細化が、影響",
    "src": "国土地理院",
    "art": "assets/islands/art_land.png",
-   "col": "white"
+   "col": "white",
+   "claim_ids": [
+    "islands-reason"
+   ]
   },
   {
    "text": "島を数える方法には、国際的な取り決めが、ありません。",
    "big": "国際的な取り決めは、ない",
    "src": "国土地理院",
-   "art": "assets/islands/art_count.png"
+   "art": "assets/islands/art_count.png",
+   "claim_ids": [
+    "islands-no-rule"
+   ]
   },
   {
    "text": "",
@@ -45,5 +61,38 @@
  "long_id": "UIDRLw9UOXg",
  "long_title": "16_islands_count",
  "nolong": true,
- "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作",
+ "claims": [
+  {
+   "id": "islands-6852",
+   "statement": "6,852島は海上保安庁が昭和62年に公表した数字である",
+   "source_type": "primary",
+   "source_url": "https://www.gsi.go.jp/kihonjohochousa/pressrelease20230228.html",
+   "evidence_note": "国土地理院の2023-02-28報道発表が「従来広く用いられてきた6,852島（海上保安庁、昭和62年公表）」と記載していることを本文で確認（2026-11-20）"
+  },
+  {
+   "id": "islands-14125",
+   "statement": "国土地理院が2023年2月に全国14,125島と公表した",
+   "source_type": "primary",
+   "source_url": "https://www.gsi.go.jp/kihonjohochousa/pressrelease20230228.html",
+   "evidence_note": "国土地理院の2023-02-28報道発表「我が国の島を数えました」の本文で14,125島を確認（2026-11-20）"
+  },
+  {
+   "id": "islands-reason",
+   "statement": "数字の差の主因は測量技術の進歩による地図表現の詳細化である",
+   "source_type": "primary",
+   "source_url": "https://www.gsi.go.jp/kihonjohochousa/pressrelease20230228.html",
+   "evidence_note": "国土地理院の報道発表が「測量技術の進歩による地図表現の詳細化」が主因と考えられると説明していることを本文で確認（2026-11-20）"
+  },
+  {
+   "id": "islands-no-rule",
+   "statement": "島を数える方法に国際的な取り決めはない",
+   "source_type": "primary",
+   "source_url": "https://www.gsi.go.jp/kihonjohochousa/pressrelease20230228.html",
+   "evidence_note": "国土地理院の報道発表に「島の数え方に国際的な取り決めはない」旨の記述があることを本文で確認（2026-11-20）"
+  }
+ ],
+ "needs_research": [
+  "昭和62年の海上保安庁の原資料そのものは未取得。国土地理院の報道発表が6,852島を明示しているため答えに影響しない"
+ ]
 }

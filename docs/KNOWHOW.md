@@ -116,6 +116,8 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | --- | --- | --- |
 | [`research/20261120_seijin_reviews.md`](research/20261120_seijin_reviews.md) | 成人の日Shortの ChatGPT/Gemini 台本レビュー | 両方「公開可」。軽微な改善提案（シーン5の文言・小テロップ等）は、再描画と新ID差し替えが必要なため今回は不採用。次回の新規制作の候補として記録 |
 | [`research/20261120_seijin_video_qa.md`](research/20261120_seijin_video_qa.md) | 成人の日Short/長尺の動画確認 | Studio プレビュー配信から非公開動画を取得。全編デコード・音量・字幕時刻＋Gemini 動画レビュー（Short は「公開可」）＋代表フレーム目視。元解像度・スマホ実機・人間の実聴は未実施 |
+| [`research/20261120_islands_reviews.md`](research/20261120_islands_reviews.md) | 日本の島の数Shortの台本レビューと候補変更 | ChatGPT「公開可」／Gemini「修正必要」（表現のみ）。計算表現に難のあった magnitude 候補から差し替え。国土地理院の報道発表本文を確認 |
+| [`research/20261120_islands_video_qa.md`](research/20261120_islands_video_qa.md) | 同Shortの動画確認と予約 | 全編デコード・音量・字幕時刻・代表フレーム目視はOK。Geminiの動画添付は失敗。1/11 12:00に予約、他2件は予約解除 |
 | [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
 | [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |
