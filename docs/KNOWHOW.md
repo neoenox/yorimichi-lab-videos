@@ -76,6 +76,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 - **同時刻の予約重複は `python scripts/check_slots.py` で API 実測して確認する**（`videos().list` のみ・約7ユニット。重複ありで終了コード1）。**`data/youtube_ids.json` の `publishAt` は予約時にしか書かれず実態より古いので、台帳を正にしない**（2026-11-19、11/19 19:00 の長尺2本を見落とした）。予約経路は3系統（長尺／`_nl` 一括再投稿／新作単独Short）あり、互いの枠を見ていない。枠の原則は 12:00・17:00 に単独Short 1本ずつ、19:00 に長尺1本、20:00 に 19:00 長尺と同題材の Short（`PRODUCTION_CYCLE.md`）
 - **「AI の使用」の設定確認は Studio の radio を CDP+Playwright で読む**（`get_by_role('radio')` は shadow DOM を貫通する。`aria-checked` と `aria-label` で「はい、AI を使用しました」が選択済みか判定。`containsSyntheticMedia` は API で書き込めても読み戻しは None）
 - Studio の自動化は CDP 9222 の Chrome（`--user-data-dir=%USERPROFILE%\.chrome-automation`）で、**寄り道ラボにログイン済み**であること。未ログインだと `accounts.google.com` へ飛ぶ
+- **Xのページが空になるときはリロードする**（2026-11-20）: Chromeのメモリ節約でタブが休止すると `document.body.innerText` が空になり、`x_schedule.py` のアカウント確認や予約オプション検出が失敗する。プロフィール確認と予約オプションの待機に3回のリロード再試行を入れた。成功済みの予約は再実行しない（重複防止）。
 - **アップロード前に `data/youtube_ids.json` に同じ `short_<slug>` キーが無いか確認する**（koharu は既に public で登録済みなのに「未アップロード」と誤認し、新版を別IDで上げることになった。作り直しは `--new-version`、旧IDは `superseded` に残る）
 - 公開判定は `https://www.youtube.com/oembed?url=...&format=json` が **200/403** で確認できる
 - API クォータは**残量で落ち方が変わる**（captions 400 units が落ちても videos.update 50 units は通ることがある）

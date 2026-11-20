@@ -90,16 +90,31 @@ def main():
         pg.bring_to_front()
         print('Chrome起動=', started)
 
-        # アカウントの確認（自分のプロフィールなら「プロフィールを編集」が出る）
-        pg.goto('https://x.com/yorimichi_lab1', wait_until='domcontentloaded')
-        pg.wait_for_timeout(4000)
-        own = pg.evaluate("() => /プロフィールを編集|Edit profile/.test(document.body.innerText)")
+        # アカウントの確認（自分のプロフィールなら「プロフィールを編集」が出る）。
+        # Chromeのメモリ節約でタブが休止すると本文が空になるため、リロードして再試行する。
+        own = False
+        for attempt in range(3):
+            pg.goto('https://x.com/yorimichi_lab1', wait_until='domcontentloaded')
+            pg.wait_for_timeout(4000)
+            own = pg.evaluate("() => /プロフィールを編集|Edit profile/.test(document.body.innerText)")
+            if own: break
+            print('プロフィールが表示されないためリロード', attempt + 1, flush=True)
+            pg.reload(wait_until='domcontentloaded')
+            pg.wait_for_timeout(4000)
         print('@yorimichi_lab1 でログイン:', own)
         if not own:
             raise SystemExit('ログイン中のアカウントが違う。投稿しない')
 
-        pg.goto('https://x.com/compose/post', wait_until='domcontentloaded')
-        pg.wait_for_selector('[data-testid=scheduleOption]', timeout=40000)
+        for attempt in range(3):
+            pg.goto('https://x.com/compose/post', wait_until='domcontentloaded')
+            try:
+                pg.wait_for_selector('[data-testid=scheduleOption]', timeout=15000)
+                break
+            except Exception:
+                print('予約オプションが出ないためリロード', attempt + 1, flush=True)
+                pg.reload(wait_until='domcontentloaded')
+        else:
+            raise SystemExit('予約オプションが表示されない')
         pg.wait_for_timeout(1200)
         pg.evaluate("() => document.querySelector('[data-testid=scheduleOption]').click()")
         pg.wait_for_selector('#SELECTOR_1', timeout=20000)
