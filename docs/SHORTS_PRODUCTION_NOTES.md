@@ -686,3 +686,12 @@ younkaku を置いた）。
 - **ゲートの誤検知を修正**: `.ac.jp` をすべて「大学による再掲」と判定していたため、発行主体の国立天文台（`www.nao.ac.jp`）が「代替明記なし」で落ちた。再掲先を `web.archive.org` と `jahis.law.nagoya-u.ac.jp` の明示ホストに限定し、`.go.jp` / `.ac.jp` を一次発行主体として扱う回帰テストを追加（全12件OK）。
 - **レビュー反映**: ChatGPTは公開可、Geminiは修正必要。共通指摘（2020年・東京の明示、35分8秒角が角度であること）を描画前に台本へ反映。`pron` に「三十五分八秒角」を登録。
 - **未実施**: 背景生成・ビルド・Muse・予約。11/26のKPI判定待ち。
+
+## 実測：春分／秋分Shortを投稿可まで（2026-11-20）
+
+- **KPI判定を待たずに描画**: オーナーの「投稿可の状態まで」という指示で、11/26待ちの方針を変更して生成・ビルドを実施。
+- **背景**: `& "C:\Program Files\Git\bin\bash.exe" scripts/fv_clips.sh equinox`。4本とも1回目で成功（ALL OK、約48分）。4コマを目視し、文字・人物・現代物がないことを確認。
+- **ビルド**: PowerShellで `$env:PATH = 'E:\rekishikaisetu-honnoji\tools\ffmpeg\bin;' + $env:PATH` を設定してから `solo_ship.py build`。bashでの `export PATH` は子プロセスに渡らず `FileNotFoundError` になった（手順書どおりPowerShellを使う）。
+- **Museの指摘**: 初回は画面下の出典行が左右に見切れていた。長い `src` と `sub` を「国立天文台FAQ（3-3）」「3月20日・東京／夜11時間52分」等に短縮して再ビルド→**公開可**。出典ラベルは画面では短く、完全なURLは概要欄に残す。
+- **アップ**: `solo_schedule.py` はゲートを通してからアップする。`containsSyntheticMedia=True` はAPIで別途設定（Studioの現行UIにAI開示ラジオが出ないためUI確認不可）。タイトルの `#Shorts` 重複はAPIで修正。
+- **公開状態**: `ZSRepHwe500` を2027-01-12 12:00に予約。台帳・`check_slots.py` で確認済み。
