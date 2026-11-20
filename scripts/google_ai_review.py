@@ -76,12 +76,18 @@ def main():
 
     with sync_playwright() as p:
         b = p.chromium.connect_over_cdp(CDP)
-        pg = b.contexts[0].new_page()
+        created = False
+        pg = next((x for x in b.contexts[0].pages
+                   if 'google' in x.url and '.mp4' in x.locator('body').first.inner_text()), None)
+        if pg is None or a.mode != 'video':
+            created = True
+            pg = b.contexts[0].new_page()
+            pg.goto(URL, wait_until='domcontentloaded')
+            pg.wait_for_timeout(6000)
         pg.bring_to_front()
-        pg.goto(URL, wait_until='domcontentloaded')
-        pg.wait_for_timeout(6000)
 
-        if a.mode == 'video':
+
+        if a.mode == 'video' and created:
             if not a.video:
                 raise SystemExit('--video が必要です')
             pg.locator('button[aria-label="ファイルとツールを追加し、モデルを選択します"]').first.click()
@@ -90,11 +96,13 @@ def main():
             target = next((fis.nth(i) for i in range(fis.count())
                            if 'image' not in (fis.nth(i).get_attribute('accept') or '')), fis.last)
             target.set_input_files(str((ROOT / a.video).resolve() if not Path(a.video).is_absolute() else a.video))
-            wait_enabled_send(pg)
 
         ta = pg.locator('[aria-label="質問する"]')
         ta.first.fill(question)
         pg.wait_for_timeout(600)
+        pg.wait_for_timeout(1000)
+        wait_enabled_send(pg)
+
         wait_enabled_send(pg).click()
         print('sent', a.mode, flush=True)
 
@@ -110,8 +118,9 @@ def main():
         out = ROOT / 'out' / f'google_ai_review_{a.slug}_{a.mode}.txt'
         out.write_text(last + '\n', encoding='utf-8')
         print('saved', out, 'chars', len(last), flush=True)
-        if not a.keep_open:
+        if not a.keep_open and created:
             pg.close()
+
 
 
 if __name__ == '__main__':

@@ -2594,11 +2594,21 @@
   "publishAt": "2026-11-22T11:00:00Z"
  },
  "short_solo_ambulance": {
+  "video_id": "Qp3ftoinAQo",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [
+   "p9NEj_GkHaA"
+  ],
+  "deleted": [],
+  "publishAt": "2026-11-23T11:00:00Z"
+ },
+ "short_solo_ambulance_old": {
   "video_id": "p9NEj_GkHaA",
   "privacy": "private",
   "via": "api",
   "superseded": [],
   "deleted": [],
-  "publishAt": "2026-11-23T11:00:00Z"
+  "publishAt": "2026-12-31T15:00:00Z"
  }
 }

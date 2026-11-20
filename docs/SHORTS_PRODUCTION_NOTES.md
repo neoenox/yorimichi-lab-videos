@@ -738,10 +738,11 @@ younkaku を置いた）。
 2. **根拠**: `curl -k` で一次ページ本文を取得し、使う数値・定義・日付を `evidence_note` に記録。未確認は `needs_research` に「なぜ答えが変わらないか」を添えて残す。
 3. **台本**: `scripts/gen_solo_<slug>.py` を作り、`solo_spec.build(..., claims=..., needs_research=...)` を呼ぶ。`big` は12字以内、ナレーションは約150字。実行して spec と pron を生成。
 4. **ゲート**: `python scripts/check_short_evidence.py data/short_solo_<slug>.json` が OK になるまで直す。
-5. **背景**: FreeVideoは `& "C:\Program Files\Git\bash.exe" scripts/fv_clips.sh <slug>`（約35分）。既存クリップ流用でも可だが、概要欄と credit に「AI生成のイメージ」と書く。
+5. **背景**: FreeVideoは `& "C:\Program Files\Git\bash.exe" scripts/fv_clips.sh <slug>`（約35分）。`solo_spec.fv_prompts()` で台本に合うプロンプトを書き、生成後に各クリップのフレームを目視する。**既存クリップ流用は禁止**（救急車Shortで台風クリップを流用した事故あり）。概要欄と credit に「AI生成のイメージ」と書く。
 6. **ビルド**: PowerShellで `$env:PATH = 'E:\rekishikaisetu-honnoji\tools\ffmpeg\bin;' + $env:PATH` を設定してから `python scripts/solo_ship.py build solo_<slug>`。
 7. **機械検査**: `_kana.txt` 全文、loudnorm（−14 LUFS前後／TP −1.5 dBTP）、`_frames.png` の重なり・見切れ。
 8. **レビュー**: 台本は **Google AI モード＋ChatGPT の併用**（`python scripts/google_ai_review.py <slug> --mode script` と `python scripts/review_short_cdp.py <slug> chatgpt`）。動画は **Google AI モードのみ**（同スクリプト `--mode video --video out/short_solo_<slug>.mp4`）。Muse・Geminiは必須ではない。AIの指摘は根拠原文と照合してから採用・不採用を決め、`docs/research/` に残す。
 9. **アップ・予約**: `python scripts/solo_schedule.py solo_<slug> "YYYY-MM-DD HH:MM"`。その後 `containsSyntheticMedia=True` をAPI設定、タイトルの `#Shorts` 重複を修正、台帳の `publishAt` をAPI読み戻しで更新。
 10. **X**: `python scripts/x_schedule.py --video <ID> --month M --day D --year YYYY --hour H --min M+5 --question "問い" --ai --tags "#… #寄り道ラボ"`。成功済みは再実行しない（重複防止）。Chromeが休止したら CDP 9223 のプロセスを再起動。
 11. **公開後**: `check_published.py <key>` と Analytics／Ask Studio で効果を確認。台本レビュー・動画レビュー・通し再生・全編実聴・スマホ実機は別ゲートとして記録する。
+12. **差し替え**: 動画ファイルは同じYouTube IDでは差し替えられない。新IDをアップし、旧IDは2027-01-01へ退避、X予約のURLも書き換えて「新ID1件・旧ID0件」を確認する（救急車Shortで実施）。
