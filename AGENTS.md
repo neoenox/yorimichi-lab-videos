@@ -8,6 +8,10 @@
 
 動画の生成・デコードに成功しただけで、視聴品質や投稿可能を宣言しないでください。映像の動き、全編の音声、字幕同期など、実際に確認した範囲と未確認の範囲を分けて報告してください。
 
+## レビューは Google AI モードを使う（2026-11-20 オーナー指示）
+
+動画・台本のレビューは **Muse ではなく Google AI モード**（https://www.google.com/ai）で行ってください。`python scripts/google_ai_review.py <slug> --mode script|video [--video ...]` を使う。AIの指摘は必ず根拠の原文と照合してから採用・不採用を決め、採用判断を `docs/research/` に記録する。Muse は起動しない。
+
 ## Shorts は制作標準（shorts-standard/）に従う
 
 YouTube Shorts を新規作成・改訂するときは、作業前に `shorts-standard/README.md` と `shorts-standard/PROMPT.md` を全文読んでください。`shorts-standard/output.schema.json` が納品形式、`shorts-standard/validate.py` が形式検査です。**この標準のルールを勝手に緩めないでください。** 緩和が必要だと判断したら、変更せずに理由を報告してユーザーの判断を仰ぎます。

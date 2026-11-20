@@ -723,3 +723,10 @@ younkaku を置いた）。
 - 予約済みX投稿の時刻変更は、予約一覧の該当ポストを開き、ダイアログ内の「Will send on …」をクリック → 月/日/年/時/分を `select_option` で設定 → 「Update」→ ダイアログの「Schedule」で保存する。Playwrightの通常クリックはオーバーレイに遮られるためJSクリックを使った。
 - 保存後、予約一覧で動画IDが1件だけであることを確認（重複なし）。
 - 同時にYouTube側も `yt_api.cmd_schedule` で公開時刻を変更し、台帳の `publishAt` をAPI読み戻し値で更新した。
+
+## 実測：Google AI モードへのレビュー移行（2026-11-20）
+
+- オーナー指示で、動画・台本のレビューを Muse から Google AI モード（https://www.google.com/ai）に変更。
+- `scripts/google_ai_review.py` を追加。`--mode script` は spec から依頼文を自動生成、`--mode video` は動画を添付。CDP 9222 が無ければ自動起動し、送信ボタンが有効になるまで待つ。
+- 実動確認: `solo_ambulance --mode script` で台本レビューを取得（`out/google_ai_review_solo_ambulance_script.txt`）。消防白書の数値・定義が一致すると判定。
+- 過去の指摘で一次資料と食い違うもの（Gemini の「46.9% は軽症単体」）は不採用とし、採用判断を research に記録する運用を継続。
