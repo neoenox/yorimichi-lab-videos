@@ -948,13 +948,15 @@
   "video_id": "0Xv9Dbu3Y3I",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "short_solo_literacy_shiga": {
   "video_id": "EbpfxcnFb6k",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-11-28T10:00:00Z"
  },
  "53_carpenter": {
   "video_id": "YpoLcnvhZEw",
@@ -1032,7 +1034,8 @@
   "video_id": "lyOUNojJfMs",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "59_hikyaku": {
   "video_id": "X_kRK4fGItU",
@@ -1121,7 +1124,8 @@
   "video_id": "3u59BYHWlXU",
   "privacy": "private",
   "via": "studio",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-11-27T10:00:00Z"
  },
  "short_solo_ryo_soba": {
   "video_id": "xAq-XvdoMiw",
@@ -1206,7 +1210,8 @@
   "video_id": "R_qgXxJg5Ic",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-11-26T10:00:00Z"
  },
  "short_solo_jinko_suitei": {
   "video_id": "NjGq2LpOvck",
@@ -1236,13 +1241,15 @@
   "video_id": "mRLO7P2Hz_o",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-12-01T10:00:00Z"
  },
  "short_solo_sankin_tabi10": {
   "video_id": "6lK5iEi6u-s",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "short_solo_shorui_niwatori": {
   "video_id": "ACSrmYwrAGc",
@@ -1317,13 +1324,15 @@
   "video_id": "B_IG0FuHibg",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "short_solo_anegawa_suugyou": {
   "video_id": "AFLE_UdETLw",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "short_solo_horagatoge_yamazaki": {
   "video_id": "rLAnCeZ8s0Q",
@@ -1386,14 +1395,16 @@
   "video_id": "ypbT97EH8uo",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "short_solo_shomi_sugitara": {
   "video_id": "WBiW-hqdAVE",
   "privacy": "private",
   "via": "api",
   "superseded": [],
-  "deleted": []
+  "deleted": [],
+  "publishAt": "2026-12-03T10:00:00Z"
  },
  "short_solo_brain_origin": {
   "video_id": "kbyOHtC_30U",
@@ -1405,7 +1416,8 @@
   "video_id": "wGBxb4DzOKM",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": null
  },
  "short_solo_galileo_sore": {
   "video_id": "xibAH_kbh1g",
@@ -1460,7 +1472,8 @@
   "video_id": "uin4Sr64t4U",
   "privacy": "private",
   "via": "api",
-  "superseded": []
+  "superseded": [],
+  "publishAt": "2026-11-21T10:00:00Z"
  },
  "short_solo_anegawa_suugyou_nl": {
   "video_id": "uw267Upb-18",

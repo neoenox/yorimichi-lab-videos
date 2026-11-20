@@ -703,3 +703,10 @@ younkaku を置いた）。
 - `videos().update(part='status')` で `publishAt=None` を設定。`privacyStatus`・`selfDeclaredMadeForKids`・`embeddable`・`license`・`containsSyntheticMedia` は読み戻した値をそのまま渡し、他の設定は変えない。
 - 49件すべて成功、失敗0。再読み取りで長尺の予約0件、Shorts 74件、重複なしを確認。
 - 予約の付け替えはユーザー確認済み（「長尺動画の新規公開は一旦止めて」）。解禁時は台帳の動画IDから再予約する。
+
+## 実測：空いた19:00枠の充填（2026-11-20）
+
+- 台帳の `publishAt` は古いため、APIで `privacyStatus=private` かつ `publishAt` なしの在庫を洗い出した（44本。台帳だけの判定より少ない）。
+- 13本を 11/21〜12/05 の19:00に予約。Tuesday〜Saturdayの連続する枠が埋まり、`check_slots.py` で同時刻の重複なし。
+- 効果の判定は公開後。19:00は長尺時代の枠で、Shortsの平均視聴率が高いという小さなサンプル（4本・86%）を検証する。
+- Xの紹介投稿はこの13本には入れていない（在庫の再予約のため、新作の手順をそのまま適用していない）。
