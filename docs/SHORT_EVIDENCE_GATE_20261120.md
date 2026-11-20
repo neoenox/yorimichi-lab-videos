@@ -61,4 +61,5 @@ B：成長（KPI）は A の内側での最適化、C：量・カデンスは最
 - `scripts/gen_solo_equinox.py` と `data/short_solo_equinox.json` を作成。根拠は3主張（a0303／a0102／a0303）。ゲート OK。
 - 台本レビュー: ChatGPT「公開可」、Gemini「修正必要」。共通指摘（年・場所の明示、角度単位の誤解）を描画前に反映済み（[`research/20261120_equinox_reviews.md`](research/20261120_equinox_reviews.md)）。
 - **完了**: 背景4クリップ生成、ビルド（56.5秒）、機械検査、ASR、Muse「公開可」（初回の出典行の見切れを修正）、非公開アップロードと1/12 12:00予約（ID `ZSRepHwe500`）。詳細は [`research/20261120_equinox_video_qa.md`](research/20261120_equinox_video_qa.md)。
-- **未確認**: 通し再生、人間の全編実聴、スマホ実機、StudioのAI開示UI（API設定済み）、Xの紹介投稿予約。
+- **X予約**: 2027-01-12 12:05 JST に紹介投稿を予約（重複なし）。
+- **未確認**: 通し再生、人間の全編実聴、スマホ実機、StudioのAI開示UI（API設定済み）。

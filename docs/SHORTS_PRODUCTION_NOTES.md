@@ -695,3 +695,4 @@ younkaku を置いた）。
 - **Museの指摘**: 初回は画面下の出典行が左右に見切れていた。長い `src` と `sub` を「国立天文台FAQ（3-3）」「3月20日・東京／夜11時間52分」等に短縮して再ビルド→**公開可**。出典ラベルは画面では短く、完全なURLは概要欄に残す。
 - **アップ**: `solo_schedule.py` はゲートを通してからアップする。`containsSyntheticMedia=True` はAPIで別途設定（Studioの現行UIにAI開示ラジオが出ないためUI確認不可）。タイトルの `#Shorts` 重複はAPIで修正。
 - **公開状態**: `ZSRepHwe500` を2027-01-12 12:00に予約。台帳・`check_slots.py` で確認済み。
+- **X予約**: `x_schedule.py --month 1 --day 12 --year 2027 --hour 12 --min 5 --ai` で12:05に予約。dry-runでアカウント・日時・URLを確認してから送信し、予約一覧で動画IDが1件だけであることを確認した。
