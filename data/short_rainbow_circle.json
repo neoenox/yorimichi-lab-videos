@@ -1,0 +1,55 @@
+{
+  "title": "虹は本当は丸い？",
+  "pron": "data/rainbow_pron.json",
+  "art": "assets/rainbow_short/bg1.png",
+  "bg_fit": 1.0,
+  "hook_card": false,
+  "cta": false,
+  "bgm": "none",
+  "long_id": "",
+  "long_title": "",
+  "hook": "半円に見える虹。円全体が見えることも。",
+  "notes": "円は模式図です。",
+  "scenes": [
+    {
+      "text": "虹は半円だと思っていませんか？ 実は、丸い虹が見えることもあります。",
+      "big": "虹は本当は丸い？",
+      "sub": "円全体が見えることも",
+      "art": "assets/rainbow_short/bg1.png",
+      "src_small": "背景は生成画像・円は模式図"
+    },
+    {
+      "text": "地上から見る虹は、たいてい地面に隠れて、上の部分だけが見えます。",
+      "big": "地上では一部分",
+      "sub": "地面が下側を隠す",
+      "art": "assets/rainbow_short/bg3.png",
+      "src_small": "背景は生成画像・円は模式図"
+    },
+    {
+      "text": "でも、飛行機の中など高い場所から、条件がそろえば、円全体が見えることがあります。",
+      "big": "高い場所なら円全体も",
+      "art": "assets/rainbow_short/circle_diagram.png",
+      "src_small": "背景は生成画像・円は模式図"
+    },
+    {
+      "text": "虹は、太陽の光が空気中の水滴に入って、曲がり、反射してできる光です。",
+      "big": "雨粒が光を曲げる",
+      "sub": "水滴の中で反射して戻る",
+      "art": "assets/rainbow_short/bg2.png",
+      "src_small": "背景は生成画像・円は模式図"
+    },
+    {
+      "text": "太陽を背にして、水滴のある方向を見ると、虹が現れます。",
+      "big": "太陽を背にして見る",
+      "sub": "前方の水滴に虹が見える",
+      "art": "assets/rainbow_short/bg3.png",
+      "src_small": "背景は生成画像・円は模式図"
+    },
+    {
+      "text": "いつもの虹は、空に見えている円の一部分。次に見かけたら、その先を想像してみてください。",
+      "big": "半円は円の一部分",
+      "art": "assets/rainbow_short/circle_diagram.png",
+      "src_small": "背景は生成画像・円は模式図"
+    }
+  ]
+}

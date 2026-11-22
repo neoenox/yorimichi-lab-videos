@@ -1,0 +1,57 @@
+{
+  "title": "地平線の月は大きい？",
+  "pron": "data/moon_illusion_pron.json",
+  "art": "assets/moon_illusion_short/scene_1.png",
+  "bg_fit": 1.0,
+  "hook_card": false,
+  "cta": false,
+  "bgm": "none",
+  "long_id": "",
+  "long_title": "",
+  "hook": "地平線近くの月が大きく見えるのはなぜ？",
+  "notes": "月の大きさ比較は模式図です。",
+  "scenes": [
+    {
+      "text": "昇ったばかりの月が、やけに大きく見えたことはありませんか？",
+      "big": "月が大きい？",
+      "art": "assets/moon_illusion_short_v2/scene_1.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    },
+    {
+      "text": "でも、地平線の近くにある月も、空の高い所の月も、見かけの大きさはほぼ同じです。",
+      "big": "実はほぼ同じ",
+      "art": "assets/moon_illusion_short_v2/scene_2.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    },
+    {
+      "text": "この二つの月も、同じ大きさで描いています。比べてみてください。",
+      "big": "左右の月は同じ大きさ",
+      "art": "assets/moon_illusion_short_v2/scene_3.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    },
+    {
+      "text": "これは、月の錯覚と呼ばれる現象です。",
+      "big": "月の錯覚",
+      "art": "assets/moon_illusion_short_v2/scene_4.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    },
+    {
+      "text": "試すなら、腕を伸ばして五円玉の穴と月の大きさを比べる方法があります。",
+      "big": "五円玉で比べてみる",
+      "art": "assets/moon_illusion_short_v2/scene_5.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    },
+    {
+      "text": "なぜ大きく感じるのかは、まだはっきり分かっていません。景色と比べることが関係するという説もあります。",
+      "big": "原因は研究中",
+      "art": "assets/moon_illusion_short_v2/scene_6.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    },
+    {
+      "text": "次に大きな月を見たら、月が高くなってからもう一度比べてみてください。",
+      "big": "空の高い月も見比べよう",
+      "art": "assets/moon_illusion_short_v2/scene_7.png",
+      "src_small": "背景は生成イメージ・月は模式図"
+    }
+  ]
+}

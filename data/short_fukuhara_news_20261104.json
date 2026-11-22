@@ -1,0 +1,71 @@
+{
+  "title": "2026年11月4日の発表",
+  "pron": "data/fukuhara_news_pron.json",
+  "art": "assets/fukuhara_news_20261104/scene_1.png",
+  "bg_fit": 1.0,
+  "hook_card": false,
+  "cta": false,
+  "bgm": "none",
+  "long_id": "",
+  "long_title": "",
+  "hook": "半年ほどで京都に戻った福原京。その道の跡か。",
+  "notes": "神戸市が2026年11月4日に発表。",
+  "scenes": [
+    {
+      "text": "半年ほどで京都に戻った、幻の都。その道の跡かもしれない発見です。",
+      "big": "幻の都の道？",
+      "sub": "神戸で道路跡とみられる遺構",
+      "art": "assets/fukuhara_news_20261104/scene_3.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "2026年11月4日、神戸市が発表しました。",
+      "big": "神戸市が発表",
+      "sub": "2026年11月4日",
+      "art": "assets/fukuhara_news_20261104/scene_1.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "1180年、平清盛の強い意向で、都は京都から今の神戸付近へ移されました。",
+      "big": "清盛ゆかりの福原京",
+      "sub": "1180年 京都から福原へ",
+      "art": "assets/fukuhara_news_20261104/scene_2.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "けれど、新しい都づくりは途中で終わり、半年ほどで京都へ戻りました。",
+      "big": "都づくりは未完",
+      "sub": "半年ほどで京都へ",
+      "art": "assets/fukuhara_news_20261104/scene_1.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "当時の記録には、御所南大路という道の名前が残っています。",
+      "big": "記録に残る道",
+      "sub": "御所南大路",
+      "art": "assets/fukuhara_news_20261104/scene_4.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "今回、神戸市の発掘で石を積んだ列と、その間に整えられた地面が見つかりました。",
+      "big": "石積みと整地面",
+      "sub": "発掘現場はイメージ",
+      "art": "assets/fukuhara_news_20261104/scene_3.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "神戸市は、出土した土器の年代などから、記録にある道の一部と考えています。",
+      "big": "記録の道の一部か",
+      "sub": "土器の年代などから推定",
+      "art": "assets/fukuhara_news_20261104/scene_4.png",
+      "src_small": "生成イメージ・実物ではありません"
+    },
+    {
+      "text": "短い都の姿を知る手がかりが、地面の下から現れました。",
+      "big": "消えた都を探る手がかり",
+      "sub": "福原京に伴う遺構と発表",
+      "art": "assets/fukuhara_news_20261104/scene_2.png",
+      "src_small": "生成イメージ・実物ではありません"
+    }
+  ]
+}

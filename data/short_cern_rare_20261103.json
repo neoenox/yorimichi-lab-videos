@@ -1,0 +1,64 @@
+{
+  "title": "2026年11月3日の発表",
+  "pron": "data/cern_news_pron.json",
+  "art": "assets/cern_news_20261103/scene_1.png",
+  "bg_fit": 1.0,
+  "hook_card": false,
+  "cta": false,
+  "bgm": "none",
+  "long_id": "",
+  "long_title": "",
+  "hook": "100億回に1回程度の崩壊の兆候。",
+  "notes": "2026年11月3日のCERN発表。",
+  "scenes": [
+    {
+      "text": "百億回に一回程度。とても珍しい粒子の変化の兆候が見つかりました。",
+      "big": "100億回に1回程度",
+      "sub": "珍しい粒子の崩壊に兆候",
+      "art": "assets/cern_news_20261103/scene_2.png",
+      "src_small": "画像は生成イメージです"
+    },
+    {
+      "text": "2026年11月3日、セルンの研究チームが発表した結果です。",
+      "big": "CERNが発表",
+      "sub": "2026年11月3日",
+      "art": "assets/cern_news_20261103/scene_1.png",
+      "src_small": "画像は生成イメージです"
+    },
+    {
+      "text": "対象は、ビューティークォークを含む、B中間子という粒子。",
+      "big": "B中間子",
+      "sub": "ビューティークォークを含む粒子",
+      "art": "assets/cern_news_20261103/scene_3.png",
+      "src_small": "画像は生成イメージです"
+    },
+    {
+      "text": "これが、ミューオンと反ミューオンに変わる崩壊を調べました。",
+      "big": "2つの粒子に変化",
+      "sub": "ミューオンと反ミューオン",
+      "art": "assets/cern_news_20261103/scene_2.png",
+      "src_small": "画像は生成イメージです"
+    },
+    {
+      "text": "理論では、この崩壊は約百億回に一回と予測されています。",
+      "big": "約100億回に1回",
+      "sub": "理論上の崩壊の割合",
+      "art": "assets/cern_news_20261103/scene_3.png",
+      "src_small": "画像は生成イメージです"
+    },
+    {
+      "text": "データには兆候が現れましたが、まだ発見の確定には届いていません。",
+      "big": "兆候を検出",
+      "sub": "発見の確定には追加データが必要",
+      "art": "assets/cern_news_20261103/scene_4.png",
+      "src_small": "画像は生成イメージです"
+    },
+    {
+      "text": "今回の結果は現在の理論と整合的。さらに詳しく調べれば、未知の粒子を探る手がかりになるかもしれません。",
+      "big": "現在の理論と整合",
+      "sub": "今後の精密測定に期待",
+      "art": "assets/cern_news_20261103/scene_1.png",
+      "src_small": "画像は生成イメージです"
+    }
+  ]
+}
