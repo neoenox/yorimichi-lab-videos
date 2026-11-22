@@ -914,3 +914,9 @@ Short の描画(`make_short.py`・`make_short2.py`)が持っていたチャン�
 - **コードが E: の絶対パスを指さないこと**は `tests/test_no_hardcoded_e_root.py` が見張る。
 - **手順書(`SOLO_SHORT_PROCEDURE.md`)の中にある E: のパス(7か所)は、まだ直していない**。直すと手順書のハッシュが変わって、全員の確認の印が無効になる(確認をやり直す)ため。次に手順書を更新するときに、一緒に直す。`SHORTS_PRODUCTION_NOTES.md` の E: の記述2か所も、別のセッションが編集中だったため、直していない。
 - **バックアップ**: `E:\_backup_before_e_removal_20261123`(`repo_all_refs.bundle`=全ブランチ・タグ、`dot_git`=旧 `.git` の全コピー、Claude のプロジェクトフォルダーの控え)。問題がないと確認できたら削除してよい。
+- **コアの運用(公開リポジトリ https://github.com/neoenox/yt-shorts-kit、2026-11-23)**:
+  - コアを直すのは `E:\yt-shorts-kit` だけ。`scripts/hn_text.py`・`make_short2.py`・`vp.py` などは薄い入口(shim)なので直さない。
+  - 編集可能インストールなので、コアを直すと、honnoji にすぐ反映される。動画を作っている最中に、コアへ未コミットの編集を置いたままにしない。
+  - 直したら、コアと honnoji の**両方**で `pytest`。両方に変更が要るとき(例: `channel.toml` の新しい項目)は、**コアを先にコミット・push** してから、honnoji をコミットする。
+  - コアの履歴は書き換えない(公開済み)。コミットのメールアドレスは GitHub の noreply にしてある。
+  - 新しい環境: `scripts/setup.ps1` が、隣に `yt-shorts-kit` があれば編集可能で、無ければ GitHub(`@master`)から入れる。版を固定するなら、`setup.ps1` の `@master` を、タグかコミットのハッシュにする。
