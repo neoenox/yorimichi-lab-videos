@@ -832,3 +832,45 @@ tools\blender-4.5.3-windows-x64\blender.exe -b -t 6 --python scripts\hn_render.p
 5. 右下「スケジュールを設定」(約(1092,630))を押し、確認の「OK」をJSで押す。完了の窓の文面から、動画ID（`shorts/<ID>`）と日時を読む。
 6. 旧版：その動画の `/edit` で公開設定を開き、「非公開」を選んで完了→保存（予約が外れる）。字幕：`/translations`→「手動でアップロード」→ファイル入力に `file_upload` → **「字幕を編集」→「公開」まで押す（アップだけでは下書き）**。
 **罠：** 画面を開いた直後の最初の操作は、効かないことがある（やり直す）。1回の `browser_batch` が長いと、応答が切れる（前半・後半に分ける）。
+
+## 単独Short(FreeVideo背景)の最短手順(2026-11-07)
+1本あたりの待ちは、FreeVideoの背景5クリップ(約40分)がほぼ全部。ここを他の作業と重ねる。
+1. 題材を決めたら、**調べる前に**背景の雰囲気(動き多め・文字なし)だけで `assets/<topic>/fv/prompts.json` を書き、`python scripts/solo_ship.py clips <topic>` を `run_in_background` で流す(台本の中身に依存しない風景・動きで書く)。
+2. 待っている間に、調査→`scripts/gen_solo_<topic>.py`(台本・pron・notes)を書き、`python scripts/gen_solo_<topic>.py` で仕様を出す。次の題材の調査も、この時間に進める。
+3. クリップが揃ったら、目視で文字・建物の混入を確認(1コマずつ一覧にして見る)。
+4. `python scripts/solo_ship.py build <slug>` … 動画づくり・パック・説明欄の重複除去・長さ/音声/年月日の検査・静止画の一覧・sigcmp_viewへコピー。出力の「確認できたこと／未確認」を、そのまま報告に使う。
+5. ユーザーの「アップして公開」で `python scripts/solo_ship.py publish <slug>`(アップ→処理完了待ち→公開→台帳→視聴ページ確認)。
+注意: 通しの視聴と全編の聴取は自動化できない。常に「未確認」に書く。publish は 2026-11-07 時点で、動画を実際に上げての試験をまだしていない(部品は手作業で毎回動いていたものを移した)。
+
+
+## 「この場所は昔は〇〇だった」の作り方(2026-11-09 東京ドームで確立)
+
+- 背景は国土地理院の年代別空中写真。`python scripts/gsi_clip.py <出力mp4> <レイヤー> <緯度> <経度> [--dx --dy]` で、7秒・縦・ゆっくり拡大のクリップが作れる。出力を `assets/<slug>/fv/clipN.mp4` に置けば、`solo_ship.py build` がそのまま使う。地図で出せない時代はFreeVideoのAI動画で補う。
+- レイヤーと撮影期間: ort=現在 / ort_USA10=1945〜50年 / ort_old10=1961〜64年 / gazo1=1974〜78 / gazo2=1979〜83 / gazo3=1984〜86 / gazo4=1987〜90 / ort_riku10=戦前(陸軍撮影、撮影年は未確認)。迅速測図・1928年の写真はこのタイルでは取れない。
+- 画面の出典行は約43文字まで(超えると両端が切れる)。「<年代>の写真:国土地理院」と短くし、撮影年が未確認などの注意は説明欄へ。`solo_spec.build` の `bg_note` / `credit` で、説明欄の「AI生成」注記を地図版用に差し替える。
+- 題材の事実確認: Wikipediaの記述が記事内で食い違う場合がある(東京砲兵工廠の「1871年から1935年」と「約66年間」)。そのまま使わず、算数を確かめる。旧暦の月日に西暦年を付けない(忠臣蔵・秀長で2回間違えた)。「ドームの場所」のように位置が曖昧な題材は「一帯」と書く。
+- 未確認: 国土地理院の写真(特に米軍撮影)の利用条件の詳細。
+
+## 単独Shortの作成手順
+
+単独Short(地図型・ニュース)の作成から予約までの手順は [`SOLO_SHORT_PROCEDURE.md`](SOLO_SHORT_PROCEDURE.md) にまとめています(2026-11-11)。
+
+## 単独Short(2026-11-16 追記)
+単独Short(約50〜58秒)の作成から、公開・X予約・分析までの**全手順・合格基準・罠・完成例**は `docs/SOLO_SHORT_PROCEDURE.md` に集約した(0b=合格基準、2b=ニュース題材の探し方、3b=台本の雛形、12=罠の一覧、12b=進め方と報告)。単独Shortを作る前に必ず読む。
+特に、**`tags=[...]` を台本ファイルで指定しないと、前の動画(物価)のタグが付く**(2026-11-16に発生、API で修正)。
+
+## 検査ツールの追加(2026-11-22)
+外部のスキル集(OpenMontage・Qwen-MM 等)は導入せず、既存に無かった確認だけを足した。
+- **冒頭1フレームの事前確認**: `python scripts/first_frame_preview.py <slug> [秒...]` — 音声合成も全編レンダもせず、`data/short_<slug>.json` の冒頭(既定 0.3/1.0/1.8/3.0 秒)を 360x640 に縮小して並べる(`out/short_<slug>_first/first_sheet.png`)。0.5秒で何の話か分かるか、文字が端で切れていないか、結論カードと字幕が重ならないかを見る。場面の長さは1文字0.18秒の概算。背景(art、または動画背景 vid のクリップ)が先に必要。`make_short2.frame_at` を本番レンダと共有しているので、静止画背景の見た目は本番と同じ(3本・各180コマで画素一致を確認済み)。**動画背景(vid)の場面は、クリップの先頭コマの静止画で代える**(本番の `vid_frame` は ffmpeg の出力を時刻順にしか読めず、任意の時刻では呼べないため)。動きや補間はこのプレビューでは見えない。
+- **黒画面の検出**: `qa_lint.py` が長尺・Short とも `blackdetect`(0.5秒以上)で黒区間を WARN に出す。意図した暗転ならそのままでよい。
+- **通し確認は2秒おき**: `codex_watch.py` の `STEP` を 4→2 にした(コンタクトシートの枚数は約2倍)。
+- **ASR(読みの確認)**: 手元のkotoba-whisperは `E:\rekishikaisetu-honnoji\scripts\asr_kotoba.py`(`python scripts/asr_kotoba.py cache/short_solo_<slug> <出力txt>`)。この作業ツリーには無い。稀な語・同音語はずれるので、読みの正は `_kana.txt`。
+- 冒頭フック案と実測の対応は [`hook_patterns.md`](hook_patterns.md) に溜める(AGENTS.md には書かない)。
+
+## 共通部品リポジトリ yt-shorts-kit(2026-11-22)
+複数のYouTube制作リポジトリ(本リポジトリと `E:\rakuten-shorts-affiliate`)で重複していた土台を、`E:\yt-shorts-kit`(パッケージ名 `ytkit`)に集めた。描画・台本形式・規約ゲートは入れていない(チャンネルごとに違うため)。
+- 中身: `ffmpeg_tools`(ffmpeg/ffprobe探索・尺)、`loudness`(ebur128・loudnorm)、`qa`(黒画面)、`voicevox`(話者・読み辞書・合成)、`freevideo`(ComfyUI API)。
+- 本リポジトリで使っている所: `qa_lint.py`(探索・尺・音量・黒画面)、`make_short.py` の `synth`(VOICEVOX)。移行前後でナレーション音声がバイト単位で一致することを確認済み。`vp.py` と `make_short2.py` の音声処理は、挙動に差が出ないか確かめきれていないので未移行。
+- 入れ方(`.venv` は uv 管理で pip が無い): `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`。新しい環境でも同じ手順が必要。
+- CI(`youtube-safety.yml`)は `requirements.txt` だけを入れる。`qa_lint.py`/`make_short.py` はテストから import されないので今は通るが、これらを CI で実行する場合は ytkit を入れる手順を足すこと。
+- 部品を直すときは3か所(kit・本リポジトリ・rakuten)の `pytest` を回す。使い方・決まりは `E:\yt-shorts-kit\README.md`。
