@@ -235,6 +235,7 @@ def to_spec(data, slug, art=None, pron=None, out=None, long_id=None, long_title=
             'big': (s.get('caption') or [''])[0],
             'sub': (s.get('caption') or ['', ''])[1] if len(s.get('caption') or []) > 1 else '',
             'art': (art_map[i] if art_map and i < len(art_map) and art_map[i] else (art or 'assets/%s/art.png' % slug)),
+            'claim_ids': list(s.get('claim_ids') or []),
         } for i, s in enumerate(data['scenes'])],
         # 制作標準: 無意味な登録誘導は禁止 → 既定でCTAを付けない
         'cta': False,

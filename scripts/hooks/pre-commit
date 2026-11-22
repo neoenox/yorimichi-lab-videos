@@ -8,19 +8,28 @@ std_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^shorts/[
 short_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^data/short_[^/]+\.json$')
 [ -z "$std_files" ] && [ -z "$short_files" ] && exit 0
 
+# この環境の `python` は WindowsApps のスタブなので、プロジェクトの venv を優先する。
+ROOT=$(git rev-parse --show-toplevel)
+PY=python
+if [ -x "$ROOT/.venv/Scripts/python.exe" ]; then
+    PY="$ROOT/.venv/Scripts/python.exe"
+elif [ -x "$ROOT/.venv/bin/python" ]; then
+    PY="$ROOT/.venv/bin/python"
+fi
+
 status=0
 for f in $std_files; do
-    if ! python scripts/shorts_standard.py check "$f" >/dev/null 2>&1; then
+    if ! "$PY" scripts/shorts_standard.py check "$f" >/dev/null 2>&1; then
         printf '\n✖ 制作標準の検査に通りません: %s\n\n' "$f" >&2
-        python scripts/shorts_standard.py check "$f" >&2 || true
+        "$PY" scripts/shorts_standard.py check "$f" >&2 || true
         status=1
     fi
 done
 
 for f in $short_files; do
-    if ! python scripts/check_short_evidence.py "$f" >/dev/null 2>&1; then
+    if ! "$PY" scripts/check_short_evidence.py "$f" >/dev/null 2>&1; then
         printf '\n✖ 根拠テーブル検査に通りません: %s\n\n' "$f" >&2
-        python scripts/check_short_evidence.py "$f" >&2 || true
+        "$PY" scripts/check_short_evidence.py "$f" >&2 || true
         status=1
     fi
 done
