@@ -11,8 +11,54 @@ CREDIT = '・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イ�
 T = lambda gap, ev: dict(type='timeline', gap=gap, events=ev)
 
 
+# 公開用の説明欄には制作側のレビュー過程を出さない（2026-11-22 オーナー指摘）。
+INTERNAL_LINE_MARKERS = (
+    '言い過ぎを避けた点', '使っていないこと', '使っていない：', '未確認：',
+    'レビューで直した点', '不採用', '採用：', 'ChatGPT', 'Gemini', 'Muse',
+    'CDP', 'Ask Studio', '実測メモ', '台本は、web版', '動画レビュー', '台本レビュー',
+    'regarding', 'ナレーションでは触れていない', '重ならないよう', '画像生成',
+)
+
+
+def public_notes(notes):
+    """説明欄から内部メモの行を除く。出典URLのある行は残す。"""
+    keep = []
+    for line in (notes or '').splitlines():
+        stripped = line.strip()
+        # 「動画では触れていない」等は内部判断。URLのある行でも文単位で除く。
+        if stripped:
+            segs = [s for s in stripped.split('。')
+                    if not any(k in s for k in ('触れていない', '使わなかった', '使っていない', '未確認'))]
+            stripped = '。'.join(segs)
+            line = stripped
+        if not stripped:
+            keep.append(line)
+            continue
+        if 'http' in stripped:
+            keep.append(line)
+            continue
+        credit_line = stripped.startswith(('・イメージ画像', '・サムネイル', '・背景映像', '・背景：', '・図', '・音声', '・音楽')) or \
+            'による生成画像' in stripped or 'による生成イラスト' in stripped
+        if not credit_line and any(marker in stripped for marker in INTERNAL_LINE_MARKERS):
+            continue
+        if stripped.startswith(('・背景', '・動画内の図')):
+            continue
+        keep.append(line)
+    out, blanks = [], 0
+    for line in keep:
+        if not line.strip():
+            blanks += 1
+            if blanks > 1:
+                continue
+        else:
+            blanks = 0
+        out.append(line)
+    return '\n'.join(out).strip()
+
+
 def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None, credit=None, end_vid=None, hook_text=None, hook_label=None, end_q=None, tags=None, claims=None, needs_research=None, hook_card=True):
     import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
+    notes = public_notes(notes)
     extra = BG_NOTE if bg_note is None else bg_note   # 空文字を渡せば重複クレジットを省ける
     note_text = notes + ('' if not notes or notes.endswith('\n') else '\n') + extra
     (R / 'data' / f'{slug}_pron.json').write_text(json.dumps(pron, ensure_ascii=False), encoding='utf8')
