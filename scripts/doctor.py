@@ -33,7 +33,7 @@ def monitor():
         for p in psutil.process_iter(['pid','name','memory_info','cmdline']):
             try:
                 if any(x in ' '.join(p.info['cmdline'] or []).lower() for x in ['rekishikaisetu','render_blender','voicevox']):
-                    processes.append({'pid':p.pid,'name':p.name,'rss':p.memory_info().rss,'cpu_seconds':sum(p.cpu_times()[:2])})
+                    processes.append({'pid':p.pid,'name':p.info['name'],'rss':p.memory_info().rss,'cpu_seconds':sum(p.cpu_times()[:2])})
             except (psutil.NoSuchProcess,psutil.AccessDenied):pass
         r=command(['nvidia-smi','--query-gpu=memory.used,utilization.gpu','--format=csv,noheader,nounits'])
         with out.open('a',encoding='utf8') as f:f.write(json.dumps({'epoch':time.time(),'system_ram_used':psutil.virtual_memory().used,'processes':processes,'gpu':r['output'].strip()})+'\n')
