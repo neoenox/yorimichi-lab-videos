@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-STEP = 4          # 秒
+STEP = 2          # 秒（AGENTS.md/アップ前の通し確認の決まり: 2秒おきの全コマ）
 COLS, ROWS = 4, 4  # 1枚に16コマ（64秒分）
 W, H = 480, 270
 

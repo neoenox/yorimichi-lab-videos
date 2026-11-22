@@ -16,12 +16,11 @@ usage:
 結果は `out/codex/qa_lint.txt` にも書く。NG が 1 件でもあれば終了コード 1。
 """
 import json
-import re
-import subprocess
 import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
+from ytkit import ffmpeg_tools, loudness as _loud, qa as _qa   # 共通部品（E:\yt-shorts-kit）
 
 R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R / 'scripts'))
@@ -30,8 +29,11 @@ OUT = R / 'out'
 REPORT = R / 'out' / 'codex' / 'qa_lint.txt'
 # ffmpeg は PATH に無いことがあるので、リポジトリ内のものがあればそれを使う
 _BIN = R / 'tools' / 'ffmpeg' / 'bin'
-FFPROBE = str(_BIN / 'ffprobe.exe') if (_BIN / 'ffprobe.exe').exists() else 'ffprobe'
-FFMPEG = str(_BIN / 'ffmpeg.exe') if (_BIN / 'ffmpeg.exe').exists() else 'ffmpeg'
+try:
+    FFMPEG = ffmpeg_tools.find_ffmpeg(prefer=[_BIN / 'ffmpeg.exe'])
+except ffmpeg_tools.FFmpegNotFound:
+    FFMPEG = 'ffmpeg'   # 従来どおり: 見つからなくても名前だけ持ち、実行時に失敗させる
+FFPROBE = ffmpeg_tools.find_ffprobe(FFMPEG, prefer=[_BIN / 'ffprobe.exe'], default='ffprobe')
 
 # しきい値（2026-10 の実測をもとに設定。詳細は out/codex/plan_quality.md）
 CPS_MED_MAX = 6.0      # 字幕の速さ（中央値・字/秒）
@@ -94,27 +96,12 @@ def cues(path):
 
 
 def probe_duration(path):
-    r = subprocess.run([FFPROBE, '-v', 'error', '-show_entries', 'format=duration',
-                        '-of', 'csv=p=0', str(path)], capture_output=True, text=True)
-    try:
-        return float(r.stdout.strip())
-    except ValueError:
-        return None
+    return ffmpeg_tools.probe_duration(path, FFPROBE)
 
 
 def loudness(path):
-    """(integrated LUFS, true peak dBFS)
-
-    ebur128 は解析中も経過を出すので、`I:` は最初の -70.0（無音）に当たる。
-    最後に出るサマリの値を使う。
-    """
-    r = subprocess.run([FFMPEG, '-hide_banner', '-nostats', '-i', str(path),
-                        '-af', 'ebur128=peak=true', '-f', 'null', '-'],
-                       capture_output=True, text=True, encoding='utf8', errors='replace')
-    txt = r.stderr
-    i = re.findall(r'I:\s*(-?[\d.]+)\s*LUFS', txt)
-    p = re.findall(r'Peak:\s*(-?[\d.]+)\s*dBFS', txt)
-    return (float(i[-1]) if i else None, float(p[-1]) if p else None)
+    """(integrated LUFS, true peak dBFS)。実装は ytkit.loudness.measure_ebur128。"""
+    return _loud.measure_ebur128(path, FFMPEG)
 
 
 def add(issues, level, cat, msg):
@@ -153,6 +140,22 @@ def check_subtitles(issues, srt, short):
         add(issues, 'WARN', '字幕', f'表示が短すぎるキューが {short_cues} 件（< {MIN_CUE_SEC} 秒）')
     add(issues, 'INFO', '字幕',
         f'{len(cs)} キュー / 中央 {med:.1f} 最大 {mx:.1f} 字/秒 / {max_lines + 1} 行 {three} 件 / 最長 {longest} 字')
+
+
+def black_spans(path, dur=0.5, pix_th=0.04):
+    """黒画面の区間 [(開始, 長さ), ...]。vp.py の stage_qa と同じ blackdetect 設定（実装は ytkit.qa）。"""
+    return _qa.black_spans(path, FFMPEG, dur, pix_th)
+
+
+def check_black(issues, video, enabled):
+    if not enabled:
+        return
+    spans = black_spans(video)
+    if spans:
+        txt = ', '.join(f'{a:.1f}s から {d:.1f}s' for a, d in spans[:5])
+        add(issues, 'WARN', '黒画面', f'{len(spans)} 区間（意図した暗転でなければ直す）: {txt}')
+    else:
+        add(issues, 'INFO', '黒画面', 'なし')
 
 
 def check_audio(issues, video, enabled):
@@ -277,6 +280,7 @@ def lint_long(slug, audio=True):
     elif dur:
         add(issues, 'INFO', '尺', f'{dur:.1f}s（タイムライン無し）')
     check_audio(issues, video, audio)
+    check_black(issues, video, audio)
     return issues
 
 
@@ -300,6 +304,7 @@ def lint_short(slug, audio=True):
     if spec_p.exists():
         check_hook(issues, json.loads(spec_p.read_text(encoding='utf8')), short=True)
     check_audio(issues, video, audio)
+    check_black(issues, video, audio)
     return issues
 
 
