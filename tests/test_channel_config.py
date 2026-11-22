@@ -66,3 +66,38 @@ def test_missing_key_stops_with_the_key_name(tmp_path):
     r = subprocess.run([sys.executable, '-c', code], cwd=SCRIPTS, capture_output=True, text=True, encoding='utf-8',
                        env={**__import__('os').environ, 'YT_PROJECT_ROOT': str(tmp_path), 'PYTHONUTF8': '1'})
     assert r.returncode != 0 and 'channel.tagline' in r.stderr
+
+
+# ---- 長尺 vp.py
+
+def _run_vp(code, root=None):
+    import os
+    env = {**os.environ, 'PYTHONUTF8': '1'}
+    if root:
+        env['YT_PROJECT_ROOT'] = str(root)
+    return subprocess.run([sys.executable, '-c', code], cwd=SCRIPTS, capture_output=True, text=True, encoding='utf-8', env=env)
+
+
+def test_vp_reads_the_default_config():
+    r = _run_vp('import vp; print(vp.SPEED, vp.MAOU["piano36"], vp.BGM["pattern"].format(name="x"), vp.FONTS["sans"])')
+    assert r.returncode == 0, r.stderr[-400:]
+    assert r.stdout.split() == ['0.95', 'ピアノ36', 'maou_bgm_x.mp3', 'NotoSansJP-VF.ttf']
+
+
+def test_vp_follows_another_channels_config(tmp_path):
+    (tmp_path / 'channel.toml').write_text(
+        '[channel]\nname = "N"\ntagline = "t"\ntagline_tiktok = "tt"\nabout = "ABOUT-L"\nterms_check = "TERMS-L"\n'
+        '[voice]\nspeaker = "SPK"\nstyle = "STY"\ncredit = "c"\nspeed = 1.1\nlabel = "LBL"\ncredit_long = "VC-L"\n'
+        '[bgm]\nfile = "b.mp3"\ncredit = "bc"\ndir = "x/bgm"\npattern = "song_{name}.wav"\ncredit_long = "MUSIC {tracks}"\n'
+        '[bgm.names]\npiano = "Piano"\n'
+        '[fonts]\ndir = "D:/f/"\nsans = "a.ttf"\nserif = "b.ttf"\n[hashtags]\nshorts = "#s"\ntiktok = "#t"\n', encoding='utf-8')
+    r = _run_vp('import vp; print(vp.SPEED, vp.VOICE["speaker"], vp.VOICE["label"], vp.MAOU["piano7"], vp.BGM["dir"], '
+                'vp.BGM["credit_long"].format(tracks="T"), vp.CH["terms_check"], vp.SPEC_F["serif"][0], vp.FONTS["dir"])', tmp_path)
+    assert r.returncode == 0, r.stderr[-400:]
+    assert r.stdout.split() == ['1.1', 'SPK', 'LBL', 'Piano7', 'x/bgm', 'MUSIC', 'T', 'TERMS-L', 'b.ttf', 'D:/f/']
+
+
+def test_vp_stops_with_the_missing_long_form_key(tmp_path):
+    (tmp_path / 'channel.toml').write_text('[channel]\nabout = "a"\nterms_check = "t"\n', encoding='utf-8')
+    r = _run_vp('import vp', tmp_path)
+    assert r.returncode != 0 and 'voice.' in r.stderr

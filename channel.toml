@@ -11,17 +11,34 @@ tagline = "ふと気になったことを、資料で調べる"
 tagline_tiktok = "地図と史料で、通説を確かめる"
 # 概要欄「このチャンネルについて」の本文
 about = "寄り道ラボは、ふと気になったことを、資料やデータで調べる解説チャンネルです。"
+# 長尺の概要欄の「投稿前チェック」にある、利用規約の確認項目
+terms_check = "VOICEVOX:四国めたん / BGM(魔王魂)の最新規約"
 
 [voice]
 # VOICEVOX の話者名とスタイル名、概要欄のクレジット行
 speaker = "四国めたん"
 style = "ノーマル"
 credit = "・音声：VOICEVOX:四国めたん"
+# 長尺(vp.py)用。話速の既定(spec の voice.speed があればそちら)、音声レポートの話者欄、長尺の概要欄の書式(半角コロン)
+speed = 0.95
+label = "VOICEVOX:四国めたん"
+credit_long = "・音声:VOICEVOX:四国めたん"
 
 [bgm]
 # プロジェクトのルートからの相対パス。bgm = "none" の Short では使わない
 file = "assets/bgm_maou/maou_bgm_piano12.mp3"
 credit = "・音楽：魔王魂（https://maou.audio/）ピアノ12（作曲：森田交一。音量調整を行っています）"
+# 長尺(vp.py)用。spec の bgm の曲名 name は dir/pattern でファイルになる。クレジットの {tracks} は曲の日本語名を " / " でつないだもの
+dir = "assets/bgm_maou"
+pattern = "maou_bgm_{name}.mp3"
+credit_long = "・音楽:魔王魂(https://maou.audio/) {tracks}(作曲:森田交一。音量調整・場面に合わせた切り替えを行っています)"
+
+# 曲名の頭の英字(piano36 の piano)を、概要欄の日本語名にする対応
+[bgm.names]
+piano = "ピアノ"
+ethnic = "民族"
+orchestra = "オーケストラ"
+acoustic = "アコースティック"
 
 [fonts]
 dir = "C:/Windows/Fonts/"

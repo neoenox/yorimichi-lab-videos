@@ -14,16 +14,19 @@ from hn_text import display
 from thin_commas import thin
 from PIL import Image,ImageDraw,ImageFont
 import rich_text as rich
-ROOT=Path(__file__).resolve().parents[1];FD='C:/Windows/Fonts/';BASE='http://127.0.0.1:50021';SPEED=0.95
+from ytkit.project import project_root,load_config,section,require   # 共通部品（E:\yt-shorts-kit）
+ROOT=project_root(__file__);CFG=load_config(ROOT)   # チャンネル設定 ROOT/channel.toml（環境変数 YT_PROJECT_ROOT でプロジェクトの場所を変えられる）
+CH=section(CFG,'channel',('about','terms_check'));VOICE=section(CFG,'voice',('speaker','style','speed','label','credit_long'));BGM=section(CFG,'bgm',('dir','pattern','credit_long'));BGM_NAMES=require(CFG,'bgm.names');FONTS=section(CFG,'fonts',('dir','sans','serif'))
+FD=FONTS['dir'];BASE='http://127.0.0.1:50021';SPEED=VOICE['speed']
 XFADE=0.35  # 章の切れ目のクロスフェード（秒）
 BG=(7,24,36,240);GOLD=(239,201,118);WHITE=(245,243,232);DIM=(190,205,208);EDGE=(176,153,100);NAVY=(9,22,34);ORG=(255,150,90);BLUE=(120,190,255);VIO=(170,135,255);GRN=(120,210,150);RED=(235,90,80)
 COL={'gold':GOLD,'white':WHITE,'dim':DIM,'org':ORG,'blue':BLUE,'vio':VIO,'grn':GRN,'red':RED}
-SPEC_F={'sans':('NotoSansJP-VF.ttf',560),'sub':('NotoSansJP-VF.ttf',640),'serif':('NotoSerifJP-VF.ttf',800)}
+SPEC_F={'sans':(FONTS['sans'],560),'sub':(FONTS['sans'],640),'serif':(FONTS['serif'],800)}
 _FC={}
 def vfont(kind,size):
     k=(kind,size)
     if k not in _FC:
-        f=ImageFont.truetype(FD+SPEC_F[kind][0],size);f.set_variation_by_axes([SPEC_F[kind][1]]);_FC[k]=f
+        f=ImageFont.truetype(FONTS['dir']+SPEC_F[kind][0],size);f.set_variation_by_axes([SPEC_F[kind][1]]);_FC[k]=f
     return _FC[k]
 class _Fam:
     def __init__(s,kind):s.kind=kind
@@ -449,7 +452,7 @@ def stage_story():
     n=sum(len(s['narration']) for s in scenes);print(len(scenes),'scenes',n,'chars  est. minutes',round(n/290,1))
 def _vv():
     import requests
-    sp=requests.get(BASE+'/speakers',timeout=60).json();speaker=next(x for x in sp if x['name']=='四国めたん');style=next(x['id'] for x in speaker['styles'] if x['name']=='ノーマル');return requests,speaker,style
+    sp=requests.get(BASE+'/speakers',timeout=60).json();speaker=next(x for x in sp if x['name']==VOICE['speaker']);style=next(x['id'] for x in speaker['styles'] if x['name']==VOICE['style']);return requests,speaker,style
 def sentences(sc):return [x.strip()+'。' for x in sc['narration'].split('。') if x.strip()]
 def load_dic():
     """読みの辞書。全動画で共有する data/pronunciations_common.json に、動画ごとの辞書を重ねる（同じ語は動画ごとの方が勝つ）"""
@@ -565,12 +568,12 @@ def stage_audio():
     P(f'out/{SLUG}_subtitles.srt').write_text('\n\n'.join(f'{i+1}\n{st(a)} --> {st(b)}\n{c}' for i,(a,b,c) in enumerate(cues))+'\n',encoding='utf8')
     P(f'out/{SLUG}_subtitle_timing.json').write_text(json.dumps(dict(tol=SNAP_TOL,min_cue=MIN_CUE,max_shift=max([r['max_shift'] for r in rep] or [0]),snapped=sum(r['snapped'] for r in rep),segments=rep),ensure_ascii=False,indent=1),encoding='utf8')
     P(f'data/{SLUG}_timeline.json').write_text(json.dumps(timeline,ensure_ascii=False,indent=1),encoding='utf8')
-    P(f'out/{SLUG}_audio_report.json').write_text(json.dumps(dict(engine=requests.get(BASE+'/version').json(),speaker='VOICEVOX:四国めたん',style=style,voice_tuning=dict(speed=speed,pre_phoneme=pre,post_phoneme=post,scene_hold=scene_hold),segments=segs,total_seconds=cursor,all_lines_voiced=True,semantic_asr_verified=False),ensure_ascii=False,indent=1),encoding='utf8')
+    P(f'out/{SLUG}_audio_report.json').write_text(json.dumps(dict(engine=requests.get(BASE+'/version').json(),speaker=VOICE['label'],style=style,voice_tuning=dict(speed=speed,pre_phoneme=pre,post_phoneme=post,scene_hold=scene_hold),segments=segs,total_seconds=cursor,all_lines_voiced=True,semantic_asr_verified=False),ensure_ascii=False,indent=1),encoding='utf8')
     print('total',round(cursor,1),'s',int(cursor//60),'min',int(cursor%60),'s')
 def stage_bgm():
-    SR=48000;D=P('assets/bgm_maou');tl=json.loads(P(f'data/{SLUG}_timeline.json').read_text(encoding='utf8'));T={c['key']:c for c in tl};TOTAL=tl[-1]['end'];XF=3.0;TARGET=-24.0
+    SR=48000;D=P(BGM['dir']);tl=json.loads(P(f'data/{SLUG}_timeline.json').read_text(encoding='utf8'));T={c['key']:c for c in tl};TOTAL=tl[-1]['end'];XF=3.0;TARGET=-24.0
     def load_(name):
-        f=str(D/f'maou_bgm_{name}.mp3');raw=subprocess.run(['ffmpeg','-v','error','-i',f,'-ar',str(SR),'-ac','2','-f','f32le','-'],capture_output=True).stdout
+        f=str(D/BGM['pattern'].format(name=name));raw=subprocess.run(['ffmpeg','-v','error','-i',f,'-ar',str(SR),'-ac','2','-f','f32le','-'],capture_output=True).stdout
         x=np.frombuffer(raw,np.float32).reshape(-1,2).T.astype(np.float64)
         r=subprocess.run(['ffmpeg','-hide_banner','-nostats','-i',f,'-af','ebur128','-f','null','-'],capture_output=True,text=True,encoding='utf8',errors='replace').stderr
         lufs=float(r.split('Integrated loudness:')[1].split('I:')[1].split('LUFS')[0]);return x*10**((TARGET-lufs)/20)
@@ -711,7 +714,7 @@ def chapter_list():
     tl=json.loads(P(f'data/{SLUG}_timeline.json').read_text(encoding='utf8'));ts=lambda s:f'{int(s)//60}:{int(s)%60:02d}'
     return [f'{ts(c["start"])} {SPEC["chapters"][i].get("chapter_title",SPEC["chapters"][i].get("title",c["key"]))}' for i,c in enumerate(tl)],tl[-1]['end']
 class _Maou(dict):
-    _JP={'piano':'ピアノ','ethnic':'民族','orchestra':'オーケストラ','acoustic':'アコースティック'}
+    _JP=BGM_NAMES
     def __missing__(s,k):
         m=re.match(r'([a-z]+)(\d+)$',k);return s._JP.get(m.group(1),m.group(1))+m.group(2)
 MAOU=_Maou()
@@ -719,13 +722,13 @@ def stage_desc():
     ds=SPEC['desc'];chapters,dur=chapter_list();used=sorted({it['name'] for ch in SPEC['chapters'] for it in ch['scene'] if it['t']=='image'})
     imglines=[f"・{SPEC['images'][n]['credit']}:{SPEC['images'][n]['source_url']}" for n in used if SPEC['images'][n].get('credit')]
     tracks=' / '.join(MAOU[x] for x in dict.fromkeys(b[2] for b in SPEC['bgm']))
-    L=[f'# YouTube 投稿用ドラフト：{ds["title_main"]}\n','## タイトル案']+[f'{i+1}. {t}' for i,t in enumerate(ds['titles'])]+['','## 概要欄(そのまま貼り付け用)\n','```',ds['intro'],'','■ チャプター']+chapters+['','■ 動画で確かめたこと(要点)']+[f'・{p}' for p in ds['points']]+['','■ 参考資料(確認に使ったもの)']+[f'・{r}' for r in ds['refs']]+['','■ 出典・クレジット']+ds.get('credit_lines',[])+imglines+['・音声:VOICEVOX:四国めたん',f'・音楽:魔王魂(https://maou.audio/) {tracks}(作曲:森田交一。音量調整・場面に合わせた切り替えを行っています)','・図・表・年表:自作','','■ 注意']+[f'・{n}' for n in ds['notes']]+['・詳しい出典と素材のクレジットは、この概要欄にまとめています。','','■ このチャンネルについて','寄り道ラボは、ふと気になったことを、資料やデータで調べる解説チャンネルです。','```\n','## タグ案',ds['tags']+'\n','## 投稿前チェック(自分で確認が必要)']+[f'- [ ] {c}' for c in ds.get('checks',[])]+['- [ ] YouTubeの設問(AIの使用):完成動画の表現を公式基準と照合し、Studioの「AIの使用」を設定(サムネイル背景の生成画像・合成音声(VOICEVOX)を含めて、本物の人物・出来事と誤認させる表現がないか確認)','- [ ] **動画を通しで見る・聞く**(動き、ナレーションの読み、BGMの音量、画像の切り出しと説明の整合)','- [ ] 概要欄の外部リンクに必要な機能利用資格をStudioで確認し、公開後にリンクが開けるか確認する','- [ ] VOICEVOX:四国めたん / BGM(魔王魂)の最新規約',f'- [ ] 字幕:`out/{SLUG}_subtitles.srt` をアップロード(日本語)','- [ ] サムネイルを設定し、投稿後の表示(スマートフォンの小さな表示)を確認','']
+    L=[f'# YouTube 投稿用ドラフト：{ds["title_main"]}\n','## タイトル案']+[f'{i+1}. {t}' for i,t in enumerate(ds['titles'])]+['','## 概要欄(そのまま貼り付け用)\n','```',ds['intro'],'','■ チャプター']+chapters+['','■ 動画で確かめたこと(要点)']+[f'・{p}' for p in ds['points']]+['','■ 参考資料(確認に使ったもの)']+[f'・{r}' for r in ds['refs']]+['','■ 出典・クレジット']+ds.get('credit_lines',[])+imglines+[VOICE['credit_long'],BGM['credit_long'].format(tracks=tracks),'・図・表・年表:自作','','■ 注意']+[f'・{n}' for n in ds['notes']]+['・詳しい出典と素材のクレジットは、この概要欄にまとめています。','','■ このチャンネルについて',CH['about'],'```\n','## タグ案',ds['tags']+'\n','## 投稿前チェック(自分で確認が必要)']+[f'- [ ] {c}' for c in ds.get('checks',[])]+['- [ ] YouTubeの設問(AIの使用):完成動画の表現を公式基準と照合し、Studioの「AIの使用」を設定(サムネイル背景の生成画像・合成音声(VOICEVOX)を含めて、本物の人物・出来事と誤認させる表現がないか確認)','- [ ] **動画を通しで見る・聞く**(動き、ナレーションの読み、BGMの音量、画像の切り出しと説明の整合)','- [ ] 概要欄の外部リンクに必要な機能利用資格をStudioで確認し、公開後にリンクが開けるか確認する',f'- [ ] {CH["terms_check"]}',f'- [ ] 字幕:`out/{SLUG}_subtitles.srt` をアップロード(日本語)','- [ ] サムネイルを設定し、投稿後の表示(スマートフォンの小さな表示)を確認','']
     P(f'out/{SLUG}_description.md').write_text('\n'.join(L)+'\n',encoding='utf8');print('\n'.join(chapters),'\nduration',f'{int(dur//60)}分{int(dur%60)}秒')
 def stage_thumb():
-    th=SPEC['thumb'];W,H=1280,720;FDW='C:/Windows/Fonts/'
+    th=SPEC['thumb'];W,H=1280,720;FDW=FONTS['dir']
     def font(n):
-        if n>=100:f=ImageFont.truetype(FDW+'NotoSerifJP-VF.ttf',n);f.set_variation_by_axes([900]);return f
-        f=ImageFont.truetype(FDW+'NotoSansJP-VF.ttf',n);f.set_variation_by_axes([800]);return f
+        if n>=100:f=ImageFont.truetype(FDW+FONTS['serif'],n);f.set_variation_by_axes([900]);return f
+        f=ImageFont.truetype(FDW+FONTS['sans'],n);f.set_variation_by_axes([800]);return f
     def st(d,xy,text,f,fill,sw=10):d.text(xy,text,font=f,fill=fill,stroke_width=sw,stroke_fill=(6,10,18))
     if th.get('bg'):
         im=Image.open(P(th['bg'])).convert('RGBA');s=max(W/im.width,H/im.height);im=im.resize((int(im.width*s)+1,int(im.height*s)+1),Image.LANCZOS);x=(im.width-W)//2;y=(im.height-H)//2;im=im.crop((x,y,x+W,y+H))
