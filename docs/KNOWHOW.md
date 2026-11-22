@@ -148,3 +148,9 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 - 既存の `data/short_*.json`（旧形式）の標準形式への移行
 - 長尺と Shorts の自動ペアリング（現在は手動）
 | [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) | 2026-11-17追記: Analyticsの日別区切りは**太平洋時間**（JST 17:00）／**離脱は4〜7秒**（Ask Studio実測）／未予約在庫94本は既出の別版が多い |
+
+
+## 差し替え版（AIクリップ未使用のREJECT対応、2026-11-22）
+
+- 自作イラスト背景の `solo_thunder_metal` が「AIクリップを使っていない」とREJECTされたときは、元成果物を残したまま別slug（`thunder_metal_fv`）で台本・根拠を共有して作り直す（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の同名節）。
+- `scripts/google_ai_review.py` は **システムの Python312**（`C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe`）で実行する。プロジェクトの `.venv` には playwright も pip も入っていない。返答が「考えっています」のまま保存されることがあるので、保存文に回答本文があるか確認する。

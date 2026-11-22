@@ -766,3 +766,13 @@ younkaku を置いた）。
 - **読み辞書はフルネームで登録する。** 「日本大気電気学会」は「日本気象学会」とは別語。`pron` に完全形を入れないと VOICEVOX が「にっぽん」と読む。
 - 自作イラスト背景は `build()` 後に spec の `vid` を削り、`art` を差し替えて作れる（`gen_solo_thunder_metal.py` 参照）。AI映像を使わない場合でも「イメージ」と明記する。
 - 詳細は [`research/20261122_thunder_metal_sources.md`](research/20261122_thunder_metal_sources.md)。
+
+
+## REJECT対応：AIクリップ版への作り直し（2026-11-22、solo_thunder_metal_fv）
+
+- オーナーREJECTの理由は「AIクリップを使っていない」。自作イラスト版（`out/short_solo_thunder_metal.mp4`）は消さず、同一台本・根拠で `scripts/gen_solo_thunder_metal_fv.py`（slug `thunder_metal_fv`）を作成。`solo_spec.build()` が各シーンに `vid=assets/<slug>/fv/clipN.mp4` を入れるので、自作版でやった `vid` 削除はしない。
+- 背景プロンプトは `solo_spec.fv_prompts()` で「no people, no text, no buildings, no modern objects」を付与。5本を `bash scripts/fv_clips.sh thunder_metal_fv`（ComfyUI + FreeVideo/MiniMax H3、1本約9分）で生成し、生成直後に各クリップの代表フレームを目視して人物・文字・建造物がないことを確認した。**既存クリップの流用はしない**。
+- 書き出し：`python scripts/solo_ship.py build solo_thunder_metal_fv`。出力 `out/short_solo_thunder_metal_fv.mp4` は 1080x1920 / 30fps / 60.43秒 / h264+AAC / 21.4MB。全フレームデコードはエラーなし、`silencedetect` の無音は冒頭0.398秒のみ（既知の導入）。
+- AIクリップが実際に使われた証拠は、新旧動画の同じ時刻（4/15/28/40/53秒）のフレームを並べて確認した。自作版の雨のイラストに対し、FV版は積乱雲・金属球・枝と葦・撥水布の水滴・岩場と稲妻に変わっている。
+- **概要欄の改行バグ**: `solo_spec.build()` が `notes + bg_note` をそのまま連結していたため、`notes` が改行で終わらないと「…と明示。・動画内の図…」と1行に結合された。`solo_spec.py` 側で不足時のみ `\n` を挿入するよう修正し（全genスクリプト共通）、generator を再実行して JSON を更新、`out/short_<slug>_description.md` と `upload/short_<slug>/description.txt` にも同じ改行を入れた（生成器だけ直しても既存パックは変わらない）。
+- レビュー実行はシステム Python312（`.venv` に playwright / pip なし）。`scripts/google_ai_review.py` は回答が出た瞬間の本文を保存するため、途中経過（「AI モードが質問について考えています」）だけで終わることがある。そのため `google_ai_review.py` 本体を修正し、回答本文が3回連続で変わるまで待ってから保存するようにした（2026-11-22）。

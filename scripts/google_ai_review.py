@@ -106,18 +106,30 @@ def main():
         wait_enabled_send(pg).click()
         print('sent', a.mode, flush=True)
 
-        last = ''
+        # 「AI モードの回答」という見出しは思考中にも出る。回答本文が3回連続で
+        # 変わらないまで待ち、途中経過だけを保存しない（2026-11-22 実例）。
+        mark = 'に対する AI モードの回答'
+        t = ''
+        last_answer = ''
+        stable = 0
         end = time.time() + a.timeout
         while time.time() < end:
             pg.wait_for_timeout(4000)
             t = pg.locator('body').first.inner_text()
-            if len(t) > len(last):
-                last = t
-            if len(t) > 1200 and 'AI モードの回答' in t:
-                break
+            i = t.rfind(mark)
+            answer = t[i + len(mark):].strip() if i >= 0 else ''
+            if answer and len(answer) > 150 and 'AI モードが質問について考えています' not in answer:
+                if answer == last_answer:
+                    stable += 1
+                else:
+                    stable, last_answer = 0, answer
+                if stable >= 3:
+                    break
+        else:
+            print('警告: 回答の完了を確認できませんでした', flush=True)
         out = ROOT / 'out' / f'google_ai_review_{a.slug}_{a.mode}.txt'
-        out.write_text(last + '\n', encoding='utf-8')
-        print('saved', out, 'chars', len(last), flush=True)
+        out.write_text(t + '\n', encoding='utf-8')
+        print('saved', out, 'chars', len(t), flush=True)
         if not a.keep_open and created:
             pg.close()
 

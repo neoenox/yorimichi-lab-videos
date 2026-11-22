@@ -13,6 +13,7 @@ T = lambda gap, ev: dict(type='timeline', gap=gap, events=ev)
 
 def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None, credit=None, end_vid=None, hook_text=None, hook_label=None, end_q=None, tags=None, claims=None, needs_research=None, hook_card=True):
     import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
+    note_text = notes + ('' if notes.endswith('\n') else '\n') + (bg_note or BG_NOTE)   # notes と bg_note が1行に結合されないようにする
     (R / 'data' / f'{slug}_pron.json').write_text(json.dumps(pron, ensure_ascii=False), encoding='utf8')
     V = lambda n: f'assets/{slug}/fv/clip{n}.mp4'
     sc = []
@@ -22,7 +23,7 @@ def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None,
         if i: d['col'] = 'white'
         sc.append(d)
     sc.append(dict(text='', end=True, vid=(end_vid or V(1)), dim=0.7))
-    o = dict(title=title, head=head, pron=f'data/{slug}_pron.json', art='assets/tohoku/bg_one.png', hook=scenes[0]['text'], notes=notes + (bg_note or BG_NOTE), answer=answer, hook_text=hook_text, hook_label=hook_label, end_q=end_q, tags=tags,
+    o = dict(title=title, head=head, pron=f'data/{slug}_pron.json', art='assets/tohoku/bg_one.png', hook=scenes[0]['text'], notes=note_text, answer=answer, hook_text=hook_text, hook_label=hook_label, end_q=end_q, tags=tags,
              credit=(credit or CREDIT), suffix='整理', nolong=True, nolink=True, long_id=IDS['43_bukka']['video_id'], long_title='43_bukka', scenes=sc)
     if not hook_card:   # 冒頭の結論カード(0〜1.9秒)を出さない。ナレーションの第1文で答えを言う回に使う
         o['hook_card'] = False
@@ -36,7 +37,7 @@ def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None,
         v = s['viz']
         vz = ' / '.join(f'{a}={b}' for a, b in v['events']) if v['type'] == 'timeline' else json.dumps(v, ensure_ascii=False)
         L += [f'場面{i + 1}', f"  ナレーション: {s['text']}", f"  大見出し: {s['big']} / 小見出し: {s['sub']} / 出典表示: {s['src']}", f'  図: {vz}', f'  背景(AI生成映像)の予定: {bg_plan[i]}']
-    L += ['', '【終わりの画面のナレーション】' + (end_q or '') + '出典は、説明欄にまとめています。チャンネル登録も、お願いします。', '', '【説明欄(根拠と未確認)】', notes + (bg_note or BG_NOTE)]
+    L += ['', '【終わりの画面のナレーション】' + (end_q or '') + '出典は、説明欄にまとめています。チャンネル登録も、お願いします。', '', '【説明欄(根拠と未確認)】', note_text]
     out = Path('E:/rekishikaisetu/out') / f'script_solo_{slug}.txt'
     out.write_text('\n'.join(L), encoding='utf8')
     print('ok', slug, len('\n'.join(L)), '字')
