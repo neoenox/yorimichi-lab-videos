@@ -3,7 +3,7 @@
   python scripts/read_procedure.py --part N         # N番目の部分を表示(全部分を表示しないと、問題に進めない)
   python scripts/read_procedure.py --questions      # 確認問題を表示
   python scripts/read_procedure.py --answer 1=… 2=… # 答える(全問正解で印ができる)
-問題は E:/rekishikaisetu/docs/SOLO_SHORT_QUIZ.md から読む(書式は、その文書の冒頭)。手順書が変わると、印は無効になる。
+問題は、このプロジェクトの docs/SOLO_SHORT_QUIZ.md から読む(書式は、その文書の冒頭)。手順書が変わると、印は無効になる。
 """
 import json, re, sys, time, unicodedata
 from pathlib import Path

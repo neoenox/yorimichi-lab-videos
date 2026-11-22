@@ -898,3 +898,17 @@ Short の描画(`make_short.py`・`make_short2.py`)が持っていたチャン�
 - **罠**: `scripts/_build_*.py` は import しただけでビルドが走る。`regen_srt_vp.py` は import した時点で `sys.argv[1]` を読む。どちらも、動作確認で import しない。
 - **導入**: 新しい環境では `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`(ytcore を含む。numpy・Pillow・requests が要る)。CI は ytkit/ytcore を入れないので、これらを import するテストは skip される。
 
+## 運用の整理: どこで何をするか(2026-11-22)
+フォルダーとブランチが複数あって分かりにくかったので、役割を次のように決めた。
+
+| 場所 | 役割 |
+|---|---|
+| `E:\yt-shorts-kit`(ブランチ master) | **動画制作のコア**。`ytcore/`(描画・長尺のパイプライン)と `ytkit/`(ffmpeg・VOICEVOX など)。コアを直すのはここだけ |
+| `E:\rekishikaisetu-honnoji`(ブランチ master) | **動画を作る場所**。台本・素材・設定(`channel.toml`)・動画ごとのスクリプト。コードを直す・動画を作る・コミットするのは、ここだけ |
+| `E:\rekishikaisetu` | git リポジトリの**本体**(`.git`)と、**共有の置き場**(Python 環境 `.venv`、出力 `out/`・`sigcmp_view/`、`node_modules/`)。ここでコードを直さない |
+
+- **ブランチ**: 動画プロジェクトのブランチは `master` だけ。`E:\rekishikaisetu` は、同じブランチを2か所で開けないため、master の位置に合わせた detached HEAD にしてある(作業用の `e-main` は廃止)。
+- **共有の置き場が E: にある理由**: 本番のスクリプトが、`out/script_solo_<slug>.txt`(台本レビュー用のテキスト)、`sigcmp_view/`(レビュー用の動画)、Remotion の Chrome(`node_modules/`)を、`E:/rekishikaisetu/...` と直接指している(`solo_spec.py`・`solo_ship.py`・`muse_review.py`・`cleanup_uploaded.py` など)。これらは出力・素材の置き場なので、場所はそのまま。
+- **手順書の読み取り確認の門番(`procedure_gate.py`)は、手順書を自分のプロジェクトの `docs/` から読む**。以前は `E:/rekishikaisetu/docs` の絶対パスで、honnoji で手順書を直しても、古い E: のコピーを見続ける原因になっていた(`tests/test_procedure_gate.py`)。印のハッシュは内容だけで決まるので、パスを変えても既存の印は有効。
+- **手順書(`SOLO_SHORT_PROCEDURE.md`)の中にある E: のパス(7か所)は、まだ直していない**。直すと、手順書のハッシュが変わって、全員の確認の印が無効になる(確認をやり直す)ため。次に手順書を更新するときに、一緒に直す。
+

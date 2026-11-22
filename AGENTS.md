@@ -8,7 +8,7 @@
 
 ## 単独Short（YouTube Short）を作る・公開するときは、手順書の読み取り確認が必須
 
-単独Shortの台本生成・背景生成・ビルド・アップ・公開予約・X予約の前に、`E:\rekishikaisetu\docs\SOLO_SHORT_PROCEDURE.md` を**全文**読み、確認問題に答えてください。読んだことの証明は、次の操作でしか作れません（`E:\rekishikaisetu-honnoji` で実行）。
+単独Shortの台本生成・背景生成・ビルド・アップ・公開予約・X予約の前に、`E:\rekishikaisetu-honnoji\docs\SOLO_SHORT_PROCEDURE.md` を**全文**読み、確認問題に答えてください。読んだことの証明は、次の操作でしか作れません（`E:\rekishikaisetu-honnoji` で実行）。
 
 1. `python scripts/read_procedure.py`（全体と部分の数）
 2. `python scripts/read_procedure.py --part 1` … 最後の部分まで、すべて表示して読む（未表示だと問題に進めない）

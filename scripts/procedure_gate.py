@@ -1,7 +1,7 @@
 """単独Short手順書の「読み取り確認」の門番。
 
   ・印(確認済み)は data/.procedure_ack.json。`python scripts/read_procedure.py` を最後まで進め、確認問題に全問正解した人だけが作れる。
-  ・印は、手順書(E:/rekishikaisetu/docs/SOLO_SHORT_PROCEDURE.md)の内容(ハッシュ)が変わると無効になる。24時間で期限切れ。
+  ・印は、手順書(このスクリプトのあるプロジェクトの docs/SOLO_SHORT_PROCEDURE.md)の内容(ハッシュ)が変わると無効になる。24時間で期限切れ。
   ・台本生成(solo_spec.build / fv_prompts)、solo_ship.py、solo_schedule.py が require() を呼び、印が無ければ止まる。
   ・`python scripts/procedure_gate.py hook` は Claude Code の PreToolUse フック用(標準入力のJSONを読み、対象コマンドを印なしで呼ぶと exit 2 で止める)。
   ・非常用: 環境変数 PROCEDURE_ACK_SKIP=1 で通せる(警告を出す)。使ったら、理由をユーザーに報告すること。
@@ -15,8 +15,10 @@ for _s in (sys.stdout, sys.stderr):
     except Exception:
         pass
 R = Path(__file__).resolve().parents[1]
-DOC = Path('E:/rekishikaisetu/docs/SOLO_SHORT_PROCEDURE.md')
-QUIZ = Path('E:/rekishikaisetu/docs/SOLO_SHORT_QUIZ.md')
+# 手順書と確認問題は、このスクリプトと同じプロジェクト(R)の docs/ から読む。
+# 以前は E:/rekishikaisetu の絶対パスだったが、作業の場(honnoji)で手順書を直しても、門番が古いコピーを見続ける原因になるため、相対にした。
+DOC = R / 'docs' / 'SOLO_SHORT_PROCEDURE.md'
+QUIZ = R / 'docs' / 'SOLO_SHORT_QUIZ.md'
 ACK = R / 'data' / '.procedure_ack.json'
 STATE = R / 'data' / '.procedure_read.json'
 TTL = 24 * 3600
