@@ -196,23 +196,18 @@ def draw_visual(d, kind, a, k):
 
 
 def synth(spec, work):
-    import requests
-    sp = requests.get(BASE + '/speakers', timeout=60).json()
-    style = next(x['id'] for s in sp if s['name'] == '四国めたん' for x in s['styles'] if x['name'] == 'ノーマル')
+    from ytkit import voicevox as vv   # 共通部品（E:\yt-shorts-kit）
+    style = vv.speaker_id('四国めたん', 'ノーマル', base=BASE, timeout=60)
     dic = json.loads((ROOT / spec['pron']).read_text(encoding='utf8'))
     segs, pcms, rate, t = [], [], 24000, 0.25
     for i, sc in enumerate(spec['scenes']):
-        spoken = sc['text']
-        for kk, v in sorted(dic.items(), key=lambda z: -len(z[0])):
-            spoken = spoken.replace(kk, v)
-        q = requests.post(BASE + '/audio_query', params={'text': spoken, 'speaker': style}, timeout=120).json()
-        q.update(speedScale=SPEED, intonationScale=1.08, prePhonemeLength=.1, postPhonemeLength=.3, outputSamplingRate=24000)
-        r = requests.post(BASE + '/synthesis', params={'speaker': style}, json=q, timeout=180); r.raise_for_status()
-        p = work / f'n_{i:02}.wav'; p.write_bytes(r.content)
+        spoken = vv.apply_pron(sc['text'], dic)
+        wav, kana = vv.synth(spoken, style, SPEED, intonation=1.08, base=BASE)
+        p = work / f'n_{i:02}.wav'; p.write_bytes(wav)
         with wave.open(str(p)) as w:
             pcm = np.frombuffer(w.readframes(w.getnframes()), np.int16); rate = w.getframerate()
         dur = len(pcm) / rate
-        segs.append(dict(i=i, text=sc['text'], kind=sc['kind'], start=t, end=t + dur, kana=q['kana']))
+        segs.append(dict(i=i, text=sc['text'], kind=sc['kind'], start=t, end=t + dur, kana=kana))
         pcms.append(pcm); t += dur + 0.35
         pcms.append(np.zeros(int(0.35 * rate), np.int16))
     total = t + 0.6

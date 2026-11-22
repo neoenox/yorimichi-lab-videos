@@ -229,52 +229,83 @@ def sub_clean(c):
     return re.sub(r'[、。]+', '\n', c).strip()
 
 
-def render(spec, segs, total, out_mp4, slug):
-    n = round(total * FPS)
+def subtitle_chunks(segs):
+    """場面ごとの字幕を、句読点で区切った塊に分け、文字数で按分した (開始, 終了, 文字列) の並び。"""
     cks = []
     for s in segs:
         cs = chunks(display(s['text'])); ws = [len(c) for c in cs]; tot = sum(ws); t0 = s['start']; dur = s['end'] - s['start']
         for c, w in zip(cs, ws):
             cks.append((t0, t0 + dur * w / tot, sub_clean(c))); t0 += dur * w / tot
+    return cks
+
+
+_VSTILL = {}
+
+
+def _vid_still(path, dim):
+    """動画背景の先頭の1コマ(静止画)。冒頭プレビュー専用。
+    vid_frame は ffmpeg の出力を順に読む作りで、任意の時刻では呼べないため、プレビューでは補間なしの先頭コマで代える。"""
+    key = (path, round(dim, 2))
+    if key not in _VSTILL:
+        vf = (f'scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},'
+              f'lutrgb=r=val*{dim}:g=val*{dim}:b=val*{dim}')
+        buf = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', str(ROOT / path), '-an', '-frames:v', '1', '-vf', vf,
+                                       '-f', 'rawvideo', '-pix_fmt', 'rgb24', 'pipe:1'])
+        _VSTILL[key] = Image.frombytes('RGB', (W, H), buf)
+    return _VSTILL[key].copy()
+
+
+def frame_at(spec, segs, cks, t, preview=False):
+    """時刻 t の1コマ(RGBA)。render と first_frame_preview で共有する。
+    動画背景(vid)は、本番(preview=False)は時刻順に呼ぶ前提で vid_frame を使い、preview=True は先頭コマの静止画で代える。"""
+    seg = next((s for s in segs if s['start'] - 0.2 <= t < s['end'] + 0.35), segs[-1] if t >= segs[-1]['end'] else segs[0])
+    sc = spec['scenes'][seg['i']]
+    k = t - (seg['start'] - 0.2); a = min(1.0, max(0.0, k / 0.35))
+    ratio = min(1.0, k / max(1.0, seg['end'] - seg['start']))
+    if sc.get('vid'):   # AI生成の動画背景（場面ごと）。無ければ従来の静止画
+        if preview:
+            im = _vid_still(sc['vid'], sc.get('dim', 0.55)).convert('RGBA')
+        else:
+            im = vid_frame(sc['vid'], sc.get('dim', 0.55), seg['i'], seg['end'] - seg['start'] + 0.55).convert('RGBA')
+    else:
+        im = bg(sc.get('art') or spec['art'], ratio, sc.get('dim', 0.55), spec.get('bg_fit', 1.12)).convert('RGBA')
+    hook_on = bool(spec.get('hook_card', True) and spec.get('answer') and t < 2.25)
+    if hook_on:   # 結論カードの間は、後ろの見出し・図を出さない(重なり防止)。カードが消えてから出す
+        a = max(0.0, min(1.0, (t - 1.9) / 0.35))
+    if hook_on:   # PILは透明度0でも文字を描いてしまうので、見出し・図そのものを描かない(ヘッダーだけ)
+        draw_scene(im, {k: v for k, v in sc.items() if k not in ('big', 'sub', 'viz', 'src')}, spec, 1.0)
+    else:
+        draw_scene(im, sc, spec, a)
+        draw_viz(im, sc, int(255 * a), max(0.0, t - seg['start']))
+    if spec.get('hook_card', True):
+        draw_hook(im, spec, t)
+    ck = next((c for c in cks if c[0] <= t < c[1]), None)
+    if ck and not (spec.get('hook_card', True) and spec.get('answer') and t < 1.75):   # 結論カードと字幕が同じことを二重に言わないようにする
+        d = ImageDraw.Draw(im, 'RGBA')
+        fs = 60
+        lns = [w for part in ck[2].split('\n') for w in wrap(d, part, font(fs), 880)]
+        while len(lns) * int(fs * 1.4) + 46 > 300 and fs > 40:   # 字幕の枠を y=1240 より下に収め、出典の帯(y=1200±29)に被らないようにする
+            fs -= 4; lns = [w for part in ck[2].split('\n') for w in wrap(d, part, font(fs), 880)]
+        lh = int(fs * 1.4)
+        nh = len(lns) * lh
+        h = nh + 46
+        y0 = 1540 - h
+        d.rounded_rectangle((50, y0, 960, 1540), 16, fill=(7, 24, 36, 225))
+        y = y0 + (h - nh) // 2 + lh // 2
+        for ln in lns:
+            rich.draw_center(d, 505, y - lh // 2, ln, font(fs), (255, 252, 239, 255), (255, 208, 122)); y += lh
+    return im
+
+
+def render(spec, segs, total, out_mp4, slug):
+    n = round(total * FPS)
+    cks = subtitle_chunks(segs)
     st = lambda t: (lambda ms: f'{ms // 3600000:02}:{ms // 60000 % 60:02}:{ms // 1000 % 60:02},{ms % 1000:03}')(round(t * 1000))
     (ROOT / 'out' / f'short_{slug}_subtitles.srt').write_text('\n\n'.join(f'{i + 1}\n{st(a)} --> {st(b)}\n{c}' for i, (a, b, c) in enumerate(cks)) + '\n', encoding='utf8')
     proc = subprocess.Popen(['ffmpeg', '-y', '-v', 'warning', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', 'pipe:0',
                              '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', str(out_mp4)], stdin=subprocess.PIPE)
     for fi in range(n):
-        t = fi / FPS
-        seg = next((s for s in segs if s['start'] - 0.2 <= t < s['end'] + 0.35), segs[-1] if t >= segs[-1]['end'] else segs[0])
-        sc = spec['scenes'][seg['i']]
-        k = t - (seg['start'] - 0.2); a = min(1.0, max(0.0, k / 0.35))
-        ratio = min(1.0, k / max(1.0, seg['end'] - seg['start']))
-        if sc.get('vid'):   # AI生成の動画背景（場面ごと）。無ければ従来の静止画
-            im = vid_frame(sc['vid'], sc.get('dim', 0.55), seg['i'], seg['end'] - seg['start'] + 0.55).convert('RGBA')
-        else:
-            im = bg(sc.get('art') or spec['art'], ratio, sc.get('dim', 0.55), spec.get('bg_fit', 1.12)).convert('RGBA')
-        hook_on = bool(spec.get('hook_card', True) and spec.get('answer') and t < 2.25)
-        if hook_on:   # 結論カードの間は、後ろの見出し・図を出さない(重なり防止)。カードが消えてから出す
-            a = max(0.0, min(1.0, (t - 1.9) / 0.35))
-        if hook_on:   # PILは透明度0でも文字を描いてしまうので、見出し・図そのものを描かない(ヘッダーだけ)
-            draw_scene(im, {k: v for k, v in sc.items() if k not in ('big', 'sub', 'viz', 'src')}, spec, 1.0)
-        else:
-            draw_scene(im, sc, spec, a)
-            draw_viz(im, sc, int(255 * a), max(0.0, t - seg['start']))
-        if spec.get('hook_card', True):
-            draw_hook(im, spec, t)
-        ck = next((c for c in cks if c[0] <= t < c[1]), None)
-        if ck and not (spec.get('hook_card', True) and spec.get('answer') and t < 1.75):   # 結論カードと字幕が同じことを二重に言わないようにする
-            d = ImageDraw.Draw(im, 'RGBA')
-            fs = 60
-            lns = [w for part in ck[2].split('\n') for w in wrap(d, part, font(fs), 880)]
-            while len(lns) * int(fs * 1.4) + 46 > 300 and fs > 40:   # 字幕の枠を y=1240 より下に収め、出典の帯(y=1200±29)に被らないようにする
-                fs -= 4; lns = [w for part in ck[2].split('\n') for w in wrap(d, part, font(fs), 880)]
-            lh = int(fs * 1.4)
-            nh = len(lns) * lh
-            h = nh + 46
-            y0 = 1540 - h
-            d.rounded_rectangle((50, y0, 960, 1540), 16, fill=(7, 24, 36, 225))
-            y = y0 + (h - nh) // 2 + lh // 2
-            for ln in lns:
-                rich.draw_center(d, 505, y - lh // 2, ln, font(fs), (255, 252, 239, 255), (255, 208, 122)); y += lh
+        im = frame_at(spec, segs, cks, fi / FPS)
         proc.stdin.write(im.convert('RGB').tobytes())
     proc.stdin.close(); proc.wait()
 
