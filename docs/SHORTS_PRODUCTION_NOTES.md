@@ -798,3 +798,12 @@ younkaku を置いた）。
 - 公開済み・予約済みを含む全377本をAPI走査し、内部レビューメモが残っていた57本の説明欄を差し替えた。最終スキャンは該当0件。
 - 共同部品 `solo_spec.public_notes()` が内部メモ行を除去する。`ChatGPT(OpenAI)による生成イラスト` などの正当なクレジット行は保持する。
 - 動画IDと予約時刻は変更しない。`videos().update(part='snippet')` は `status.publishAt` を維持するが、更新後に読み戻して確認すること。
+
+
+## 手順ゲートと背景生成の落とし穴（2026-11-22、water_2l）
+
+- `scripts/read_procedure.py` の確認印は **24時間で失効**する。セッションをまたいで背景生成を始めると `fv_clips.sh` が「手順書を読み取り確認していません」で止まる。その場合は `read_procedure.py` → `--part 1..4` → `--questions` → `--answer ...` をやり直す。
+- `fv_clips.sh` は `python scripts/solo_ship.py clips` を使っていたが、この環境の `python` は WindowsApps のスタブで、実際には何も生成せず「Python DONE」と出ていた。スクリプト内で `.venv/Scripts/python.exe` を優先するよう修正した。
+- `fv_clips.sh` は Git Bash の `/e/...` パスを使うため、`C:\Program Files\Git\bin\bash.exe` の絶対パスで呼ぶ。
+
+- `PYTHONPATH` がセッションから漏れていると、ComfyUI が Python311 の壊れた PIL を読んで起動失敗（`cannot import name '_imaging'`）し、`freevideo_batch.py` は `SERVER DOWN` で終わる。`fv_clips.sh` の先頭で `unset PYTHONPATH` するよう修正した（2026-11-22）。
