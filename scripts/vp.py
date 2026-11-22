@@ -604,7 +604,7 @@ def _code_fp():
     h=hashlib.sha1()
     for f in sorted(list(P('scripts').glob('vp*.py'))+[Path(sys.modules[m].__file__) for m in ('hn_text','thin_commas','rich_text')],key=lambda f:f.name):   # 実体は ytcore（shim ではなく中身の指紋を取る）。名前順にして、移す前と同じ並びで指紋を取る
         if f.name.startswith(('vp_before','vp_check','vp_preview','vp_lock','vp_remix')) or not f.exists():continue
-        b=f.read_bytes()
+        b=f.read_bytes().replace(b'\r',b'')   # 行末(CRLF/LF)は、チェックアウトの設定でツリーごとに違う。指紋は内容だけで取る
         if f.name=='vp.py':   # vp.py は、描画の部分（text helpers〜stages）だけを見る。コマンドや段取りの変更で、部品を作り直さない
             t=b.decode('utf8').replace('\r','');a_=t.index('# ---------------------------------------------------------------- text helpers');z_=t.index('# ---------------------------------------------------------------- stages');b=t[a_:z_].encode('utf8')
         h.update(f.name.encode());h.update(b)
