@@ -885,3 +885,13 @@ Short の描画(`make_short.py`・`make_short2.py`)が持っていたチャン�
 - **長尺 `vp.py` も同じ `channel.toml` を読む(2026-11-22)**: `[voice]` の話速・音声レポートの話者欄・長尺の概要欄のクレジット(半角コロン書式)、`[bgm]` のフォルダー・ファイル名の規則・長尺の音楽クレジット(`{tracks}`)・`[bgm.names]`(曲名の頭の英字→日本語名)、`[channel]` の紹介文・規約確認の項目、`[fonts]`(描画とサムネイル)。一時プロジェクト(drain の spec を使い、VOICEVOX を模擬)で、story→kana→audio→bgm→コマ描画(6コマ)→概要欄→サムネイルを旧新で動かし、字幕・ナレーション音声・BGM・概要欄・サムネイル・音声レポート・VOICEVOX への要求120件の**23項目がすべて一致**した。`build`(エンコード)は比較に含めていない。
 - **まだ設定化していないもの**: 色(GOLD・NAVY など)、画面の座標、`vp.py` のエンコード設定(NVENC など)、`gm_*.py` などの別描画スクリプトのフォント直書き、`yt_api.py` のチャンネル固有記述、手順書と確認の仕組み(絶対パス)。`make_short.py` の旧 drain の概要欄にある `#Shorts #雑学 #科学` は、その動画の内容なので残した。
 - **テスト**: `tests/test_channel_config.py`(必須キー、概要欄・キャプションが設定に従う、`YT_PROJECT_ROOT` で別チャンネルに切り替わる、キー不足でキー名つきで止まる)。共通部品 ytkit が無い環境(CI)では飛ばす。
+
+## コアの別リポジトリ化(ytcore、2026-11-22)
+動画制作のコアの一部を、共通部品リポジトリ `E:\yt-shorts-kit` の `ytcore` パッケージへ移した。`scripts/` の同名ファイルは**薄い入口(shim)**で、`import make_short` も `python scripts/make_short2.py <slug>` も従来どおり動く。
+- **移したもの(7本)**: `hn_text.py`・`rich_text.py`・`thin_commas.py`・`make_short.py`・`make_short2.py`・`first_frame_preview.py`・`vp_lock.py`。履歴は `git filter-repo` で付け替えて保った(kit 側で `git log -- ytcore/make_short2.py`)。実体を直すときは**kit 側**を直す。shim は直さない。
+- **仕組み**: shim が環境変数 `YT_PROJECT_ROOT` をこのリポジトリのルートに設定し、`ytcore.<名前>` を読み込んで `sys.modules` を差し替える(`import` した側は ytcore の実体を直接得る)。`python scripts/<名前>.py` は `runpy` で `__main__` として実行する。ytcore 側は、環境変数 → shim 側の channel.toml → カレントから上へ探す、の順でプロジェクトの場所を決める(`ytkit.project.project_root`)。
+- **描画コードの指紋は変わらない**: `vp.py` の `_code_fp()`(部品キャッシュの有効判定)は、`hn_text`・`thin_commas`・`rich_text` の**実体**のファイルを名前順に読む。移す前後で指紋が同じ(`943e35f8…`)なので、既存の `cache/` の部品は作り直しにならない。**ytcore のこれらのファイルを書き換えると、全部品が作り直しになる**。
+- **確認したこと**: Short の旧新比較(終了カード4種の全コマ・概要欄・ffmpegコマンドなど81項目)と長尺の旧新比較(23項目)が、移した後も一致。`hn_text.py`・`thin_commas.py` を直接実行した出力も一致。別のフォルダーから `first_frame_preview.py` を実行してもルートが正しく決まる。
+- **まだ移していないもの**: 長尺 `vp.py`。`vp_anim*.py`(プロジェクト側、約1,700行)を `bind(globals())` で結び、部品の描画を `__file__` からのサブプロセスで実行し、指紋をファイルのパスで取る。移すには、これらの作りを先に見直す必要がある(別の作業)。
+- **導入**: 新しい環境では `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`(ytcore を含む。numpy・Pillow・requests が要る)。CI は ytkit/ytcore を入れないので、これらを import するテストは skip される。
+

@@ -602,7 +602,7 @@ def loud_args(path):
 def _code_fp():
     """描画に関わるコード全体の指紋（コードが変わったら、全部品を作り直す）"""
     h=hashlib.sha1()
-    for f in sorted(list(P('scripts').glob('vp*.py'))+[P('scripts/hn_text.py'),P('scripts/thin_commas.py'),P('scripts/rich_text.py')]):
+    for f in sorted(list(P('scripts').glob('vp*.py'))+[Path(sys.modules[m].__file__) for m in ('hn_text','thin_commas','rich_text')],key=lambda f:f.name):   # 実体は ytcore（shim ではなく中身の指紋を取る）。名前順にして、移す前と同じ並びで指紋を取る
         if f.name.startswith(('vp_before','vp_check','vp_preview','vp_lock','vp_remix')) or not f.exists():continue
         b=f.read_bytes()
         if f.name=='vp.py':   # vp.py は、描画の部分（text helpers〜stages）だけを見る。コマンドや段取りの変更で、部品を作り直さない
