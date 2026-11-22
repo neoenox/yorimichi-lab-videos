@@ -161,3 +161,5 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 - **概要欄（説明欄）は視聴者向けだけにする。** レビューの採用／不採用、字幕の改行判断、「動画では使っていないこと」、調査のタイムアウト記録などは内部メモで、`docs/research/` に残す。2026-11-22 に3本の公開ずみ説明欄へ内部メモが混入したため、`gen_solo_*.py` の `notes` を公開用に短縮し、APIで説明欄を差し替えた（予約時刻は維持）。`bg_note=''` を渡すと背景クレジットの重複を省ける（`solo_spec.build()` が空文字を尊重）。
 
 - 2026-11-22: 全377本の説明欄を走査し、内部メモが残っていた57本をAPIで除去（`docs/research/20261122_description_cleanup.md`）。`scripts/solo_spec.py` の `public_notes()` が `build()` 時に内部メモ行を落とすので、generator を再実行すれば清潔な説明欄が作れる。走査は `videos().list(part='snippet,status')` とパターン照合で再現可能。
+
+- スワイプ率は Analytics API に無く Studio 画面のみ。`scripts/studio_swipe.py <video_id>` で CDP 9222 の Studio 分析から「視聴を継続／スワイプして消去」を読める（2026-11-23追加、既存3本で実測一致を確認）。KPI判定は [`kpi_swipe_tracking.md`](kpi_swipe_tracking.md) の閾値と手順に従う。
