@@ -70,6 +70,13 @@ def test_missing_key_stops_with_the_key_name(tmp_path):
 
 # ---- 長尺 vp.py
 
+_FULL_TOML = (
+    '[channel]\nname = "N"\ntagline = "t"\ntagline_tiktok = "tt"\nabout = "ABOUT-L"\nterms_check = "TERMS-L"\n'
+    '[voice]\nspeaker = "SPK"\nstyle = "STY"\ncredit = "c"\nspeed = 1.1\nlabel = "LBL"\ncredit_long = "VC-L"\n'
+    '[bgm]\nfile = "b.mp3"\ncredit = "bc"\ndir = "x/bgm"\npattern = "song_{name}.wav"\ncredit_long = "MUSIC {tracks}"\n'
+    '[bgm.names]\npiano = "Piano"\n'
+    '[fonts]\ndir = "D:/f/"\nsans = "a.ttf"\nserif = "b.ttf"\n[hashtags]\nshorts = "#s"\ntiktok = "#t"\n')
+
 def _run_vp(code, root=None):
     import os
     env = {**os.environ, 'PYTHONUTF8': '1'}
@@ -90,11 +97,32 @@ def test_vp_follows_another_channels_config(tmp_path):
         '[voice]\nspeaker = "SPK"\nstyle = "STY"\ncredit = "c"\nspeed = 1.1\nlabel = "LBL"\ncredit_long = "VC-L"\n'
         '[bgm]\nfile = "b.mp3"\ncredit = "bc"\ndir = "x/bgm"\npattern = "song_{name}.wav"\ncredit_long = "MUSIC {tracks}"\n'
         '[bgm.names]\npiano = "Piano"\n'
-        '[fonts]\ndir = "D:/f/"\nsans = "a.ttf"\nserif = "b.ttf"\n[hashtags]\nshorts = "#s"\ntiktok = "#t"\n', encoding='utf-8')
+        '[fonts]\ndir = "D:/f/"\nsans = "a.ttf"\nserif = "b.ttf"\n[hashtags]\nshorts = "#s"\ntiktok = "#t"\n'
+        '[project]\nplugin_dir = "plug"\n', encoding='utf-8')
     r = _run_vp('import vp; print(vp.SPEED, vp.VOICE["speaker"], vp.VOICE["label"], vp.MAOU["piano7"], vp.BGM["dir"], '
                 'vp.BGM["credit_long"].format(tracks="T"), vp.CH["terms_check"], vp.SPEC_F["serif"][0], vp.FONTS["dir"])', tmp_path)
     assert r.returncode == 0, r.stderr[-400:]
     assert r.stdout.split() == ['1.1', 'SPK', 'LBL', 'Piano7', 'x/bgm', 'MUSIC', 'T', 'TERMS-L', 'b.ttf', 'D:/f/']
+
+
+def test_vp_plugin_dir_comes_from_the_config_and_is_put_on_sys_path(tmp_path):
+    (tmp_path / 'plug').mkdir()
+    (tmp_path / 'channel.toml').write_text(_FULL_TOML + '[project]\nplugin_dir = "plug"\n', encoding='utf-8')
+    r = _run_vp('import vp, sys; print(vp.PLUGIN_DIR, str(vp.PLUGIN_DIR) in sys.path)', tmp_path)
+    assert r.returncode == 0, r.stderr[-400:]
+    assert r.stdout.split()[-1] == 'True' and r.stdout.split()[0].endswith('plug')
+
+
+def test_vp_stops_when_plugin_dir_is_missing_from_the_config(tmp_path):
+    (tmp_path / 'channel.toml').write_text(_FULL_TOML, encoding='utf-8')
+    r = _run_vp('import vp', tmp_path)
+    assert r.returncode != 0 and 'project.plugin_dir' in r.stderr
+
+
+def test_vp_is_the_ytcore_module_and_workers_run_it_as_a_module():
+    r = _run_vp('import vp; print(vp.__name__, vp.__file__.replace(chr(92), "/").split("/")[-2:])')
+    assert r.returncode == 0, r.stderr[-400:]
+    assert r.stdout.startswith('ytcore.vp') and 'ytcore' in r.stdout
 
 
 def test_vp_stops_with_the_missing_long_form_key(tmp_path):

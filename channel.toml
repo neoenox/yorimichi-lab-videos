@@ -49,3 +49,8 @@ serif = "NotoSerifJP-VF.ttf"
 # 概要欄(YouTube)と TikTok キャプションの既定。spec の hashtags があればそちらを使う(TikTok)
 shorts = "#Shorts #雑学"
 tiktok = "#歴史 #雑学"
+
+[project]
+# コア(ytcore)が探す、プロジェクト側のプラグインの置き場所(ROOT からの相対パス)。
+# vp_anim*.py(動く図)・make_upload_pack.py・ffmpeg_skill_check.py など、動画ごとの部品がここにある
+plugin_dir = "scripts"
