@@ -1,10 +1,13 @@
 annotated-types==0.8.0
+attrs==26.1.0
 beautifulsoup4==4.15.0
 certifi==2026.7.22
 charset-normalizer==3.5.2
 colorama==0.4.6
 idna==3.20
 iniconfig==2.3.1
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
 numpy==2.5.4
 opencv-python-headless==4.13.0.92
 packaging==26.3
@@ -16,7 +19,10 @@ pydantic-core==2.50.1
 pygments==2.21.0
 pyproj==3.8.0
 pytest==9.1.1
+pyyaml==6.0.4
+referencing==0.37.0
 requests==2.34.2
+rpds-py==2026.9.1
 scipy==1.18.1
 soupsieve==3.0.3
 typing-extensions==4.16.0
