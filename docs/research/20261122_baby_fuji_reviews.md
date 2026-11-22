@@ -9,7 +9,7 @@
 | `solo_fuji` | 富士山頂はどの県のもの？ | 56.6秒 | 「このまま公開可」 |
 
 ここまでで**台本レビュー（Google AI モード）と動画レビュー（Google AI モード）は完了**。
-アップロード・予約・根拠テーブルゲートは未実施（下記「未実施」を参照）。
+アップロード・予約は 2026-11-22 にオーナー許可で実施（下記「お試しアップロード」を参照）。根拠テーブルゲートは通っていない（二次資料のみ）。
 
 ## 方法
 
@@ -75,7 +75,7 @@
 
 - **ChatGPT の台本レビュー**: CDP 9222 が未ログインで送信不可。
 - **`claims` / `needs_research` の記入と `check_short_evidence.py`**: 3本とも空。アップ前ゲートに通すには記入が必要。
-- 人間の全編実聴、連続通し視聴、スマホ実機確認、Studio の公開設定、アップロード・予約: 未実施。
+- 人間の全編実聴、連続通し視聴、スマホ実機確認: 未実施。
 - 移動・表情のあるフック映像の作り直し: 未実施（上記のとおり不採用）。
 
 ## 使ったコマンド（再現用）
@@ -91,3 +91,17 @@ python scripts/google_ai_review.py solo_baby_hone --mode script
 python scripts/review_short_cdp.py solo_baby_hone chatgpt   # 未ログインで失敗
 python scripts/pack_short.py solo_baby_hone --tags=...
 ```
+
+
+## お試しアップロード（2026-11-22、オーナー指示）
+
+- オーナー指示「赤ちゃん系の動画はお試しにアップロードしたい。直近でいい感じの時間帯に上げて」を受け、赤ちゃん2本を直近の空き枠（20:00）へ予約した。
+- `solo_schedule.py` は根拠テーブルゲートで止まるため、今回は `scripts/yt_api.py upload` → AI使用フラグ設定 → `yt_api.py schedule` → 台帳更新の手順で実行。`check_short_evidence.py` と標準ルールは変更していない。
+- 結果（すべて非公開のまま公開予約、字幕添付済み）:
+  | pack | 動画ID | 公開予約（JST） |
+  | --- | --- | --- |
+  | `short_solo_baby_namida` | `vSukBizCm4c` | 2026-11-26 20:00 |
+  | `short_solo_baby_hone` | `FNWwzx9sFGs` | 2026-11-27 20:00 |
+- `containsSyntheticMedia=True` をAPIで書き込んだ。読み戻しは None（既知の挙動）。Studio の「AI を使用」ラジオは今回のUIでは表示されず、 radio による確認は未実施。
+- `check_slots.py --days 10` で3本の予約を確認、同時刻の重複なし。
+- **残るリスク**: 根拠は英語版Wikipedia／Cleveland Clinic／日本語版Wikipediaの二次資料のみ。一次資料（解剖学教科書・小児科/眼科のガイドライン等）は未確認。お試し公開の扱いとし、通常の新作ゲート（一次資料必須）は維持する。

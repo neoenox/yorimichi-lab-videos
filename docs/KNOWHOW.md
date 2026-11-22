@@ -154,3 +154,6 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 
 - 自作イラスト背景の `solo_thunder_metal` が「AIクリップを使っていない」とREJECTされたときは、元成果物を残したまま別slug（`thunder_metal_fv`）で台本・根拠を共有して作り直す（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の同名節）。
 - `scripts/google_ai_review.py` は **システムの Python312**（`C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe`）で実行する。プロジェクトの `.venv` には playwright も pip も入っていない。返答が「考えっています」のまま保存されることがあるので、保存文に回答本文があるか確認する。
+
+- YouTube API（アップロード／予約）は **Python312 + `PYTHONPATH=C:/Users/neoen/AppData/Local/Programs/Python/Python311/Lib/site-packages`** で動かす（Python311 は site-packages だけ残っていて python.exe が無い）。`check_slots.py` / `yt_api.py` はこの組み合わせで実動確認済み。
+- オーナーが「お試しにアップロード」と明示した場合は、根拠ゲートを緩めずに `yt_api.py upload` 経路で手動アップし、二次資料のみであることを research に残す（2026-11-22 赤ちゃん2本）。

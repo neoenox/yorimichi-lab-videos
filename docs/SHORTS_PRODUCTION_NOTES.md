@@ -776,3 +776,11 @@ younkaku を置いた）。
 - AIクリップが実際に使われた証拠は、新旧動画の同じ時刻（4/15/28/40/53秒）のフレームを並べて確認した。自作版の雨のイラストに対し、FV版は積乱雲・金属球・枝と葦・撥水布の水滴・岩場と稲妻に変わっている。
 - **概要欄の改行バグ**: `solo_spec.build()` が `notes + bg_note` をそのまま連結していたため、`notes` が改行で終わらないと「…と明示。・動画内の図…」と1行に結合された。`solo_spec.py` 側で不足時のみ `\n` を挿入するよう修正し（全genスクリプト共通）、generator を再実行して JSON を更新、`out/short_<slug>_description.md` と `upload/short_<slug>/description.txt` にも同じ改行を入れた（生成器だけ直しても既存パックは変わらない）。
 - レビュー実行はシステム Python312（`.venv` に playwright / pip なし）。`scripts/google_ai_review.py` は回答が出た瞬間の本文を保存するため、途中経過（「AI モードが質問について考えています」）だけで終わることがある。そのため `google_ai_review.py` 本体を修正し、回答本文が3回連続で変わるまで待ってから保存するようにした（2026-11-22）。
+
+
+## お試しアップロードとAPI環境（2026-11-22）
+
+- 根拠テーブルが空のままオーナーから「お試しにアップロード」と指示されたときは、`solo_schedule.py` のゲートを迂回せず、その旨を research に記録したうえで `yt_api.py upload` → `videos().update(status.containsSyntheticMedia=True)` → `yt_api.py schedule` を手動で実行する。ゲート自体は緩めない。
+- `containsSyntheticMedia` はAPI書き込み後も読み戻しが None になる（既知）。Studio の「AI を使用」ラジオは 2026-11-22 のUIでは見つからず、radio 確認は未実施と記録する。
+- YouTube API 系スクリプトはシステム Python312 に `PYTHONPATH` で Python311 の site-packages を足して実行する（Python311 に python.exe が無い）。
+- 予約前に `check_slots.py --days N` で実枠を確認し、アップ後にもう一度実行して重複なしを確認した。
