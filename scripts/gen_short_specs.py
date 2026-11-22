@@ -8,7 +8,20 @@ R = Path(__file__).resolve().parents[1]
 
 
 def J(n, o):
-    (R / 'data' / f'short_{n}.json').write_text(json.dumps(o, ensure_ascii=False, indent=1), encoding='utf8')
+    """Short spec を書く。既存 JSON の long_id は正として引き継ぐ。
+
+    差し替えで長尺のIDが変わったとき replace_versions.set_long_id() が JSON を更新する。
+    生成器のリテラルを書き換える方式だと再生成で旧IDに戻るため、ここで引き継ぐ。
+    """
+    p = R / 'data' / f'short_{n}.json'
+    if p.exists():
+        try:
+            old = json.loads(p.read_text(encoding='utf8'))
+            if old.get('long_id'):
+                o['long_id'] = old['long_id']
+        except (ValueError, OSError):
+            pass
+    p.write_text(json.dumps(o, ensure_ascii=False, indent=1), encoding='utf8')
 
 J('vein', dict(
     title='静脈の血は、青い？',

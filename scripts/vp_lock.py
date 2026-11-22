@@ -3,6 +3,7 @@
     2つ目は、先に動いているものの PID を表示して止まる（部品のキャッシュを消し合う事故を防ぐ）。
   ・別の slug の build が動いているときは、並列数（VP_MAXPAR）を自動で分け合う。"""
 import atexit
+import contextlib
 import ctypes
 import os
 import time
@@ -31,15 +32,30 @@ def _read(path):
 
 
 def acquire(root, slug, cmd):
-    """鍵を取る。同じ slug の別プロセスが生きていれば、止まる。"""
+    """鍵を取る。同じ slug の別プロセスが生きていれば、止まる。
+
+    exists() してから write_text() だと、同時起動した2プロセスが両方「取得成功」に
+    なる（TOCTOU）。O_CREAT|O_EXCL で原子的に作り、勝った側だけが鍵を持つ。
+    """
     d = Path(root) / 'cache'
     d.mkdir(exist_ok=True)
     f = d / f'{slug}.lock'
-    if f.exists():
-        pid, c = _read(f)
-        if pid and pid != os.getpid() and alive(pid):
-            raise SystemExit(f'[lock] {slug} は、すでに動いています（PID {pid}: {c}）。二重に起動しません。終わるのを待つか、そのプロセスを止めてください。')
-    f.write_text(f'{os.getpid()} {cmd} {time.strftime("%H:%M:%S")}', encoding='utf8')
+    for _ in range(2):
+        try:
+            fd = os.open(f, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
+        except FileExistsError:
+            pid, c = _read(f)
+            if pid and pid != os.getpid() and alive(pid):
+                raise SystemExit(f'[lock] {slug} は、すでに動いています（PID {pid}: {c}）。二重に起動しません。終わるのを待つか、そのプロセスを止めてください。') from None
+            # 死んだプロセスの残骸。消してから一度だけ再挑戦する（消し合っても O_EXCL が最後に判定する）。
+            with contextlib.suppress(OSError):
+                f.unlink()
+            continue
+        with os.fdopen(fd, 'w', encoding='utf8') as fh:
+            fh.write(f'{os.getpid()} {cmd} {time.strftime("%H:%M:%S")}')
+        break
+    else:
+        raise SystemExit(f'[lock] {slug} のロックを取得できませんでした。少し待って再実行してください。')
 
     def release():
         try:

@@ -1,13 +1,16 @@
-name: YouTube ledger safety (offline)
+name: safety gates (offline)
 
 # 認証情報も実 API も使わない、モックだけの安全テスト。
 # 事故の型（別チャンネルへの誤操作・台帳の部分書き込み・削除の取り違え）を CI で止める。
+# 構文検査とデータ不変条件のテストも、全ソースを対象にここで走らせる。
 on:
   pull_request:
     paths:
-      - 'scripts/yt_api.py'
-      - 'tests/test_yt_api_*.py'
-      - '.github/workflows/youtube-safety.yml'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'requirements*.txt'
+      - 'pytest.ini'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +27,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Compile the YouTube helper and its tests
-        run: python -m py_compile scripts/yt_api.py tests/test_yt_api_*.py
-      - name: Run mocked upload/finish/delete/channel tests
+      - name: Install test dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Compile all project sources
+        run: python -m compileall -q scripts tests
+      - name: Run mocked YouTube channel/upload/finish/delete tests
         run: python -m unittest discover -s tests -p 'test_yt_api_*.py' -v
+      - name: Run data invariants and generated-artifact tests
+        run: python -m pytest -q

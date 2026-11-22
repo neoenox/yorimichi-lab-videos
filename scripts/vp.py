@@ -698,6 +698,15 @@ def stage_qa():
         for q,k in enumerate(sub):W.paste(Image.open(d/f'f{k:02d}.png'),((q%3)*640,(q//3)*360))
         W.save(d/f'sheet_{s//per}.png')
     print('contact sheets in',d)
+    # 任意: ffmpeg-skill の外部検査を足す（既定はオフ。既存の QA 結果を上書きしない）
+    #   VP_FFMPEG_SKILL_QA=1 python scripts/vp.py <slug> qa
+    if os.environ.get('VP_FFMPEG_SKILL_QA')=='1':
+        try:
+            import ffmpeg_skill_check
+            rc=ffmpeg_skill_check.main([str(v),'--platform','youtube','--content'])
+            print('ffmpeg-skill QA:', 'FAIL あり' if rc else 'FAIL なし')
+        except Exception as e:
+            print('ffmpeg-skill QA を実行できませんでした:',type(e).__name__,str(e)[:160])
 def chapter_list():
     tl=json.loads(P(f'data/{SLUG}_timeline.json').read_text(encoding='utf8'));ts=lambda s:f'{int(s)//60}:{int(s)%60:02d}'
     return [f'{ts(c["start"])} {SPEC["chapters"][i].get("chapter_title",SPEC["chapters"][i].get("title",c["key"]))}' for i,c in enumerate(tl)],tl[-1]['end']
