@@ -874,3 +874,12 @@ tools\blender-4.5.3-windows-x64\blender.exe -b -t 6 --python scripts\hn_render.p
 - 入れ方(`.venv` は uv 管理で pip が無い): `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`。新しい環境でも同じ手順が必要。
 - CI(`youtube-safety.yml`)は `requirements.txt` だけを入れる。`qa_lint.py`/`make_short.py` はテストから import されないので今は通るが、これらを CI で実行する場合は ytkit を入れる手順を足すこと。
 - 部品を直すときは3か所(kit・本リポジトリ・rakuten)の `pytest` を回す。使い方・決まりは `E:\yt-shorts-kit\README.md`。
+
+## チャンネル設定 channel.toml(2026-11-22)
+Short の描画(`make_short.py`・`make_short2.py`)が持っていたチャンネル固有の値を、リポジトリ直下の `channel.toml` に出した。コアを別リポジトリへ切り出す準備(まずこの場所で設定化)。
+- **設定の中身**: `[channel]` 名前・副題・TikTok用副題・概要欄の紹介文 / `[voice]` VOICEVOX の話者・スタイル・クレジット行 / `[bgm]` BGMファイル(ROOTからの相対)・クレジット行 / `[fonts]` フォルダー・和文ゴシック・明朝 / `[hashtags]` 概要欄とTikTokの既定。
+- **場所**: 環境変数 `YT_PROJECT_ROOT` があればそのフォルダー、無ければ `scripts/` の1つ上。キーが足りなければ、キー名を示して止まる(`ytkit.project`)。
+- **効く範囲**: 終了カード4種(通常・`cta:false`・`nolong`・TikTok)の文字、概要欄・TikTokキャプションの出典・クレジット・紹介文・ハッシュタグ、フォント、ナレーター、BGM。値を変えれば、画面・概要欄・音が変わる。
+- **変えていない見た目**: 設定化の前後で、3本の spec×終了カード4種×4時刻の全コマの画素、概要欄とキャプションの全文、`make_short.py` の `cta` 場面と概要欄、フォントの寸法、BGMを混ぜる ffmpeg のコマンドが**すべて一致**することを確認した(81項目)。
+- **まだ設定化していないもの**: 色(GOLD・NAVY など)、画面の座標、長尺の `vp.py`、`gm_*.py` などの別描画スクリプトのフォント直書き、`yt_api.py` のチャンネル固有記述、手順書と確認の仕組み(絶対パス)。`make_short.py` の旧 drain の概要欄にある `#Shorts #雑学 #科学` は、その動画の内容なので残した。
+- **テスト**: `tests/test_channel_config.py`(必須キー、概要欄・キャプションが設定に従う、`YT_PROJECT_ROOT` で別チャンネルに切り替わる、キー不足でキー名つきで止まる)。共通部品 ytkit が無い環境(CI)では飛ばす。

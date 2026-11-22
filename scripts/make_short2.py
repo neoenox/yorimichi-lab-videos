@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageEnhance
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import make_short as M
 from make_short import ROOT, W, H, FPS, GOLD, WHITE, DIM, font, wrap, panel, synth, display, chunks, mix
+from make_short import CH, VOICE, BGM, TAGS   # チャンネル設定（ROOT/channel.toml）。呼び出し時に引くので、書き換えると反映される
 import rich_text as rich
 
 COLS = M.COL
@@ -55,8 +56,8 @@ def draw_tiktok_end(d, spec, A):
     top = y1 + 60
     d.rounded_rectangle((90, top, 990, top + 300), 18, fill=(7, 24, 36, int(215 * A / 255)))
     d.text((540, top + 55), '出典は、コメントに', font=font(46), fill=WHITE + (A,), anchor='mm')
-    d.text((540, top + 155), '寄り道ラボ', font=font(76, True), fill=GOLD + (A,), anchor='mm')
-    d.text((540, top + 235), '地図と史料で、通説を確かめる', font=font(32), fill=DIM + (A,), anchor='mm')
+    d.text((540, top + 155), CH['name'], font=font(76, True), fill=GOLD + (A,), anchor='mm')
+    d.text((540, top + 235), CH['tagline_tiktok'], font=font(32), fill=DIM + (A,), anchor='mm')
 
 
 def draw_scene(im, sc, spec, a):
@@ -77,18 +78,18 @@ def draw_scene(im, sc, spec, a):
             d.rounded_rectangle((90, top, 990, top + 330), 18, fill=(7, 24, 36, int(215 * A / 255)))
             d.text((540, top + 55), '出典は、説明欄に', font=font(46), fill=WHITE + (A,), anchor='mm')
             d.text((540, top + 165), 'チャンネル登録', font=font(92, True), fill=GOLD + (A,), anchor='mm')
-            d.text((540, top + 265), '寄り道ラボ', font=font(36), fill=DIM + (A,), anchor='mm')
+            d.text((540, top + 265), CH['name'], font=font(36), fill=DIM + (A,), anchor='mm')
             return
         panel(d, (60, 480, 1020, 860), '本編の動画', spec['long_title'], 50, hi=True, alpha=A)
         d.rounded_rectangle((90, 905, 990, 1215), 18, fill=(7, 24, 36, int(215 * a)))
         if spec.get('cta', True):   # 登録の呼びかけ版（2026-10-26から）。cta:false で従来の終わり方
             d.text((540, 955), '続きは、本編の動画で', font=font(48), fill=WHITE + (A,), anchor='mm')
             d.text((540, 1060), 'チャンネル登録', font=font(96, True), fill=GOLD + (A,), anchor='mm')
-            d.text((540, 1150), '寄り道ラボ', font=font(38), fill=DIM + (A,), anchor='mm')
+            d.text((540, 1150), CH['name'], font=font(38), fill=DIM + (A,), anchor='mm')
         else:
             d.text((540, 960), '概要欄のリンクから', font=font(52), fill=WHITE + (A,), anchor='mm')
-            d.text((540, 1090), '寄り道ラボ', font=font(84, True), fill=GOLD + (A,), anchor='mm')
-            d.text((540, 1170), 'ふと気になったことを、資料で調べる', font=font(36), fill=DIM + (A,), anchor='mm')
+            d.text((540, 1090), CH['name'], font=font(84, True), fill=GOLD + (A,), anchor='mm')
+            d.text((540, 1170), CH['tagline'], font=font(36), fill=DIM + (A,), anchor='mm')
         return
     if sc.get('big'):
         y = sc.get('big_y', 430 if sc.get('viz') else 520)
@@ -328,13 +329,13 @@ def description(spec):
 
 ■ 出典・クレジット
 {spec.get('credit') or '・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の資料の複製ではありません）'}
-・音声：VOICEVOX:四国めたん
-・音楽：魔王魂（https://maou.audio/）ピアノ12（作曲：森田交一。音量調整を行っています）
+{VOICE['credit']}
+{BGM['credit']}
 
 ■ このチャンネルについて
-寄り道ラボは、ふと気になったことを、資料やデータで調べる解説チャンネルです。
+{CH['about']}
 
-#Shorts #雑学
+{TAGS['shorts']}
 """)
 
 
@@ -350,9 +351,9 @@ def tiktok_caption(spec):
 
 {ref_block}■ クレジット
 {spec.get('credit') or '・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の資料の複製ではありません）'}
-・音声：VOICEVOX:四国めたん
+{VOICE['credit']}
 
-{spec.get('hashtags') or '#歴史 #雑学'}
+{spec.get('hashtags') or TAGS['tiktok']}
 """
 
 

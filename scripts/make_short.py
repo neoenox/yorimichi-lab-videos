@@ -6,9 +6,23 @@ import json, math, re, subprocess, sys, wave
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
+from ytkit.project import project_root, load_config, require   # 共通部品（E:\yt-shorts-kit）
 
-ROOT = Path(__file__).resolve().parents[1]
-FD = 'C:/Windows/Fonts/'
+ROOT = project_root(__file__)   # 環境変数 YT_PROJECT_ROOT があればそちら。無ければ scripts/ の1つ上
+CFG = load_config(ROOT)         # チャンネル設定 ROOT/channel.toml（名前・ナレーター・BGM・フォント）
+
+
+def _sect(section, keys):
+    """設定の1節を dict で返す。足りないキーは、名指しして止める。呼び出し側は実行時に引くので、書き換えると反映される。"""
+    return {k: require(CFG, f'{section}.{k}') for k in keys}
+
+
+CH = _sect('channel', ('name', 'tagline', 'tagline_tiktok', 'about'))
+VOICE = _sect('voice', ('speaker', 'style', 'credit'))
+BGM = _sect('bgm', ('file', 'credit'))
+FONTS = _sect('fonts', ('dir', 'sans', 'serif'))
+TAGS = _sect('hashtags', ('shorts', 'tiktok'))
+FD = FONTS['dir']   # 旧名（他のスクリプトが import していても動くように残す）
 BASE = 'http://127.0.0.1:50021'
 SPEED = 0.95
 W, H, FPS = 1080, 1920, 30
@@ -21,7 +35,7 @@ _FC = {}
 def font(size, serif=False):
     k = (size, serif)
     if k not in _FC:
-        f = ImageFont.truetype(FD + ('NotoSerifJP-VF.ttf' if serif else 'NotoSansJP-VF.ttf'), size)
+        f = ImageFont.truetype(FONTS['dir'] + (FONTS['serif'] if serif else FONTS['sans']), size)
         f.set_variation_by_axes([800 if serif else 600])
         _FC[k] = f
     return _FC[k]
@@ -191,13 +205,13 @@ def draw_visual(d, kind, a, k):
         d.text((540, 980), '同じ半球でも、向きは両方見られる', font=font(38), fill=WHITE + (A,), anchor='mm')
     elif kind == 'cta':
         panel(d, (60, 440, 1020, 780), '長い動画', '南半球では、排水の渦は逆回転する？\nNOAAと物理学の解説で確かめる', 50, hi=True, alpha=A)
-        d.text((540, 900), '寄り道ラボ', font=font(80, True), fill=GOLD + (A,), anchor='mm')
-        d.text((540, 990), 'ふと気になったことを、資料で調べる', font=font(36), fill=DIM + (A,), anchor='mm')
+        d.text((540, 900), CH['name'], font=font(80, True), fill=GOLD + (A,), anchor='mm')
+        d.text((540, 990), CH['tagline'], font=font(36), fill=DIM + (A,), anchor='mm')
 
 
 def synth(spec, work):
     from ytkit import voicevox as vv   # 共通部品（E:\yt-shorts-kit）
-    style = vv.speaker_id('四国めたん', 'ノーマル', base=BASE, timeout=60)
+    style = vv.speaker_id(VOICE['speaker'], VOICE['style'], base=BASE, timeout=60)
     dic = json.loads((ROOT / spec['pron']).read_text(encoding='utf8'))
     segs, pcms, rate, t = [], [], 24000, 0.25
     for i, sc in enumerate(spec['scenes']):
@@ -292,7 +306,7 @@ def mix(spec, work, total, out_mp4, final):
                         '-map', '0:v', '-map', '[a]', '-t', f'{total:.2f}', '-c:v', 'copy',
                         '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', str(final)], check=True)
         return
-    bgm = ROOT / 'assets' / 'bgm_maou' / 'maou_bgm_piano12.mp3'
+    bgm = ROOT / BGM['file']
     fc = ('[1:a]aresample=48000,volume=0.30,afade=t=in:d=1,afade=t=out:st=%.2f:d=1.5[b];[2:a]aresample=48000,asplit=2[n1][n2];'
           '[b][n1]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=400[bd];[bd][n2]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=7[a]') % (total - 1.5)
     subprocess.run(['ffmpeg', '-y', '-v', 'warning', '-i', str(out_mp4), '-stream_loop', '-1', '-i', str(bgm), '-i', narration,
@@ -318,11 +332,11 @@ def description(spec):
 
 ■ 出典・クレジット
 ・図・計算：自作（渦の図は上から見た概念図）
-・音声：VOICEVOX:四国めたん
-・音楽：魔王魂（https://maou.audio/）ピアノ12（作曲：森田交一。音量調整を行っています）
+{VOICE['credit']}
+{BGM['credit']}
 
 ■ このチャンネルについて
-寄り道ラボは、ふと気になったことを、資料やデータで調べる解説チャンネルです。
+{CH['about']}
 
 #Shorts #雑学 #科学
 """

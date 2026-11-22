@@ -1,0 +1,34 @@
+# チャンネル設定。Short の描画(scripts/make_short.py・make_short2.py)が読む。
+# チャンネル固有の値(名前・ナレーター・BGM・フォント)はコードに書かず、ここに置く。
+# 場所は環境変数 YT_PROJECT_ROOT で変えられる(既定は scripts/ の1つ上＝このファイルのあるフォルダー)。
+# 値を変えると、画面の終了カード・概要欄・キャプション・BGM・フォントが変わる。
+
+[channel]
+name = "寄り道ラボ"
+# 終了カードの副題(本編へ誘導しない版 cta:false と、旧 drain の終了場面)
+tagline = "ふと気になったことを、資料で調べる"
+# TikTok の最終画面の副題
+tagline_tiktok = "地図と史料で、通説を確かめる"
+# 概要欄「このチャンネルについて」の本文
+about = "寄り道ラボは、ふと気になったことを、資料やデータで調べる解説チャンネルです。"
+
+[voice]
+# VOICEVOX の話者名とスタイル名、概要欄のクレジット行
+speaker = "四国めたん"
+style = "ノーマル"
+credit = "・音声：VOICEVOX:四国めたん"
+
+[bgm]
+# プロジェクトのルートからの相対パス。bgm = "none" の Short では使わない
+file = "assets/bgm_maou/maou_bgm_piano12.mp3"
+credit = "・音楽：魔王魂（https://maou.audio/）ピアノ12（作曲：森田交一。音量調整を行っています）"
+
+[fonts]
+dir = "C:/Windows/Fonts/"
+sans = "NotoSansJP-VF.ttf"
+serif = "NotoSerifJP-VF.ttf"
+
+[hashtags]
+# 概要欄(YouTube)と TikTok キャプションの既定。spec の hashtags があればそちらを使う(TikTok)
+shorts = "#Shorts #雑学"
+tiktok = "#歴史 #雑学"
