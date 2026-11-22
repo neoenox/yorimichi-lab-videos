@@ -115,6 +115,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | 2026-11-19 | 予約枠の棚卸し（同時刻の重複） | API 実測で 11/19〜11/21 の5枠に同時刻予約。11/19 19:00 は**長尺2本**（`27_forest` と `79_hibiya`）。原因は予約経路が3系統に分かれていること。**台帳の `publishAt` は実態より古い**ので `scripts/check_slots.py`（API実測）で確認する。当日分4件を移動し重複ゼロ（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 | 2026-11-20 | 根拠テーブルゲート＋`seijin` 再利用 | `data/short_*.json` に `claims` を埋め、アップ前・CI・pre-commit で検査。既存284本は祖父化。成人の日は未公開の `short_seijin` を再利用し、1/11 19:00 長尺＋20:00 Short のペア公開を予定（**AIレビューは両方「公開可」完了。実聴・予約は未実施**）。[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md) |
 | 2026-11-22 | `baby_hone` / `baby_namida` / `fuji` のAIレビュー | Google AIモードで台本・動画をレビューし、指摘を原文と実フレームで照合して再描画。3本とも最終版「公開可」。ChatGPTはCDP未ログインで未実施。根拠テーブル・アップ・予約は未実施（[`research/20261122_baby_fuji_reviews.md`](research/20261122_baby_fuji_reviews.md)） |
+| 2026-11-22 | `thunder_metal`（雷と金属） | 提案3案のうち制作可能と判断して新規制作。学会論文p.53/54/56と気象庁本文で根拠を確認し、根拠ゲートOK（WARN 3）。自作イラスト背景、60.4秒。Google AIモードで台本3回・動画4回レビューし、残る指摘は原文・silencedetectで照合して不採用（[`research/20261122_thunder_metal_sources.md`](research/20261122_thunder_metal_sources.md)） |
 
 ## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
 
@@ -132,6 +133,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | [`research/20261120_rain0.md`](research/20261120_rain0.md) | 降水確率0%ショートの調査・制作 | 0%=5%未満の丸め＋1ミリ未満対象外。気象庁＋市立気象館を確認。44.1秒・Muse公開可。11/22 20:00予約 |
 | [`research/20261120_ambulance.md`](research/20261120_ambulance.md) | 救急車の軽症ショート | Ask Studioの提案から選択。消防庁の46.9%=軽症＋その他を一次確認。Google AIモードで公開可。11/23 20:00予約 |
 | [`research/20261122_baby_fuji_reviews.md`](research/20261122_baby_fuji_reviews.md) | 赤ちゃん2本＋富士山Shortの台本・動画AIレビュー | 字幕の改行誤読は実フレームで確認してから修正。結論カードの出し順・日付の読み上げを調整。ChatGPT未ログインと根拠テーブル未記入を明記 |
+| [`research/20261122_thunder_metal_sources.md`](research/20261122_thunder_metal_sources.md) | 雷と金属Shortの出典確認とAIレビュー | 金属を外す必要はない（論文p.56）。気象庁は「まず安全な空間へ」、木は幹・枝・葉から2m以上。AIの無音1.2秒指摘は実測0.4秒で不採用 |
 | [`research/20261111_kamakura_release_check.md`](research/20261111_kamakura_release_check.md) | 公開予約済み Shorts `kamakura_seiritsu`（11/16 17:00）の公開前チェック | validate PASS・check は ERROR 0/WARN 7。`status` は `needs_review` のまま（標準は緩めない）。公開前に Studio で「AIの使用」と概要欄全文を目視。`FreeVideo(MiniMax H3)` の利用条件が権利台帳に無い |
 | [`research/20261111_worktree_review.md`](research/20261111_worktree_review.md) | 未コミット変更の検証 | `scripts/_chain3.sh` は使い捨てキューによる事故 → 復元。`end_q` は休眠機能で安全。`proto_spec.json` の credit は描画済み FV 版と一致 |
 | [`research/20261111_takatenjin_sources.md`](research/20261111_takatenjin_sources.md) | 高天神城（天正9年落城）の一次資料到達性 | 『信長公記』『三河物語』『甲陽軍鑑』の本文に到達（NDL・PDM）。落城日は諸説（22日／25日）。**救援不出の理由は後世の『甲陽軍鑑』に依存**＝制作時の最大リスク |

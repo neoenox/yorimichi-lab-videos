@@ -756,3 +756,13 @@ younkaku を置いた）。
 - **Google AI モードの返答は途中で切れることがある。** スクリプトの既定は「回答が出た瞬間」に保存するので、長い回答は `stable>=4` まで待つ inline Playwright で取り直すと完全（fuji 台本レビューは1881文字→4103文字）。
 - **ChatGPT（CDP 9222）が未ログインだと台本レビューは不成立。** ログイン画面のまま composer が無く、`review_short_cdp.py` は TargetClosed / fill timeout になる。その場合は「Google AI モードのみ完了、ChatGPT 未実施」と記録する（2026-11-22 実例）。
 - 詳細と採否一覧は [`research/20261122_baby_fuji_reviews.md`](research/20261122_baby_fuji_reviews.md)。
+
+
+## 雷と金属Shortの検証（2026-11-22、solo_thunder_metal）
+
+- **出典の優先順位を台本で間違えない。** 気象庁は「まず安全な空間へ避難」、4mは「近くに安全な空間が無い場合」の保護範囲。台本に4mだけを出すと誤解になる（Google AIモード指摘を採用）。木は「全ての幹・枝・葉から2m以上」。
+- **学会論文の結論は引用元のページまで確認する。** 「金属を外せ」は誤りで、論文p.56は「金属は身につけているほうが安全」。p.53のQ&Aだけ読むと「半分本当」と弱くなる。
+- **AIの無音指摘は silencedetect で裏取りする。** 这次は「1.2秒」と言われたが実測0.398秒。レンダラの導入时长として不採用。
+- **読み辞書はフルネームで登録する。** 「日本大気電気学会」は「日本気象学会」とは別語。`pron` に完全形を入れないと VOICEVOX が「にっぽん」と読む。
+- 自作イラスト背景は `build()` 後に spec の `vid` を削り、`art` を差し替えて作れる（`gen_solo_thunder_metal.py` 参照）。AI映像を使わない場合でも「イメージ」と明記する。
+- 詳細は [`research/20261122_thunder_metal_sources.md`](research/20261122_thunder_metal_sources.md)。
