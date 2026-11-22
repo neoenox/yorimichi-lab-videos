@@ -746,3 +746,13 @@ younkaku を置いた）。
 10. **X**: `python scripts/x_schedule.py --video <ID> --month M --day D --year YYYY --hour H --min M+5 --question "問い" --ai --tags "#… #寄り道ラボ"`。成功済みは再実行しない（重複防止）。Chromeが休止したら CDP 9223 のプロセスを再起動。
 11. **公開後**: `check_published.py <key>` と Analytics／Ask Studio で効果を確認。台本レビュー・動画レビュー・通し再生・全編実聴・スマホ実機は別ゲートとして記録する。
 12. **差し替え**: 動画ファイルは同じYouTube IDでは差し替えられない。新IDをアップし、旧IDは2027-01-01へ退避、X予約のURLも書き換えて「新ID1件・旧ID0件」を確認する（救急車Shortで実施）。
+
+
+## AIレビュー指摘の照合と再描画（2026-11-22、baby_hone / baby_namida / fuji）
+
+- **動画レビューの「字幕誤字」は実フレームで確認してから直す。** Google AI モードが「300本とゆ言い方」と指摘したのは、SRT は正しく、画面の折り返しが「300本という言い／方もありますが」だったため。該当時刻（13.5秒）の PNG と SRT を照合し、単語の途中で改行されない文に変更して再描画した。SRT だけ見て「指摘は誤り」と切り捨てると画面の読みやすさ問題を残す。
+- **結論カードのタイミングはナレーションの1文目で決める。** 1文目が問いのときに `hook_card` を出すと、0:00〜0:01 で結論が先に出る。`solo_spec.build(..., hook_card=False)` を使う（`gen_solo_fuji.py` / `gen_solo_baby_namida.py` 参照）。
+- **日付の読み上げは離脱要因になりうる。** 「2026年11月21日時点の情報です」を独立文で読むと不自然に間が空く。音声から削り、`scenes[].src` と概要欄に残すと情報は保てる（1yen レビューと同じ判断）。
+- **Google AI モードの返答は途中で切れることがある。** スクリプトの既定は「回答が出た瞬間」に保存するので、長い回答は `stable>=4` まで待つ inline Playwright で取り直すと完全（fuji 台本レビューは1881文字→4103文字）。
+- **ChatGPT（CDP 9222）が未ログインだと台本レビューは不成立。** ログイン画面のまま composer が無く、`review_short_cdp.py` は TargetClosed / fill timeout になる。その場合は「Google AI モードのみ完了、ChatGPT 未実施」と記録する（2026-11-22 実例）。
+- 詳細と採否一覧は [`research/20261122_baby_fuji_reviews.md`](research/20261122_baby_fuji_reviews.md)。
