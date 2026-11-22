@@ -122,4 +122,4 @@ python scripts/pack_short.py solo_baby_hone --tags=...
 - オーナー「作った動画は上げていいよ」を受け、`short_solo_fuji` も非公開アップ→11/30 20:00 に予約。動画ID `kDbXge1XJ1c`。字幕添付済み、`containsSyntheticMedia=True` をAPI設定。
 - アップ前に `scripts/gen_solo_fuji.py` を再実行して説明欄から内部レビューメモを除去し、`solo_spec.public_notes()` の効果を確認した。
 - 赤ちゃん2本と同じく `claims` は空で根拠テーブルゲートは未通過。オーナーが「上げていい」と明示したため、`yt_api.py upload` 経路で手動アップした（ゲートは緩めていない）。
-- `check_slots.py` で11/30 20:00 を確認、同時刻の重複なし。X紹介投稿は未予約。
+- `check_slots.py` で11/30 20:00 を確認、同時刻の重複なし。X紹介投稿も dry-run 確認後に 11/30 20:05 へ予約（`--ai` 付き）。予約一覧で動画ID `kDbXge1XJ1c` が1件のみ。
