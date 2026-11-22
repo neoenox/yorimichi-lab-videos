@@ -157,3 +157,5 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 
 - YouTube API（アップロード／予約）は **Python312 + `PYTHONPATH=C:/Users/neoen/AppData/Local/Programs/Python/Python311/Lib/site-packages`** で動かす（Python311 は site-packages だけ残っていて python.exe が無い）。`check_slots.py` / `yt_api.py` はこの組み合わせで実動確認済み。
 - オーナーが「お試しにアップロード」と明示した場合は、根拠ゲートを緩めずに `yt_api.py upload` 経路で手動アップし、二次資料のみであることを research に残す（2026-11-22 赤ちゃん2本）。
+
+- **概要欄（説明欄）は視聴者向けだけにする。** レビューの採用／不採用、字幕の改行判断、「動画では使っていないこと」、調査のタイムアウト記録などは内部メモで、`docs/research/` に残す。2026-11-22 に3本の公開ずみ説明欄へ内部メモが混入したため、`gen_solo_*.py` の `notes` を公開用に短縮し、APIで説明欄を差し替えた（予約時刻は維持）。`bg_note=''` を渡すと背景クレジットの重複を省ける（`solo_spec.build()` が空文字を尊重）。

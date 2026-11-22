@@ -13,7 +13,8 @@ T = lambda gap, ev: dict(type='timeline', gap=gap, events=ev)
 
 def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None, credit=None, end_vid=None, hook_text=None, hook_label=None, end_q=None, tags=None, claims=None, needs_research=None, hook_card=True):
     import procedure_gate; procedure_gate.require()   # 手順書の読み取り確認(scripts/read_procedure.py)が無ければ止まる
-    note_text = notes + ('' if notes.endswith('\n') else '\n') + (bg_note or BG_NOTE)   # notes と bg_note が1行に結合されないようにする
+    extra = BG_NOTE if bg_note is None else bg_note   # 空文字を渡せば重複クレジットを省ける
+    note_text = notes + ('' if not notes or notes.endswith('\n') else '\n') + extra
     (R / 'data' / f'{slug}_pron.json').write_text(json.dumps(pron, ensure_ascii=False), encoding='utf8')
     V = lambda n: f'assets/{slug}/fv/clip{n}.mp4'
     sc = []

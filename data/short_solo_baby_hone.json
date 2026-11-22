@@ -4,7 +4,7 @@
  "pron": "data/baby_hone_pron.json",
  "art": "assets/tohoku/bg_one.png",
  "hook": "赤ちゃんの骨は、大人より100本多い？ 答えは、ほぼ本当。数え方で変わります。",
- "notes": "■ 2026年11月21日に、英語版Wikipedia「Human skeleton」(https://en.wikipedia.org/wiki/Human_skeleton )と Cleveland Clinic「Skeletal System」(https://my.clevelandclinic.org/health/body/21048-skeletal-system )の原文を取得して読んで作った整理です(どちらも二次資料)。日本語の「赤ちゃんの骨は約300本」という説明は、軟骨も含めた数え方として一般に流布していますが、一次資料では確認できていません。2026年11月21日時点の情報です。\n・主な内容(Wikipedia)：人体の骨格は、出生時は約270本で、成長の途中でいくつかの骨が癒合した結果、成人では約206本になる(付属骨は数えない)。\n・主な内容(Cleveland Clinic)：成人の骨は206本から213本。「206本」は平均的な数で、肋骨の数などに個人差がある。\n・言い過ぎを避けた点：「赤ちゃんは300本」と断定せず、出生時の骨は約270本とした。「300本」は一次資料で確認できないため、数え方の幅として触れるに留めた。減る理由を「壊れる」と誤解させないよう、癒合だと明記した。\n・Google AIモードの台本レビュー(2026年11月22日)で採用：300本の出典を「Wikipediaほか」に明確化。骨盤全体ではなく「骨盤の左右の骨」が3つから1つになると修正。\n・動画では使っていないこと：種子骨(過剰骨)の数、骨密度、骨芽細胞と破骨細胞の代謝、新生児の頭の泉門。\n・未確認：日本語の医学・解剖学の一次資料(教科書・学会資料)で、出生時の本数と軟骨の扱いを直接確認できていない。日本語版Wikipedia「人間の骨の一覧」には本数の記載がなかった。\n・動画内の図(比較・年表)は自作です。背景の映像は FreeVideo(MiniMax H3)によるAI生成で、イメージです。実際の骨格標本の映像ではありません。\n",
+ "notes": "■ 出典：英語版Wikipedia「Human skeleton」(https://en.wikipedia.org/wiki/Human_skeleton ) と Cleveland Clinic「Skeletal System」(https://my.clevelandclinic.org/health/body/21048-skeletal-system )。2026年11月21日に原文を確認した二次資料です。\n・出生時は約270本、成長に伴っていくつかの骨が癒合し、成人では約206本になるとされています。成人の骨の数は206〜213本と個人差があります。\n・「赤ちゃんは300本」は軟骨も含めた数え方として広く言われますが、一次資料では確認できていません。減る理由は骨が壊れることではなく癒合です。2026年11月21日時点の情報です。\n",
  "answer": "ほぼ本当。数え方で変わる",
  "hook_text": null,
  "hook_label": null,

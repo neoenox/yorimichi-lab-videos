@@ -105,3 +105,5 @@ python scripts/pack_short.py solo_baby_hone --tags=...
 - `containsSyntheticMedia=True` をAPIで書き込んだ。読み戻しは None（既知の挙動）。Studio の「AI を使用」ラジオは今回のUIでは表示されず、 radio による確認は未実施。
 - `check_slots.py --days 10` で3本の予約を確認、同時刻の重複なし。
 - **残るリスク**: 根拠は英語版Wikipedia／Cleveland Clinic／日本語版Wikipediaの二次資料のみ。一次資料（解剖学教科書・小児科/眼科のガイドライン等）は未確認。お試し公開の扱いとし、通常の新作ゲート（一次資料必須）は維持する。
+
+- 2026-11-22 追記: 予約後に説明欄へ内部レビューメモが混入していたことを確認し、公開用の短い出典・留保に差し替えた（APIで更新、予約時刻は維持）。内部メモはこの文書に残す。

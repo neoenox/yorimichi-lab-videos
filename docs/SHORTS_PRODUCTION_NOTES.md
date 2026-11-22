@@ -784,3 +784,10 @@ younkaku を置いた）。
 - `containsSyntheticMedia` はAPI書き込み後も読み戻しが None になる（既知）。Studio の「AI を使用」ラジオは 2026-11-22 のUIでは見つからず、radio 確認は未実施と記録する。
 - YouTube API 系スクリプトはシステム Python312 に `PYTHONPATH` で Python311 の site-packages を足して実行する（Python311 に python.exe が無い）。
 - 予約前に `check_slots.py --days N` で実枠を確認し、アップ後にもう一度実行して重複なしを確認した。
+
+
+## 説明欄から内部メモを除く（2026-11-22）
+
+- `gen_solo_*.py` の `notes` にレビュー過程・不採用理由・未確認の調査ログを書き、そのまま `description.txt` に流れていた。公開説明欄に不要な内容（例：「Google AIモードの台本レビューで採用」「regarding 赤ちゃんの顔は不採用」「ChatGPTで直した点」）を削除した。
+- 残すのは冒頭の問い、出典URL、必要な留保（二次資料・未確認の一文）、AI生成背景と図のクレジット、チャンネル紹介、ハッシュタグ。内部判断の詳細は `docs/research/` に残す。
+- 投稿済み・予約済みでも、`videos().update(part='snippet')` で説明だけ差し替えられる。更新後に `status.publishAt` が変わっていないことを読み戻して確認した（3本とも維持）。
