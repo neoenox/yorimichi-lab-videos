@@ -16,7 +16,7 @@ for _s in (sys.stdout, sys.stderr):
         pass
 R = Path(__file__).resolve().parents[1]
 # 手順書と確認問題は、このスクリプトと同じプロジェクト(R)の docs/ から読む。
-# 以前は E:/rekishikaisetu の絶対パスだったが、作業の場(honnoji)で手順書を直しても、門番が古いコピーを見続ける原因になるため、相対にした。
+# 以前は、別フォルダー(旧 E: のプロジェクト)の絶対パスだったが、作業の場(honnoji)で手順書を直しても、門番が古いコピーを見続ける原因になるため、相対にした。
 DOC = R / 'docs' / 'SOLO_SHORT_PROCEDURE.md'
 QUIZ = R / 'docs' / 'SOLO_SHORT_QUIZ.md'
 ACK = R / 'data' / '.procedure_ack.json'

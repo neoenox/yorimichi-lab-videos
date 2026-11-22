@@ -19,7 +19,7 @@
 既存の環境・取得済み背景を使う場合：
 
 ```powershell
-cd E:\rekishikaisetu
+cd E:\rekishikaisetu-honnoji
 pwsh -File scripts/run_earth.ps1 -ReuseCaptures
 ```
 
@@ -647,7 +647,7 @@ tools\blender-4.5.3-windows-x64\blender.exe -b -t 6 --python scripts\hn_render.p
 - **spec の `at` / `until` / `title_at` は「文」の番号**（vp.py は「。」で文を分ける）。台本が1行に複数の文を含む場合、「行」で書くと画面が先に進んでズレる。`make_spec_shizugatake.py` の `_line_to_sentence_starts` / `_remap` をコピーして、行番号→文番号に直す（`make_spec_vitaminc.py` に実装済み）。1文=1行の台本なら不要。
 - `cols2` は見出しの位置（y=170）が固定で、`y0` で動かせない。他の部品と縦に並べたい時は、`panel`（`title`付き）を左右に2枚置く。
 - 上部の `panel`（TOP＝高さ65）は文字サイズ40まで。42・44だとビルドの `panel overflow` で止まる。
-- ブラウザ（claude-in-chrome）の `file_upload` は `E:\rekishikaisetu\out\`（master側のフォルダ）のファイルだけ通る。`E:\rekishikaisetu-honnoji\` のファイルは先にコピーする。ChatGPTの送信は Enter で通る（最初の送信のみボタン）。画像は `a[download]` で保存→`~/Downloads`→`assets/`。
+- ブラウザ（claude-in-chrome）の `file_upload` は、**セッションの作業フォルダーの中**のファイルだけ通る。作業フォルダーを `E:\rekishikaisetu-honnoji` にしてセッションを開けば、`out\`・`sigcmp_view\` のファイルがそのまま通る(2026-11-23 までは作業フォルダーが `E:\rekishikaisetu` だったため、そちらの `out\` へコピーしていた)。ChatGPTの送信は Enter で通る（最初の送信のみボタン）。画像は `a[download]` で保存→`~/Downloads`→`assets/`。
 - コクランのレビュー全文は、著者のサイト（mv.helsinki.fi/home/hemila/CC/）に公開PDFがある。数字・定義は全文で照合できた。NIH ODS は curl も WebFetch も403。
 - 台本の安全性の言い方：「副作用は報告されていない」と「薬のせいと感じた症状の申告が5.8％／6.0％」は、並べると矛盾して聞こえる（Codexが高で指摘）。「自己申告で、ほとんど同じ」と言い直す。
 
@@ -818,13 +818,13 @@ tools\blender-4.5.3-windows-x64\blender.exe -b -t 6 --python scripts\hn_render.p
 
 ### YouTube API の割り当てが切れた日の字幕（Studioで付ける手順・2026-11-04）
 動画本体は上がっていて、字幕だけ未登録のとき。`https://studio.youtube.com/video/<ID>/translations` を開く。
-1. 字幕のSRTは、セッションが読める場所（作業フォルダー内。例 `E:\rekishikaisetu\sigcmp_view\captions\`）へコピーしておく（リポジトリ外のパスは、`file_upload` で拒否される）。
+1. 字幕のSRTは、セッションが読める場所（作業フォルダー内。例 `E:\rekishikaisetu-honnoji\sigcmp_view\captions\`）へコピーしておく（リポジトリ外のパスは、`file_upload` で拒否される）。
 2. 「手動でアップロード」→ 「タイムコードあり」の窓が出たまま、ファイル入力の ref を `find` で探し、`file_upload` でSRTを渡す。（「続行」を押すとOSのファイル選択窓が開いてしまうので、押さない）
 3. **これだけでは公開されない（下書き）。** 「字幕を編集」を開き、右上の「公開」を押す。「日本語の字幕を公開しました」が出れば完了。編集画面を開いたままだと、別ページへ移るとき「サイトを離れますか？」で止まる。
 4. 位置：「手動でアップロード」ボタン＝画面座標(380,198)、「字幕を編集」＝(270,198)、「公開」＝(1229,65)（1568×698の画面）。
 
 ### StudioからShortを上げて予約する手順（API割り当てが切れた日・2026-11-04）
-`E:\rekishikaisetu\sigcmp_view\nl_videos\<slug>.mp4` など、セッションが読める場所へ動画・字幕をコピーしておく（`file_upload` は、読める場所のファイルだけ。1回10MBまで）。
+`E:\rekishikaisetu-honnoji\sigcmp_view\nl_videos\<slug>.mp4` など、セッションが読める場所へ動画・字幕をコピーしておく（`file_upload` は、読める場所のファイルだけ。1回10MBまで）。
 1. `https://studio.youtube.com/channel/<チャンネルID>/videos/upload?d=ud` を開き、`find` でファイル入力を探して `file_upload`。
 2. 題名・説明欄・「子ども向けではない」は、JSで入れる：`#title-textarea #textbox` と `#description-textarea #textbox` に `document.execCommand('selectAll')` → `insertText`、`[name=VIDEO_MADE_FOR_KIDS_NOT_MFK]` をclick。**題名・説明欄の文面は、`data/` を `127.0.0.1:8765` で配信して、ページから `fetch`（evalは禁止されているので、関数は呼び出しごとに貼る）。**
 3. `#next-button` を3回（間に2.5〜3秒）で「公開設定」へ。「スケジュールを設定」を開き、日付欄（画面座標 約(508,457)）→カレンダーの日をクリック（0.6倍の画面で、日・月・火・水・木・金・土の列x＝282,299,317,335,352,370,388、週の行y＝153,171,188,206,224）。
@@ -898,17 +898,19 @@ Short の描画(`make_short.py`・`make_short2.py`)が持っていたチャン�
 - **罠**: `scripts/_build_*.py` は import しただけでビルドが走る。`regen_srt_vp.py` は import した時点で `sys.argv[1]` を読む。どちらも、動作確認で import しない。
 - **導入**: 新しい環境では `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`(ytcore を含む。numpy・Pillow・requests が要る)。CI は ytkit/ytcore を入れないので、これらを import するテストは skip される。
 
-## 運用の整理: どこで何をするか(2026-11-22)
-フォルダーとブランチが複数あって分かりにくかったので、役割を次のように決めた。
+## 運用の整理: どこで何をするか(2026-11-23 更新)
+フォルダーとブランチが複数あって分かりにくかったので、**プロジェクトを `E:\rekishikaisetu-honnoji` だけで完結**させた。
 
 | 場所 | 役割 |
 |---|---|
 | `E:\yt-shorts-kit`(ブランチ master) | **動画制作のコア**。`ytcore/`(描画・長尺のパイプライン)と `ytkit/`(ffmpeg・VOICEVOX など)。コアを直すのはここだけ |
-| `E:\rekishikaisetu-honnoji`(ブランチ master) | **動画を作る場所**。台本・素材・設定(`channel.toml`)・動画ごとのスクリプト。コードを直す・動画を作る・コミットするのは、ここだけ |
-| `E:\rekishikaisetu` | git リポジトリの**本体**(`.git`)と、**共有の置き場**(Python 環境 `.venv`、出力 `out/`・`sigcmp_view/`、`node_modules/`)。ここでコードを直さない |
+| `E:\rekishikaisetu-honnoji`(ブランチ master) | **動画を作る場所のすべて**。git の本体(`.git`)・Python 環境(`.venv`)・`tools/`・`node_modules/`・台本・素材・出力(`out/`・`sigcmp_view/`)・設定(`channel.toml`)・動画ごとのスクリプト |
+| `E:\rekishikaisetu` | **使わない(消してよい)**。2026-11-23 に、中身をすべて honnoji へ移した。残っているのは、移行前の `.git` の控えと、移行中に生まれた新しいファイルだけ |
 
-- **ブランチ**: 動画プロジェクトのブランチは `master` だけ。`E:\rekishikaisetu` は、同じブランチを2か所で開けないため、master の位置に合わせた detached HEAD にしてある(作業用の `e-main` は廃止)。
-- **共有の置き場が E: にある理由**: 本番のスクリプトが、`out/script_solo_<slug>.txt`(台本レビュー用のテキスト)、`sigcmp_view/`(レビュー用の動画)、Remotion の Chrome(`node_modules/`)を、`E:/rekishikaisetu/...` と直接指している(`solo_spec.py`・`solo_ship.py`・`muse_review.py`・`cleanup_uploaded.py` など)。これらは出力・素材の置き場なので、場所はそのまま。
-- **手順書の読み取り確認の門番(`procedure_gate.py`)は、手順書を自分のプロジェクトの `docs/` から読む**。以前は `E:/rekishikaisetu/docs` の絶対パスで、honnoji で手順書を直しても、古い E: のコピーを見続ける原因になっていた(`tests/test_procedure_gate.py`)。印のハッシュは内容だけで決まるので、パスを変えても既存の印は有効。
-- **手順書(`SOLO_SHORT_PROCEDURE.md`)の中にある E: のパス(7か所)は、まだ直していない**。直すと、手順書のハッシュが変わって、全員の確認の印が無効になる(確認をやり直す)ため。次に手順書を更新するときに、一緒に直す。
-
+- **セッションの作業フォルダーは `E:\rekishikaisetu-honnoji` にする**。ブラウザ(claude-in-chrome)の `file_upload` は、**セッションの作業フォルダーの中**のファイルだけ通る。作業フォルダーが `E:\rekishikaisetu` だった間は、`sigcmp_view` などをそちらに置く必要があり、本番のスクリプトが E: に書き込んでいた。今は、すべて honnoji 基準(`R / 'out'`、`R / 'sigcmp_view'`)。
+- **ブランチ**: 動画プロジェクトのブランチは `master` だけ。
+- **移したもの(2026-11-23)**: ①`.git`(honnoji が主役になった。履歴242コミットは一致を確認)、②`.venv`(ジャンクションをやめて、honnoji に実体。パッケージは lock と同じ31件)、③`tools/`・`node_modules/`(ジャンクションをやめて実体)、④E: にしかなかった作業成果物(背景画像362・出力1,394・アップロード用121・レビュー用動画490・キャッシュ105・ログ37。上書きなし)。
+- **手順書の読み取り確認の門番(`procedure_gate.py`)は、手順書を自分のプロジェクトの `docs/` から読む**(`tests/test_procedure_gate.py`)。
+- **コードが E: の絶対パスを指さないこと**は `tests/test_no_hardcoded_e_root.py` が見張る。
+- **手順書(`SOLO_SHORT_PROCEDURE.md`)の中にある E: のパス(7か所)は、まだ直していない**。直すと手順書のハッシュが変わって、全員の確認の印が無効になる(確認をやり直す)ため。次に手順書を更新するときに、一緒に直す。`SHORTS_PRODUCTION_NOTES.md` の E: の記述2か所も、別のセッションが編集中だったため、直していない。
+- **バックアップ**: `E:\_backup_before_e_removal_20261123`(`repo_all_refs.bundle`=全ブランチ・タグ、`dot_git`=旧 `.git` の全コピー、Claude のプロジェクトフォルダーの控え)。問題がないと確認できたら削除してよい。

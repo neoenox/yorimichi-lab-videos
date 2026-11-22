@@ -1,5 +1,5 @@
 import {chromium} from 'playwright';import fs from 'node:fs';
-const browser=await chromium.launch({executablePath:'E:/rekishikaisetu/node_modules/.remotion/chrome-headless-shell/win64/chrome-headless-shell-win64/chrome-headless-shell.exe',headless:true,args:['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const browser=await chromium.launch({executablePath:decodeURIComponent(new URL('../node_modules/.remotion/chrome-headless-shell/win64/chrome-headless-shell-win64/chrome-headless-shell.exe',import.meta.url).pathname.slice(1)),headless:true,args:['--enable-webgl','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
 const page=await browser.newPage({viewport:{width:1920,height:1080},locale:'en-US'});
 const views=[['regional','https://earth.google.com/web/@35.359,136.466,200a,120000d,35y,0h,0t,0r?hl=en'],['oblique','https://earth.google.com/web/@35.359,136.466,200a,9500d,35y,0h,45t,0r?hl=en']];
 const reports=[];

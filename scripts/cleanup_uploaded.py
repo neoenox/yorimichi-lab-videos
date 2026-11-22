@@ -2,7 +2,7 @@
   python scripts/cleanup_uploaded.py            # 一覧と容量だけ
   python scripts/cleanup_uploaded.py --apply    # 削除して、記録を sigcmp_view/cleanup_<日付>.txt に書く
 判定: data/youtube_ids.json の video_id を YouTube API で確認し、**実在する動画だけ**を対象にする(YouTubeに無い=唯一のコピーかもしれないので残す)。
-対象: upload/<キー>/*.mp4、cache/<キー>/、out/<キー>.mp4 と muse_<キー>.mp4、E:/rekishikaisetu/sigcmp_view/<キー>.mp4 と muse_<キー>.mp4。
+対象: upload/<キー>/*.mp4、cache/<キー>/、out/<キー>.mp4 と muse_<キー>.mp4、sigcmp_view/<キー>.mp4 と muse_<キー>.mp4。
 残すもの: 台本・data・字幕・説明欄・タグ・背景クリップ(assets)・tools・台帳に無い(未アップ)キー・YouTubeに無いキー。
 名前は完全一致だけで拾う(前方一致だと、別の版 short_solo_tokyodome_map などを巻き込むため)。
 """
@@ -11,7 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import yt_api
 
 H = 'E:/rekishikaisetu-honnoji'
-M = 'E:/rekishikaisetu'
+M = H   # sigcmp_view もこのプロジェクト(honnoji)の中
 apply = '--apply' in sys.argv
 
 L = json.load(open(H + '/data/youtube_ids.json', encoding='utf8'))

@@ -31,11 +31,11 @@ def main():
 
 ## 実際の動画
 
-- [本編：3分44秒](E:/rekishikaisetu/out/sekigahara_google_earth_portraits.mp4) — 1920×1080 / 30fps / H.264＋AAC / {v[0]['size_bytes']:,}バイト
-- [進軍部分：22.87秒](E:/rekishikaisetu/out/earth_portrait_march_preview.mp4) — 同じ仕様 / {v[1]['size_bytes']:,}バイト
-- [日本語字幕](E:/rekishikaisetu/out/earth_subtitles.srt)
-- [出典・肖像の所蔵先・画像日付](E:/rekishikaisetu/out/earth_sources.md)
-- [機械可読の検証結果](E:/rekishikaisetu/out/earth_quality_report.json)
+- [本編：3分44秒]({ROOT.as_posix()}/out/sekigahara_google_earth_portraits.mp4) — 1920×1080 / 30fps / H.264＋AAC / {v[0]['size_bytes']:,}バイト
+- [進軍部分：22.87秒]({ROOT.as_posix()}/out/earth_portrait_march_preview.mp4) — 同じ仕様 / {v[1]['size_bytes']:,}バイト
+- [日本語字幕]({ROOT.as_posix()}/out/earth_subtitles.srt)
+- [出典・肖像の所蔵先・画像日付]({ROOT.as_posix()}/out/earth_sources.md)
+- [機械可読の検証結果]({ROOT.as_posix()}/out/earth_quality_report.json)
 
 ## 反映した内容
 

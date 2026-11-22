@@ -79,7 +79,7 @@ def build(slug, pack_long='43_bukka'):
     sh(['ffmpeg', '-y', '-loglevel', 'error'] + sum([['-i', str(p)] for p in tmp], []) + ['-filter_complex', f'hstack={n}', str(sheet)])
     for p in tmp: p.unlink(missing_ok=True)
     # 6. 見せる用にコピー
-    view = Path('E:/rekishikaisetu/sigcmp_view'); view.mkdir(exist_ok=True); shutil.copy(out, view / f'short_{slug}.mp4')
+    view = R / 'sigcmp_view'; view.mkdir(exist_ok=True); shutil.copy(out, view / f'short_{slug}.mp4')
     print('== build結果:', slug)
     print('確認できたこと:'); [print('  ・' + x) for x in ok]
     if bad: print('要対応:'); [print('  ×' + x) for x in bad]

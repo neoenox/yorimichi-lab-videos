@@ -1,6 +1,6 @@
 """台本先行の進め方(2026-11-08〜)用の共通部品。gen_solo_<slug>.py から build() を呼ぶと、
   ① data/short_solo_<slug>.json と data/<slug>_pron.json(動画づくり用)
-  ② E:/rekishikaisetu/out/script_solo_<slug>.txt (台本レビュー用のテキスト。ChatGPTに渡す)
+  ② out/script_solo_<slug>.txt (台本レビュー用のテキスト。ChatGPTに渡す)
 を書く。動画の背景生成・ビルドは、台本がChatGPTのレビューを通ってから始める。"""
 import json
 from pathlib import Path
@@ -85,7 +85,7 @@ def build(slug, title, head, answer, pron, scenes, bg_plan, notes, bg_note=None,
         vz = ' / '.join(f'{a}={b}' for a, b in v['events']) if v['type'] == 'timeline' else json.dumps(v, ensure_ascii=False)
         L += [f'場面{i + 1}', f"  ナレーション: {s['text']}", f"  大見出し: {s['big']} / 小見出し: {s['sub']} / 出典表示: {s['src']}", f'  図: {vz}', f'  背景(AI生成映像)の予定: {bg_plan[i]}']
     L += ['', '【終わりの画面のナレーション】' + (end_q or '') + '出典は、説明欄にまとめています。チャンネル登録も、お願いします。', '', '【説明欄(根拠と未確認)】', note_text]
-    out = Path('E:/rekishikaisetu/out') / f'script_solo_{slug}.txt'
+    out = R / 'out' / f'script_solo_{slug}.txt'
     out.write_text('\n'.join(L), encoding='utf8')
     print('ok', slug, len('\n'.join(L)), '字')
 

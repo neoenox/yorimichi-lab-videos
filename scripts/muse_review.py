@@ -6,7 +6,7 @@
   python scripts/muse_review.py <slug> --video out/short_<slug>.mp4 [--note "追記"] [--dry-run] [--timeout 900]
 
   --dry-run は送信の直前で止める（添付と入力の確認だけ）。
-  返答は out/muse_reply_<slug>.txt に保存する。圧縮ファイルは E:/rekishikaisetu/sigcmp_view/ に置く
+  返答は out/muse_reply_<slug>.txt に保存する。圧縮ファイルは sigcmp_view/ に置く
   （Chrome の file_upload は作業フォルダの外を受け付けないため）。
 """
 import argparse
@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 PROFILE = r'C:\Users\neoen\.chrome-automation'
 CDP_PORT = int(os.getenv('MUSE_CDP_PORT', '9222'))
-VIEW = Path('E:/rekishikaisetu/sigcmp_view')
+VIEW = Path(__file__).resolve().parents[1] / 'sigcmp_view'
 MUSE_MARK = '問題点は時刻つきで具体的にお願いします。'
 TEXTBOX = '[contenteditable=true], textarea, [role=textbox]'   # Muse は contenteditable とは限らない（実測: textarea か role=textbox）
 FFMPEG = shutil.which('ffmpeg') or r'C:\Users\neoen\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.1-full_build\bin\ffmpeg.exe'

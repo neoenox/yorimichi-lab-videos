@@ -3,7 +3,7 @@ import json, subprocess, sys
 from pathlib import Path
 sys.stdout.reconfigure(encoding='utf8')
 R = Path(__file__).resolve().parents[1]
-DST = Path('E:/rekishikaisetu/out')
+DST = R / 'out'
 for slug in sys.argv[1:]:
     spec = json.loads((R / 'data' / f'short_{slug}.json').read_text(encoding='utf8'))
     up = R / 'upload' / f'short_{slug}'

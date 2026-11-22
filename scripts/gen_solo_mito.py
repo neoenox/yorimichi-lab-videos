@@ -57,6 +57,6 @@ for i, s in enumerate(scenes):
     vz = ' / '.join(f'{a}={b}' for a, b in v['events']) if v['type'] == 'timeline' else json.dumps(v, ensure_ascii=False)
     L += [f'場面{i + 1}', f"  ナレーション: {s['text']}", f"  大見出し: {s['big']} / 小見出し: {s['sub']} / 出典表示: {s['src']}", f'  図: {vz}', f'  背景(AI生成映像)の予定: {BG_PLAN[i]}']
 L += ['', '【終わりの画面のナレーション】出典は、説明欄にまとめています。チャンネル登録も、お願いします。', '', '【説明欄(根拠と未確認)】', notes]
-out = Path('E:/rekishikaisetu/out') / f'script_solo_{slug}.txt'
+out = R / 'out' / f'script_solo_{slug}.txt'
 out.write_text('\n'.join(L), encoding='utf8')
 print('ok', len('\n'.join(L)), '字 ->', out)
