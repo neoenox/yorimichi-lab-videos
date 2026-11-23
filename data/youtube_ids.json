@@ -2649,12 +2649,22 @@
   "containsSyntheticMedia": true
  },
  "short_income_gap": {
-  "video_id": "BwubprCuzao",
+  "video_id": "okujraLa6yg",
   "privacy": "private",
   "via": "api",
-  "superseded": [],
+  "superseded": [
+   "BwubprCuzao"
+  ],
   "deleted": [],
   "publishAt": "2026-11-26T11:00:00Z",
   "containsSyntheticMedia": true
+ },
+ "short_income_gap_old": {
+  "video_id": "BwubprCuzao",
+  "privacy": "private",
+  "publishAt": "2027-01-01T00:00:00.000Z",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
  }
 }

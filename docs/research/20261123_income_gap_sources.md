@@ -72,3 +72,14 @@ brief: `shorts/income_gap/brief.yaml`（brief-check PASS）
 - アップロード: `solo_schedule.py income_gap "2026-11-26 20:00"`。動画ID `BwubprCuzao`、字幕添付、非公開のまま `publishAt=2026-11-26T11:00:00Z`。AI使用フラグ設定済み（読み戻し None の既知挙動）。
 - X紹介投稿は 11/26 20:05 に予約。予約一覧で動画IDが1件のみ。`check_slots.py` で20:00枠の重複なし。
 - 未実施: 人間の全編実聴・スマホ実機。
+
+
+## 発音修正に伴う動画差し替え（2026-11-23、オーナー指摘）
+
+- オーナー指摘: 「一番人が多い」が「いちばんにんがおおい」と読まれていた。`_kana.txt` でも `イチバ'ンニンガ/オ'オイ` を確認（user report が ground truth）。
+- 修正: `shorts/income_gap/pron.json` に `人が → ヒトガ` を追加。`_kana.txt` で `イチ'バン/_ヒト'ガ/オ'オイ` を確認してから再描画・再パック。
+- YouTubeの動画ファイルは同じIDで差し替えられないため、`yt_api.py upload short_income_gap --new-version` で新ID `okujraLa6yg` をアップ。
+  - 新ID: 非公開のまま 11/26 20:00 予約、字幕添付、AI使用フラグ設定。
+  - 旧ID `BwubprCuzao`: 予約を 2027-01-01 00:00 JST へ退避。台帳では `short_income_gap_old` として別キーで記録。
+- X予約も `scripts/x_replace_url.py BwubprCuzao okujraLa6yg` で本文のURLのみ差し替え。日時 11/26 20:05 は維持。予約一覧で旧ID=0件・新ID=1件を確認。
+- `check_slots.py` で11/26 20:00 の重複なし、新旧とも `uploadStatus=processed` を確認。
