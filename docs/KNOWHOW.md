@@ -163,3 +163,5 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 - 2026-11-22: 全377本の説明欄を走査し、内部メモが残っていた57本をAPIで除去（`docs/research/20261122_description_cleanup.md`）。`scripts/solo_spec.py` の `public_notes()` が `build()` 時に内部メモ行を落とすので、generator を再実行すれば清潔な説明欄が作れる。走査は `videos().list(part='snippet,status')` とパターン照合で再現可能。
 
 - スワイプ率は Analytics API に無く Studio 画面のみ。`scripts/studio_swipe.py <video_id>` で CDP 9222 の Studio 分析から「視聴を継続／スワイプして消去」を読める（2026-11-23追加、既存3本で実測一致を確認）。KPI判定は [`kpi_swipe_tracking.md`](kpi_swipe_tracking.md) の閾値と手順に従う。
+
+- YouTube APIのrefresh tokenは失効することがある。`invalid_grant` が出たら `scripts/yt_api.py auth` を実行し、ブラウザで「寄り道ラボ」を選んで承認してもらう（2026-11-23実例）。予約時刻の変更はAPIの `videos().update(part='status', publishAt=...)`、X予約の変更は `scripts/x_reschedule.py <video_id> "YYYY-MM-DD HH:MM"`（CDP 9223）。

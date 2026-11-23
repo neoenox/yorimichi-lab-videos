@@ -123,3 +123,14 @@ python scripts/pack_short.py solo_baby_hone --tags=...
 - アップ前に `scripts/gen_solo_fuji.py` を再実行して説明欄から内部レビューメモを除去し、`solo_spec.public_notes()` の効果を確認した。
 - 赤ちゃん2本と同じく `claims` は空で根拠テーブルゲートは未通過。オーナーが「上げていい」と明示したため、`yt_api.py upload` 経路で手動アップした（ゲートは緩めていない）。
 - `check_slots.py` で11/30 20:00 を確認、同時刻の重複なし。X紹介投稿も dry-run 確認後に 11/30 20:05 へ予約（`--ai` 付き）。予約一覧で動画ID `kDbXge1XJ1c` が1件のみ。
+
+
+### 公開枠を午前中へ変更（2026-11-23、オーナー指示）
+
+- オーナー「午前中はお試しの動画をあげたい。検証用というか」を受け、お試し3本の公開予約を 20:00 から **11:00** に変更した。
+  - 涙 `vSukBizCm4c`: 11/26 11:00
+  - 骨 `FNWwzx9sFGs`: 11/27 11:00
+  - 富士山 `kDbXge1XJ1c`: 11/30 11:00
+- YouTube側はAPIで `publishAt` を更新し、`check_slots.py` で11:00枠の重複なしを確認。
+- X紹介投稿も各 11:05 に付け替えた。`scripts/x_reschedule.py`（CDP 9223）で編集し、予約一覧で各動画IDが1件のみ・時刻が正しいことを確認。
+- YouTubeのOAuth refresh tokenが期限切れになり、`scripts/yt_api.py auth` で再認証（オーナーがブラウザで承認）してから変更した。
