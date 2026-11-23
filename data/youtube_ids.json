@@ -2647,5 +2647,14 @@
   "deleted": [],
   "publishAt": "2026-12-04T08:00:00Z",
   "containsSyntheticMedia": true
+ },
+ "short_income_gap": {
+  "video_id": "BwubprCuzao",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": [],
+  "publishAt": "2026-11-26T11:00:00Z",
+  "containsSyntheticMedia": true
  }
 }
