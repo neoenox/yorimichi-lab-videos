@@ -10,12 +10,14 @@ usage:
 """
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CDP = 'http://127.0.0.1:9222'
+CDP_PORT = os.environ.get('CHATGPT_CDP_PORT', '9222')
+CDP = f'http://127.0.0.1:{CDP_PORT}'
 SITES = {
     'chatgpt': ('chatgpt.com', '#prompt-textarea, div[contenteditable="true"]',
                 'div[class*="DilResponseRoot"], div[data-message-author-role="assistant"]'),

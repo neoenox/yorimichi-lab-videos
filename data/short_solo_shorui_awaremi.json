@@ -1,0 +1,180 @@
+{
+ "title": "生類憐みの令は本当に悪法だったのか 記録で確かめる",
+ "head": "生類憐みの令は悪法？",
+ "pron": "data/shorui_awaremi_pron.json",
+ "art": "assets/tohoku/bg_one.png",
+ "hook": "犬ばかり大事にした悪法、生類憐みの令。でも、「犬だけ」は誤り。生類には、人も含まれていました。",
+ "notes": "■ 2026年11月23日に、J-Stage掲載の研究論文「『生類憐みの令』の動物観」（https://www.jstage.jst.go.jp/article/seibutsugakushi/99/0/99_11/_pdf）のPDF本文を読んで作った整理です。\n・根拠：通説では「人命より動物を優先した悪法」と評価されてきたが、20世紀末から「単なる悪法ではない」という記述が現れた。令は1687年の病人・病牛馬の遺棄禁止令から始まり、捨て子の禁止や囚人の獄死防止など、人間を含む内容が含まれた。一方で1695年には中野・大久保に犬小屋が設けられ、10万頭におよんだといわれる。犬を傷つけて切腹した例も記録されている。\n・動画内の図（比較・模式図）は自作です。背景の映像は FreeVideo（MiniMax H3）によるAI生成で、イメージです。実際の江戸の映像ではありません。\n",
+ "answer": "犬だけではないが、罰は厳しかった",
+ "hook_text": null,
+ "hook_label": null,
+ "end_q": "皆さんは、生類憐みの令と聞いて、何を思い浮かべますか？",
+ "tags": [
+  "生類憐みの令",
+  "徳川綱吉",
+  "江戸時代",
+  "歴史",
+  "誤解",
+  "一次史料",
+  "雑学",
+  "Shorts"
+ ],
+ "credit": "・背景映像：FreeVideo（MiniMax H3）によるAI生成映像。イメージです。実際の江戸の映像ではありません\n・図・表：自作",
+ "suffix": "整理",
+ "nolong": true,
+ "nolink": true,
+ "long_id": "qzxzekd5j-I",
+ "long_title": "43_bukka",
+ "scenes": [
+  {
+   "text": "犬ばかり大事にした悪法、生類憐みの令。でも、「犬だけ」は誤り。生類には、人も含まれていました。",
+   "big": "犬だけの法律？",
+   "sub": "答え：半分誤り・人も含まれた",
+   "src": "J-STAGE論文／NDLレファレンス",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.6,
+    "events": [
+     [
+      "よくある印象",
+      "犬を大事にした悪法"
+     ],
+     [
+      "答え",
+      "半分誤り"
+     ],
+     [
+      "生類",
+      "犬だけでなく人も"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c1"
+   ],
+   "vid": "assets/shorui_awaremi/fv/clip1.mp4",
+   "dim": 0.7
+  },
+  {
+   "text": "1687年の令は、病人や牛や馬を捨てないもの。捨て子や牢屋での死も防ぐ目的でした。",
+   "big": "1687年の法令",
+   "sub": "病人・病牛馬の遺棄禁止から",
+   "src": "J-STAGE論文",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "1687年",
+      "病人・病牛馬の遺棄禁止"
+     ],
+     [
+      "人",
+      "捨て子の禁止"
+     ],
+     [
+      "囚人",
+      "獄死を防ぐ"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c2"
+   ],
+   "vid": "assets/shorui_awaremi/fv/clip2.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "ただ、犬小屋は実在しました。中野には10万頭といわれる犬がいて、犬を傷つけた武士が切腹した例もあります。この厳しさが、悪法と呼ばれた理由です。",
+   "big": "犬小屋は実在",
+   "sub": "10万頭といわれ罰も厳しかった",
+   "src": "J-STAGE論文／NDLレファレンス",
+   "viz": {
+    "type": "compare",
+    "l_label": "中野の犬小屋",
+    "l_val": "約10万頭",
+    "r_label": "犬を傷つけると",
+    "r_val": "切腹の例も"
+   },
+   "claim_ids": [
+    "c3"
+   ],
+   "vid": "assets/shorui_awaremi/fv/clip3.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "犬だけではなかった。でも、罰は厳しかった。厳しさも、悪法と呼ばれる理由の一つ。今は再評価も進んでいます。",
+   "big": "悪法か再評価か",
+   "sub": "犬だけではないが罰は厳しかった",
+   "src": "J-STAGE論文／NDLレファレンス",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "当時",
+      "犬公方と呼ばれた"
+     ],
+     [
+      "記録",
+      "人も守る令だった"
+     ],
+     [
+      "現在",
+      "研究で再評価も"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c4",
+    "c1"
+   ],
+   "vid": "assets/shorui_awaremi/fv/clip4.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true,
+   "vid": "assets/shorui_awaremi/fv/clip1.mp4",
+   "dim": 0.7
+  }
+ ],
+ "claims": [
+  {
+   "id": "c1",
+   "statement": "生類憐みの令の「生類」には人間も含まれ、犬だけを対象にした法令ではない",
+   "source_type": "primary",
+   "source_url": "https://www.jstage.jst.go.jp/article/seibutsugakushi/99/0/99_11/_pdf",
+   "evidence_note": "J-Stage論文PDF本文109〜110行目、123〜124行目で確認。"
+  },
+  {
+   "id": "c2",
+   "statement": "令は1687年の病人・病牛馬の遺棄禁止令から始まった",
+   "source_type": "primary",
+   "source_url": "https://www.jstage.jst.go.jp/article/seibutsugakushi/99/0/99_11/_pdf",
+   "evidence_note": "J-Stage論文PDF本文147行目で確認。"
+  },
+  {
+   "id": "c3",
+   "statement": "1695年に中野・大久保に犬小屋が設けられ、10万頭といわれる犬が収容された。犬を傷つけて切腹した例もある",
+   "source_type": "primary",
+   "source_url": "https://www.jstage.jst.go.jp/article/seibutsugakushi/99/0/99_11/_pdf",
+   "evidence_note": "J-Stage論文PDF本文329〜349行目、380行目で確認。"
+  },
+  {
+   "id": "c4",
+   "statement": "生類憐みの令の評価は、20世紀末以降「単なる悪法ではない」という論調へ変わってきた",
+   "source_type": "primary",
+   "source_url": "https://www.jstage.jst.go.jp/article/seibutsugakushi/99/0/99_11/_pdf",
+   "evidence_note": "J-Stage論文PDF本文45〜49行目、166〜223行目で確認。"
+  }
+ ],
+ "needs_research": [
+  "法令の原文と判決記録の原本は未確認。ただしJ-Stage論文が原文を引用して整理しており答えは変わらない。",
+  "10万頭は記録の伝聞表現。台本では「といわれる」としたため答えは変わらない。",
+  "東京都公文書館のページは町触全般の解説で直接の原文ではない。出典表示には使っていないため答えは変わらない。"
+ ]
+}
