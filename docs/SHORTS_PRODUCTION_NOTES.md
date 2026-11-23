@@ -807,3 +807,12 @@ younkaku を置いた）。
 - `fv_clips.sh` は Git Bash の `/e/...` パスを使うため、`C:\Program Files\Git\bin\bash.exe` の絶対パスで呼ぶ。
 
 - `PYTHONPATH` がセッションから漏れていると、ComfyUI が Python311 の壊れた PIL を読んで起動失敗（`cannot import name '_imaging'`）し、`freevideo_batch.py` は `SERVER DOWN` で終わる。`fv_clips.sh` の先頭で `unset PYTHONPATH` するよう修正した（2026-11-22）。
+
+
+## 味覚マップの根拠確認（2026-11-23、tongue_taste_map）
+
+- 企画3案（味覚マップ／110番・119番／雲の重さ）のうち、冒頭の引き込みが strongest な味覚マップを先に選んだ。根拠は `shorts/tongue_taste_map/brief.yaml` と `result.json`。`brief-check` と `check` は通るが `status=needs_review` のまま（台本レビュー・音声・スマホ確認は未実施）。
+- 一次資料は Spence 2022 の総説（PMC8956797）。要旨・Highlights・1節で、各基本味の受容体は舌全体に分布し「舌の地図」は長く否定されていると確認。ただし同じ総説が、場所ごとの感度差は小さいが有意だとも書く。**「地図は誤り」と「差はゼロではない」の両方を入れないと、知的な納得感が出ず誤断言にもなる**。
+- 日本語の根拠として市民研通信第62号（2021年5月10日）のPDF本文も取得。`web_fetch` は PDF 非対応なので PowerShell で取得し、`Python312\python.exe` の `fitz` で UTF-8 テキストに落として読んだ。47〜48行目に「味の感覚は舌全体に広がり、差は非常にわずか」、76〜84行目に「1942年のボーリングの本だけで広まったとするのは不十分」とある。ここを単線の「誤訳で広まった」物語に単純化しない。
+- この環境では `python` が WindowsApps のスタブで、PDF 抽出や `shorts_standard.py` は `C:\Users\neoen\AppData\Local\Programs\Python\Python312\python.exe` を明示して実行する。`PYTHONUTF8=1` を付けると日本語の文字化けを避けられる。
+- `shorts_standard.py check` の WARN は、1秒あたり文字数（4.0〜5.5）・疑問形・模式図の明記・claim_ids で細かく出る。39秒なら全体で約160〜210文字。初稿は約305文字で全シーンが速すぎたため、約3分の1を削って PASS にした。

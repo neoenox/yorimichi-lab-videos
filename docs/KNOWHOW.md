@@ -116,6 +116,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | 2026-11-20 | 根拠テーブルゲート＋`seijin` 再利用 | `data/short_*.json` に `claims` を埋め、アップ前・CI・pre-commit で検査。既存284本は祖父化。成人の日は未公開の `short_seijin` を再利用し、1/11 19:00 長尺＋20:00 Short のペア公開を予定（**AIレビューは両方「公開可」完了。実聴・予約は未実施**）。[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md) |
 | 2026-11-22 | `baby_hone` / `baby_namida` / `fuji` のAIレビュー | Google AIモードで台本・動画をレビューし、指摘を原文と実フレームで照合して再描画。3本とも最終版「公開可」。ChatGPTはCDP未ログインで未実施。根拠テーブル・アップ・予約は未実施（[`research/20261122_baby_fuji_reviews.md`](research/20261122_baby_fuji_reviews.md)） |
 | 2026-11-22 | `thunder_metal`（雷と金属） | 提案3案のうち制作可能と判断して新規制作。学会論文p.53/54/56と気象庁本文で根拠を確認し、根拠ゲートOK（WARN 3）。自作イラスト背景、60.4秒。Google AIモードで台本3回・動画4回レビューし、残る指摘は原文・silencedetectで照合して不採用（[`research/20261122_thunder_metal_sources.md`](research/20261122_thunder_metal_sources.md)） |
+| 2026-11-23 | `tongue_taste_map`（味覚マップ） | 3案から味覚マップを選択。Spence 2022の総説と市民研通信PDFで根拠を確認し、brief → result.json → check まで完了（needs_review）。「地図は誤りだが感度差は小さく存在する」の両保存が要点。39秒の台本は初稿が約305文字で警告だらけになり、約160〜210文字へ削って PASS（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)） |
 
 ## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
 
