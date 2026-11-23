@@ -1,0 +1,110 @@
+{
+ "title": "平均年収478万円のカラクリ",
+ "hook": "平均年収478万円。あなたの実感と違いませんか？",
+ "notes": "・国税庁「令和6年分民間給与実態統計調査」では、1年を通じて勤務した給与所得者の平均給与は478万円（前年比3.9%増、4年連続増加で過去最高）。\n・同調査の給与階級別分布では、300万円超400万円以下の者が826万人（16.1%）で最も多く、次いで400万円超500万円以下が787万人（15.3%）。\n・同調査の対象は民間の給与所得者で、民間全体の給与所得者数は6,077万人、1年を通じて勤務した給与所得者は5,137万人。\n・同調査の最頻給与帯は、男性が400万円超500万円以下493万人（16.9%）、女性が200万円超300万円以下421万人（19.0%）。",
+ "refs": [
+  "国税庁「令和6年分民間給与実態統計調査」では、1年を通じて勤務した給与所得者の平均給与は478万円（前年比3.9%増、4年連続増加で過去最高）。 — https://www.nta.go.jp/information/release/kokuzeicho/2025/minkan_2025/pdf/01.pdf",
+  "同調査の給与階級別分布では、300万円超400万円以下の者が826万人（16.1%）で最も多く、次いで400万円超500万円以下が787万人（15.3%）。 — https://www.nta.go.jp/publication/statistics/kokuzeicho/minkan2024/pdf/R06_001.pdf",
+  "同調査の対象は民間の給与所得者で、民間全体の給与所得者数は6,077万人、1年を通じて勤務した給与所得者は5,137万人。 — https://www.nta.go.jp/information/release/kokuzeicho/2025/minkan_2025/pdf/01.pdf",
+  "同調査の最頻給与帯は、男性が400万円超500万円以下493万人（16.9%）、女性が200万円超300万円以下421万人（19.0%）。 — https://www.nta.go.jp/publication/statistics/kokuzeicho/minkan2024/pdf/R06_001.pdf"
+ ],
+ "pron": "shorts/income_gap/pron.json",
+ "art": "assets/income_gap/art.png",
+ "scenes": [
+  {
+   "text": "平均年収478万円、普通？",
+   "big": "平均478万円が普通？",
+   "sub": "",
+   "art": "assets/income_gap/art.png",
+   "claim_ids": [
+    "c_avg"
+   ],
+   "src": "国税庁 民間給与実態統計調査 令和6年分"
+  },
+  {
+   "text": "実は、一番人が多い年収はもっと低いんです。",
+   "big": "最多の年収はもっと低い",
+   "sub": "",
+   "art": "assets/income_gap/art.png",
+   "claim_ids": [
+    "c_avg",
+    "c_mode"
+   ],
+   "src": "国税庁 民間給与実態統計調査 令和6年分"
+  },
+  {
+   "text": "国税庁の調査では、パート等も含む民間5100万人の平均が478万円。",
+   "big": "5137万人の平均",
+   "sub": "パート等も含む",
+   "art": "assets/income_gap/art.png",
+   "claim_ids": [
+    "c_avg",
+    "c_scope"
+   ],
+   "src": "国税庁 民間給与実態統計調査 令和6年分"
+  },
+  {
+   "text": "最多は300万円を超えて400万円以下。826万人、16.1%です。",
+   "big": "最多300万超〜400万円",
+   "sub": "826万人 16.1%",
+   "art": "assets/income_gap/art.png",
+   "claim_ids": [
+    "c_mode"
+   ],
+   "src": "国税庁 民間給与実態統計調査 令和6年分"
+  },
+  {
+   "text": "平均は一部の高収入な人にも引っ張られるため、最多の層を表す数字ではありません。",
+   "big": "平均は高収入層に引っ張られる",
+   "sub": "最多とは別",
+   "art": "assets/income_gap/art.png",
+   "claim_ids": [
+    "c_mode"
+   ],
+   "src": "国税庁 民間給与実態統計調査 令和6年分"
+  },
+  {
+   "text": "男性は400万から500万円、女性は200万から300万円が最多。平均だけで比べないで。",
+   "big": "男性 400〜500万円",
+   "sub": "女性 200〜300万円",
+   "art": "assets/income_gap/art.png",
+   "claim_ids": [
+    "c_gender"
+   ],
+   "src": "国税庁 民間給与実態統計調査 令和6年分"
+  }
+ ],
+ "cta": false,
+ "status": "ready",
+ "claims": [
+  {
+   "id": "c_avg",
+   "statement": "国税庁「令和6年分民間給与実態統計調査」では、1年を通じて勤務した給与所得者の平均給与は478万円（前年比3.9%増、4年連続増加で過去最高）。",
+   "source_type": "primary",
+   "source_url": "https://www.nta.go.jp/information/release/kokuzeicho/2025/minkan_2025/pdf/01.pdf",
+   "evidence_note": "2026-11-23にPDFを取得し本文確認。「平均給与は478万円（前年比3.9％増）」「4年連続の増加、過去最高」とある。税込・賞与込みの給与総額で手取りではない。"
+  },
+  {
+   "id": "c_mode",
+   "statement": "同調査の給与階級別分布では、300万円超400万円以下の者が826万人（16.1%）で最も多く、次いで400万円超500万円以下が787万人（15.3%）。",
+   "source_type": "primary",
+   "source_url": "https://www.nta.go.jp/publication/statistics/kokuzeicho/minkan2024/pdf/R06_001.pdf",
+   "evidence_note": "2026-11-23にPDFを取得しp.22本文確認。「5,137万人について…300万円超400万円以下の者が826万人（構成比16.1％）で最も多く、次いで400万円超500万円以下の者が787万人（同15.3％）」。"
+  },
+  {
+   "id": "c_scope",
+   "statement": "同調査の対象は民間の給与所得者で、民間全体の給与所得者数は6,077万人、1年を通じて勤務した給与所得者は5,137万人。",
+   "source_type": "primary",
+   "source_url": "https://www.nta.go.jp/information/release/kokuzeicho/2025/minkan_2025/pdf/01.pdf",
+   "evidence_note": "2026-11-23にPDFを取得し本文確認。「民間の給与所得者数は6,077万人」「給与の総額は241兆4,388億円」「1年を通じて勤務した給与所得者5,137万人」。公務員・個人事業主・所得のない人は含まれない。"
+  },
+  {
+   "id": "c_gender",
+   "statement": "同調査の最頻給与帯は、男性が400万円超500万円以下493万人（16.9%）、女性が200万円超300万円以下421万人（19.0%）。",
+   "source_type": "primary",
+   "source_url": "https://www.nta.go.jp/publication/statistics/kokuzeicho/minkan2024/pdf/R06_001.pdf",
+   "evidence_note": "2026-11-23にPDFを取得しp.22本文確認。男性「400万円超500万円以下の者が493万人（構成比16.9％）」、女性「200万円超300万円以下の者が421万人（同19.0％）」。"
+  }
+ ],
+ "needs_research": []
+}
