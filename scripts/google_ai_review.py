@@ -14,17 +14,41 @@
 """
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-CDP = 'http://127.0.0.1:9222'
+CDP_PORT = os.environ.get('GOOGLE_AI_CDP_PORT', '9222')
+CDP = f'http://127.0.0.1:{CDP_PORT}'
 URL = 'https://www.google.com/ai'
 
 
+VIDEO_QUESTION = (
+    'この動画を最後まで通して見て、Short動画としてレビューしてください。'
+    'まず、ナレーションを時刻つきで書き起こしてください。'
+    '次に、次の項目をそれぞれ分けて報告してください。'
+    '(1) 音声の読み間違い・音割れ・無音。'
+    '(2) 字幕の表記そのものの違和感。人名のカタカナ／ひらがな、漢数字と算用数字、専門用語の表記、'
+    '読み仮名をそのまま字幕に出していないかを、音声の読みとは別に評価してください。'
+    '音声が正しく読めていても、字幕の文字が不自然なら必ず指摘してください。'
+    '(3) 字幕と音声の一致と、タイミングのズレ。'
+    '(4) 文字の重なり・はみ出し・見切れ・折り返し。'
+    '(5) 事実関係と、根拠より強い断定。'
+    '(6) 冒頭1〜3秒の引き。'
+    '(7) AI映像の不自然さ（文字・人物・現代物の混入）。'
+    '(8) 画面下端や右端のUI被り。実際に被っている場合だけ指摘し、'
+    '推測になる場合は「要確認」と分けてください。'
+    '指摘には時刻と、修正後の文字列の候補を具体的に書いてください。'
+    '最後に「公開可」か「修正必要」かを明示してください。'
+)
+
+
 def build_question(slug, mode):
+    if mode == 'video':
+        return VIDEO_QUESTION
     p = ROOT / 'data' / f'short_{slug}.json'
     if not p.exists():
         return ('この動画を最後まで確認して、Short動画としてのレビューをしてください。'
@@ -38,7 +62,9 @@ def build_question(slug, mode):
         lines.append(f'根拠 {c.get("id")}: {c.get("statement")} | {c.get("source_url", "")}')
     if d.get('needs_research'):
         lines.append('未確認: ' + ' / '.join(d['needs_research']))
-    lines.append('見てほしい点: 事実の誤り、根拠より強い断定、誤解を招く表現、音声で聞きにくい語、公開可か修正必要か。'
+    lines.append('見てほしい点: 事実の誤り、根拠より強い断定、誤解を招く表現、'
+                 '音声で聞きにくい語、画面に出る文字の表記（人名のカタカナ／ひらがな、'
+                 '漢数字と算用数字、読み仮名の直出し）、公開可か修正必要か。'
                  'AIの指摘は根拠の原文と照合してから採用します。')
     return '\n'.join(lines)
 
@@ -67,35 +93,34 @@ def main():
     import socket
     from chrome_launch import launch_minimized
     try:
-        socket.create_connection(('127.0.0.1', 9222), 1).close()
+        socket.create_connection(('127.0.0.1', int(CDP_PORT)), 1).close()
     except OSError:
-        launch_minimized(r'C:\Program Files\Google\Chrome\Application\chrome.exe', 9222,
+        launch_minimized(r'C:\Program Files\Google\Chrome\Application\chrome.exe', int(CDP_PORT),
                          r'C:\Users\neoen\.chrome-automation', URL)
         time.sleep(8)
 
 
     with sync_playwright() as p:
         b = p.chromium.connect_over_cdp(CDP)
-        created = False
-        pg = next((x for x in b.contexts[0].pages
-                   if 'google' in x.url and '.mp4' in x.locator('body').first.inner_text()), None)
-        if pg is None or a.mode != 'video':
-            created = True
-            pg = b.contexts[0].new_page()
-            pg.goto(URL, wait_until='domcontentloaded')
-            pg.wait_for_timeout(6000)
+        # video モードは既存の会話を再利用すると別動画のレビューに化ける。
+        # 常に新しいタブを開き、動画を添付してから質問する（2026-11-23 実例）。
+        created = True
+        pg = b.contexts[0].new_page()
+        pg.goto(URL, wait_until='domcontentloaded')
+        pg.wait_for_timeout(8000)
         pg.bring_to_front()
 
-
-        if a.mode == 'video' and created:
+        if a.mode == 'video':
             if not a.video:
                 raise SystemExit('--video が必要です')
             pg.locator('button[aria-label="ファイルとツールを追加し、モデルを選択します"]').first.click()
-            pg.wait_for_timeout(1200)
+            pg.wait_for_timeout(1500)
             fis = pg.locator('input[type=file]')
             target = next((fis.nth(i) for i in range(fis.count())
                            if 'image' not in (fis.nth(i).get_attribute('accept') or '')), fis.last)
             target.set_input_files(str((ROOT / a.video).resolve() if not Path(a.video).is_absolute() else a.video))
+            pg.wait_for_timeout(5000)
+            print('attached', a.video, flush=True)
 
         ta = pg.locator('[aria-label="質問する"]')
         ta.first.fill(question)
