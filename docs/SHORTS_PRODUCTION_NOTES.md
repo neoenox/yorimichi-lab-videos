@@ -816,3 +816,8 @@ younkaku を置いた）。
 - 日本語の根拠として市民研通信第62号（2021年5月10日）のPDF本文も取得。`web_fetch` は PDF 非対応なので PowerShell で取得し、`Python312\python.exe` の `fitz` で UTF-8 テキストに落として読んだ。47〜48行目に「味の感覚は舌全体に広がり、差は非常にわずか」、76〜84行目に「1942年のボーリングの本だけで広まったとするのは不十分」とある。ここを単線の「誤訳で広まった」物語に単純化しない。
 - この環境では `python` が WindowsApps のスタブで、PDF 抽出や `shorts_standard.py` は `C:\Users\neoen\AppData\Local\Programs\Python\Python312\python.exe` を明示して実行する。`PYTHONUTF8=1` を付けると日本語の文字化けを避けられる。
 - `shorts_standard.py check` の WARN は、1秒あたり文字数（4.0〜5.5）・疑問形・模式図の明記・claim_ids で細かく出る。39秒なら全体で約160〜210文字。初稿は約305文字で全シーンが速すぎたため、約3分の1を削って PASS にした。
+- 単独Short化（57.6秒・4場面）後、Google AIモードとChatGPTの両方で台本レビュー、Google AIモードで動画レビューを行い、いずれも「公開可」。動画は CDP 9222 が塞がっていたため、**9223 の automation プロファイルで Playwright の `set_input_files` を使ったら動画添付に成功**した。bsk の upload は hidden input に `Not allowed` で失敗（手順書どおり）。
+- VOICEVOX はカタカナ「ヘーニッヒ」を audio_query で `エ'エ/ニッヒ'` と読む。ひらがな「へえにっひ」なら `ヘエニッ'/ヒ'` になる。**字幕はカタカナ「ヘーニッヒ」、発音辞書は `ヘーニッヒ: へえにっひ`** とすると両方を満たせる。kana ファイルで `ヘエニッ'/ヒ'ガ` を確認すること。
+- `solo_spec.build` に `claims` と `needs_research` を渡しても、`needs_research` に「答えは変わらない」という語が無いと root の根拠テーブルゲートが ERROR になる。各項目にその一文を入れること。
+- 予約枠の事前確認で 11/24 12:00 が空きと見落とし、既存 `short_solo_kotatsu` と重複した。**`check_slots.py` の出力は最後まで読み、予約後にもう一度実行して重複なしを確認する**。今回は今回の動画だけを 11/25 11:00 に移動（`yt_api.py schedule <id> "2026-11-25 11:00"`）。
+- X の予約時刻変更は UI のクリックが `#layers` に遮られる。次の手順で保存できた: (1) 予約一覧の対象投稿をクリックして編集モーダルを開く, (2) `document.querySelector('[role=dialog] [data-testid="scheduledTweetIndicator"]').click()` を JS で実行, (3) `#SELECTOR_1..5` を 11/25 11:05 に設定して change イベント, (4) `[data-testid="scheduledConfirmationPrimaryAction"]` をクリック, (5) 最後に編集モーダルの `[data-testid="tweetButton"]` を JS click で押す。`Update` だけでは保存されない。再読み込みして予約一覧で確認すること。
