@@ -2650,14 +2650,14 @@
  },
  "short_income_gap": {
   "video_id": "okujraLa6yg",
-  "privacy": "private",
+  "privacy": "public",
   "via": "api",
   "superseded": [
    "BwubprCuzao"
   ],
   "deleted": [],
-  "publishAt": "2026-11-26T11:00:00Z",
-  "containsSyntheticMedia": true
+  "containsSyntheticMedia": true,
+  "publishedAt": "2026-11-23T13:09:09+09:00"
  },
  "short_income_gap_old": {
   "video_id": "BwubprCuzao",

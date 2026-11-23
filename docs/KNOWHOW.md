@@ -169,3 +169,5 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 - `google_ai_review.py` が「送信ボタンが有効にならない」で止まったときは、ファイル添付済みのタブから続きを送信する `scripts/google_ai_followup.py <slug> [--extra "..."]` を使う（2026-11-23追加、CDP 9222）。レビュー完了後に自分で開いたタブは閉じる。
 
 - 予約済みX投稿のURLだけを差し替えるときは `scripts/x_replace_url.py <old_id> <new_id>`（CDP 9223）。本文のURLを置換し、日時が変わらないことを確認してから保存し、予約一覧で旧ID0件・新ID1件を確認する（2026-11-23実例）。動画差し替えは新IDアップ→旧IDを2027-01-01へ退避→X URL差し替えの順。
+
+- 予約済み動画を即時公開するとき、Studio UI の「公開」ラジオが出ない場合は API で `videos().update(part='status', privacyStatus='public')` に `publishAt` を入れずに送れば予約が消えて公開される（2026-11-23実例）。更新後に `privacyStatus=public` / `publishAt=None` を読み戻して確認し、台帳は `privacy=public`・`publishedAt` を記録して `publishAt` を消す。
