@@ -2,6 +2,8 @@
 
 更新日: 2026-11-23。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
+新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
+
 2026-11-23 に AGENTS.md の「イラスト・背景画像は必ずChatGPTに依頼する」を削除し、「背景映像は FreeVideo の AI 映像を使う」に置き換えた（オーナー確認）。古い記述を見て ChatGPT 画像生成を前提にしないこと。
 
 味覚マップ制作の振り返りは [`research/20261123_tongue_taste_map_retro.md`](research/20261123_tongue_taste_map_retro.md)。ルールファイルの古さ、予約枠の重複、カタカナ字幕と発音辞書の両立、動画添付の別ポート回避などを記録している。公開後の比較記録の準備は [`research/20261123_tongue_taste_map_followup.md`](research/20261123_tongue_taste_map_followup.md)。
