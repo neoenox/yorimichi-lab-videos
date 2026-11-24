@@ -1,0 +1,108 @@
+{
+ "title": "雷は、同じ場所に二度落ちない？ AI映像版",
+ "long_id": "3lDoDELmraA",
+ "long_title": "雷は、同じ場所に二度落ちない？ 米国立気象局の説明で確かめる",
+ "pron": "data/lightning_pronunciations.json",
+ "art": "assets/lightning/fv/clip1.mp4",
+ "hook": "「雷は、同じ場所に二度落ちない」と聞いたことはありませんか。アメリカの国立気象局の説明で確かめます。",
+ "notes": "■ 動画で確かめたこと\n・米国立気象局（NWS）は、「雷は同じ場所に二度落ちない」を俗説としています。雷は、特に高く、とがった、孤立したものに、繰り返し落ちることがよくあります。\n・エンパイア・ステート・ビルには、平均で年に23回、雷が落ちるとされています（国立気象局）。\n・国立気象局は、雷の音が聞こえたら、頑丈な建物か屋根が硬い車に避難するよう勧めています。木の下は避けるよう書いています。\n・動画は雷の安全を保証するものではありません。",
+ "credit": "・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の落雷の映像ではありません。\n・図・表：自作",
+ "answer": "俗説：繰り返し落ちることがある",
+ "scenes": [
+  {
+   "text": "雷は、同じ場所に、二度落ちない。そう聞いたことは、ありませんか。",
+   "big": "雷は、同じ場所に二度落ちない？",
+   "vid": "assets/lightning/fv/clip1.mp4",
+   "claim_ids": [
+    "c1"
+   ]
+  },
+  {
+   "text": "アメリカの国立気象局は、これを、俗説としています。",
+   "big": "国立気象局：俗説",
+   "src": "米国立気象局(NWS)",
+   "col": "white",
+   "vid": "assets/lightning/fv/clip2.mp4",
+   "claim_ids": [
+    "c1"
+   ]
+  },
+  {
+   "text": "雷は、特に、高く、とがった、孤立したものに、繰り返し落ちることが、よくある、と説明しています。",
+   "big": "高く・とがった・孤立したものに、繰り返し落ちる",
+   "src": "米国立気象局(NWS)",
+   "vid": "assets/lightning/fv/clip3.mp4",
+   "claim_ids": [
+    "c2"
+   ]
+  },
+  {
+   "text": "エンパイア・ステート・ビルには、平均で、年に二十三回、雷が落ちます。",
+   "big": "エンパイア・ステート・ビル：年に23回",
+   "src": "米国立気象局(NWS)",
+   "col": "white",
+   "vid": "assets/lightning/fv/clip4.mp4",
+   "claim_ids": [
+    "c3"
+   ]
+  },
+  {
+   "text": "雷の音が聞こえたら、頑丈な建物か、屋根が硬い車に、避難しましょう。木の下は、避けてください。",
+   "big": "頑丈な建物か、屋根が硬い車へ",
+   "src": "米国立気象局(NWS)",
+   "vid": "assets/lightning/fv/clip5.mp4",
+   "claim_ids": [
+    "c4"
+   ]
+  },
+  {
+   "text": "くわしくは、長い動画で、確かめています。",
+   "end": true,
+   "vid": "assets/lightning/fv/clip6.mp4"
+  }
+ ],
+ "tags": [
+  "雷",
+  "落雷",
+  "俗説",
+  "エンパイア・ステート・ビル",
+  "米国立気象局",
+  "雷の安全",
+  "雑学",
+  "Shorts"
+ ],
+ "claims": [
+  {
+   "id": "c1",
+   "statement": "米国立気象局は「雷は同じ場所に二度落ちない」を俗説としている",
+   "source_type": "primary",
+   "source_url": "https://www.weather.gov/safety/lightning-myths",
+   "evidence_note": "docs/themes/20261123_lightning/08_fact_check.md に原文を記録。2026-10-23に原文取得済み。"
+  },
+  {
+   "id": "c2",
+   "statement": "雷は特に高く・とがった・孤立したものに繰り返し落ちることがよくある",
+   "source_type": "primary",
+   "source_url": "https://www.weather.gov/safety/lightning-myths",
+   "evidence_note": "原文 Lightning often strikes the same place repeatedly, especially if it is a tall, pointy, isolated object. を確認。"
+  },
+  {
+   "id": "c3",
+   "statement": "エンパイア・ステート・ビルには平均で年に23回雷が落ちる",
+   "source_type": "primary",
+   "source_url": "https://www.weather.gov/safety/lightning-myths",
+   "evidence_note": "原文 The Empire State Building is hit an average of 23 times a year を確認。二次記事の25回・100回は使っていない。"
+  },
+  {
+   "id": "c4",
+   "statement": "雷の音が聞こえたら頑丈な建物か屋根が硬い車へ避難し、木の下は避ける",
+   "source_type": "primary",
+   "source_url": "https://www.weather.gov/safety/lightning-myths",
+   "evidence_note": "原文 Run to a substantial building or hard topped vehicle. と Being underneath a tree is the second leading cause of lightning casualties. を確認。"
+  }
+ ],
+ "needs_research": [
+  "詳しい物理の仕組みは動画で扱わず、説明欄にもその旨を書いている。答えは「俗説かどうか」と「落ちやすい条件」までで、物理の仕組みは結論に使っていない。答えは変わらない。",
+  "気象庁の日本語の雷の安全解説は本次で原文確認できていない。動画と説明欄はNWSの記述に限定して帰属を明示しているため、答えは変わらない。"
+ ]
+}

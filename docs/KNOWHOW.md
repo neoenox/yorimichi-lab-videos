@@ -2,6 +2,8 @@
 
 更新日: 2026-11-24。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
+既存ShortをFreeVideo背景に作り直すときの実測（古い spec の `vid` 差し替え、同じID差し替え不可、根拠テーブル、Studio の AI 設定）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「既存ShortをFreeVideo背景に作り直す」節。
+
 エージェントチームの役割分担・受け渡し・ゲートは [`AGENT_TEAM.md`](AGENT_TEAM.md)。Shorts 制作を複数エージェントで進めるときは、担当を起動する前にまずこの定義を読む。動画に触れる担当は各自で `VIDEO_CREATION_PRECHECK.md` と `SOLO_SHORT_PROCEDURE.md` を読む必要がある。
 
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。

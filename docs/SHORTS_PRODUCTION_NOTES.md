@@ -824,3 +824,14 @@ younkaku を置いた）。
 - `scripts/google_ai_review.py` の動画モードを厳格化した（2026-11-23）。`VIDEO_QUESTION` で「字幕の表記そのものの違和感」を音声の読みと別に評価させ、時刻と修正候補を要求する。旧版のひらがな字幕をレビューさせて「へえにっひ」の指摘が出ることを確認済み。あわせて、動画モードが既存タブを再利用して別動画をレビューするバグを直し（常に新規タブ＋添付）、CDP ポートは `GOOGLE_AI_CDP_PORT` で指定可能にした（9222 が塞がっていても 9223 を使える）。
 - 発音辞書は値を逆に書きがち（2026-11-24 `baby_taste` で `苦味: クミ / 甘味: カンミ` と登録してしまった）。味覚系の語は `甘味: アマミ / 苦味: ニガミ` が正しい。`--kana` で全文を目で確認し、動画レビューでも「読み間違いなし」と言われるまで確かめること。
 - VOICEVOX はセッションをまたぐと停止していることがある。ビルド前に `http://127.0.0.1:50021/version` を確認し、止まっていれば `E:\rekishikaisetu-honnoji\tools\voicevox\windows-cpu\run.exe` を起動する。
+
+## 既存ShortをFreeVideo背景に作り直す（2026-11-24、lightning_fv）
+
+- 既存の `data/short_<slug>.json` は `art` に自作静止画を指定する古い形式。`scenes[].vid` に `assets/<slug>/fv/clipN.mp4` を入れると、`ytcore/make_short2.py` の `frame_at()` が `vid` を優先して動画背景にする。`art` は残していても描画されないが、混乱を避けるなら削除する。元の JSON は触らず別名の spec にコピーして作り直す。
+- **同じ動画IDの映像は差し替えられない**。YouTube 公式ヘルプ（https://support.google.com/youtube/answer/55770）に明記。bsk で Studio の編集画面を開いても差し替え UI は無い。反映するなら新規IDでアップし、旧IDは残すか退避する。
+- 元 spec に `claims` が無い祖父化データでも、別名の新規 spec は根拠テーブルゲートに通らない。`docs/themes/<theme>/08_fact_check.md` の原文確認結果から `claims[]` を埋め、`needs_research` の各項目に文字列「答えは変わらない」を入れる。
+- `check_short_evidence.py` は `www.weather.gov`（米国立気象局の公式ドメイン）を「公式ドメイン外」として WARN にする。`.go.jp` / `.ac.jp` の誤検知と同じ種類。原文が確認できていれば WARN は内容確認済みとして不採用でよい。
+- FreeVideo のプロンプトは「写したくない物の名前を書く」と逆効果になる。時計塔の文字、街の電線・アンテナ、三輪車のナンバーが実際に出た。**見せたい物だけを書き、文字が出る物は場面ごと別の物に置き換える**のが確実（時計塔→何もない平原の雨雲と稲妻）。1本約10分、作り直し3回で計6本。
+- Studio の「すべて表示」ボタンは表示テキストではなく `aria-label="詳細設定を表示"` で探す。`button[aria-label="詳細設定を表示"]` をクリックすると `tp-yt-paper-radio-button[name=VIDEO_HAS_ALTERED_CONTENT_YES]` が現れる。`ai_assistant` 設定の読み戻しは `aria-checked` で確認する。
+- bsk のデーモンはこの宿主では detached 起動できず、`bsk daemon start --foreground` を永続ターミナルで起動してから `BSK_AUTO_START=0` でクライアントを使う。Studio 操作はログイン済みの `.chrome-automation` プロファイル（CDP 9222）を使う。未ログインの bsk セッションで開くとチャンネル作成画面に飛ぶ。
+- 予約枠は台帳ではなく `check_slots.py` の API 実測で選ぶ。11/25〜12/02 は 12:00・17:00・19:00 がほぼ毎日埋まっており、原則枠が空くまで待つより、1日6〜8本の上限内で空いている時刻（今回は 11/25 15:00）を使う。
