@@ -12,6 +12,8 @@
 
 **ニッチの決定と100本の題材候補は [`NICHE_AND_100_IDEAS_20261124.md`](NICHE_AND_100_IDEAS_20261124.md)。** サジェストAPIの実測（`data/suggestion_20261124.json`）で需要を確かめ、全384本との既出照合を済ませた100本を採点順に並べてある。新しい題材を出す前に、まずこの表に無いかを確認する（重複した3本は差し替え済み）。
 
+**アルゴリズム指標ごとの成長戦略は [`YOUTUBE_ALGORITHM_GROWTH_STRATEGY.md`](YOUTUBE_ALGORITHM_GROWTH_STRATEGY.md)。** インプレッション、動画別CTR、スワイプ率、視聴時間、リピーター、検索流入、関連動画の導線を実測値つきで整理し、テスト方法と週次計測を設計してある。動画別CTR、トラフィックソース、視聴者属性、リピーター回数は未取得と明記している。**Shortの台本設計の型は [`YOUTUBE_GROWTH_SYSTEM.md`](YOUTUBE_GROWTH_SYSTEM.md)**（CTR・維持率を設計するフック／タイトル／サムネイル／構成／CTAのルール）。**AI活用の制作ワークフローは [`AI_PRODUCTION_WORKFLOW.md`](AI_PRODUCTION_WORKFLOW.md)**（工程ごとの道具・テンプレート・公開前チェックリスト・人が残す場所）。**収益化システム一式は [`MONETIZATION_SYSTEM.md`](MONETIZATION_SYSTEM.md)**（YPP申請準備、AdSense、各収入源の導入時期、権利の未確認、リスク）。**パフォーマンス分析システムは [`ANALYTICS_SYSTEM.md`](ANALYTICS_SYSTEM.md)**（指標ごとの取得状況、成功パターンの実測、低パフォーマンスの切り分け、週次・月次レビュー、未取得のTo Do）。題材や投稿ペースを変える前に、まず運営方針とこの5つを読む。
+
 ## 1. 動画を作るときに読む順番
 
 | 順 | 文書 | 内容 |
