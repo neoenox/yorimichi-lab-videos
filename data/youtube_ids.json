@@ -518,7 +518,7 @@
  },
  "short_lightning": {
   "video_id": "smfBjHIV_zA",
-  "privacy": "private",
+  "privacy": "public",
   "via": "api",
   "superseded": [],
   "deleted": [
@@ -2693,6 +2693,14 @@
  },
  "short_lightning_fv": {
   "video_id": "DvZPhYeA8hQ",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": [],
+  "publishAt": "2026-12-31T15:00:00Z"
+ },
+ "short_lightning_fv2": {
+  "video_id": "ctOtbHlveVU",
   "privacy": "private",
   "via": "api",
   "superseded": [],
