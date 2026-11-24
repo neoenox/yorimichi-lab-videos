@@ -835,3 +835,4 @@ younkaku を置いた）。
 - Studio の「すべて表示」ボタンは表示テキストではなく `aria-label="詳細設定を表示"` で探す。`button[aria-label="詳細設定を表示"]` をクリックすると `tp-yt-paper-radio-button[name=VIDEO_HAS_ALTERED_CONTENT_YES]` が現れる。`ai_assistant` 設定の読み戻しは `aria-checked` で確認する。
 - bsk のデーモンはこの宿主では detached 起動できず、`bsk daemon start --foreground` を永続ターミナルで起動してから `BSK_AUTO_START=0` でクライアントを使う。Studio 操作はログイン済みの `.chrome-automation` プロファイル（CDP 9222）を使う。未ログインの bsk セッションで開くとチャンネル作成画面に飛ぶ。
 - 予約枠は台帳ではなく `check_slots.py` の API 実測で選ぶ。11/25〜12/02 は 12:00・17:00・19:00 がほぼ毎日埋まっており、原則枠が空くまで待つより、1日6〜8本の上限内で空いている時刻（今回は 11/25 15:00）を使う。
+- 音量の数値を報告するときは、**どの動画の ffprobe/loudnorm 出力か**を必ず添える。この作業で `-14.0 LUFS / -1.4 dBTP` を Short の値として報告したが、`out/codex/lightning_watch.log` の長尺 lightning（166.3秒）の値と同じで、Short 側に記録が無いと指摘された。Short 版を再実測したところ 47.133秒・`-14.0 LUFS / -1.4 dBTP / LRA 2.2 LU` で数値自体は一致した。再実測コマンド: `ffmpeg -i out/short_lightning_fv.mp4 -af loudnorm=print_format=summary -vn -f null -`。
