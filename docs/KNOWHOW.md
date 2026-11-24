@@ -124,6 +124,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 | 2026-11-22 | `thunder_metal`（雷と金属） | 提案3案のうち制作可能と判断して新規制作。学会論文p.53/54/56と気象庁本文で根拠を確認し、根拠ゲートOK（WARN 3）。自作イラスト背景、60.4秒。Google AIモードで台本3回・動画4回レビューし、残る指摘は原文・silencedetectで照合して不採用（[`research/20261122_thunder_metal_sources.md`](research/20261122_thunder_metal_sources.md)） |
 | 2026-11-23 | `tongue_taste_map`（味覚マップ） | 3案から味覚マップを選択。Spence 2022の総説と市民研通信PDFで根拠を確認。単独Short（57.6秒・4場面）として制作し、Google AIモード＋ChatGPTの台本レビューと動画レビューは両方「公開可」。FreeVideo背景4本。VOICEVOXがカタカナ「ヘーニッヒ」を「エーニッヒ」と読むため、字幕はカタカナ・発音辞書はひらがなで対処。YouTubeは11/25 11:00、Xは11/25 11:05に予約（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) / [`research/20261123_tongue_taste_map_reviews.md`](research/20261123_tongue_taste_map_reviews.md)） |
 | 2026-11-23 | `shorui_awaremi`（生類憐みの令） | J-Stage論文PDFで根拠を確認。「犬だけではなかったが罰は厳しかった」の両保存。Google AIモード＋ChatGPTの台本レビューは「公開可」、動画レビューは厳格プロンプトで「修正必要」→「10万頭」を「約10万頭」にし、背景の金属フェンスを消すなど直して再ビルド。53.9秒。YouTubeは11/24 11:00、Xは11/24 11:05に予約（[`research/20261123_shorui_awaremi_sources.md`](research/20261123_shorui_awaremi_sources.md)） |
+| 2026-11-24 | `baby_taste`（赤ちゃんの味覚） | 新ルールの既出チェックで「涙・骨」は既出、「味覚」は新規と確認。PMC総説で「感じるが、好みは経験で形作られる」の両保存。発音辞書の値を逆に登録して「くみ／かんみ」と誤読したのを動画レビューで発見し修正。53.4秒。YouTubeは11/26 20:00、Xは11/26 20:05に予約（[`research/20261124_baby_taste_sources.md`](research/20261124_baby_taste_sources.md)） |
 
 ## 5. 調査・検証の記録（2026-11-11、エージェントチーム作業）
 
