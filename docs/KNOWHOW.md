@@ -1,6 +1,8 @@
 # ノウハウの入口（まずこれを読む）
 
-更新日: 2026-11-23。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+更新日: 2026-11-24。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+
+エージェントチームの役割分担・受け渡し・ゲートは [`AGENT_TEAM.md`](AGENT_TEAM.md)。Shorts 制作を複数エージェントで進めるときは、担当を起動する前にまずこの定義を読む。動画に触れる担当は各自で `VIDEO_CREATION_PRECHECK.md` と `SOLO_SHORT_PROCEDURE.md` を読む必要がある。
 
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
 
@@ -11,6 +13,8 @@
 **チャンネル全体の運営方針は [`CHANNEL_STRATEGY_20261124.md`](CHANNEL_STRATEGY_20261124.md)。** 収益化の2段階（早期アクセス500人・本則1,000人）、長尺とShortの役割分担、投稿枠（長尺 火金19:00／Short 火金20:00と木・土12:00）、週次カレンダーをまとめてある。個々の制作手順より上位の方針なので、題材や投稿ペースを変える前に必ず読む。
 
 **ニッチの決定と100本の題材候補は [`NICHE_AND_100_IDEAS_20261124.md`](NICHE_AND_100_IDEAS_20261124.md)。** サジェストAPIの実測（`data/suggestion_20261124.json`）で需要を確かめ、全384本との既出照合を済ませた100本を採点順に並べてある。新しい題材を出す前に、まずこの表に無いかを確認する（重複した3本は差し替え済み）。
+
+**アルゴリズム指標ごとの成長戦略は [`YOUTUBE_ALGORITHM_GROWTH_STRATEGY.md`](YOUTUBE_ALGORITHM_GROWTH_STRATEGY.md)。** インプレッション、動画別CTR、スワイプ率、視聴時間、リピーター、検索流入、関連動画の導線を実測値つきで整理し、テスト方法と週次計測を設計してある。動画別CTR、トラフィックソース、視聴者属性、リピーター回数は未取得と明記している。**Shortの台本設計の型は [`YOUTUBE_GROWTH_SYSTEM.md`](YOUTUBE_GROWTH_SYSTEM.md)**（CTR・維持率を設計するフック／タイトル／サムネイル／構成／CTAのルール）。**AI活用の制作ワークフローは [`AI_PRODUCTION_WORKFLOW.md`](AI_PRODUCTION_WORKFLOW.md)**（工程ごとの道具・テンプレート・公開前チェックリスト・人が残す場所）。**収益化システム一式は [`MONETIZATION_SYSTEM.md`](MONETIZATION_SYSTEM.md)**（YPP申請準備、AdSense、各収入源の導入時期、権利の未確認、リスク）。**パフォーマンス分析システムは [`ANALYTICS_SYSTEM.md`](ANALYTICS_SYSTEM.md)**（指標ごとの取得状況、成功パターンの実測、低パフォーマンスの切り分け、週次・月次レビュー、未取得のTo Do）。題材や投稿ペースを変える前に、まず運営方針とこの5つを読む。
 
 ## 1. 動画を作るときに読む順番
 
