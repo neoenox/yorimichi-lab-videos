@@ -113,7 +113,7 @@ def main():
         pg.wait_for_timeout(8000)
         pg.bring_to_front()
 
-        if a.mode == 'video':
+        if a.mode == 'video' or (a.mode == 'custom' and a.video):
             if not a.video:
                 raise SystemExit('--video が必要です')
             pg.locator('button[aria-label="ファイルとツールを追加し、モデルを選択します"]').first.click()
