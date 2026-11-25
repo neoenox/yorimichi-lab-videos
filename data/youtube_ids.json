@@ -2614,7 +2614,7 @@
  "short_solo_baby_namida": {
   "video_id": "vSukBizCm4c",
   "privacy": "private",
-  "publishAt": "2026-11-26T02:00:00Z",
+  "publishAt": "2026-11-29T02:00:00Z",
   "containsSyntheticMedia": true,
   "via": "api-trial"
  },
@@ -2706,5 +2706,13 @@
   "superseded": [],
   "deleted": [],
   "publishAt": "2026-11-25T06:00:00Z"
+ },
+ "short_solo_meter_light": {
+  "video_id": "xGzxW6HW0vc",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": [],
+  "publishAt": "2026-11-26T02:00:00Z"
  }
 }
