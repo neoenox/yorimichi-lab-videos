@@ -1,0 +1,192 @@
+{
+ "title": "冬に息が白くなるのは寒さだけじゃない？",
+ "head": "息が白くなる理由",
+ "pron": "data/white_breath_pron.json",
+ "art": "assets/tohoku/bg_one.png",
+ "hook": "冬に息が白くなる。寒いからだと思っていませんか。実は、寒さだけじゃありません。湿度も関係します。",
+ "notes": "■ 2026年11月25日に確認した一次資料にもとづく整理です。\n・気象庁「はれるんランド」(https://www.jma.go.jp/jma/kids/kids/faq/a2_01.html )：ひこうき雲は「冬の寒い日に人間がはく息が白く見えるのと同じこと」で、「上空の温度や湿度、ジェット機のはい気ガスの温度などにより、できるときとできないときがある」と明記。温度だけでなく湿度も条件。\n・豊川市清掃工場の白煙について(https://warp.ndl.go.jp/info:ndljp/pid/10299136/www.city.toyokawa.lg.jp/shisetsu/sonota/seisokojo/hakuen.html )：白煙は水蒸気が冷えて水滴になる結露で、「吐く息が白くなる寒い季節とほぼ同じ」「特に湿度の高い雨天時に目立つ」と明記。\n・JST「高校生のための科学」(https://koushien.jst.go.jp/koushien/pastexam/2016/files/1-1.pdf )：やかんの湯気を題材に、温度だけでなく空気に含まれる水蒸気の量も関係すると解説。\n・数字：息の温度「約36度」と「13度以下が目安」は JAL の天気情報(http://weather.jal.co.jp/seasonal/12/seasonal_12f.html )の記述。36度は体温とほぼ同じという一般的な数値として使った。\n・動画内の図(並び)は自作です。背景の映像は FreeVideo(MiniMax H3)によるAI生成で、イメージです。実際の息や結露の映像ではありません。\n",
+ "answer": "寒さだけじゃない。湿度も関係",
+ "hook_text": null,
+ "hook_label": null,
+ "end_q": "皆さんは、寒い日に息が白くなるのを見たことがありますか？",
+ "tags": [
+  "息が白くなる",
+  "冬",
+  "気象",
+  "湿度",
+  "結露",
+  "気象庁",
+  "科学",
+  "雑学",
+  "Shorts"
+ ],
+ "credit": "・背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の息や結露の映像ではありません\n・図・表：自作",
+ "suffix": "整理",
+ "nolong": true,
+ "nolink": true,
+ "long_id": "qzxzekd5j-I",
+ "long_title": "43_bukka",
+ "scenes": [
+  {
+   "text": "冬に息が白くなる。寒いからだと思っていませんか。実は、寒さだけじゃありません。湿度も関係します。",
+   "big": "寒さだけじゃない",
+   "sub": "息が白くなるには湿度も関係する",
+   "src": "気象庁・自治体の解説",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.6,
+    "events": [
+     [
+      "思い込み",
+      "寒さだけ"
+     ],
+     [
+      "実際は",
+      "寒さ＋湿度"
+     ],
+     [
+      "白い正体",
+      "小さな水滴"
+     ]
+    ]
+   },
+   "vid": "assets/white_breath/fv/clip1.mp4",
+   "dim": 0.7,
+   "claim_ids": [
+    "c1",
+    "c2"
+   ]
+  },
+  {
+   "text": "吐いた息は、体温に近い約36度。その中には、目に見えない水蒸気が含まれています。",
+   "big": "息は約36度",
+   "sub": "水蒸気を含んだ暖かい空気",
+   "src": "気象庁・自治体の解説",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "息の温度",
+      "約36度"
+     ],
+     [
+      "中身",
+      "目に見えない水蒸気"
+     ],
+     [
+      "外の空気",
+      "冷たい"
+     ]
+    ]
+   },
+   "vid": "assets/white_breath/fv/clip2.mp4",
+   "dim": 0.7,
+   "col": "white",
+   "claim_ids": [
+    "c1",
+    "c4"
+   ]
+  },
+  {
+   "text": "暖かい息が冷たい外気に触れると、水蒸気が小さな水滴になって、白く見えます。結露と同じ仕組みです。",
+   "big": "白いのは水滴",
+   "sub": "水蒸気が冷えて結露する",
+   "src": "気象庁・自治体の解説",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "水蒸気",
+      "目に見えない"
+     ],
+     [
+      "冷えると",
+      "小さな水滴"
+     ],
+     [
+      "見え方",
+      "白く見える"
+     ]
+    ]
+   },
+   "vid": "assets/white_breath/fv/clip3.mp4",
+   "dim": 0.7,
+   "col": "white",
+   "claim_ids": [
+    "c1"
+   ]
+  },
+  {
+   "text": "気象庁によると、同じ仕組みのひこうき雲も、温度や湿度ででき方が変わるそうです。息も仕組みは同じ。晴れの日より雨の日は、気温が高くても白く見えます。",
+   "big": "湿度でも変わる",
+   "sub": "雨の日は白く見えやすい",
+   "src": "気象庁・自治体の解説",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "気象庁",
+      "温度と湿度の両方"
+     ],
+     [
+      "雨の日",
+      "湿度が高い"
+     ],
+     [
+      "息",
+      "白く見えやすい"
+     ]
+    ]
+   },
+   "vid": "assets/white_breath/fv/clip4.mp4",
+   "dim": 0.7,
+   "col": "white",
+   "claim_ids": [
+    "c2",
+    "c3"
+   ]
+  },
+  {
+   "text": "",
+   "end": true,
+   "vid": "assets/white_breath/fv/clip1.mp4",
+   "dim": 0.7
+  }
+ ],
+ "claims": [
+  {
+   "id": "c1",
+   "statement": "冬の寒い日に人間がはく息が白く見えるのは、水蒸気が小さな水滴になる現象で、ひこうき雲と同じ仕組みである",
+   "source_type": "primary",
+   "source_url": "https://www.jma.go.jp/jma/kids/kids/faq/a2_01.html",
+   "evidence_note": "気象庁「はれるんランド」に「冬の寒い日に人間がはく息が白く見えるのと同じこと」と明記。2026年11月25日に web_fetch で本文を確認。"
+  },
+  {
+   "id": "c2",
+   "statement": "息が白く見えるかどうかは温度だけでなく湿度にも関係し、湿度の高い雨天時には特に目立つ",
+   "source_type": "primary",
+   "source_url": "https://www.jma.go.jp/jma/kids/kids/faq/a2_01.html",
+   "evidence_note": "気象庁「はれるんランド」に「上空の温度や湿度、ジェット機のはい気ガスの温度などにより、ひこうき雲ができるときとできないときがあります」と明記。湿度の高い雨天時に目立つ旨は豊川市の資料（c3）の記述。"
+  },
+  {
+   "id": "c3",
+   "statement": "水蒸気が冷えて水滴になる結露は、気温が低い冬場、特に湿度の高い雨天時に目立ち、吐く息が白くなるのとほぼ同じである",
+   "source_type": "primary",
+   "source_url": "https://warp.ndl.go.jp/info:ndljp/pid/10299136/www.city.toyokawa.lg.jp/shisetsu/sonota/seisokojo/hakuen.html",
+   "evidence_note": "豊川市清掃工場の白煙の説明に「吐く息が白くなる寒い季節とほぼ同じ」「特に湿度の高い雨天時に目立つ」と明記。2026年11月25日に web_fetch で本文を確認。"
+  },
+  {
+   "id": "c4",
+   "statement": "水蒸気が白く見えるかどうかは温度だけでなく、空気に含まれる水蒸気の量（混合）にも関係する",
+   "source_type": "primary",
+   "source_url": "https://koushien.jst.go.jp/koushien/pastexam/2016/files/1-1.pdf",
+   "evidence_note": "JST「高校生のための科学」2016年度問題で、やかんの湯気について「温度だけを考えましたけれども…空気とその中に含まれる水蒸気も混ざる」と解説。"
+  }
+ ],
+ "needs_research": [
+  "息が白くなる目安とされる「気温13℃以下」は JAL の天気情報の記述で、気象庁の値ではない。台本ではこの数字を使っていない。答えは変わらない。"
+ ]
+}
