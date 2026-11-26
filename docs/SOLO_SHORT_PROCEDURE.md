@@ -43,7 +43,7 @@
 | 音量 | -14 LUFS前後、ピーク -1.0〜-1.5 dBTP、0.8秒以上の無音なし(末尾を除く) | ffmpeg(6章) |
 | 読み | kana全文を目で確認+ASRで数字・日付が一致 | `_kana.txt`、`asr_kotoba.py` |
 | レビュー | 台本=ChatGPT+Google AIモード(背景生成の前)、動画=Google AIモード「公開可」 | 4章・7章 |
-| **メタデータ** | `title.txt`・`description.txt`・**`tags.txt`が題材に合っている**(前の動画のタグが入る罠。台本ファイルの `tags=[...]` で指定。2026-11-16に実際に発生) | `upload/short_solo_<slug>/` を開く、アップ後はAPIで読む |
+| **メタデータ** | `title.txt`・`description.txt`・**`tags.txt`が題材に合っている**(前の動画のタグが入る罠。台本ファイルの `tags=[...]` で指定。2026-11-16に実際に発生)。**説明欄に内部メモが混ざっていない**(2026-11-26に実際に発生) | `upload/short_solo_<slug>/` を開く、アップ後はAPIで読む。`python scripts/check_public_notes.py data/short_solo_<slug>.json` で検査 |
 | アップ後 | AI注記「はい」をStudioで確認、台帳に `publishAt`、Xの予約、メモリ | 8〜11章 |
 | 報告 | 「確認した範囲」と「未確認」を分けて書く。生成・デコードに成功しただけで「公開品質」と言わない | AGENTS.md |
 
