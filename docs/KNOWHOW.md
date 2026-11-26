@@ -10,6 +10,8 @@
 
 夕焼けShortの成果物判定（`_fv` が元ファイルと SHA256 完全一致した実測）、修正台本を上書きせず別 slug で再描画する手順、kana・字幕・末尾3カードの確認結果は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShortの成果物判定と修正台本の再描画」節。`make_short2.main()` は slug から出力名を決めるので、**slug を変えないと既存 mp4 を上書きする**。
 
+夕焼けShort v3（冒頭結論カードを `hook_card=false` で削除、締めの定型挨拶を削除）の作り方・代表フレーム確認・描画前提ファイルの復元は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShort v3：冒頭結論カードの削除と締め挨拶の削除」節。新規スクリプトは `scripts/gen_solo_sunset_v3.py` と `scripts/build_solo_sunset_v3.py`。
+
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
 
 視聴傾向とコメント（10件以上）からの関心トピック分析は [`research/20261126_audience_topics_from_ask_studio.md`](research/20261126_audience_topics_from_ask_studio.md)。3分類（経済・時事／歴史の通説のウラ／自然科学・天文の検証）と、議論が活性化する結びの投げかけを記録している。新規題材の選定と台本の結び方に使う。
