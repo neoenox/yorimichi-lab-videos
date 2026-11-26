@@ -22,6 +22,8 @@
 
 視聴傾向とコメント（10件以上）からの関心トピック分析は [`research/20261126_audience_topics_from_ask_studio.md`](research/20261126_audience_topics_from_ask_studio.md)。3分類（経済・時事／歴史の通説のウラ／自然科学・天文の検証）と、議論が活性化する結びの投げかけを記録している。新規題材の選定と台本の結び方に使う。
 
+**毎日23:30の競合ショーツ調査は [`research/20261127_shorts_competitor_survey.md`](research/20261127_shorts_competitor_survey.md)。** 自チャンネル（寄り道ラボ、約60人）より登録者が多く同ジャンルのショーツ上位チャンネルを調べ、冒頭フック・タイトル型・投稿頻度の戦略を記録している。定期タスク ID `schedule-be0b2a9d-f455-4827-b47a-107dfc53ccd0`。`docs/KNOWHOW.md` が参照する5つの戦略文書が未存在（参照切れ）もここに明記した。
+
 2026-11-23 に AGENTS.md の「イラスト・背景画像は必ずChatGPTに依頼する」を削除し、「背景映像は FreeVideo の AI 映像を使う」に置き換えた（オーナー確認）。古い記述を見て ChatGPT 画像生成を前提にしないこと。
 
 味覚マップ制作の振り返りは [`research/20261123_tongue_taste_map_retro.md`](research/20261123_tongue_taste_map_retro.md)。ルールファイルの古さ、予約枠の重複、カタカナ字幕と発音辞書の両立、動画添付の別ポート回避などを記録している。公開後の比較記録の準備は [`research/20261123_tongue_taste_map_followup.md`](research/20261123_tongue_taste_map_followup.md)。
