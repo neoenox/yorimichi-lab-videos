@@ -1,6 +1,22 @@
 # ノウハウの入口（まずこれを読む）
 
-更新日: 2026-11-05。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+更新日: 2026-11-26。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+
+既存ShortをFreeVideo背景に作り直すときの実測（古い spec の `vid` 差し替え、同じID差し替え不可、根拠テーブル、Studio の AI 設定）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「既存ShortをFreeVideo背景に作り直す」節。
+
+エージェントチームの役割分担・受け渡し・ゲートは [`AGENT_TEAM.md`](AGENT_TEAM.md)。Shorts 制作を複数エージェントで進めるときは、担当を起動する前にまずこの定義を読む。動画に触れる担当は各自で `VIDEO_CREATION_PRECHECK.md` と `SOLO_SHORT_PROCEDURE.md` を読む必要がある。
+
+新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
+
+2026-11-23 に AGENTS.md の「イラスト・背景画像は必ずChatGPTに依頼する」を削除し、「背景映像は FreeVideo の AI 映像を使う」に置き換えた（オーナー確認）。古い記述を見て ChatGPT 画像生成を前提にしないこと。
+
+味覚マップ制作の振り返りは [`research/20261123_tongue_taste_map_retro.md`](research/20261123_tongue_taste_map_retro.md)。ルールファイルの古さ、予約枠の重複、カタカナ字幕と発音辞書の両立、動画添付の別ポート回避などを記録している。公開後の比較記録の準備は [`research/20261123_tongue_taste_map_followup.md`](research/20261123_tongue_taste_map_followup.md)。
+
+**チャンネル全体の運営方針は [`CHANNEL_STRATEGY_20261124.md`](CHANNEL_STRATEGY_20261124.md)。** 収益化の2段階（早期アクセス500人・本則1,000人）、長尺とShortの役割分担、投稿枠（長尺 火金19:00／Short 火金20:00と木・土12:00）、週次カレンダーをまとめてある。個々の制作手順より上位の方針なので、題材や投稿ペースを変える前に必ず読む。
+
+**ニッチの決定と100本の題材候補は [`NICHE_AND_100_IDEAS_20261124.md`](NICHE_AND_100_IDEAS_20261124.md)。** サジェストAPIの実測（`data/suggestion_20261124.json`）で需要を確かめ、全384本との既出照合を済ませた100本を採点順に並べてある。新しい題材を出す前に、まずこの表に無いかを確認する（重複した3本は差し替え済み）。
+
+**アルゴリズム指標ごとの成長戦略は [`YOUTUBE_ALGORITHM_GROWTH_STRATEGY.md`](YOUTUBE_ALGORITHM_GROWTH_STRATEGY.md)。** インプレッション、動画別CTR、スワイプ率、視聴時間、リピーター、検索流入、関連動画の導線を実測値つきで整理し、テスト方法と週次計測を設計してある。動画別CTR、トラフィックソース、視聴者属性、リピーター回数は未取得と明記している。**Shortの台本設計の型は [`YOUTUBE_GROWTH_SYSTEM.md`](YOUTUBE_GROWTH_SYSTEM.md)**（CTR・維持率を設計するフック／タイトル／サムネイル／構成／CTAのルール）。**AI活用の制作ワークフローは [`AI_PRODUCTION_WORKFLOW.md`](AI_PRODUCTION_WORKFLOW.md)**（工程ごとの道具・テンプレート・公開前チェックリスト・人が残す場所）。**収益化システム一式は [`MONETIZATION_SYSTEM.md`](MONETIZATION_SYSTEM.md)**（YPP申請準備、AdSense、各収入源の導入時期、権利の未確認、リスク）。**パフォーマンス分析システムは [`ANALYTICS_SYSTEM.md`](ANALYTICS_SYSTEM.md)**（指標ごとの取得状況、成功パターンの実測、低パフォーマンスの切り分け、週次・月次レビュー、未取得のTo Do）。題材や投稿ペースを変える前に、まず運営方針とこの5つを読む。
 
 ## 1. 動画を作るときに読む順番
 
@@ -29,6 +45,8 @@
 
 ### 制作
 - Shorts は **brief → result.json → check → to-spec → 描画**。`needs_review` のままでは `to-spec` が通らない
+- 日々の Short（solo／ペア共通）は `data/short_*.json` に `claims[]` / `needs_research[]` と `scenes[].claim_ids` を書き、`python scripts/check_short_evidence.py <spec>` を通す。答えを変えない未確認は理由を添えて `needs_research` に残す（[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md)）
+- **`python` は Windows Store のスタブでゲートが実行できない**（2026-11-26、夕焼けShortで実測）。`python scripts/check_short_evidence.py ...` は `[exit code: 1]` で stderr に `Python` だけ出る。`C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe` を明示すると実行でき、出力は文字化けするが終了コードと「OK／ERROR」は読める。
 - 画面の安全領域: タイトル y≈200（**全角18文字まで**）／大テロップ y≈520／字幕 1470–1540／注記は 1556 以降
 - 背景は **シーンごとに変える**（`art_map.json`）。同じ絵が続くと単調
 - 明るい画像の上に字幕を置くときは、**下半分に暗幕**を入れる（入れないと読めない）
