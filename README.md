@@ -89,6 +89,15 @@ python scripts/script_review.py solo_mito --dry-run       # 依頼文だけ表�
 python -m ytkit.review report --roots "E:\rekishikaisetu-honnoji,E:\rakuten-shorts-affiliate,E:\rekishikaisetu-detour-lab" --out out/review_index.html
 ```
 
+完成動画を Google AI でレビューする場合は次を使う。
+
+```powershell
+python scripts/script_review_video.py out/short_solo_x.mp4 --slug solo_x
+python scripts/script_review_video.py out/short_solo_x.mp4 --dry-run
+```
+
+返答は `out/review_google_video_<slug>.md` に保存される。アップロードがあるため数分かかる。
+
 ## 工程を個別実行
 
 ```powershell
