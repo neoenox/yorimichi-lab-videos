@@ -2,7 +2,7 @@
 
 更新日: 2026-11-26。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
-**AIレビューは厳しめに**（2026-11-26 オーナー指示）。「公開可」をそのまま受け取らず、低重大度の指摘も原文・実フレームで照合し、根拠を超えた表現を actively 探す。詳細は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「AIレビューは厳しめに」節。
+**AIレビューは厳しめに**（2026-11-26 オーナー指示）。「公開可」をそのまま受け取らず、低重大度の指摘も原文・実フレームで照合し、根拠を超えた表現を actively 探す。さらに **冒頭の結論カード（ドデカ結論フリップ）と、締めの定型挨拶「寄り道ラボ、また寄り道、続けます」が無いことも必須確認項目** にする。依頼文にこの2点を明示して聞くこと。詳細は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「AIレビューは厳しめに」節。
 
 既存ShortをFreeVideo背景に作り直すときの実測（古い spec の `vid` 差し替え、同じID差し替え不可、根拠テーブル、Studio の AI 設定）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「既存ShortをFreeVideo背景に作り直す」節。夕焼けShortの7シーン分の背景生成と、clip5 の電柱・電線を構図変更で直した実測は同文書の「夕焼けShortのFreeVideo背景」節、対応表は `data/solo_sunset_art_map.json`。
 
