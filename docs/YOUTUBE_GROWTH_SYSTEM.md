@@ -1,6 +1,6 @@
 # クリック率と視聴維持率を設計するYouTubeコンテンツ戦略システム
 
-このリポジトリの制作標準（[`shorts-standard/README.md`](shorts-standard/README.md)）と動画制作前確認（[`docs/VIDEO_CREATION_PRECHECK.md`](docs/VIDEO_CREATION_PRECHECK.md)）を前提にした、30〜45秒のShorts向け設計。事実は出典照合が済んだものだけを使い、未確認の数字・発言・因果関係は台本に書かない。
+このリポジトリの制作標準（[`shorts-standard/README.md`](../shorts-standard/README.md)）と動画制作前確認（[`docs/VIDEO_CREATION_PRECHECK.md`](VIDEO_CREATION_PRECHECK.md)）を前提にした、30〜45秒のShorts向け設計。事実は出典照合が済んだものだけを使い、未確認の数字・発言・因果関係は台本に書かない。
 
 ## 1. システム全体の流れ
 

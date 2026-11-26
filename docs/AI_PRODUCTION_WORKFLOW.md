@@ -98,13 +98,13 @@ AIに任せるのは2まで。3〜6は人が行う。
 
 - **YouTube Shorts**：主戦場。30〜45秒を標準にする。
 - **X**：新作の紹介投稿を公開5分後に予約する運用が確立している（[SOLO_SHORT_PROCEDURE.md](SOLO_SHORT_PROCEDURE.md) 8）。再利用というより宣伝。
-- **TikTok**：2026-11-11に展開中止。投稿しても再生されなかったため。[TIKTOK_POSTING_PACK.md](docs/TIKTOK_POSTING_PACK.md) は廃止文書で、現行の方針ではない。したがってTikTok向けの自動再投稿システムは作らない。再開するならオーナーの明示的な判断が要る。
+- **TikTok**：2026-11-11に展開中止。投稿しても再生されなかったため。[TIKTOK_POSTING_PACK.md](TIKTOK_POSTING_PACK.md) は廃止文書で、現行の方針ではない。したがってTikTok向けの自動再投稿システムは作らない。再開するならオーナーの明示的な判断が要る。
 - **Instagram Reels**：このリポジトリに制作・投稿の記録は無い。未着手。
 
 再利用するときの共通ルールは3つ。
 
 1. 切り抜きはShortの完走率を落とすので、単独Shortは独立した問いとして作る（[CHANNEL_STRATEGY_20261124.md](CHANNEL_STRATEGY_20261124.md)）。
-2. 縦型の字幕安全領域はプラットフォームのUIで隠れる。TikTokの廃止前のチェックでは「字幕が画面下のUIに隠れていない」を確認していた（[TIKTOK_POSTING_PACK.md](docs/TIKTOK_POSTING_PACK.md)）。再利用先が増えたら同じ確認をする。
+2. 縦型の字幕安全領域はプラットフォームのUIで隠れる。TikTokの廃止前のチェックでは「字幕が画面下のUIに隠れていない」を確認していた（[TIKTOK_POSTING_PACK.md](TIKTOK_POSTING_PACK.md)）。再利用先が増えたら同じ確認をする。
 3. AI映像・生成画像を使った動画は、各プラットフォームの表明ルールに従う。YouTubeでは「AIの使用＝はい」と概要欄への明記。ほかは未確認。
 
 ## 4. テンプレート
