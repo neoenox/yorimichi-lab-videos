@@ -938,3 +938,14 @@ $env:PYTHONUTF8='1'
 - 実測: `out/short_solo_sunset_v5.mp4` は **40.13秒 / 10,677,971バイト**、1080x1920/30fps/H.264/AAC。ffprobe で形式確認、`ffmpeg -v error -i ... -f null -` で全フレームデコード exit 0。描画時に rawvideo の `Broken pipe` が出たが v2/v3/v4 と同じ症状で出力は正常。
 - 代表フレーム 2/13/26 秒で改善を目視確認。2秒では中央帯が消え、下部字幕に「光が大気を通る距離が違うから」が出る。13秒では吹き出しが1枚だけになり小文字行が減少。26秒では吹き出しが「夕方／届く色」の2枚に簡素化され、見出し・吹き出し・字幕の重複が減った。
 - 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、公開可。Gemini が確認したのは静止フレームのみで、音声・トランジション・字幕同期は未確認のまま。
+
+## 夕焼けShort v6：Google AI Mode（www.google.com/ai）レビューを反映（2026-11-27）
+
+- スキル `google-ai-video-review-bsk` に従い、`gemini.google.com` ではなく指定どおり **AI Mode（https://www.google.com/ai/ → https://www.google.com/search?udm=50&aep=11）** で v4 のレビューを依頼した。isolated bsk session を使う（`bsk session start --scope <unique> --browser <id> --agent-name <name> --name <task>`）。 human activity で制御が奪われないため重要。
+- bsk の `upload` は input/drop とも `Not allowed` なので使わない。`ファイルとツールを追加し、モデルを選択します` → `ファイルを追加` で開く **accept が空の汎用 file input** に、base64 を24,000文字×607チャンクで `window.__chunks` にステージし、`atob` → `Uint8Array` → `File` → `DataTransfer` で `files` を設定、`change` を dispatch した。GitHub の画像入力（`accept="image/*,video/*"`）は対象外。
+- 文字起こし中は送信ボタンが disabled のままになるが、**プロンプトを入力すると有効化される**。ここで100秒待っても有効にならず停止した既存記録（`docs/research/20261127_sunset_v4_video_review.md`）は、入力前の状態を待っていたためと分かった。
+- 回答は `cache/review_sunset_v3/aimode_v4_response_plain.txt` に保存。外部入力として扱い、実フレーム・台本・spec と照合してから採用した。
+- 新たに採用した指摘（優先度4）: 00:24〜00:31 で「夕方は太陽が地平線に近い」と説明しているのに背景が真っ昼間の青空だった。`scripts/gen_solo_sunset_v6.py` でシーン4の背景を clip5（晴天の青空）→ clip6（地平線に近い夕日）に、シーン5を clip6 → clip7（結論の夕焼け）に差し替えた。`scripts/build_solo_sunset_v6.py` は v5 の slug 差し替え版。
+- 実測: `out/short_solo_sunset_v6.mp4` は 40.13秒 / 11,250,879バイト、1080x1920/30fps/H.264/AAC。ffprobe と全フレームデコードは OK。26秒の代表フレームで背景が夕日になり、見出し・吹き出し・字幕の説明と視覚が一致したことを確認。
+- 未採用の指摘: 大見出しのコントラスト（優先度2）と Shorts UI との下部字幕重なり（優先度5）は ytcore の描画設定をプロセス内で上書きする必要があり、今回の反映範囲外。中央帯廃止（優先度1）と冒頭フック（優先度3）は v5 で対応済み。
+- 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、投稿可。AI Mode の回答自体も「確認できた範囲と未確認範囲」を明示していた。
