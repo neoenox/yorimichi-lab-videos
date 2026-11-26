@@ -894,3 +894,36 @@ younkaku を置いた）。
 - 締め挨拶は `out/short_solo_sunset_v3_kana.txt` の最終ナレーションと SRT の両方で一致を確認。「寄り道ラボ」「また寄り道」「続けます」は SRT・kana に無い（概要欄のチャンネル説明文だけに残る）。
 - この branch には描画前提の `channel.toml` と `data/solo_sunset_pron.json` が無く、git 履歴（`769a9394...` / `7a74fb7e...`）から復元した。`python` は WindowsApps のスタブではなく `C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe` を使う。
 - 未確認: 連続再生の動き、全編の実聴、スマホ実機の UI 被り、投稿可。海外レビューの他の指摘（「むらさき／紫」の表記揺れ、出典バッジの視認性、下部 UI 被り）は今回の範囲外で仕様を変えていない。末尾の「チャンネル登録」カードとナレーションの登録誘導も今回の指示対象外のため残している。
+
+## 夕焼けShort v4：登録誘導の削除（2026-11-27、builder4）
+
+- オーナー指示: v3 の末尾に残る「チャンネル登録も、お願いします。」を消す。根拠は `shorts-standard/PROMPT.md` 項目4「不要な挨拶・登録誘導は禁止」。概要欄の「このチャンネルについて」は残してよい。元成果物（v1／_fv／v2／v3）は上書きしない。
+- **ytcore の実際の import 元は `E:\yt-shorts-kit\ytcore`**。Python312 の site-packages にある `__editable__.yt_shorts_kit-0.2.0.pth` から import される。`build_solo_sunset_v3.py` の `sys.path.insert(0, parents[2])` は `E:\` を指すが、`E:\ytcore` は存在しない。**import 元を当てるには `.pth` を見るか、実際に `python -c "import ytcore.make_short2 as m; print(m.__file__)"` で確認する**。
+- 登録誘導は ytcore 側の2か所から出ていた。
+  1. `ytcore/make_short2.py` の `main()` が、`nolong` のとき `texts[-1] = end_q + '出典は、説明欄にまとめています。チャンネル登録も、お願いします。'` に差し替える。spec の `scenes[-1].text` を書き換えても `main()` に上書きされる。
+  2. 同じく `draw_scene()` の `nolong` 分岐が、末尾カードに `チャンネル登録` を描画する。
+- 共通パッケージは直接書き換えず、v4 用スクリプト内だけで次を上書きした。`scripts/gen_solo_sunset_v4.py` は v3 の spec に `end_text_plain`（登録誘導を除いた末尾ナレーション）を1行足すだけ（`data/short_solo_sunset_v4.json` の diff はその1行のみ）。`scripts/build_solo_sunset_v4.py` は `main()` の代わりにローカルの `main_v4()` を使い、`texts[-1] = spec['end_text_plain']` で音声・SRT を作る。末尾カードは `inspect.getsource(ms2.draw_scene)` の該当1行を `pass` に置き換えて `exec` し、`ms2.draw_scene` だけを process 内で差し替える（結論・出典・チャンネル名のカードは残る）。
+- 再描画したスクリプトは次のとおり（ffmpeg は `E:\rekishikaisetu-honnoji\tools\ffmpeg\bin` を PATH に追加、Python は `C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe`）:
+
+```powershell
+$env:PYTHONUTF8='1'
+& $py scripts/gen_solo_sunset_v4.py
+& $py scripts/build_solo_sunset_v4.py   # slug=solo_sunset_v4、話速 1.45 は process 内のみ
+```
+
+- 実測: `out/short_solo_sunset_v4.mp4` は **41.4 秒 / 10,920,978 バイト**、1080x1920 / 30fps / H.264 / AAC(48kHz mono)。`ffprobe` で形式確認、全フレームデコード（`ffmpeg -v error -xerror -i ... -f null -`）は exit 0。音量は **-15.3 LUFS / True Peak -1.5 dBTP / LRA 1.9 LU**。描画時に v2/v3 と同じ rawvideo の `Broken pipe` が出たが、出力の全デコードは通った。
+- 登録誘導の確認: `out/short_solo_sunset_v4_kana.txt` と `out/short_solo_sunset_v4_subtitles.srt`、spec、`out/short_solo_sunset_v4_description.md` の4ファイルで `チャンネル登録|登録も|お願いします|寄り道ラボ、また寄り道` のヒットは **0**。末尾の kana は「夕焼けが赤い理由、どこで聞いた話でしたか？出典は、説明欄にまとめています。」で終わり、SRT の最終ブロックも同じ文（00:00:38,399 --> 00:00:40,447）。概要欄の「このチャンネルについて」は残っている。
+- 冒頭は 0 / 0.5 / 1.5 秒の実フレームで結論カードが無いことを確認（v3 と同じ仕様）。39 / 40 秒の末尾カードは「結論」「出典は、説明欄に」「寄り道ラボ」で、登録誘導の文字は無い。
+- 既存 mp4 の SHA256 は描画前後で不変: v1 と `_fv` が `FD45E9E6...`、v2 `49E25F40...`、v3 `C1B81A17...`。
+- 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、Google AI モードの動画レビュー、投稿可。アップ・予約・公開設定には進めていない。
+
+## 夕焼けShort v4：末尾の登録誘導の削除（2026-11-27、builder4 / lead 確認）
+
+- v3 の末尾には「チャンネル登録も、お願いします。」というナレーション・字幕と、画面の「チャンネル登録」カードが残っていた。`shorts-standard/PROMPT.md` 項目4「不要な挨拶・登録誘導は禁止」に抵触するため、オーナー指示で削除した。
+- 共通パッケージの import 元は `E:\yt-shorts-kit\ytcore\make_short2.py`（Python312 site-packages の `__editable__.yt_shorts_kit-0.2.0.pth` 経由）。`build_solo_sunset_v3.py` の `sys.path.insert(0, parents[2])`＝`E:\` は実際には不要で、`E:\ytcore` は存在しない。
+- CTA は2箇所。(1) `make_short2.main()` の nolong 分岐が末尾ナレーション/SRT に定型 CTA を付与。(2) `draw_scene()` の nolong 分岐が画面に「チャンネル登録」カードを描画。共通パッケージは書き換えず、`scripts/build_solo_sunset_v4.py` 内で次の2点をプロセス限定で上書きした。
+  1. spec の `end_text_plain` をそのまま末尾ナレーションに使うローカル `main_v4()`（`main()` の CTA 分岐を通さない）。
+  2. `inspect.getsource(ms2.draw_scene)` を取得し、「チャンネル登録」を描く1行だけを `pass` に置き換えて `exec` で差し替える。対象行が1件見つからない場合は停止する。
+- 成果物: `out/short_solo_sunset_v4.mp4`（41.40秒 / 10,920,978 バイト）。既存 v1/_fv/v2/v3 は SHA256 不変で上書きしていない。
+- lead 確認結果: ffprobe 1080x1920/30fps/H.264/AAC、全フレームデコード exit 0。kana 末尾と SRT 末尾に登録誘導なし（最後は「出典は／説明欄にまとめています」）。冒頭 0.5 秒の代表フレームに結論カードなし、「なぜ夕焼けは赤い？」・タイムライン図・下部字幕が見える。
+- 未確認: 連続再生の動き、全編の実聴、スマホ実機の UI 被り、投稿可。動画レビューの他の指摘（「むらさき／紫」の表記揺れ、出典バッジの視認性）は仕様変更せず。冒頭の結論カードを消した分、冒頭のテンポがやや弱い点はレビュー指摘 V2 として記録済み。

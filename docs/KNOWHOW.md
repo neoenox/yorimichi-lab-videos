@@ -10,7 +10,11 @@
 
 夕焼けShortの成果物判定（`_fv` が元ファイルと SHA256 完全一致した実測）、修正台本を上書きせず別 slug で再描画する手順、kana・字幕・末尾3カードの確認結果は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShortの成果物判定と修正台本の再描画」節。`make_short2.main()` は slug から出力名を決めるので、**slug を変えないと既存 mp4 を上書きする**。
 
+夕焼けShort v3（冒頭結論カードと締め挨拶の削除）と v4（末尾の「チャンネル登録」誘導の削除）の手順・実測は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の同名節。共通パッケージ `E:\yt-shorts-kit\ytcore\make_short2.py` の CTA をプロセス内だけで差し替える方法を記録している。**現行の成果物は `out/short_solo_sunset_v4.mp4`**。
+
 夕焼けShort v3（冒頭結論カードを `hook_card=false` で削除、締めの定型挨拶を削除）の作り方・代表フレーム確認・描画前提ファイルの復元は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShort v3：冒頭結論カードの削除と締め挨拶の削除」節。新規スクリプトは `scripts/gen_solo_sunset_v3.py` と `scripts/build_solo_sunset_v3.py`。
+
+夕焼けShort v4（末尾の登録誘導を削除）の作り方は同文書の「夕焼けShort v4：登録誘導の削除」節。**ytcore の実体は `E:\yt-shorts-kit\ytcore`（`__editable__.yt_shorts_kit-0.2.0.pth` 経由）で、`E:\ytcore` ではない**。共通パッケージの `make_short2.main()` が `nolong` の末尾ナレーションに CTA を足すため、v4 は `scripts/gen_solo_sunset_v4.py` と `scripts/build_solo_sunset_v4.py` の中だけで spec と `draw_scene` を上書きしている。
 
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
 
