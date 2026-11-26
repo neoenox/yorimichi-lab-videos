@@ -6,6 +6,8 @@
 
 エージェントチームの役割分担・受け渡し・ゲートは [`AGENT_TEAM.md`](AGENT_TEAM.md)。Shorts 制作を複数エージェントで進めるときは、担当を起動する前にまずこの定義を読む。動画に触れる担当は各自で `VIDEO_CREATION_PRECHECK.md` と `SOLO_SHORT_PROCEDURE.md` を読む必要がある。
 
+夕焼けShortの成果物判定（`_fv` が元ファイルと SHA256 完全一致した実測）、修正台本を上書きせず別 slug で再描画する手順、kana・字幕・末尾3カードの確認結果は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShortの成果物判定と修正台本の再描画」節。`make_short2.main()` は slug から出力名を決めるので、**slug を変えないと既存 mp4 を上書きする**。
+
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
 
 2026-11-23 に AGENTS.md の「イラスト・背景画像は必ずChatGPTに依頼する」を削除し、「背景映像は FreeVideo の AI 映像を使う」に置き換えた（オーナー確認）。古い記述を見て ChatGPT 画像生成を前提にしないこと。
