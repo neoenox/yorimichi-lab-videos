@@ -1,6 +1,6 @@
 # ノウハウの入口（まずこれを読む）
 
-更新日: 2026-11-24。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+更新日: 2026-11-26。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
 既存ShortをFreeVideo背景に作り直すときの実測（古い spec の `vid` 差し替え、同じID差し替え不可、根拠テーブル、Studio の AI 設定）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「既存ShortをFreeVideo背景に作り直す」節。
 
@@ -61,6 +61,7 @@ Short の根拠テーブルゲート（2026-11-20 判断）は [`SHORT_EVIDENCE_
 ### 制作
 - Shorts は **brief → result.json → check → to-spec → 描画**。`needs_review` のままでは `to-spec` が通らない
 - 日々の Short（solo／ペア共通）は `data/short_*.json` に `claims[]` / `needs_research[]` と `scenes[].claim_ids` を書き、`python scripts/check_short_evidence.py <spec>` を通す。答えを変えない未確認は理由を添えて `needs_research` に残す（[`SHORT_EVIDENCE_GATE_20261120.md`](SHORT_EVIDENCE_GATE_20261120.md)）
+- **`python` は Windows Store のスタブでゲートが実行できない**（2026-11-26、夕焼けShortで実測）。`python scripts/check_short_evidence.py ...` は `[exit code: 1]` で stderr に `Python` だけ出る。`C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe` を明示すると実行でき、出力は文字化けするが終了コードと「OK／ERROR」は読める。
 - 画面の安全領域: タイトル y≈200（**全角18文字まで**）／大テロップ y≈520／字幕 1470–1540／注記は 1556 以降
 - 背景は **シーンごとに変える**（`art_map.json`）。同じ絵が続くと単調
 - **FreeVideoのクリップ指定は `scripts/fv_clips.sh <slug> clipN`**（`1` だと該当なしで何も作らず「ALL OK」。2026-11-19）。「古い地図」を頼むとAIは擬似文字を描くので、「無地の紙＋線だけ」を明示する（[`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md)）
