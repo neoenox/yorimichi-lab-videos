@@ -71,6 +71,33 @@ pwsh -File scripts/run.ps1
 
 setupは公式Blender 4.5.3 LTS portable ZIP約400MBとVOICEVOX ENGINE 0.25.2 CPU版約1.8GBを `tools/` に取得し、作業フォルダー内に展開します。8本までのRange取得で再試行・分割キャッシュを使用します。通常の地形取得は16タイルのみです。Remotionは初回にChrome Headless Shellを取得します。バイナリ・依存パッケージ・中間描画はGit対象外です。新しいPCでは環境に合わせて7-Zipのパスを調整してください。
 
+## 台本レビュー
+
+`data/short_<slug>.json` を ChatGPT と Google AI に同時に送る。`ytkit.review` の共通部品を使う。`scripts/google_ai_review.py` は残してある。
+
+```powershell
+python scripts/script_review.py solo_mito                 # 両方に並列送信
+python scripts/script_review.py solo_mito --target chatgpt
+python scripts/script_review.py solo_mito --dry-run       # 依頼文だけ表示
+```
+
+レビュー用 Chrome で両サイトにログイン済みであること。`REVIEW_CDP_PORT`（既定 9222）で接続先を変えられる。返答は `out/review_<target>_<slug>.md` に保存される。Google AI は完了まで1〜3分かかる。
+
+全プロジェクトの成果物をまとめて見るには、共通部品のあるディレクトリで次を実行する。
+
+```powershell
+python -m ytkit.review report --roots "E:\rekishikaisetu-honnoji,E:\rakuten-shorts-affiliate,E:\rekishikaisetu-detour-lab" --out out/review_index.html
+```
+
+完成動画を Google AI でレビューする場合は次を使う。
+
+```powershell
+python scripts/script_review_video.py out/short_solo_x.mp4 --slug solo_x
+python scripts/script_review_video.py out/short_solo_x.mp4 --dry-run
+```
+
+返答は `out/review_google_video_<slug>.md` に保存される。アップロードがあるため数分かかる。
+
 ## 工程を個別実行
 
 ```powershell
