@@ -4039,5 +4039,12 @@
    "short_id": "kZhiAHSp7EA",
    "done": false
   }
+ },
+ "short_solo_eclipse": {
+  "video_id": "vG2kAiQVG9E",
+  "privacy": "private",
+  "via": "api",
+  "superseded": [],
+  "deleted": []
  }
 }
