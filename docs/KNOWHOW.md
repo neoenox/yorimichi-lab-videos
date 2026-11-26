@@ -1,6 +1,8 @@
 # ノウハウの入口（まずこれを読む）
 
-更新日: 2026-11-26。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+更新日: 2026-11-27。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
+
+**Google AI（gemini.google.com）への動画レビュー依頼は bsk では添付できない**。bsk の `upload` は `set_file_input_failed / Not allowed`、`drop` も `file_drop_failed`、メニュー経由も `human_intervention` で止まる。**CDP + Playwright**（`scripts/gemini_review_cdp.py`）を使う。v4 レビューと v5 改善（中央帯の削除、吹き出しの簡素化、冒頭字幕の核心提示）の実測は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShort v5」節。
 
 **AIレビューは厳しめに**（2026-11-26 オーナー指示）。「公開可」をそのまま受け取らず、低重大度の指摘も原文・実フレームで照合し、根拠を超えた表現を actively 探す。さらに **冒頭の結論カード（ドデカ結論フリップ）と、締めの定型挨拶「寄り道ラボ、また寄り道、続けます」が無いことも必須確認項目** にする。依頼文にこの2点を明示して聞くこと。詳細は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「AIレビューは厳しめに」節。
 

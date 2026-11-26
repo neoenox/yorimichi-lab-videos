@@ -927,3 +927,14 @@ $env:PYTHONUTF8='1'
 - 成果物: `out/short_solo_sunset_v4.mp4`（41.40秒 / 10,920,978 バイト）。既存 v1/_fv/v2/v3 は SHA256 不変で上書きしていない。
 - lead 確認結果: ffprobe 1080x1920/30fps/H.264/AAC、全フレームデコード exit 0。kana 末尾と SRT 末尾に登録誘導なし（最後は「出典は／説明欄にまとめています」）。冒頭 0.5 秒の代表フレームに結論カードなし、「なぜ夕焼けは赤い？」・タイムライン図・下部字幕が見える。
 - 未確認: 連続再生の動き、全編の実聴、スマホ実機の UI 被り、投稿可。動画レビューの他の指摘（「むらさき／紫」の表記揺れ、出典バッジの視認性）は仕様変更せず。冒頭の結論カードを消した分、冒頭のテンポがやや弱い点はレビュー指摘 V2 として記録済み。
+
+## 夕焼けShort v5：Google AI レビューを反映したフォーマット改善（2026-11-27、builder5）
+
+- 対象: 本日（2026-11-27）作成の最新作 `out/short_solo_sunset_v4.mp4`（41.40秒）。Google AI（gemini.google.com/app）に動画を添付し、フォーマット観点の厳しめレビューを依頼した。依頼文と生の回答は `cache/review_sunset_v3/prompt_v4.txt` と `cache/review_sunset_v3/prompt_v4.response.txt`。 v3 のレビューは `prompt.txt` / `prompt.response.txt`。
+- **bsk では Gemini への動画添付ができない**（`upload --mode input` は `set_file_input_failed / Not allowed`、`--mode drop` は `file_drop_failed`、メニュー経由でも `human_intervention` で阻止）。既知のとおり **CDP + Playwright を使う**。実装は `scripts/gemini_review_cdp.py`。`--check` でログイン確認、`input[accept*="video"]` に `set_input_files()` で動画を渡し、プロンプト入力後に送信、`model-response` の文言が2回連続で変化しなくなるまで待つ。CDP は `http://127.0.0.1:9222`、自動化プロファイルに Gemini ログイン済みが必要。
+- Gemini の回答で確認できたのはフレーム・レイアウト・文言・色コントラストのみ。動きの滑らかさ、全編の音声、字幕同期は未確認と明記されていた。回答は v3/v4 でほぼ同じで、v4 の登録誘導削除を反映していない可能性がある（Gemini の回答内に「チャンネル登録もお願いします」が残る）。このため指摘のうち画面上の重複と小文字要素を採用し、登録誘導は v4 の仕様を維持した。
+- 採用した改善（優先度1・2・4）: `scripts/gen_solo_sunset_v5.py` が v4 spec を読み、(1) 各シーンの `sub` と `src` を空にして中央の「〜 / 気象庁FAQ」帯を削除、(2) 吹き出しイベントを3→2に絞り短い語に変更（gap 2.8→3.2）、(3) 冒頭字幕を「夕焼けが赤いのは、光が大気を通る距離が違うから。空が青いのと同じ仕組みです。」に変えて核心を3秒以内に提示。`data/short_solo_sunset_v5.json` にだけ書き出し、v4 以前は上書きしない。
+- `scripts/build_solo_sunset_v5.py` は v4 のローカル `main_v5()` と末尾カード差し替えを stream に引き継ぎ、slug だけ `solo_sunset_v5`。spec の `sub`/`src` が空でない場合は停止するガードを追加。
+- 実測: `out/short_solo_sunset_v5.mp4` は **40.13秒 / 10,677,971バイト**、1080x1920/30fps/H.264/AAC。ffprobe で形式確認、`ffmpeg -v error -i ... -f null -` で全フレームデコード exit 0。描画時に rawvideo の `Broken pipe` が出たが v2/v3/v4 と同じ症状で出力は正常。
+- 代表フレーム 2/13/26 秒で改善を目視確認。2秒では中央帯が消え、下部字幕に「光が大気を通る距離が違うから」が出る。13秒では吹き出しが1枚だけになり小文字行が減少。26秒では吹き出しが「夕方／届く色」の2枚に簡素化され、見出し・吹き出し・字幕の重複が減った。
+- 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、公開可。Gemini が確認したのは静止フレームのみで、音声・トランジション・字幕同期は未確認のまま。
