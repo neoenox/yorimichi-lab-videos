@@ -1,0 +1,107 @@
+{
+  "slug": "solo_sunset",
+  "topic": "夕焼けは、なぜ赤いのか？",
+  "source_spec": "shorts/solo_sunset/result.json",
+  "generator": "FreeVideo (MiniMax H3), via scripts/fv_clips.sh solo_sunset clipN",
+  "prompt_file": "assets/solo_sunset/fv/prompts.json",
+  "usage_terms": {
+    "credit": "背景映像：FreeVideo(MiniMax H3)によるAI生成映像。イメージです。実際の風景の記録ではありません",
+    "disclosure_on_upload": "アップ時に「AIの使用＝はい」を設定する（shipper担当）",
+    "self_made_allowed": "データ由来の模式図（光の通り道・スペクトル・散乱の比較）のみ自作可。AI映像に擬似文字を書かせない",
+    "reuse_policy": "既存クリップの流用は禁止。今回は全7本を本件用に新規生成した"
+  },
+  "clips": [
+    {
+      "name": "clip1",
+      "path": "assets/solo_sunset/fv/clip1.mp4",
+      "scene_start_sec": 0,
+      "scene_end_sec": 3,
+      "scene_index": 1,
+      "visual": "夕日で赤く染まる空（地平線近くのオレンジ〜赤の雲）",
+      "prompt_summary": "warm red and orange sunset sky, low sun glow at horizon, thin soft clouds, slow drift",
+      "verification": "544x960 / 24fps / 7.30s / 444396 bytes; ffprobe OK; full decode OK; 4 frames inspected (0.5/2.5/4.5/6.5s) - no people, text, buildings, modern objects"
+    },
+    {
+      "name": "clip2",
+      "path": "assets/solo_sunset/fv/clip2.mp4",
+      "scene_start_sec": 3,
+      "scene_end_sec": 9,
+      "scene_index": 2,
+      "visual": "青い昼の空（短い光の通り道の背景）",
+      "prompt_summary": "clear pale blue daytime sky, soft white wispy clouds, bright high sunlight, slow pan",
+      "verification": "544x960 / 24fps / 7.30s / 492734 bytes; ffprobe OK; full decode OK; 4 frames inspected - no people, text, buildings, modern objects"
+    },
+    {
+      "name": "clip3",
+      "path": "assets/solo_sunset/fv/clip3.mp4",
+      "scene_start_sec": 9,
+      "scene_end_sec": 16,
+      "scene_index": 3,
+      "visual": "紫から橙への空のグラデーション（スペクトル模式図の背景）",
+      "prompt_summary": "sky gradient from violet to warm orange, thin high clouds, slow tilt",
+      "verification": "544x960 / 24fps / 7.30s / 431395 bytes; ffprobe OK; full decode OK; 4 frames inspected - no text or modern objects; a tiny dark sliver at bottom edge of the 0.5s frame (distant horizon artefact, cropped by cover/dim)"
+    },
+    {
+      "name": "clip4",
+      "path": "assets/solo_sunset/fv/clip4.mp4",
+      "scene_start_sec": 16,
+      "scene_end_sec": 24,
+      "scene_index": 4,
+      "visual": "上空で散乱される短い光（薄もやと太陽光の空）",
+      "prompt_summary": "high blue sky with faint haze veil, soft glowing sunlight, thin wisps, slow push in",
+      "verification": "544x960 / 24fps / 7.30s / 411145 bytes; ffprobe OK; full decode OK; 4 frames inspected - no people, text, buildings, modern objects; one tiny cyan dot (lens-flare-like artefact) on right side, not text or an object"
+    },
+    {
+      "name": "clip5",
+      "path": "assets/solo_sunset/fv/clip5.mp4",
+      "scene_start_sec": 24,
+      "scene_end_sec": 32,
+      "scene_index": 5,
+      "visual": "青が強調された晴天の空",
+      "prompt_summary": "close-up of vivid clear blue sky filling entire frame, small white clouds, no horizon and no ground visible (regenerated)",
+      "verification": "544x960 / 24fps / 7.30s / 497192 bytes; ffprobe OK; full decode OK; 4 frames inspected - clean deep blue sky with clouds; no pole, no horizon, no modern objects",
+      "regenerated": true,
+      "old_clip": "assets/solo_sunset/fv/old/clip5_with_pole.mp4",
+      "regeneration_reason": "初回版の下端に電柱・電線が写ったため、手順どおり旧版を old/ へ退避し、『空で画面全体を埋め、地平線・地面なし』にプロンプトを直して再生成"
+    },
+    {
+      "name": "clip6",
+      "path": "assets/solo_sunset/fv/clip6.mp4",
+      "scene_start_sec": 32,
+      "scene_end_sec": 38,
+      "scene_index": 6,
+      "visual": "地平線に近い夕日と、大気を通る長い光の道",
+      "prompt_summary": "low evening sun near horizon, long warm orange glow, layered soft clouds turning red and gold, slow drift down",
+      "verification": "544x960 / 24fps / 7.30s / 485881 bytes; ffprobe OK; full decode OK; 4 frames inspected - no people, text, buildings, modern objects"
+    },
+    {
+      "name": "clip7",
+      "path": "assets/solo_sunset/fv/clip7.mp4",
+      "scene_start_sec": 38,
+      "scene_end_sec": 45,
+      "scene_index": 7,
+      "visual": "赤が多く届く夕焼け（結論回収）",
+      "prompt_summary": "dramatic deep red and crimson sunset sky, glowing clouds near horizon, violet high above, slow push in",
+      "verification": "544x960 / 24fps / 7.30s / 616865 bytes; ffprobe OK; full decode OK; 4 frames inspected - no people, text, buildings, modern objects"
+    }
+  ],
+  "self_made_diagrams": {
+    "policy": "データ由来の模式図のみ自作可。光の通り道（昼の短い経路／夕の長い経路）、スペクトル（むらさき→赤、数字なし）、散乱（短い波長が四方へ）、晴天の青の強調を図で描く。AI映像には文字・ラベルを描かせない",
+    "note": "図の具体実装は builder 担当（data/short_solo_sunset.json の viz フィールドに既に定義済み）。asset maker は図を生成していない"
+  },
+  "verified_scope": [
+    "7本すべて生成成功（各 attempt 1 で success、ALL OK）",
+    "ffprobe で 544x960 / 24fps / 7.30秒 / h264+aac を確認",
+    "全フレームデコード（ffmpeg -f null -）でエラーなし（exit 0）",
+    "各クリップ 0.5/2.5/4.5/6.5秒の4フレーム目視で人物・文字・建造物・現代物なし（例外は clip3 下端の僅かな影と clip4 の小さな青点を明記）",
+    "初回 clip5 の電柱・電線は再生成で解消。旧版は old/ に退避し、削除していない"
+  ],
+  "unverified_scope": [
+    "連続再生での動きの滑らかさ・カメラの速度",
+    "最終描画（make_short2.py の cover 切り出し＋dim=0.7＋図・字幕の重ね合わせ）後の見え方",
+    "音声・字幕同期、ナレーション全編の実聴、BGMバランス",
+    "スマホ実機表示",
+    "投稿可能かどうかの判定（レビュー・QA・公開ゲートは別担当）"
+  ],
+  "created_at_local": "2026-11-26 19:16 JST"
+}
