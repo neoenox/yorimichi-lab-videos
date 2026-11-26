@@ -12,10 +12,13 @@ import sys
 from pathlib import Path
 
 BAD = [
-    'web_fetch', 'decode(', '文字化け', 'urllib', 'Python で取得',
-    '言い過ぎを避けた', '使っていないこと', '採用', '不採用', '指摘',
+    'web_fetch', 'decode(', 'urllib', 'Python で取得', '【試作】',
+    '・言い過ぎを避けた', '・使っていないこと', '・使っていない：', '・未確認：',
+    '・指摘：', '・採用：', '・不採用：', '・レビューで直した点',
+    '・文字化け',
     'needs_review', 'needs_research', 'to-spec', 'root の',
 ]
+# 「指摘もある」「〜と指摘しています」は史実の説明なので検出しない。
 
 paths = []
 for arg in sys.argv[1:]:
