@@ -26,6 +26,8 @@
 
 **ショーツの成否は長尺のCTRではなく「視聴を継続（Stayed to watch）率」で測る**（2026-11-27 オーナー指示）。直近5本の実測は継続率14.55〜22.62%、平均約19.5%、平均視聴時間は多くが25秒前後。約8割が冒頭で離脱している。戦略は「冒頭1〜2秒で結論を出す」「タイトルは疑問形＋結論の先出し」「25〜30秒時点で図を切り替える」に更新済み。ループ再生で平均視聴時間4分50秒になった「冬に息が白くなる」は例外扱い。詳細は同レポートの「自チャンネルの直近ショーツ実績」節。
 
+**この決定は制作フローの3つの入口に反映済み**（2026-11-27）。台本を作る担当は [`shorts-standard/PROMPT.md`](../shorts-standard/PROMPT.md) 項目2・3、すべての動画制作担当は [`VIDEO_CREATION_PRECHECK.md`](VIDEO_CREATION_PRECHECK.md) の「Shorts の成否指標」、実測ノウハウは [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の同名節を読む。**冒頭の結論カード（ドデカフリップ）は画像として禁止（`hook_card=false` 維持）だが、ナレーション／字幕の言葉で問い＋結論を先出しするのは今回の実測に基づく新ルール**。両者は別の指示で両立する（根拠: `scripts/make_short2.py` L119-122）。`tests/test_shorts_standard.py` は22件すべて通った。
+
 2026-11-23 に AGENTS.md の「イラスト・背景画像は必ずChatGPTに依頼する」を削除し、「背景映像は FreeVideo の AI 映像を使う」に置き換えた（オーナー確認）。古い記述を見て ChatGPT 画像生成を前提にしないこと。
 
 味覚マップ制作の振り返りは [`research/20261123_tongue_taste_map_retro.md`](research/20261123_tongue_taste_map_retro.md)。ルールファイルの古さ、予約枠の重複、カタカナ字幕と発音辞書の両立、動画添付の別ポート回避などを記録している。公開後の比較記録の準備は [`research/20261123_tongue_taste_map_followup.md`](research/20261123_tongue_taste_map_followup.md)。
