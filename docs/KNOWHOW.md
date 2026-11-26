@@ -2,7 +2,7 @@
 
 更新日: 2026-11-26。**制作で分かったことは必ず git に残す**（AGENTS.md）。この文書は「どこに何が書いてあるか」の索引。
 
-既存ShortをFreeVideo背景に作り直すときの実測（古い spec の `vid` 差し替え、同じID差し替え不可、根拠テーブル、Studio の AI 設定）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「既存ShortをFreeVideo背景に作り直す」節。
+既存ShortをFreeVideo背景に作り直すときの実測（古い spec の `vid` 差し替え、同じID差し替え不可、根拠テーブル、Studio の AI 設定）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「既存ShortをFreeVideo背景に作り直す」節。夕焼けShortの7シーン分の背景生成と、clip5 の電柱・電線を構図変更で直した実測は同文書の「夕焼けShortのFreeVideo背景」節、対応表は `data/solo_sunset_art_map.json`。
 
 エージェントチームの役割分担・受け渡し・ゲートは [`AGENT_TEAM.md`](AGENT_TEAM.md)。Shorts 制作を複数エージェントで進めるときは、担当を起動する前にまずこの定義を読む。動画に触れる担当は各自で `VIDEO_CREATION_PRECHECK.md` と `SOLO_SHORT_PROCEDURE.md` を読む必要がある。
 

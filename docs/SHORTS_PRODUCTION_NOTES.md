@@ -837,3 +837,12 @@ younkaku を置いた）。
 - 予約枠は台帳ではなく `check_slots.py` の API 実測で選ぶ。11/25〜12/02 は 12:00・17:00・19:00 がほぼ毎日埋まっており、原則枠が空くまで待つより、1日6〜8本の上限内で空いている時刻（今回は 11/25 15:00）を使う。
 - 音量の数値を報告するときは、**どの動画の ffprobe/loudnorm 出力か**を必ず添える。この作業で `-14.0 LUFS / -1.4 dBTP` を Short の値として報告したが、`out/codex/lightning_watch.log` の長尺 lightning（166.3秒）の値と同じで、Short 側に記録が無いと指摘された。Short 版を再実測したところ 47.133秒・`-14.0 LUFS / -1.4 dBTP / LRA 2.2 LU` で数値自体は一致した。再実測コマンド: `ffmpeg -i out/short_lightning_fv.mp4 -af loudnorm=print_format=summary -vn -f null -`。
 - 2026-11-25 に Google AI モードの指摘（上部見切れ・表記混在・結論カードの改行）を反映した版を、新規ID `ctOtbHlveVU`（`short_lightning_fv2`）として再アップし、11/25 15:00 JST に予約した。旧 `DvZPhYeA8hQ` は 2027-01-01 00:00 JST に退避。元の `smfBjHIV_zA` は台帳では private だったが API 実測では **public だった**。上台帳の `privacy` は古いことがあるので、差し替え作業の前後では API の `videos().list(part='status')` で実状態を読み直すこと。
+
+## 夕焼けShortのFreeVideo背景（2026-11-26、solo_sunset / asset maker）
+
+- 題材「夕焼けは、なぜ赤いのか？」の `shorts/solo_sunset/result.json` 7シーン（0-3/3-9/9-16/16-24/24-32/32-38/38-45秒）に、夕焼け空・青い昼空・紫→橙のグラデ・もやと太陽光・晴天の青空・低い夕日・深い赤の夕焼けを割り当てた。対応表は `data/solo_sunset_art_map.json`。
+- 生成は指定どおり `& "C:\Program Files\Git\bin\bash.exe" scripts/fv_clips.sh solo_sunset clipN`（clip1〜7 を1本ずつ）。**`clipN` の N は番号だけの `1` ではダメ**（2026-11-19 inou の実測どおり）。1本約10分（ComfyUI起動込み）、7本とも attempt 1 で `success` / `ALL OK`。生成開始前に `curl http://127.0.0.1:8188/` が拒否されたのでサーバーは停止中で、重複ComfyUIは居なかった。RAM 空き 12.1GB で RAM guard 失敗なし。
+- **初回 clip5 に下端へ電柱・電線が写った**（2026-11-24 lightning の「写したくない物の名前を書くと逆効果」と同じ失敗）。最初のプロンプトは「vivid clear blue sky, deep blue overhead fading to pale near the horizon」。修正したプロンプトは **「Close-up of a vivid clear blue sky filling the entire frame… camera aimed straight up at the open sky with no horizon and no ground visible」** で、否定語を足さず構図だけを変えた（これは「no utility pole」より効いた）。旧版は `assets/solo_sunset/fv/old/clip5_with_pole.mp4` へ退避し、削除していない。再生成版は4フレームすべて電柱なし。
+- ほかの軽微な生成物: clip4 の右側に小さな青い点（レンズフレア様）が 2.5/6.5秒で残る。文字・物体ではないため今回は再生成しない。clip3 の 0.5秒の下端に小さな影（遠景）があったが、ほかのフレームはきれいで cover+dim で切れる範囲。
+- 確認した範囲: 7本すべて 544x960 / 24fps / 7.30秒 / h264+aac、`ffprobe` と全フレームデコード（ffmpeg -f null -）でエラーなし、各クリップ 0.5/2.5/4.5/6.5秒の4フレーム目視で人物・文字・建造物・現代物なし。
+- 未確認: 連続再生の動き、最終描画（cover + dim=0.7 + 図・字幕）後の見え方、音声・字幕同期、スマホ表示、投稿可。生成・デコード成功をもって投稿可としていない。自作図は光の通り道・スペクトル・散乱のデータ由来模式図だけ（AI映像に擬似文字を書かせない）。
