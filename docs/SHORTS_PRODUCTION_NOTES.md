@@ -993,3 +993,14 @@ $env:PYTHONUTF8='1'
 - 実測: `out/short_solo_sunset_v8.mp4` は **43.67秒 / 6,139,350バイト**、1080x1920 / 30fps / H.264 / AAC(48kHz mono)、全フレームデコード exit 0、`-15.0 LUFS / -1.5 dBTP / LRA 2.4 LU`。kana 全7文は v7 と同一（171文字）。
 - 確認した範囲: ffprobe、全フレームデコード、冒頭 0/0.5/1.5秒（結論カードなし、見出し＋問いの字幕のみ）、画像を重ねた 9/13/18/22/26/30/34秒の代表フレーム（画像が見え、画像由来の文字・署名なし、timeline 吹き出しなし）、末尾 38/40/42秒（結論・出典・寄り道ラボの3カード、登録誘導なし）、kana/SRT/description/spec の禁止語ヒット0、既存 v1〜v7 の SHA256 が描画前後で不変。
 - 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、投稿可。status は `needs_review` 相当のまま。`docs/research/20261127_sunset_diagram_review.md` の照合ゲートを通った画像を使っているが、公開判断は別ゲート。アップ・予約・公開設定には進めていない。
+
+## 夕焼けShort v9：BGM（魔王魂「ピアノ41」）を追加（2026-11-27、builder9 / team task-19）
+
+- 方針: v8 の仕様（AI生成プレゼン画像2枚の重ね合わせ、3列吹き出しなし、話速0.95、171文字、`hook_card=false`、「晴天時には」条件、締めの定型挨拶なし、登録誘導なし、v6の背景差し替え）を全部維持し、`bgm: none` → `bgm: "piano41"` だけ変更した。既存 v1〜v8 の mp4 は SHA256 が描画前後で不変（例 v8 `0CD81D71...`）。
+- **曲の選び方**: `scripts/bgm_plan.py` の一般プール（科学・雑学の Short は `general`）から `piano41` を採用。実測で入力ラウドネスがプール中最低の -23 LUFS（他の候補は piano33 -11.3 / piano38 -15.4 / acoustic47 -9.1 / piano37 -10.6 / ethnic31 -8.6）で、`mix()` の固定 `volume=0.30` のもとナレーションの下に自然に収まる。尺は85.1秒あり、44秒の Short でループ継ぎ目が出ない。穏やかなピアノで夕焼けの解説に合う。選定理由は `data/short_solo_sunset_v9.json` の `bgm_reason` にも記録した。
+- **`bgm` の実装上の落とし穴**: `ytcore/make_short.py` の `mix()` は spec の `bgm` が `'none'` でなければ **channel.toml の `[bgm] file`（既定 `maou_bgm_piano12.mp3`）を読む**。spec に曲名を書くだけではその曲は鳴らない。v9 では `scripts/build_solo_sunset_v9.py` がこの process 内だけ `base.BGM['file']` と `base.BGM['credit']` を差し替えて spec の曲名からファイルを選ぶ（channel.toml 自体は書き換えない。v4/v8 と同じプロセス内パッチ方式）。音量0.30・`afade`・`sidechaincompress`・`loudnorm=I=-14:TP=-1.5:LRA=7` は ytcore の既定をそのまま使った。
+- 概要欄のクレジット: `make_short2.description()` が `{BGM['credit']}` を入れるため、`out/short_solo_sunset_v9_description.md` に「・音楽：魔王魂（https://maou.audio/）ピアノ41（作曲：森田交一。音量調整を行っています）」が残ることを確認。
+- 実測: `out/short_solo_sunset_v9.mp4` は **43.67秒 / 6,176,241バイト**、1080x1920 / 30fps / H.264 / AAC(48kHz, stereo)。`ffmpeg -v error -xerror -f null -` は exit 0。音量は **-14.4 LUFS / -1.4 dBTP / LRA 2.8 LU**。`silencedetect=n=-45dB:d=0.6` では無音イベントなし（BGM が文間の空隙も埋める）。
+- **BGM が混ざっていることの機械的証拠**: ナレーション終了後の 42.8〜43.5秒で v8 は RMS 0（デジタル無音）だが v9 は RMS 0.0143（afade 中の BGM）。同窓の v9 音声と `maou_bgm_piano41.mp3` 元音声の正規化相互相関は **0.947**（ナレーション中の10〜11秒は 0.282、20〜21秒は 0.155）。ffmpeg で抽出した音声の帯域比も v8 `[0.09, 0.162, 0.492]` → v9 `[0.103, 0.198, 0.468]` に変化し、低〜中域（ピアノ）が増えた。
+- 代表フレーム13枚（0/0.5/1.5/9/13/18/22/26/30/34/38/40/42.5秒）を目視: 冒頭に結論カードなし、9〜34秒にAI生成画像2枚が重なり3列吹き出しなし、38〜42.5秒の末尾3カードは「結論」「出典は、説明欄に」「寄り道ラボ」で登録誘導なし。kana と SRT の末尾は「夕焼けが赤い理由、どこで聞いた話でしたか？出典は、説明欄にまとめています。」で、定型挨拶・登録誘導の禁止語ヒットなし。
+- 未確認: 連続再生の動き、全編の実聴（BGM とナレーションの聴感バランスは数値と相関で代替していない）、スマホ実機表示、公開可。アップ・予約・公開設定には進めていない。

@@ -20,6 +20,8 @@
 
 夕焼けShort v8（上部3列吹き出しをAI生成プレゼン画像2枚へ置換）の作り方・`inspect.getsource → exec` による `draw_scene` のプロセス内差し替え・768x1376→1080x1920 の cover で上下15pxを切る実測・確認範囲は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShort v8」節。共通パッケージ `E:\yt-shorts-kit\ytcore\make_short2.py` は書き換えず、slug は `solo_sunset_v8`。採用画像と却下理由は `docs/research/20261127_sunset_diagram_review.md`。
 
+夕焼けShort v9（v8 へ魔王魂「ピアノ41」のBGMを追加）の曲選定理由・**spec の `bgm` 曲名だけではファイルが選ばれず `channel.toml` の既定 piano12 が鳴る落とし穴**・プロセス内での `BGM['file']`/`BGM['credit']` 差し替え・BGM混入の相関による証明（ナレーション後の無音窓で v9 と音源の相関 0.947）は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShort v9」節。slug は `solo_sunset_v9`。
+
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
 
 視聴傾向とコメント（10件以上）からの関心トピック分析は [`research/20261126_audience_topics_from_ask_studio.md`](research/20261126_audience_topics_from_ask_studio.md)。3分類（経済・時事／歴史の通説のウラ／自然科学・天文の検証）と、議論が活性化する結びの投げかけを記録している。新規題材の選定と台本の結び方に使う。
