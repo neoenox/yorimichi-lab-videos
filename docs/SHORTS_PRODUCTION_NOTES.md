@@ -982,3 +982,14 @@ $env:PYTHONUTF8='1'
 - 実測: `out/short_solo_sunset_v6.mp4` は 40.13秒 / 11,250,879バイト、1080x1920/30fps/H.264/AAC。ffprobe と全フレームデコードは OK。26秒の代表フレームで背景が夕日になり、見出し・吹き出し・字幕の説明と視覚が一致したことを確認。
 - 未採用の指摘: 大見出しのコントラスト（優先度2）と Shorts UI との下部字幕重なり（優先度5）は ytcore の描画設定をプロセス内で上書きする必要があり、今回の反映範囲外。中央帯廃止（優先度1）と冒頭フック（優先度3）は v5 で対応済み。
 - 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、投稿可。AI Mode の回答自体も「確認できた範囲と未確認範囲」を明示していた。
+
+## 夕焼けShort v8：上部3列吹き出しをAI生成プレゼン画像2枚へ置換（2026-11-27、builder8 / team task-18）
+
+- 方針: v7 の7シーン・171文字ナレーション・話速0.95・「晴天時には」条件・`hook_card=false`・末尾定型挨拶なし・登録誘導なし・v6の背景差し替え（シーン4=clip6、シーン5=clip7）をすべて維持したまま、**全シーンの `viz`（timeline の3列吹き出し）を削除**し、採用済みのAI生成画像2枚を重ねる。根拠と却下理由は [`research/20261127_sunset_diagram_review.md`](research/20261127_sunset_diagram_review.md)。
+- 重ね先: シーン2〜4（index 1〜3）に `diagram_presentation_day_v2.png`（(a)(b)(c)）、シーン5〜6（index 4〜5）に `diagram_presentation_compare.png`（(d)）。画像へ文字は描き足さず、説明は既存の見出し・字幕・ナレーションが担う。
+- 既存パッケージ `E:\yt-shorts-kit\ytcore\make_short2.py` は未変更。`scripts/build_solo_sunset_v8.py` が `inspect.getsource(ms2.draw_scene)` を取得し、(1) `def draw_scene(...)` の直後に `_paste_overlay(im, sc, a)` の呼び出しを挿入、(2) nolong 末尾の「チャンネル登録」行を `pass` に置換、`exec(compile(...))` で **この process 内だけ** `ms2.draw_scene` を差し替える（v4/v5 と同じパターン）。音声・SRT は `end_text_plain` をそのまま使うローカル `main_v8()` が作り、`main()` のCTA差し替えを通さない。
+- **cover の端の切り方（実測）**: 画像は 768x1376、出力は 1080x1920。`scale = max(1080/768, 1920/1376) = 1.40625` なので 1080x1935 に拡大し、**上下を合わせて15px（上7px・下8px）だけ中央から切る**。左右は切れない。画像内の文字・署名・透かしは元画像のゲートで既に除外済みで、重ねた代表フレームでも擬似文字なしを確認した。
+- 描画: `PYTHONUTF8=1` を付け、`C:/Users/neoen/AppData/Local/Programs/Python/Python312/python.exe scripts/gen_solo_sunset_v8.py` → `scripts/build_solo_sunset_v8.py`。VOICEVOX は事前に `http://127.0.0.1:50021/version` で起動確認。ffmpeg の rawvideo `Broken pipe` は v2〜v7 と同じ既知の stderr で、出力の全デコードは通る。
+- 実測: `out/short_solo_sunset_v8.mp4` は **43.67秒 / 6,139,350バイト**、1080x1920 / 30fps / H.264 / AAC(48kHz mono)、全フレームデコード exit 0、`-15.0 LUFS / -1.5 dBTP / LRA 2.4 LU`。kana 全7文は v7 と同一（171文字）。
+- 確認した範囲: ffprobe、全フレームデコード、冒頭 0/0.5/1.5秒（結論カードなし、見出し＋問いの字幕のみ）、画像を重ねた 9/13/18/22/26/30/34秒の代表フレーム（画像が見え、画像由来の文字・署名なし、timeline 吹き出しなし）、末尾 38/40/42秒（結論・出典・寄り道ラボの3カード、登録誘導なし）、kana/SRT/description/spec の禁止語ヒット0、既存 v1〜v7 の SHA256 が描画前後で不変。
+- 未確認: 連続再生の動き、全編の実聴、スマホ実機表示、投稿可。status は `needs_review` 相当のまま。`docs/research/20261127_sunset_diagram_review.md` の照合ゲートを通った画像を使っているが、公開判断は別ゲート。アップ・予約・公開設定には進めていない。

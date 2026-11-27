@@ -18,6 +18,8 @@
 
 夕焼けShort v4（末尾の登録誘導を削除）の作り方は同文書の「夕焼けShort v4：登録誘導の削除」節。**ytcore の実体は `E:\yt-shorts-kit\ytcore`（`__editable__.yt_shorts_kit-0.2.0.pth` 経由）で、`E:\ytcore` ではない**。共通パッケージの `make_short2.main()` が `nolong` の末尾ナレーションに CTA を足すため、v4 は `scripts/gen_solo_sunset_v4.py` と `scripts/build_solo_sunset_v4.py` の中だけで spec と `draw_scene` を上書きしている。
 
+夕焼けShort v8（上部3列吹き出しをAI生成プレゼン画像2枚へ置換）の作り方・`inspect.getsource → exec` による `draw_scene` のプロセス内差し替え・768x1376→1080x1920 の cover で上下15pxを切る実測・確認範囲は [`SHORTS_PRODUCTION_NOTES.md`](SHORTS_PRODUCTION_NOTES.md) の「夕焼けShort v8」節。共通パッケージ `E:\yt-shorts-kit\ytcore\make_short2.py` は書き換えず、slug は `solo_sunset_v8`。採用画像と却下理由は `docs/research/20261127_sunset_diagram_review.md`。
+
 新規動画のテーマ提案・着手前は、台帳（`data/youtube_ids.json`）に加えて `docs/` 全体（SHORTS_PRODUCTION_NOTES / research / themes）を grep して既出を確認すること（2026-11-23 にオーナー指示。「1円玉」が制作済みだった見落としによる）。
 
 視聴傾向とコメント（10件以上）からの関心トピック分析は [`research/20261126_audience_topics_from_ask_studio.md`](research/20261126_audience_topics_from_ask_studio.md)。3分類（経済・時事／歴史の通説のウラ／自然科学・天文の検証）と、議論が活性化する結びの投げかけを記録している。新規題材の選定と台本の結び方に使う。
