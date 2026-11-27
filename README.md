@@ -98,6 +98,15 @@ python scripts/script_review_video.py out/short_solo_x.mp4 --dry-run
 
 返答は `out/review_google_video_<slug>.md` に保存される。アップロードがあるため数分かかる。
 
+YouTube Studio の Ask Studio に質問する場合は次を使う。
+
+```powershell
+python scripts/ask_studio.py "チャンネルの調子を教えて" --slug growth
+python scripts/ask_studio.py --question-file docs/question.md --slug growth
+```
+
+返答は `out/ask_studio_<slug>.md` に保存される。チャンネル用 Chrome プロファイルに接続する。
+
 ## 工程を個別実行
 
 ```powershell
