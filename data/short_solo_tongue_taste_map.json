@@ -1,0 +1,180 @@
+{
+ "title": "舌の味覚マップは本当に存在しないのか 論文で確かめる",
+ "head": "味覚マップは本当？",
+ "pron": "data/tongue_taste_map_pron.json",
+ "art": "assets/tohoku/bg_one.png",
+ "hook": "舌の先は甘味、奥は苦味。覚えた人は多い味覚マップ。答えは、この地図は誤り。甘味も苦味も、舌の広い範囲で感じます。",
+ "notes": "■ 2026年11月23日に、Spence 2022 の総説（https://pmc.ncbi.nlm.nih.gov/articles/PMC8956797/）と市民研通信第62号（https://www.shiminkagaku.org/wp/wp-content/uploads/csijnewsletter_062_202105_seno.pdf）の原文を読んで作った整理です。\n・根拠：舌の味蕾が存在する広い範囲で、各基本味に対応する受容体が分布し、甘味・苦味の専用区域はない。1901年のHänigの原論文では、味の感覚は舌全体に広がり、基本味ごとの感度差は非常にわずかだった。小さな差が引用の過程で誇張され、甘味は先・苦味は奥という地図になった。現在の心理物理の研究では、場所による小さな感度差も報告されている。\n・動画内の図（模式図・比較）は自作です。背景の映像は FreeVideo（MiniMax H3）によるAI生成で、イメージです。実際の舌の映像ではありません。\n",
+ "answer": "地図は誤り。広い範囲で感じる",
+ "hook_text": null,
+ "hook_label": null,
+ "end_q": "皆さんは、舌のどの部分で甘味を感じていると思いますか？",
+ "tags": [
+  "味覚",
+  "舌",
+  "味覚マップ",
+  "科学",
+  "誤解",
+  "論文",
+  "雑学",
+  "Shorts"
+ ],
+ "credit": "・背景映像：FreeVideo（MiniMax H3）によるAI生成映像。イメージです。実際の舌の映像ではありません\n・図・表：自作",
+ "suffix": "整理",
+ "nolong": true,
+ "nolink": true,
+ "long_id": "qzxzekd5j-I",
+ "long_title": "43_bukka",
+ "scenes": [
+  {
+   "text": "舌の先は甘味、奥は苦味。覚えた人は多い味覚マップ。答えは、この地図は誤り。甘味も苦味も、舌の広い範囲で感じます。",
+   "big": "味覚マップは本当？",
+   "sub": "答え：地図は誤り・広い範囲で感じる",
+   "src": "Spence2022／市民研通信2021",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.6,
+    "events": [
+     [
+      "覚えている地図",
+      "先は甘味・奥は苦味"
+     ],
+     [
+      "答え",
+      "地図は誤り"
+     ],
+     [
+      "現在",
+      "広い範囲で感じる"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c1"
+   ],
+   "vid": "assets/tongue_taste_map/fv/clip1.mp4",
+   "dim": 0.7
+  },
+  {
+   "text": "1901年、ヘーニッヒが味の感度を測りました。感覚は舌全体に広がり、場所による差は、非常にわずかでした。",
+   "big": "1901年の測定",
+   "sub": "感覚は舌全体・差はわずか",
+   "src": "Spence2022／市民研通信2021",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "1901年",
+      "ヘーニッヒが感度を測定"
+     ],
+     [
+      "原論文",
+      "感覚は舌全体に広がる"
+     ],
+     [
+      "差",
+      "非常にわずか"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c2"
+   ],
+   "vid": "assets/tongue_taste_map/fv/clip2.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "この小さな差が、図の描き方や引用を通じて誇張されました。甘味は舌先、苦味は奥。地図が、教科書に広がったのです。",
+   "big": "差が誇張された",
+   "sub": "誇張された地図が広まった",
+   "src": "Spence2022／市民研通信2021",
+   "viz": {
+    "type": "compare",
+    "l_label": "1901年",
+    "l_val": "差はわずか",
+    "r_label": "地図",
+    "r_val": "先＝甘／奥＝苦"
+   },
+   "claim_ids": [
+    "c3"
+   ],
+   "vid": "assets/tongue_taste_map/fv/clip3.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "ただ、差がゼロというわけではありません。場所による小さな差は報告されています。専用区域はないが、まったく同じでもない。境界線で分かれた地図ではないのです。",
+   "big": "差はゼロではない",
+   "sub": "専用区域はないが小さな差はある",
+   "src": "Spence2022／市民研通信2021",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "受容体",
+      "五つの味が舌全体に"
+     ],
+     [
+      "感度",
+      "場所で小さな差"
+     ],
+     [
+      "結論",
+      "地図ではない"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c4",
+    "c1"
+   ],
+   "vid": "assets/tongue_taste_map/fv/clip4.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true,
+   "vid": "assets/tongue_taste_map/fv/clip1.mp4",
+   "dim": 0.7
+  }
+ ],
+ "claims": [
+  {
+   "id": "c1",
+   "statement": "舌のどの場所でも五つの基本味の受容体が見つかり、甘味や苦味の専用区域はない",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8956797/",
+   "evidence_note": "Spence 2022の要旨・Highlights・1節で確認。"
+  },
+  {
+   "id": "c2",
+   "statement": "1901年のヘーニッヒの原論文では、味の感覚は舌全体に広がり、基本味ごとの感度差は非常にわずかだった",
+   "source_type": "primary",
+   "source_url": "https://www.shiminkagaku.org/wp/wp-content/uploads/csijnewsletter_062_202105_seno.pdf",
+   "evidence_note": "市民研通信第62号PDF本文47〜48行目で確認。"
+  },
+  {
+   "id": "c3",
+   "statement": "小さな感度差が引用の過程で誇張され、甘味は先・苦味は奥という地図になった",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8956797/",
+   "evidence_note": "Spence 2022の1節Fig.1と本文で確認。"
+  },
+  {
+   "id": "c4",
+   "statement": "舌の場所による味覚感度の小さな差は心理物理の研究で報告されているが、地図のような専用区域を意味しない",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8956797/",
+   "evidence_note": "Spence 2022の要旨・3節で確認。"
+  }
+ ],
+ "needs_research": [
+  "1912年の新聞掲載の原文は未確認。ただしSpence 2022と市民研通信で誇張の経緯は確認済みなので答えは変わらない。",
+  "J-Stageの大学生の味覚閾値研究は詳細未読。ただし台本に数値は入れておらず、Spence 2022で感度差の存在は確認済みなので答えは変わらない。",
+  "Hänigの原グラフの数値は未確認。図は模式図で数値を載せていないため、答えは変わらない。"
+ ]
+}

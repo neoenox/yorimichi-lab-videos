@@ -20,7 +20,7 @@ d.mkdir(parents=True, exist_ok=True)
 shutil.copyfile(R / 'out' / f'short_{slug}.mp4', d / 'video.mp4')
 shutil.copyfile(R / 'out' / f'short_{slug}_subtitles.srt', d / 'subtitles_ja.srt')
 (d / 'description.txt').write_text(desc, encoding='utf8')
-title = f"{spec['title']} 約{sec}秒で確かめる #Shorts"
+title = f"{spec['title']} 約{sec}秒で{spec.get('suffix', '確かめる')} #Shorts"
 assert len(title) <= 100
 (d / 'title.txt').write_text(title + '\n', encoding='utf8')
 tags = _tags_opt or (R / 'upload' / long_pack / 'tags.txt').read_text(encoding='utf8').strip()

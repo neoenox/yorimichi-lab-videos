@@ -1,0 +1,43 @@
+{
+ "title": "日本の森林率は、世界3位？",
+ "pron": "data/forest_pronunciations.json",
+ "art": "assets/forest/art_hills.png",
+ "hook": "日本の森林率は、約六八パーセント。これは、世界で何番目なのか。FAOと林野庁の数字で、確かめます。",
+ "notes": "■ 動画で確かめたこと\n・FAOの2020年の評価では、日本の森林率は68.4%です。\n・国全体で見ると、スリナムが約97%、ガイアナが約94%、ガボンが約91%で、日本より高い国はいくつもあります。\n・OECD加盟国に限ると、日本は68.4%で、3番目です(FAOの2020年の統計をもとに、林野庁が比べた表)。\n・つまり、「世界三位」ではなく、「2020年の統計で、OECD加盟国の中で三位」が正確です。\n",
+ "answer": "OECD加盟国の中で3位（2020年）",
+ "scenes": [
+  {
+   "text": "日本の森林率は、約六八パーセント。これは、世界で、何番目でしょうか。",
+   "big": "森林率68％は、世界で何位？",
+   "art": "assets/forest/art_hills.png"
+  },
+  {
+   "text": "国全体で見ると、スリナムが約九七パーセント。ガイアナが約九四、ガボンが約九一パーセントです。日本より高い国は、いくつもあります。",
+   "big": "日本より高い国は、いくつもある",
+   "src": "FAO（2020年）",
+   "art": "assets/forest/art_dark.png",
+   "col": "white"
+  },
+  {
+   "text": "OECD加盟国に限ると、日本は、六八・四パーセントで、三番目です。",
+   "big": "OECD加盟国では、3位",
+   "src": "FAO・林野庁",
+   "art": "assets/forest/art_dawn.png"
+  },
+  {
+   "text": "つまり、「世界三位」ではなく、「二〇二〇年の統計で、OECD加盟国の中で三位」が、正確です。",
+   "big": "「世界3位」は、不正確",
+   "src": "FAO・林野庁",
+   "art": "assets/forest/art_hills.png",
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true
+  }
+ ],
+ "long_id": "wD8rSfy5y0I",
+ "long_title": "27_forest",
+ "nolong": true,
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+}

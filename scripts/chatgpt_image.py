@@ -99,18 +99,48 @@ def wait_sent(session, snippet, timeout=25):
     return False
 
 
-def wait_for_download_button(session, base_count, timeout):
-    """生成完了を待ち、ダウンロードボタンの ref を返す。"""
+def candidate_links(text, keyword='画像生成'):
+    refs = []
+    for line in text.splitlines():
+        if 'link "' in line and keyword in line:
+            tok = line.split()[0] if line.split() else ''
+            if tok.startswith('@e'):
+                refs.append(tok)
+    return refs
+
+
+def open_image_chat(session, debug_dir=None, timeout=90):
+    """ホームへ移動して baseline を取り、候補チャットを順に開いて中身を返す。"""
     end = time.time() + timeout
-    last = ''
     while time.time() < end:
+        bsk(['step', '--session', session, '--action', 'navigate',
+             '--params', json.dumps({'url': 'https://chatgpt.com/'})])
+        time.sleep(8)
         code, doc = bsk_json(['cooperate', '--session', session, 'sync'])
         text = obs_text(doc)
-        last = text or last
-        if last.count('ダウンロード') > base_count:
-            ref = ref_for(last, 'ダウンロード')
+        ctx = ctx_of(doc)
+        for ref in candidate_links(text):
+            code, doc2 = bsk_json(['step', '--session', session, '--context', ctx,
+                                   '--action', 'click', '--params', json.dumps({'ref': ref})])
+            text2 = obs_text(doc2)
+            if text2:
+                if debug_dir:
+                    Path(debug_dir).mkdir(parents=True, exist_ok=True)
+                    (Path(debug_dir) / ('chat_%s.vom' % ref.replace('@', ''))).write_text(text2, encoding='utf-8')
+                return text2, ctx_of(doc2)
+        time.sleep(5)
+    return '', ''
+
+
+def wait_for_download_button(session, base_count, timeout, debug_dir=None):
+    """生成完了を待ち、ダウンロードボタンの ref を返す。"""
+    end = time.time() + timeout
+    while time.time() < end:
+        text, ctx = open_image_chat(session, debug_dir)
+        if text and text.count('ダウンロード') > base_count:
+            ref = ref_for(text, 'ダウンロード')
             if ref:
-                return ref, ctx_of(doc)
+                return ref, ctx
         time.sleep(10)
     raise SystemExit('生成が完了しませんでした（timeout %ds）' % timeout)
 
@@ -148,6 +178,7 @@ def main():
     ap.add_argument('--timeout', type=int, default=240, help='生成待ちの秒数（既定240）')
     ap.add_argument('--browser', help='bsk のブラウザ instance id（既定: 最初の接続）')
     ap.add_argument('--keep-session', action='store_true', help='終了時にセッションを残す')
+    ap.add_argument('--debug-dir', help='調査用に VOM を保存するディレクトリ')
     ap.add_argument('--reuse-last', action='store_true',
                     help='新規生成せず、直近の「画像生成」チャットからダウンロードだけ行う')
     a = ap.parse_args()
@@ -165,7 +196,7 @@ def main():
 
     try:
         if a.reuse_last:
-            dl_ref, ctx2 = wait_for_download_button(sid, -1, a.timeout)
+            dl_ref, ctx2 = wait_for_download_button(sid, -1, a.timeout, a.debug_dir)
         else:
             url = 'https://chatgpt.com/?q=' + urllib.parse.quote(a.prompt)
             bsk(['step', '--session', sid, '--action', 'navigate', '--params', json.dumps({'url': url}, ensure_ascii=False)])
@@ -187,7 +218,7 @@ def main():
                 if not wait_sent(sid, a.prompt[:12], timeout=30):
                     raise SystemExit('送信できませんでした（クリックが弾かれている可能性）')
             print('sent ok')
-            dl_ref, ctx2 = wait_for_download_button(sid, base_count, a.timeout)
+            dl_ref, ctx2 = wait_for_download_button(sid, base_count, a.timeout, a.debug_dir)
 
         print('download', dl_ref)
         bsk(['step', '--session', sid, '--context', ctx2,

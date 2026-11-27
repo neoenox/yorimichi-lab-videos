@@ -52,7 +52,7 @@ Windows / RTX 4060上でローカル実行する試作システム。実デー�
 既存環境で全工程を再実行：
 
 ```powershell
-cd E:\rekishikaisetu
+cd E:\rekishikaisetu-honnoji
 pwsh -File scripts/run.ps1 -Theme '関ヶ原の戦い'
 ```
 

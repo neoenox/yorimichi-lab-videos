@@ -33,6 +33,9 @@
 ## 使い方
 
 1. 公開後、Studio の再生数・視聴維持率を `channel_profile.json` に追記する
+   - **slug だけでは一括更新できない**（2026-11-19実測）。`views` の意味が動画ごとに違い、長尺の回数が入っている項目（例: `sekigahara` 291=長尺、同名のShortは1027）と、Shortの回数が入っている項目（例: `drain` 1208=Short 1213）が混在する。`short_<slug>` キーで機械的に上書きすると、別動画の数字に置き換わる（例: `honnoji` は長尺「本能寺の変（30分版）」、`short_honnoji` は別題「敵は本能寺にあり」）。
+   - **対応表を用意した**: [`channel_profile_map.md`](channel_profile_map.md)。slug完全一致キー（`short_<slug>` → `short_solo_<slug>`）を最優先し、未公開なら「同じslugを含むShortでタイトル類似度0.3以上・公開済み・最多再生」、Shortが無ければ長尺キーを使う。更新した動画は `views_video_id` / `views_source_key` に残る。**views は Short の再生数で統一**（2026-11-19以降）。
+   - 数字はAnalytics APIで取れる: `python scripts/yt_analytics.py videos`（再生数・平均視聴時間・平均視聴率）。未公開しか無いslugは0のままで、公開後に再取得する。
 2. `topic_pick.py --month <公開したい月> --write docs/themes/<日付>_next/04_scores.md`
 3. 上位3案に、`docs/THEME_SELECTION_PROCEDURE_V2.md` の関門（一次資料の確認）をかける
 4. 決定は人。採用した題は `channel_profile.json` に追記し、候補から外す

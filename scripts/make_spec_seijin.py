@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 R = Path(__file__).resolve().parents[1]
 from specart import inject
-TOP = [60, 170, 1860, 235]
+from spec_common import _fit, _remap, _starts, TOP
 spec = dict(slug='seijin', theme_dir='20270109_seijin', pack='48_seijin', header_sub='内閣府の資料と、法律の改正の記録で確かめる',
  images={},
  bgm=[['intro', 'since', 'piano36'], ['range', 'pick', 'piano12'], ['who', 'end', 'piano40']],
@@ -115,47 +115,7 @@ spec = dict(slug='seijin', theme_dir='20270109_seijin', pack='48_seijin', header
  thumb=dict(bg='assets/seijin/thumb_art.png', lines=[['成人の日', 120, 'white'], ['なぜ1月15日', 90, 'white'], ['じゃない？', 120, 'gold']], sub='内閣府の資料で確かめる', shade_col=[10, 24, 44], accent=[255, 178, 72], bar_col=[255, 178, 72], y0=14, bar_y=520, bar_w=620, sub_size=38, shade_x=700, shade_w=520))
 
 
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
-
-
-def _line_to_sentence_starts():
-    """台本の番号つきの行（1行に複数の文がある）→ 各行の最初の文の番号（vp.py の sentences と同じく「。」で区切る）。"""
-    t = (R / 'docs' / 'themes' / '20270109_seijin' / '09_script_v2.md').read_text(encoding='utf8')
-    out = []
-    for c in re.split('\n## ', t)[1:]:
-        if not re.match('章(\\d+)　', c.split('\n')[0]): continue
-        starts, n = [], 0
-        for l in c.split('\n'):
-            if re.match('^\\d+\\. ', l):
-                body = re.sub('〔[^〕]*〕', '', re.sub('^\\d+\\. ', '', l)).strip()
-                starts.append(n); n += len([x for x in body.split('。') if x.strip()])
-        starts.append(n)
-        out.append(starts)
-    return out
-
-
-def _remap(o, st):
-    f = lambda i: None if i is None else st[min(i, len(st) - 1)]
-    if isinstance(o, dict):
-        for k, v in list(o.items()):
-            if k in ('at', 'until', 'title_at', 'at2') and isinstance(v, int): o[k] = f(v)
-            else: _remap(v, st)
-    elif isinstance(o, list):
-        for v in o: _remap(v, st)
-
-
-_S = _line_to_sentence_starts()
+_S = _starts('20270109_seijin')
 assert len(_S) == len(spec['chapters']), (len(_S), len(spec['chapters']))
 for _ch, _st in zip(spec['chapters'], _S):
     _remap(_ch['scene'], _st)

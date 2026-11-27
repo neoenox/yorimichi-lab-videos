@@ -1,0 +1,179 @@
+{
+ "title": "赤ちゃんは味を感じないのか 新生児の味覚を論文で確かめる",
+ "head": "赤ちゃんに味は分かる？",
+ "pron": "data/baby_taste_pron.json",
+ "art": "assets/tohoku/bg_one.png",
+ "hook": "生まれたばかりの赤ちゃんに、味は分かる？ 答えは、感じています。甘味が好きで、苦味は嫌う。",
+ "notes": "■ 2026年11月23日に、Beauchamp & Mennella の総説「Flavor Perception in Human Infants」（https://pmc.ncbi.nlm.nih.gov/articles/PMC3202923/）のPMC本文を読んで作った整理です。\n・根拠：甘味・うま味の好みと苦味の嫌悪は生得的な傾向がある。塩味への感受性と好みは生後4か月ごろに発達する。乳児は大人より甘味への好みが強い。3〜4か月未満の乳児は苦味・酸味の強い加水分解タンパク質ミルクを拒否せず受け入れるが、5〜6か月の乳児は拒否する。胎児期の羊水、出生後の母乳・粉ミルクを通じた風味の経験が、後の好みを形作る。\n\n総説の知見を一般的な傾向として紹介している。\n・動画内の図（模式図・比較）は自作です。背景の映像は FreeVideo（MiniMax H3）によるAI生成で、イメージです。実際の赤ちゃんの映像ではありません。\n",
+ "answer": "感じている。でも好みは経験で変わる",
+ "hook_text": null,
+ "hook_label": null,
+ "end_q": "皆さんは、赤ちゃんはどんな味が好きだと思いますか？",
+ "tags": [
+  "赤ちゃん",
+  "新生児",
+  "味覚",
+  "科学",
+  "誤解",
+  "論文",
+  "雑学",
+  "Shorts"
+ ],
+ "credit": "・背景映像：FreeVideo（MiniMax H3）によるAI生成映像。イメージです。実際の赤ちゃんの映像ではありません\n・図・表：自作",
+ "suffix": "整理",
+ "nolong": true,
+ "nolink": true,
+ "long_id": "qzxzekd5j-I",
+ "long_title": "43_bukka",
+ "scenes": [
+  {
+   "text": "生まれたばかりの赤ちゃんに、味は分かる？ 答えは、感じています。甘味が好きで、苦味は嫌う。",
+   "big": "赤ちゃんに味は分かる？",
+   "sub": "答え：感じている・甘味が好き",
+   "src": "Beauchamp & Mennella 2011",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.6,
+    "events": [
+     [
+      "よくある思い込み",
+      "味はまだ分からない"
+     ],
+     [
+      "答え",
+      "感じている"
+     ],
+     [
+      "好み",
+      "甘味が好き・苦味は嫌う"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c1"
+   ],
+   "vid": "assets/baby_taste/fv/clip1.mp4",
+   "dim": 0.7
+  },
+  {
+   "text": "甘味やうま味が好きで、苦味を嫌う傾向は、生まれつきと研究で分かっています。味を判断する仕組みを持って生まれるのです。",
+   "big": "味の好みは生まれつき？",
+   "sub": "甘味が好き・苦味は嫌う傾向",
+   "src": "Beauchamp & Mennella 2011",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "甘味",
+      "好む傾向"
+     ],
+     [
+      "うま味",
+      "好む傾向"
+     ],
+     [
+      "苦味",
+      "避ける傾向"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c2"
+   ],
+   "vid": "assets/baby_taste/fv/clip2.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "ただ、3〜4か月ごろの赤ちゃんは、苦味や酸味の強い特殊なミルクも受け入れます。5〜6か月ごろになると、拒否する傾向が強まります。",
+   "big": "生後半年ごろから変化",
+   "sub": "生後数か月で受け止め方が変化",
+   "src": "Beauchamp & Mennella 2011",
+   "viz": {
+    "type": "compare",
+    "l_label": "3〜4か月",
+    "l_val": "受け入れる",
+    "r_label": "5〜6か月",
+    "r_val": "拒否傾向"
+   },
+   "claim_ids": [
+    "c3"
+   ],
+   "vid": "assets/baby_taste/fv/clip3.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "味の経験は、お腹の中の羊水から始まり、母乳や粉ミルクで続きます。味を感じるだけでなく、経験で好みが形作られるのです。",
+   "big": "経験が好みを作る",
+   "sub": "羊水から母乳・粉ミルクへ",
+   "src": "Beauchamp & Mennella 2011",
+   "viz": {
+    "type": "timeline",
+    "gap": 2.8,
+    "events": [
+     [
+      "胎児期",
+      "羊水で風味を経験"
+     ],
+     [
+      "出生後",
+      "母乳・粉ミルクで経験"
+     ],
+     [
+      "その先",
+      "好みが形作られる"
+     ]
+    ]
+   },
+   "claim_ids": [
+    "c4"
+   ],
+   "vid": "assets/baby_taste/fv/clip4.mp4",
+   "dim": 0.7,
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true,
+   "vid": "assets/baby_taste/fv/clip1.mp4",
+   "dim": 0.7
+  }
+ ],
+ "claims": [
+  {
+   "id": "c1",
+   "statement": "新生児は味を感じ、甘味を好み苦味を避ける傾向がある",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3202923/",
+   "evidence_note": "PMC総説2011の要旨・Origin of Flavor Preferences 節で確認。"
+  },
+  {
+   "id": "c2",
+   "statement": "甘味・塩味・うま味の好みと苦味の嫌悪には生得的な傾向がある",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3202923/",
+   "evidence_note": "PMC総説2011の要旨で確認。"
+  },
+  {
+   "id": "c3",
+   "statement": "3〜4か月ごろと5〜6か月ごろでは、苦味・酸味の強いミルクへの反応が異なる",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3202923/",
+   "evidence_note": "PMC総説2011の Postnatal Flavor Learning via Infant Formula 節で確認。"
+  },
+  {
+   "id": "c4",
+   "statement": "胎児期・出生後の風味の経験が、後の味の好みを形作る",
+   "source_type": "primary",
+   "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3202923/",
+   "evidence_note": "PMC総説2011の Prenatal/Postnatal Flavor Learning 節で確認。"
+  }
+ ],
+ "needs_research": [
+  "月齢による反応の差は総説が紹介する研究の結果。個体差の詳細は未確認だが、台本では「ごろ」と留保しており答えは変わらない。",
+  "乳児の顔表情と味覚の関係は PMC5492973 の要旨のみ確認。台本では表情を断定材料にしていないため答えは変わらない。",
+  "日本語の小児科・新生児科の一次資料は未確認。ただし英語の査読総説で骨格は確認できているため答えは変わらない。"
+ ]
+}

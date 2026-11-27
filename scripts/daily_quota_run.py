@@ -18,8 +18,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import replace_versions
 import yt_api
-from googleapiclient.errors import HttpError
-from googleapiclient.http import MediaFileUpload
+from googleapiclient.errors import HttpError  # type: ignore[import-not-found]
+from googleapiclient.http import MediaFileUpload  # type: ignore[import-not-found]
 
 R = yt_api.R
 STATE = R / 'data' / 'quota_run_state.json'
@@ -53,12 +53,18 @@ def log(msg):
 
 def load_state():
     if STATE.exists():
-        return json.loads(STATE.read_text(encoding='utf8'))
+        try:
+            return json.loads(STATE.read_text(encoding='utf8'))
+        except (OSError, ValueError) as e:
+            # 壊れた状態ファイルから再開すると、既に完了した作業を再実行してクォータを無駄にする。
+            log(f'実行記録 {STATE} が読めません（{type(e).__name__}）。バックアップから復旧してください')
+            raise
     return {'done': {}, 'notes': {}, 'spent': 0}
 
 
 def save_state(s):
-    STATE.write_text(json.dumps(s, ensure_ascii=False, indent=1), encoding='utf8')
+    """実行記録を原子的に保存する（途中書き込みで進捗を失わないように）。"""
+    yt_api.save_json_atomic(STATE, s)
 
 
 def probe(yt):

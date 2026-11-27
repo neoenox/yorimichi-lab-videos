@@ -12,38 +12,101 @@
   {
    "text": "成人の日は、昔は、一月十五日でした。なぜ、一月十五日では、なくなったのでしょうか。",
    "big": "成人の日は、なぜ1月15日じゃない？",
-   "art": "assets/seijin/art_intro.png"
+   "art": "assets/seijin/art_intro.png",
+   "claim_ids": [
+    "old-115"
+   ]
   },
   {
    "text": "今の成人の日は、祝日法で、一月の第二月曜日と、決められています。",
    "big": "今：1月の第2月曜日",
    "src": "内閣府",
    "art": "assets/seijin/art_hall.png",
-   "col": "white"
+   "col": "white",
+   "claim_ids": [
+    "second-monday"
+   ]
   },
   {
    "text": "変わったのは、一九九八年の、祝日法の改正です。施行は、二〇〇〇年一月一日からです。",
    "big": "1998年の改正。施行は2000年1月1日",
    "src": "国民の祝日に関する法律の一部を改正する法律",
-   "art": "assets/seijin/art_desk.png"
+   "art": "assets/seijin/art_desk.png",
+   "claim_ids": [
+    "amendment-1998",
+    "effective-2000"
+   ]
   },
   {
    "text": "目的は、連休にして、余暇活動を充実させ、ゆとりのある国民生活を、実現することでした。",
    "big": "目的：連休にして、余暇を充実",
    "src": "内閣府",
    "art": "assets/seijin/art_shrine.png",
-   "col": "white"
+   "col": "white",
+   "claim_ids": [
+    "purpose-1998"
+   ]
   },
   {
    "text": "もとの一月十五日は、元服の日取りを避けて、松の内から、選ばれたと説明されています。",
    "big": "1月15日は、元服の日を避けて選ばれた",
    "src": "内閣府（昭和23年の報告書）",
-   "art": "assets/seijin/art_shrine.png"
+   "art": "assets/seijin/art_shrine.png",
+   "claim_ids": [
+    "origin-115"
+   ]
   },
   {
    "text": "くわしくは、長い動画で、確かめています。",
    "end": true,
    "art": "assets/seijin/art_intro.png"
   }
+ ],
+ "claims": [
+  {
+   "id": "old-115",
+   "statement": "成人の日は、もとは1月15日だった",
+   "source_type": "primary",
+   "source_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou/kaku.html",
+   "evidence_note": "内閣府「各『国民の祝日』について」に昭和23年制定時に1月15日とされた経緯の記載を本文で確認（2026-11-20）"
+  },
+  {
+   "id": "second-monday",
+   "statement": "現在の成人の日は、祝日法第2条で1月の第2月曜日と決められている",
+   "source_type": "primary",
+   "source_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
+   "evidence_note": "内閣府「国民の祝日について」の第2条の説明と令和9年は1月11日とする本文を確認（2026-11-20）"
+  },
+  {
+   "id": "amendment-1998",
+   "statement": "1998年（平成10年）10月21日公布の法律第141号で、成人の日が1月15日から1月の第2月曜日に改められた",
+   "source_type": "primary",
+   "source_url": "https://jahis.law.nagoya-u.ac.jp/lawdb/l/410a0141",
+   "evidence_note": "e-Govから条文を直接取得できず、名古屋大学法令データベースの第2条・附則の再掲を代替として本文確認（2026-11-20）"
+  },
+  {
+   "id": "effective-2000",
+   "statement": "改正の施行は2000年（平成12年）1月1日",
+   "source_type": "primary",
+   "source_url": "https://jahis.law.nagoya-u.ac.jp/lawdb/l/410a0141",
+   "evidence_note": "e-Govから条文を直接取得できず、名古屋大学法令データベースの附則「平成十二年一月一日から施行する」を代替として本文確認（2026-11-20）"
+  },
+  {
+   "id": "purpose-1998",
+   "statement": "改正の目的は、連休にして余暇活動を充実させ、ゆとりある国民生活を実現するため",
+   "source_type": "primary",
+   "source_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou/kaku.html",
+   "evidence_note": "内閣府「各『国民の祝日』について」の平成10年改正の理由の記述を本文で確認（2026-11-20）"
+  },
+  {
+   "id": "origin-115",
+   "statement": "もとの1月15日は、元服の日取りを避け、松の内にあたる15日が選ばれたと説明されている",
+   "source_type": "primary",
+   "source_url": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou/kaku.html",
+   "evidence_note": "内閣府「各『国民の祝日』について」が参議院文化委員会の昭和23年報告書として載せる内容を本文で確認（2026-11-20）"
+  }
+ ],
+ "needs_research": [
+  "祝日法第2条のe-Govからの直接取得は未実施。名古屋大学法令DBの条文再掲で同一内容を確認済みのため答えに影響しない"
  ]
 }

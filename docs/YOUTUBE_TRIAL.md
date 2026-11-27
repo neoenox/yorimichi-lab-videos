@@ -19,7 +19,7 @@
 再生成は、既存の環境・取得済み素材・ローカルVOICEVOXの起動を前提として次の順序で行う。
 
 ```powershell
-cd E:\rekishikaisetu
+cd E:\rekishikaisetu-honnoji
 .venv\Scripts\python.exe scripts/audio.py trial 0
 .venv\Scripts\python.exe scripts/build_youtube_trial.py
 .venv\Scripts\python.exe scripts/verify_youtube_trial.py

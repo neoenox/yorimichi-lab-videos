@@ -65,7 +65,9 @@ def jst_str(utc_z):
 
 def retry(fn, tries=3, wait=5, log=print):
     """通信が切れることがある（SSLEOFError など）ので、削除などの単発APIは数回試す。"""
-    last = None
+    if tries < 1:
+        raise ValueError('tries は1以上')
+    last: BaseException = RuntimeError('retry: 到達不能な既定値')
     for i in range(tries):
         try:
             return fn()
@@ -86,10 +88,11 @@ def same_file(a, b):
 
 
 def set_long_id(slug, new_id):
-    """長尺のIDが変わったら、Short の long_id を先に書き換える（data と生成器の両方）。
+    """長尺のIDが変わったら、Short の long_id を data/short_<slug>.json に記録する。
 
-    fix_short_links は data/short_<slug>.json の long_id を読むので、これを先に直さないと
-    古い（削除済みの）IDを概要欄に書いてしまう。
+    fix_short_links はこの JSON を読むので、差し替え後に古い（削除済みの）IDを概要欄へ
+    書かないよう、アップロードより先に更新する。生成器のソースは書き換えない。
+    gen_short_specs.py の J() が既存 JSON の long_id を引き継ぐため、再生成しても戻らない。
     """
     p = R / 'data' / f'short_{slug}.json'
     if not p.exists():
@@ -99,18 +102,7 @@ def set_long_id(slug, new_id):
     if old == new_id:
         return False
     d['long_id'] = new_id
-    p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding='utf8')
-    g = R / 'scripts' / 'gen_short_specs.py'
-    if g.exists():
-        src = g.read_text(encoding='utf8')
-        marker = f"J('{slug}', dict("
-        i = src.find(marker)
-        if i >= 0:
-            j = src.find("J('", i + len(marker))
-            body = src[i:j] if j > 0 else src[i:]
-            body = body.replace(f'long_id={old!r}', f'long_id={new_id!r}', 1)
-            src = src[:i] + body + (src[j:] if j > 0 else '')
-            g.write_text(src, encoding='utf8')
+    yt_api.save_json_atomic(p, d)
     return True
 
 
@@ -175,7 +167,7 @@ def finish_replace(slug, log=print):
     short_slug = SHORT_OF.get(slug, slug)
     if set_long_id(short_slug, new):
         log(f'  Short仕様の long_id を更新 {new}')
-    subprocess.run([sys.executable, str(R / 'scripts' / 'fix_short_links.py'), short_slug],
+    subprocess.run([sys.executable, str(R / 'scripts' / 'fix_short_links.py'), str(short_slug)],
                    check=True, cwd=str(R), capture_output=True, text=True, encoding='utf8')
     short = f'short_{short_slug}'
     if short in yt_api.load_ids():
@@ -191,7 +183,7 @@ def finish_replace(slug, log=print):
     rec.setdefault('deleted', []).append(old)
     if old in rec.get('superseded', []):
         rec['superseded'].remove(old)
-    yt_api.IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+    yt_api.save_ids_atomic(ids)
     log(f'  旧IDを削除 {old}')
     clear_pending(slug, log=log)
     return old, new
@@ -259,7 +251,7 @@ def replace(slug, log=print):
     log(f'  予約 {at} JST')
 
     short = f'short_{short_slug}'
-    subprocess.run([sys.executable, str(R / 'scripts' / 'fix_short_links.py'), short_slug],
+    subprocess.run([sys.executable, str(R / 'scripts' / 'fix_short_links.py'), str(short_slug)],
                    check=True, cwd=str(R), capture_output=True, text=True, encoding='utf8')
     if short in yt_api.load_ids():
         try:
@@ -274,7 +266,7 @@ def replace(slug, log=print):
     rec.setdefault('deleted', []).append(old)
     if old in rec.get('superseded', []):
         rec['superseded'].remove(old)
-    yt_api.IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+    yt_api.save_ids_atomic(ids)
     log(f'  旧IDを削除 {old}')
     clear_pending(slug, log=log)
     return old, new
@@ -340,7 +332,7 @@ def replace_short(slug, log=print):
     ids = yt_api.load_ids()
     rec = ids[pack]
     rec.setdefault('deleted', []).append(old)
-    yt_api.IDS.write_text(json.dumps(ids, ensure_ascii=False, indent=1), encoding='utf8')
+    yt_api.save_ids_atomic(ids)
     log(f'  旧IDを削除 {old}')
     return old, new
 

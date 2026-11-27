@@ -6,7 +6,31 @@
 
 最初の進捗報告で、事前確認を済ませたことと、今回適用する制作上の要点を一言で示してください。確認票と依頼内容に違いがあるときは、ユーザーの指示を優先し、変更する点を説明してください。
 
+**新規動画のテーマを提案・着手する前に、既出チェックを必須で行ってください。** `data/youtube_ids.json`（台帳）を見るだけでは不十分です。`docs/` 配下（`SHORTS_PRODUCTION_NOTES.md`、`research/`、`themes/` など）を grep して、同じ題材が過去に制作・検討・却下されていないか確認します。2026-11-23 に「1円玉の製造コスト」を新規提案したが、実際は 2026-11-19 に `solo_1yen` / `solo_1yen_fv` として制作済みだった、という見落としを受けてのルールです。重複が見つかったら提案を取り下げ、その旨を報告してください。
+
+## 単独Short（YouTube Short）を作る・公開するときは、手順書の読み取り確認が必須
+
+単独Shortの台本生成・背景生成・ビルド・アップ・公開予約・X予約の前に、`E:\rekishikaisetu-honnoji\docs\SOLO_SHORT_PROCEDURE.md` を**全文**読み、確認問題に答えてください。読んだことの証明は、次の操作でしか作れません（`E:\rekishikaisetu-honnoji` で実行）。
+
+1. `python scripts/read_procedure.py`（全体と部分の数）
+2. `python scripts/read_procedure.py --part 1` … 最後の部分まで、すべて表示して読む（未表示だと問題に進めない）
+3. `python scripts/read_procedure.py --questions` → `python scripts/read_procedure.py --answer 1=… 2=…`（全問正解で、24時間有効の印ができる）
+
+印が無い・期限切れ・手順書が更新された場合、`gen_solo_*.py`（`solo_spec.build`）、`solo_ship.py`、`solo_schedule.py` は止まり、Claude Code では該当コマンドがフックで拒否されます。**印を偽造したり、`PROCEDURE_ACK_SKIP=1` で回避したりしないでください**（非常時に使った場合は、理由をユーザーに報告する）。確認問題の答えを `docs/SOLO_SHORT_QUIZ.md` から写して通すことも、読んだことになりません。動画制作を別のエージェントに任せるときは、そのエージェント自身にこの確認をさせてください。
+
+## 背景映像は FreeVideo の AI 映像を使う（2026-11-23 から）
+
+動画（ニュースShortを含む）の背景・場面映像は、`bash scripts/fv_clips.sh <slug>` で FreeVideo（MiniMax H3）の AI 映像を生成して使う。以前は web 版 ChatGPT にイラストを依頼する決まりだったが、現在は FreeVideo に置き換えている（2026-11-23 にオーナーが確認）。自作してよいのは、データ由来の図（年表・棒グラフ・比較・流れ図などのviz、地図）だけです。AI 映像は「イメージです」と概要欄に明記し、アップ時は「AI の使用＝はい」を設定する。手順・保存方法は `docs/SOLO_SHORT_PROCEDURE.md` の 5-2、`docs/SHORTS_PRODUCTION_NOTES.md` を参照。
+
 動画の生成・デコードに成功しただけで、視聴品質や投稿可能を宣言しないでください。映像の動き、全編の音声、字幕同期など、実際に確認した範囲と未確認の範囲を分けて報告してください。
+
+## ニュース系の動画は、必ず年月日を入れる（毎回守ること）
+
+時事ニュースを扱う動画・Short・説明欄・タイトルでは、**日付をすべて年月日で書く**（例：2026年11月5日。「11月5日」「12日頃」だけにしない）。来年見たときに意味が変わってしまうため。画面の図・年表・ナレーション・説明欄・タイトル（「【2026年11月5日】…」）のすべてに入れ、「2026年11月5日時点の情報」と、過去の動画だと分かる表示も置く。ユーザーの指示（2026-11-05に再度）。長いタイトルは spec の `head` で画面上部の見出しだけ短くできる。
+
+## レビューは Google AI モードを使う（2026-11-20 オーナー指示）
+
+動画レビューは **Google AI モード**（https://www.google.com/ai）のみを使い、`python scripts/google_ai_review.py <slug> --mode video --video out/...mp4` で行う。**台本レビューは Google AI モードと ChatGPT を併用**し、Google AI モードは `python scripts/google_ai_review.py <slug> --mode script`、ChatGPT は `python scripts/review_short_cdp.py <slug> chatgpt` で実行する。Gemini は必須ではない。AIの指摘は必ず根拠の原文と照合してから採用・不採用を決め、`docs/research/` に記録する。Muse は起動しない。
 
 ## Shorts は制作標準（shorts-standard/）に従う
 

@@ -1,0 +1,43 @@
+{
+ "title": "海が青いのは、空が映るから？",
+ "pron": "data/oceanblue_pronunciations.json",
+ "art": "assets/oceanblue/art_sky.png",
+ "hook": "海が青いのは、空の青さが映っているから。この説明で、海の青さは、説明できるのでしょうか。",
+ "notes": "■ 動画で確かめたこと\n・ウッズホール海洋研究所の解説は、水面では空を映す、と認めています。しかし、水面の下に潜っても、青い色は残ります。\n・NOAAの解説によると、海が青いのは、水が、光の赤い側の色を吸収するからです。\n・つまり、空の映り込みだけでは、海が青い理由を説明できません。\n・公的機関・研究者の解説の要約による内容で、原典(原本)そのものの照合は、今回は行っていません。\n",
+ "answer": "空の映り込みだけでは、説明できない",
+ "scenes": [
+  {
+   "text": "海が青いのは、空が青くて、その空が、水面に映っているから。そう思っていませんか。",
+   "big": "海が青い＝空の映り込み？",
+   "art": "assets/oceanblue/art_sky.png"
+  },
+  {
+   "text": "ウッズホール海洋研究所の解説でも、水面では、空を映す、と認めています。",
+   "big": "水面では、空を映す",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_intro.png",
+   "col": "white"
+  },
+  {
+   "text": "しかし、水面の下に、潜っても、青い色は、残ります。",
+   "big": "潜っても、青は残る",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_light.png"
+  },
+  {
+   "text": "NOAAの解説では、海が青いのは、水が、光の赤い側の色を、吸収するからです。",
+   "big": "水が、赤い側の色を吸収",
+   "src": "NOAA",
+   "art": "assets/oceanblue/art_colors.png",
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true
+  }
+ ],
+ "long_id": "31mlleqtpsM",
+ "long_title": "22_ocean_blue",
+ "nolong": true,
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+}

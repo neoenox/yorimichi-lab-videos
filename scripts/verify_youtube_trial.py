@@ -28,7 +28,7 @@ credit+=['https://voicevox.hiroshiba.jp/','https://zunko.jp/con_ongen_kiyaku.htm
 (ROOT/'out/trial_video_description.txt').write_text('\n'.join(credit)+'\n',encoding='utf8')
 (ROOT/'out/TRIAL_REPORT.md').write_text(f'''# 編集改善のお試し版
 
-[動画](E:/rekishikaisetu/out/sekigahara_youtube_trial.mp4)／[概要欄](E:/rekishikaisetu/out/trial_video_description.txt)／[検証JSON](E:/rekishikaisetu/out/trial_quality_report.json)
+[動画]({ROOT.as_posix()}/out/sekigahara_youtube_trial.mp4)／[概要欄]({ROOT.as_posix()}/out/trial_video_description.txt)／[検証JSON]({ROOT.as_posix()}/out/trial_quality_report.json)
 
 尺：{report['seconds']:.2f}秒。1080p30fps、H.264/AAC。既存の3分44秒版は上書きしていません。
 

@@ -3,6 +3,7 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from specart import inject
+from spec_common import _fit
 R = Path(__file__).resolve().parents[1]
 spec = dict(slug='islands', theme_dir='20261102_islands', pack='16_islands_count', header_sub='島の数の変化を国土地理院の解説で確かめる',
  images={},
@@ -58,20 +59,6 @@ spec = dict(slug='islands', theme_dir='20261102_islands', pack='16_islands_count
   tags='島の数, 日本の島, 国土地理院, 14125島, 6852島, 海上保安庁, 電子国土基本図, 地理, 雑学, 検証',
   checks=['国土地理院の報道発表・FAQの原文を、公開前にもう一度開いて確認する(`docs/themes/20261102_islands/08_fact_check.md`)', '計数方法の資料1(https://www.gsi.go.jp/common/000247632.pdf)の原文を確認する(検索の要旨のみ確認済み)']),
  thumb=dict(bg='assets/islands/thumb_art.png', lines=[['日本の島', 110, 'white'], ['2倍に', 120, 'white'], ['増えた？', 130, 'gold']], sub='国土地理院の解説で確かめる', shade_col=[8,44,30], accent=[255,230,120], bar_col=[255,230,120], y0=14, bar_y=520, bar_w=620, sub_size=44, shade_x=700, shade_w=520))
-
-
-def _fit(o):
-    if isinstance(o, dict):
-        if o.get('t') == 'panel' and o.get('title'):
-            h = o['box'][3] - o['box'][1]
-            if h < 112:
-                tx = o['title'] + '：' + o['text']; sz = min(o.get('size', 40), 40, int((o['box'][2] - o['box'][0] - 70) / len(tx)))
-                if sz >= 26: o['title'] = None; o['text'] = tx; o['size'] = sz
-                else: o['size'] = min(o.get('size', 40), 30)
-            else: o['size'] = min(o.get('size', 40), 40 if h < 125 else 46)
-        for v in o.values(): _fit(v)
-    elif isinstance(o, list):
-        for v in o: _fit(v)
 
 
 _fit(spec)

@@ -19,7 +19,7 @@
 既存の環境・取得済み背景を使う場合：
 
 ```powershell
-cd E:\rekishikaisetu
+cd E:\rekishikaisetu-honnoji
 pwsh -File scripts/run_earth.ps1 -ReuseCaptures
 ```
 
@@ -647,7 +647,7 @@ tools\blender-4.5.3-windows-x64\blender.exe -b -t 6 --python scripts\hn_render.p
 - **spec の `at` / `until` / `title_at` は「文」の番号**（vp.py は「。」で文を分ける）。台本が1行に複数の文を含む場合、「行」で書くと画面が先に進んでズレる。`make_spec_shizugatake.py` の `_line_to_sentence_starts` / `_remap` をコピーして、行番号→文番号に直す（`make_spec_vitaminc.py` に実装済み）。1文=1行の台本なら不要。
 - `cols2` は見出しの位置（y=170）が固定で、`y0` で動かせない。他の部品と縦に並べたい時は、`panel`（`title`付き）を左右に2枚置く。
 - 上部の `panel`（TOP＝高さ65）は文字サイズ40まで。42・44だとビルドの `panel overflow` で止まる。
-- ブラウザ（claude-in-chrome）の `file_upload` は `E:\rekishikaisetu\out\`（master側のフォルダ）のファイルだけ通る。`E:\rekishikaisetu-honnoji\` のファイルは先にコピーする。ChatGPTの送信は Enter で通る（最初の送信のみボタン）。画像は `a[download]` で保存→`~/Downloads`→`assets/`。
+- ブラウザ（claude-in-chrome）の `file_upload` は、**セッションの作業フォルダーの中**のファイルだけ通る。作業フォルダーを `E:\rekishikaisetu-honnoji` にしてセッションを開けば、`out\`・`sigcmp_view\` のファイルがそのまま通る(2026-11-23 までは作業フォルダーが `E:\rekishikaisetu` だったため、そちらの `out\` へコピーしていた)。ChatGPTの送信は Enter で通る（最初の送信のみボタン）。画像は `a[download]` で保存→`~/Downloads`→`assets/`。
 - コクランのレビュー全文は、著者のサイト（mv.helsinki.fi/home/hemila/CC/）に公開PDFがある。数字・定義は全文で照合できた。NIH ODS は curl も WebFetch も403。
 - 台本の安全性の言い方：「副作用は報告されていない」と「薬のせいと感じた症状の申告が5.8％／6.0％」は、並べると矛盾して聞こえる（Codexが高で指摘）。「自己申告で、ほとんど同じ」と言い直す。
 
@@ -818,7 +818,105 @@ tools\blender-4.5.3-windows-x64\blender.exe -b -t 6 --python scripts\hn_render.p
 
 ### YouTube API の割り当てが切れた日の字幕（Studioで付ける手順・2026-11-04）
 動画本体は上がっていて、字幕だけ未登録のとき。`https://studio.youtube.com/video/<ID>/translations` を開く。
-1. 字幕のSRTは、セッションが読める場所（作業フォルダー内。例 `E:\rekishikaisetu\sigcmp_view\captions\`）へコピーしておく（リポジトリ外のパスは、`file_upload` で拒否される）。
+1. 字幕のSRTは、セッションが読める場所（作業フォルダー内。例 `E:\rekishikaisetu-honnoji\sigcmp_view\captions\`）へコピーしておく（リポジトリ外のパスは、`file_upload` で拒否される）。
 2. 「手動でアップロード」→ 「タイムコードあり」の窓が出たまま、ファイル入力の ref を `find` で探し、`file_upload` でSRTを渡す。（「続行」を押すとOSのファイル選択窓が開いてしまうので、押さない）
 3. **これだけでは公開されない（下書き）。** 「字幕を編集」を開き、右上の「公開」を押す。「日本語の字幕を公開しました」が出れば完了。編集画面を開いたままだと、別ページへ移るとき「サイトを離れますか？」で止まる。
 4. 位置：「手動でアップロード」ボタン＝画面座標(380,198)、「字幕を編集」＝(270,198)、「公開」＝(1229,65)（1568×698の画面）。
+
+### StudioからShortを上げて予約する手順（API割り当てが切れた日・2026-11-04）
+`E:\rekishikaisetu-honnoji\sigcmp_view\nl_videos\<slug>.mp4` など、セッションが読める場所へ動画・字幕をコピーしておく（`file_upload` は、読める場所のファイルだけ。1回10MBまで）。
+1. `https://studio.youtube.com/channel/<チャンネルID>/videos/upload?d=ud` を開き、`find` でファイル入力を探して `file_upload`。
+2. 題名・説明欄・「子ども向けではない」は、JSで入れる：`#title-textarea #textbox` と `#description-textarea #textbox` に `document.execCommand('selectAll')` → `insertText`、`[name=VIDEO_MADE_FOR_KIDS_NOT_MFK]` をclick。**題名・説明欄の文面は、`data/` を `127.0.0.1:8765` で配信して、ページから `fetch`（evalは禁止されているので、関数は呼び出しごとに貼る）。**
+3. `#next-button` を3回（間に2.5〜3秒）で「公開設定」へ。「スケジュールを設定」を開き、日付欄（画面座標 約(508,457)）→カレンダーの日をクリック（0.6倍の画面で、日・月・火・水・木・金・土の列x＝282,299,317,335,352,370,388、週の行y＝153,171,188,206,224）。
+4. **時刻欄は、キー入力が効かない。** JSで `input.value='17:00'` を入れ、`input`・Enter(keydown)・`change` を発火させる。
+5. 右下「スケジュールを設定」(約(1092,630))を押し、確認の「OK」をJSで押す。完了の窓の文面から、動画ID（`shorts/<ID>`）と日時を読む。
+6. 旧版：その動画の `/edit` で公開設定を開き、「非公開」を選んで完了→保存（予約が外れる）。字幕：`/translations`→「手動でアップロード」→ファイル入力に `file_upload` → **「字幕を編集」→「公開」まで押す（アップだけでは下書き）**。
+**罠：** 画面を開いた直後の最初の操作は、効かないことがある（やり直す）。1回の `browser_batch` が長いと、応答が切れる（前半・後半に分ける）。
+
+## 単独Short(FreeVideo背景)の最短手順(2026-11-07)
+1本あたりの待ちは、FreeVideoの背景5クリップ(約40分)がほぼ全部。ここを他の作業と重ねる。
+1. 題材を決めたら、**調べる前に**背景の雰囲気(動き多め・文字なし)だけで `assets/<topic>/fv/prompts.json` を書き、`python scripts/solo_ship.py clips <topic>` を `run_in_background` で流す(台本の中身に依存しない風景・動きで書く)。
+2. 待っている間に、調査→`scripts/gen_solo_<topic>.py`(台本・pron・notes)を書き、`python scripts/gen_solo_<topic>.py` で仕様を出す。次の題材の調査も、この時間に進める。
+3. クリップが揃ったら、目視で文字・建物の混入を確認(1コマずつ一覧にして見る)。
+4. `python scripts/solo_ship.py build <slug>` … 動画づくり・パック・説明欄の重複除去・長さ/音声/年月日の検査・静止画の一覧・sigcmp_viewへコピー。出力の「確認できたこと／未確認」を、そのまま報告に使う。
+5. ユーザーの「アップして公開」で `python scripts/solo_ship.py publish <slug>`(アップ→処理完了待ち→公開→台帳→視聴ページ確認)。
+注意: 通しの視聴と全編の聴取は自動化できない。常に「未確認」に書く。publish は 2026-11-07 時点で、動画を実際に上げての試験をまだしていない(部品は手作業で毎回動いていたものを移した)。
+
+
+## 「この場所は昔は〇〇だった」の作り方(2026-11-09 東京ドームで確立)
+
+- 背景は国土地理院の年代別空中写真。`python scripts/gsi_clip.py <出力mp4> <レイヤー> <緯度> <経度> [--dx --dy]` で、7秒・縦・ゆっくり拡大のクリップが作れる。出力を `assets/<slug>/fv/clipN.mp4` に置けば、`solo_ship.py build` がそのまま使う。地図で出せない時代はFreeVideoのAI動画で補う。
+- レイヤーと撮影期間: ort=現在 / ort_USA10=1945〜50年 / ort_old10=1961〜64年 / gazo1=1974〜78 / gazo2=1979〜83 / gazo3=1984〜86 / gazo4=1987〜90 / ort_riku10=戦前(陸軍撮影、撮影年は未確認)。迅速測図・1928年の写真はこのタイルでは取れない。
+- 画面の出典行は約43文字まで(超えると両端が切れる)。「<年代>の写真:国土地理院」と短くし、撮影年が未確認などの注意は説明欄へ。`solo_spec.build` の `bg_note` / `credit` で、説明欄の「AI生成」注記を地図版用に差し替える。
+- 題材の事実確認: Wikipediaの記述が記事内で食い違う場合がある(東京砲兵工廠の「1871年から1935年」と「約66年間」)。そのまま使わず、算数を確かめる。旧暦の月日に西暦年を付けない(忠臣蔵・秀長で2回間違えた)。「ドームの場所」のように位置が曖昧な題材は「一帯」と書く。
+- 未確認: 国土地理院の写真(特に米軍撮影)の利用条件の詳細。
+
+## 単独Shortの作成手順
+
+単独Short(地図型・ニュース)の作成から予約までの手順は [`SOLO_SHORT_PROCEDURE.md`](SOLO_SHORT_PROCEDURE.md) にまとめています(2026-11-11)。
+
+## 単独Short(2026-11-16 追記)
+単独Short(約50〜58秒)の作成から、公開・X予約・分析までの**全手順・合格基準・罠・完成例**は `docs/SOLO_SHORT_PROCEDURE.md` に集約した(0b=合格基準、2b=ニュース題材の探し方、3b=台本の雛形、12=罠の一覧、12b=進め方と報告)。単独Shortを作る前に必ず読む。
+特に、**`tags=[...]` を台本ファイルで指定しないと、前の動画(物価)のタグが付く**(2026-11-16に発生、API で修正)。
+
+## 検査ツールの追加(2026-11-22)
+外部のスキル集(OpenMontage・Qwen-MM 等)は導入せず、既存に無かった確認だけを足した。
+- **冒頭1フレームの事前確認**: `python scripts/first_frame_preview.py <slug> [秒...]` — 音声合成も全編レンダもせず、`data/short_<slug>.json` の冒頭(既定 0.3/1.0/1.8/3.0 秒)を 360x640 に縮小して並べる(`out/short_<slug>_first/first_sheet.png`)。0.5秒で何の話か分かるか、文字が端で切れていないか、結論カードと字幕が重ならないかを見る。場面の長さは1文字0.18秒の概算。背景(art、または動画背景 vid のクリップ)が先に必要。`make_short2.frame_at` を本番レンダと共有しているので、静止画背景の見た目は本番と同じ(3本・各180コマで画素一致を確認済み)。**動画背景(vid)の場面は、クリップの先頭コマの静止画で代える**(本番の `vid_frame` は ffmpeg の出力を時刻順にしか読めず、任意の時刻では呼べないため)。動きや補間はこのプレビューでは見えない。
+- **黒画面の検出**: `qa_lint.py` が長尺・Short とも `blackdetect`(0.5秒以上)で黒区間を WARN に出す。意図した暗転ならそのままでよい。
+- **通し確認は2秒おき**: `codex_watch.py` の `STEP` を 4→2 にした(コンタクトシートの枚数は約2倍)。
+- **ASR(読みの確認)**: 手元のkotoba-whisperは `E:\rekishikaisetu-honnoji\scripts\asr_kotoba.py`(`python scripts/asr_kotoba.py cache/short_solo_<slug> <出力txt>`)。この作業ツリーには無い。稀な語・同音語はずれるので、読みの正は `_kana.txt`。
+- 冒頭フック案と実測の対応は [`hook_patterns.md`](hook_patterns.md) に溜める(AGENTS.md には書かない)。
+
+## 共通部品リポジトリ yt-shorts-kit(2026-11-22)
+複数のYouTube制作リポジトリ(本リポジトリと `E:\rakuten-shorts-affiliate`)で重複していた土台を、`E:\yt-shorts-kit`(パッケージ名 `ytkit`)に集めた。描画・台本形式・規約ゲートは入れていない(チャンネルごとに違うため)。
+- 中身: `ffmpeg_tools`(ffmpeg/ffprobe探索・尺)、`loudness`(ebur128・loudnorm)、`qa`(黒画面)、`voicevox`(話者・読み辞書・合成)、`freevideo`(ComfyUI API)。
+- 本リポジトリで使っている所: `qa_lint.py`(探索・尺・音量・黒画面)、`make_short.py` の `synth`(VOICEVOX)。移行前後でナレーション音声がバイト単位で一致することを確認済み。`vp.py` と `make_short2.py` の音声処理は、挙動に差が出ないか確かめきれていないので未移行。
+- 入れ方(`.venv` は uv 管理で pip が無い): `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`。新しい環境でも同じ手順が必要。
+- CI(`youtube-safety.yml`)は `requirements.txt` だけを入れる。`qa_lint.py`/`make_short.py` はテストから import されないので今は通るが、これらを CI で実行する場合は ytkit を入れる手順を足すこと。
+- 部品を直すときは3か所(kit・本リポジトリ・rakuten)の `pytest` を回す。使い方・決まりは `E:\yt-shorts-kit\README.md`。
+
+## チャンネル設定 channel.toml(2026-11-22)
+Short の描画(`make_short.py`・`make_short2.py`)が持っていたチャンネル固有の値を、リポジトリ直下の `channel.toml` に出した。コアを別リポジトリへ切り出す準備(まずこの場所で設定化)。
+- **設定の中身**: `[channel]` 名前・副題・TikTok用副題・概要欄の紹介文 / `[voice]` VOICEVOX の話者・スタイル・クレジット行 / `[bgm]` BGMファイル(ROOTからの相対)・クレジット行 / `[fonts]` フォルダー・和文ゴシック・明朝 / `[hashtags]` 概要欄とTikTokの既定。
+- **場所**: 環境変数 `YT_PROJECT_ROOT` があればそのフォルダー、無ければ `scripts/` の1つ上。キーが足りなければ、キー名を示して止まる(`ytkit.project`)。
+- **読むコード**: `make_short.py`・`make_short2.py`・`vp.py`。`ytkit.project.section` で必要なキーだけを取り、足りなければキー名つきで止まる。
+- **効く範囲**: 終了カード4種(通常・`cta:false`・`nolong`・TikTok)の文字、概要欄・TikTokキャプションの出典・クレジット・紹介文・ハッシュタグ、フォント、ナレーター、BGM。値を変えれば、画面・概要欄・音が変わる。
+- **変えていない見た目**: 設定化の前後で、3本の spec×終了カード4種×4時刻の全コマの画素、概要欄とキャプションの全文、`make_short.py` の `cta` 場面と概要欄、フォントの寸法、BGMを混ぜる ffmpeg のコマンドが**すべて一致**することを確認した(81項目)。
+- **長尺 `vp.py` も同じ `channel.toml` を読む(2026-11-22)**: `[voice]` の話速・音声レポートの話者欄・長尺の概要欄のクレジット(半角コロン書式)、`[bgm]` のフォルダー・ファイル名の規則・長尺の音楽クレジット(`{tracks}`)・`[bgm.names]`(曲名の頭の英字→日本語名)、`[channel]` の紹介文・規約確認の項目、`[fonts]`(描画とサムネイル)。一時プロジェクト(drain の spec を使い、VOICEVOX を模擬)で、story→kana→audio→bgm→コマ描画(6コマ)→概要欄→サムネイルを旧新で動かし、字幕・ナレーション音声・BGM・概要欄・サムネイル・音声レポート・VOICEVOX への要求120件の**23項目がすべて一致**した。`build`(エンコード)は比較に含めていない。
+- **まだ設定化していないもの**: 色(GOLD・NAVY など)、画面の座標、`vp.py` のエンコード設定(NVENC など)、`gm_*.py` などの別描画スクリプトのフォント直書き、`yt_api.py` のチャンネル固有記述、手順書と確認の仕組み(絶対パス)。`make_short.py` の旧 drain の概要欄にある `#Shorts #雑学 #科学` は、その動画の内容なので残した。
+- **テスト**: `tests/test_channel_config.py`(必須キー、概要欄・キャプションが設定に従う、`YT_PROJECT_ROOT` で別チャンネルに切り替わる、キー不足でキー名つきで止まる)。共通部品 ytkit が無い環境(CI)では飛ばす。
+
+## コアの別リポジトリ化(ytcore、2026-11-22)
+動画制作のコアの一部を、共通部品リポジトリ `E:\yt-shorts-kit` の `ytcore` パッケージへ移した。`scripts/` の同名ファイルは**薄い入口(shim)**で、`import make_short` も `python scripts/make_short2.py <slug>` も従来どおり動く。
+- **移したもの(7本)**: `hn_text.py`・`rich_text.py`・`thin_commas.py`・`make_short.py`・`make_short2.py`・`first_frame_preview.py`・`vp_lock.py`。履歴は `git filter-repo` で付け替えて保った(kit 側で `git log -- ytcore/make_short2.py`)。実体を直すときは**kit 側**を直す。shim は直さない。
+- **仕組み**: shim が環境変数 `YT_PROJECT_ROOT` をこのリポジトリのルートに設定し、`ytcore.<名前>` を読み込んで `sys.modules` を差し替える(`import` した側は ytcore の実体を直接得る)。`python scripts/<名前>.py` は `runpy` で `__main__` として実行する。ytcore 側は、環境変数 → shim 側の channel.toml → カレントから上へ探す、の順でプロジェクトの場所を決める(`ytkit.project.project_root`)。
+- **描画コードの指紋(部品キャッシュの有効判定)**: `vp.py` の `_code_fp()` は、`hn_text`・`thin_commas`・`rich_text` の**実体**(ytcore)のファイルを読む。あわせて、**行末(CRLF/LF)を除いて**内容だけで指紋を取るようにした。理由: `core.autocrlf=true` のため作業ファイルの行末がツリーごとに違い(E: は CRLF、honnoji は一部 LF)、同じ内容でも指紋が違っていた。ytcore へ移したことで顕在化した。この変更で、honnoji の指紋は `61addc53…` から `a0e5286f…` に**1度だけ変わった**(E: と honnoji は、今は同じ値)。honnoji の `cache/` に部品のキャッシュは無く、作り直しになるものは無かった。今後は、ツリーが違っても、行末の設定が違っても、同じ内容なら同じ指紋になる。**ytcore のこれらのファイルの中身を書き換えると、全部品が作り直しになる**。
+- **確認したこと**: Short の旧新比較(終了カード4種の全コマ・概要欄・ffmpegコマンドなど81項目)と長尺の旧新比較(23項目)が、移した後も一致。`hn_text.py`・`thin_commas.py` を直接実行した出力も一致。別のフォルダーから `first_frame_preview.py` を実行してもルートが正しく決まる。
+- **長尺 `vp.py` も移した(2026-11-22)**: `vp.py`・`vp_check.py`・`vp_preview.py`・`script_lint.py`(履歴17コミットを保って)。`scripts/` の同名ファイルは shim。結合を解いたのは3点: ①部品のサブプロセス(`build` の部品、`preview` の `pvpart`)を `python -m ytcore.vp` で動かす(自分のファイルのパスに頼らない)、②描画コードの指紋を、`vp.py` 本体の実体・`plugin_dir` の `vp_anim*.py`・text helpers の実体を、行末を除いた内容で名前順に読む(値は移す前後で同じ `a0e5286f…`)、③プラグインの置き場所を `channel.toml` の `[project] plugin_dir`(既定 `scripts`)から読む。`vp_anim*` が受け取る `bind(globals())` の仕組みはそのまま動く(ホストが `ytcore.vp` になるだけ)。
+- **vp の確認(CLI通し)**: 使い捨てのプロジェクト(drain を2章に縮めたもの)と実物の VOICEVOX で、`scripts/vp.py` を実際のコマンドラインから story→kana→audio→bgm→check→lint→preview→still→**build**→qa→desc→thumb と通し、移す前後で**77項目のうち76項目が一致**(残る1項目は ffmpeg のログ中のメモリアドレスだけの違い)。ビルドした動画の映像 framemd5・音声 md5・部品の指紋(.fp)・プレビューの画像・検査の出力まで同じ。
+- **プロジェクトに残すもの**: `vp_anim*.py`(動画ごとの動く図)・`make_upload_pack.py`・`ffmpeg_skill_check.py`・手順書と確認の仕組み・`yt_api.py`。
+- **罠**: `scripts/_build_*.py` は import しただけでビルドが走る。`regen_srt_vp.py` は import した時点で `sys.argv[1]` を読む。どちらも、動作確認で import しない。
+- **導入**: 新しい環境では `uv pip install --python .venv/Scripts/python.exe -e E:\yt-shorts-kit`(ytcore を含む。numpy・Pillow・requests が要る)。CI は ytkit/ytcore を入れないので、これらを import するテストは skip される。
+
+## 運用の整理: どこで何をするか(2026-11-23 更新)
+フォルダーとブランチが複数あって分かりにくかったので、**プロジェクトを `E:\rekishikaisetu-honnoji` だけで完結**させた。
+
+| 場所 | 役割 |
+|---|---|
+| `E:\yt-shorts-kit`(ブランチ master) | **動画制作のコア**。`ytcore/`(描画・長尺のパイプライン)と `ytkit/`(ffmpeg・VOICEVOX など)。コアを直すのはここだけ |
+| `E:\rekishikaisetu-honnoji`(ブランチ master) | **動画を作る場所のすべて**。git の本体(`.git`)・Python 環境(`.venv`)・`tools/`・`node_modules/`・台本・素材・出力(`out/`・`sigcmp_view/`)・設定(`channel.toml`)・動画ごとのスクリプト |
+| `E:\rekishikaisetu` | **使わない(消してよい)**。2026-11-23 に、中身をすべて honnoji へ移した。残っているのは、移行前の `.git` の控えと、移行中に生まれた新しいファイルだけ |
+
+- **セッションの作業フォルダーは `E:\rekishikaisetu-honnoji` にする**。ブラウザ(claude-in-chrome)の `file_upload` は、**セッションの作業フォルダーの中**のファイルだけ通る。作業フォルダーが `E:\rekishikaisetu` だった間は、`sigcmp_view` などをそちらに置く必要があり、本番のスクリプトが E: に書き込んでいた。今は、すべて honnoji 基準(`R / 'out'`、`R / 'sigcmp_view'`)。
+- **ブランチ**: 動画プロジェクトのブランチは `master` だけ。
+- **移したもの(2026-11-23)**: ①`.git`(honnoji が主役になった。履歴242コミットは一致を確認)、②`.venv`(ジャンクションをやめて、honnoji に実体。パッケージは lock と同じ31件)、③`tools/`・`node_modules/`(ジャンクションをやめて実体)、④E: にしかなかった作業成果物(背景画像362・出力1,394・アップロード用121・レビュー用動画490・キャッシュ105・ログ37。上書きなし)。
+- **手順書の読み取り確認の門番(`procedure_gate.py`)は、手順書を自分のプロジェクトの `docs/` から読む**(`tests/test_procedure_gate.py`)。
+- **コードが E: の絶対パスを指さないこと**は `tests/test_no_hardcoded_e_root.py` が見張る。
+- **手順書(`SOLO_SHORT_PROCEDURE.md`)の中にある E: のパス(7か所)は、まだ直していない**。直すと手順書のハッシュが変わって、全員の確認の印が無効になる(確認をやり直す)ため。次に手順書を更新するときに、一緒に直す。`SHORTS_PRODUCTION_NOTES.md` の E: の記述2か所も、別のセッションが編集中だったため、直していない。
+- **バックアップ**: `E:\_backup_before_e_removal_20261123`(`repo_all_refs.bundle`=全ブランチ・タグ、`dot_git`=旧 `.git` の全コピー、Claude のプロジェクトフォルダーの控え)。問題がないと確認できたら削除してよい。
+- **コアの運用(公開リポジトリ https://github.com/neoenox/yt-shorts-kit、2026-11-23)**:
+  - コアを直すのは `E:\yt-shorts-kit` だけ。`scripts/hn_text.py`・`make_short2.py`・`vp.py` などは薄い入口(shim)なので直さない。
+  - 編集可能インストールなので、コアを直すと、honnoji にすぐ反映される。動画を作っている最中に、コアへ未コミットの編集を置いたままにしない。
+  - 直したら、コアと honnoji の**両方**で `pytest`。両方に変更が要るとき(例: `channel.toml` の新しい項目)は、**コアを先にコミット・push** してから、honnoji をコミットする。
+  - コアの履歴は書き換えない(公開済み)。コミットのメールアドレスは GitHub の noreply にしてある。
+  - 新しい環境: `scripts/setup.ps1` が、隣に `yt-shorts-kit` があれば編集可能で、無ければ GitHub(`@master`)から入れる。版を固定するなら、`setup.ps1` の `@master` を、タグかコミットのハッシュにする。

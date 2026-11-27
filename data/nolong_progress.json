@@ -1,0 +1,352 @@
+{
+ "solo_anegawa_suugyou": {
+  "new_id": "uw267Upb-18",
+  "captions": true,
+  "scheduled": "2026-11-06 17:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "AFLE_UdETLw",
+  "done": true
+ },
+ "solo_tamago_jikyu": {
+  "new_id": "j7rBP_lZrB8",
+  "captions": true,
+  "scheduled": "2026-11-07 12:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "B_IG0FuHibg",
+  "done": true
+ },
+ "solo_bath_hagaki": {
+  "new_id": "RM3mUp8xAQw",
+  "captions": true,
+  "scheduled": "2026-11-07 17:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "QuMxlXpWxfg",
+  "done": true
+ },
+ "solo_shinkansen24": {
+  "new_id": "rW32WiiRFKs",
+  "captions": true,
+  "scheduled": "2026-11-08 12:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "x6X-YYrWOq8",
+  "done": true
+ },
+ "solo_carpenter10h": {
+  "new_id": "OwvDm4yX5Uw",
+  "captions": true,
+  "scheduled": "2026-11-08 17:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "AqoBf49puh0",
+  "done": true
+ },
+ "solo_doyo_shiryo": {
+  "new_id": "1OQa0cRIRpU",
+  "captions": true,
+  "scheduled": "2026-11-09 12:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "LIiNvG8URvQ",
+  "done": true
+ },
+ "solo_freq_why": {
+  "new_id": "o52Uaqj_G0o",
+  "captions": true,
+  "scheduled": "2026-11-09 17:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "Q8d5dqHtx_Y",
+  "done": true
+ },
+ "solo_hanabi_kikin": {
+  "new_id": "l1zOa07zQTY",
+  "captions": true,
+  "scheduled": "2026-11-10 12:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "7ldh8Or3Xog",
+  "done": true
+ },
+ "solo_hatsugatsuo_4ryo": {
+  "new_id": "TzNn802Vg74",
+  "captions": true,
+  "scheduled": "2026-11-10 17:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "R_qgXxJg5Ic",
+  "done": true
+ },
+ "solo_freq_move": {
+  "new_id": "2JRsIJoy4mE",
+  "captions": true,
+  "scheduled": "2026-11-11 12:00",
+  "old_cleared": true,
+  "old_publishAt_after": null,
+  "old_id": "Ueln3msL1ks",
+  "done": true
+ },
+ "solo_hikeshi_kowasu": {
+  "new_id": "u7nC2qhis8E",
+  "captions": true,
+  "scheduled": "2026-11-11 17:00",
+  "old_cleared": true,
+  "done": true,
+  "via": "studio"
+ },
+ "solo_hikyaku_40x": {
+  "new_id": "NasAC3IKVg4",
+  "captions": true,
+  "scheduled": "2026-11-12 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "omJW5lEw1-Y",
+  "done": true
+ },
+ "solo_takarakuji100": {
+  "new_id": "iFWhf76eGhQ",
+  "captions": true,
+  "scheduled": "2026-11-12 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "QW4tblTBMFM",
+  "done": true
+ },
+ "solo_jinko_suitei": {
+  "new_id": "G7XKv6zX0y8",
+  "captions": true,
+  "scheduled": "2026-11-13 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "NjGq2LpOvck",
+  "done": true
+ },
+ "solo_kashihon_800": {
+  "new_id": "wFYvSyt-CpA",
+  "captions": true,
+  "scheduled": "2026-11-13 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "-_zH7UeENls",
+  "done": true
+ },
+ "solo_sleep14h": {
+  "new_id": "3EKfIrCdby4",
+  "captions": true,
+  "scheduled": "2026-11-14 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "xRLKG_jd7bA",
+  "done": true
+ },
+ "solo_kido_pass": {
+  "new_id": "4NvuvcafZMY",
+  "captions": true,
+  "scheduled": "2026-11-14 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "Cz5HZLQOPXo",
+  "done": true
+ },
+ "solo_literacy_shiga": {
+  "new_id": "xSPmt8bDE9U",
+  "captions": true,
+  "scheduled": "2026-11-15 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "EbpfxcnFb6k",
+  "done": true
+ },
+ "solo_meals_region": {
+  "new_id": "K53X4JvsY6Y",
+  "captions": true,
+  "scheduled": "2026-11-15 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "0Xv9Dbu3Y3I",
+  "done": true
+ },
+ "solo_nukemairi_hishaku": {
+  "new_id": "uh6TvjxOnc0",
+  "captions": true,
+  "scheduled": "2026-11-16 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "3iZK8oriaXQ",
+  "done": true
+ },
+ "solo_ooka_shirakoya": {
+  "new_id": "fO5gRT1qS4M",
+  "captions": true,
+  "scheduled": "2026-11-16 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "K1L8_Qq5z3Q",
+  "done": true
+ },
+ "solo_oyatsu_yatsu": {
+  "new_id": "L6PaYryUeNA",
+  "captions": true,
+  "scheduled": "2026-11-17 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "mRLO7P2Hz_o",
+  "done": true
+ },
+ "solo_recycle_shinyo": {
+  "new_id": "D0vaibUDsLk",
+  "captions": true,
+  "scheduled": "2026-11-17 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "lyOUNojJfMs",
+  "done": true
+ },
+ "solo_ryo_soba": {
+  "new_id": "pi9rzJgen2w",
+  "captions": true,
+  "scheduled": "2026-11-18 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "xAq-XvdoMiw",
+  "done": true
+ },
+ "solo_sankin_tabi10": {
+  "new_id": "yihM_zNjw4g",
+  "captions": true,
+  "scheduled": "2026-11-18 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "6lK5iEi6u-s",
+  "done": true
+ },
+ "solo_shorui_niwatori": {
+  "new_id": "ZUR5R9xLvmY",
+  "captions": true,
+  "scheduled": "2026-11-19 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "ACSrmYwrAGc",
+  "done": true
+ },
+ "solo_sushi_two": {
+  "new_id": "jk_VUUbz480",
+  "captions": true,
+  "scheduled": "2026-11-19 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "NIL-bJew-q0",
+  "done": true
+ },
+ "solo_travel_tokaido": {
+  "new_id": "CWgTDSuyPoU",
+  "captions": true,
+  "scheduled": "2026-11-20 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "hDLMr9cr5XM",
+  "done": true
+ },
+ "solo_yachin_rokubai": {
+  "new_id": "lUOHbEsH4kw",
+  "captions": true,
+  "scheduled": "2026-11-20 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "PkPEG1qgZlI",
+  "done": true
+ },
+ "solo_yakurei_menkyo": {
+  "new_id": "07bs0uqJWmc",
+  "captions": true,
+  "scheduled": "2026-11-21 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "Ddl8C78Wyns",
+  "done": true
+ },
+ "solo_yoigoshi_hi": {
+  "new_id": "sQmMe3p-iNY",
+  "captions": true,
+  "scheduled": "2026-11-21 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "cu-QUxLneSA",
+  "done": true
+ },
+ "solo_komugi_jikyu": {
+  "new_id": "m8F9ZsgKgXo",
+  "captions": true,
+  "scheduled": "2026-11-24 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "ypbT97EH8uo",
+  "done": true
+ },
+ "solo_galileo_sore": {
+  "new_id": "Ru0b5MD-cUY",
+  "captions": true,
+  "scheduled": "2026-11-24 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "xibAH_kbh1g",
+  "done": true
+ },
+ "solo_brain_origin": {
+  "new_id": "BTjz7NZExfk",
+  "captions": true,
+  "scheduled": "2026-11-25 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "kbyOHtC_30U",
+  "done": true
+ },
+ "solo_columbus_flat": {
+  "new_id": "jht-JeLp0bc",
+  "captions": true,
+  "scheduled": "2026-11-25 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "lg38vwKjeGs",
+  "done": true
+ },
+ "solo_moon_dark": {
+  "new_id": "sLk85oIUQQM",
+  "captions": true,
+  "scheduled": "2026-11-26 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "P85fOkvbrV8",
+  "done": true
+ },
+ "solo_bukka_katei": {
+  "new_id": "k8Qm7_0EM-o",
+  "captions": true,
+  "scheduled": "2026-11-26 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "9qa6GOtP4VQ",
+  "done": true
+ },
+ "solo_brain_damage": {
+  "new_id": "W2Wh6ccWaxo",
+  "captions": true,
+  "scheduled": "2026-11-27 12:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "wGBxb4DzOKM",
+  "done": true
+ },
+ "solo_jikyu_yunyusaki": {
+  "new_id": "Sq8w95w-rJI",
+  "captions": true,
+  "scheduled": "2026-11-27 17:00",
+  "via": "studio",
+  "old_cleared": true,
+  "old_id": "uin4Sr64t4U",
+  "done": true
+ }
+}

@@ -18,6 +18,7 @@ assets/fx_hn/
 assets/naturalearth/
 # 生成物・バックアップ・大きなメディア
 *.bak
+*.old
 *.mp4
 *.wav
 *.mp3
@@ -56,3 +57,19 @@ secrets/
 # ローカルツール（インストール物）
 .kilo/
 
+
+# ローカルツール・計測用
+.benchmarks/
+.freebuff/
+
+# 使い捨てのキュー/再生成シェル（一時パスを参照するため再現できない。再生成は make_spec_*.py → vp.py / make_short2.py）
+scripts/_queue*.sh
+scripts/_regen*.sh
+scripts/_schedule*.sh
+
+# 手順書の読み取り確認の印(各自のローカルだけ。共有しない)
+data/.procedure_ack.json
+data/.procedure_read.json
+
+# エージェント固有のローカル設定(絶対パスを含む。手順書ゲートは各スクリプトが呼ぶ)
+.claude/

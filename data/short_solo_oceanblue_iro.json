@@ -1,0 +1,43 @@
+{
+ "title": "海は、いつも青い？",
+ "pron": "data/oceanblue_pronunciations.json",
+ "art": "assets/oceanblue/art_colors.png",
+ "hook": "海は、いつも青いのでしょうか。海の色が変わる条件を、NOAAとウッズホール海洋研究所の解説で確かめます。",
+ "notes": "■ 動画で確かめたこと\n・堆積物が多いと、水は茶色に見える、とされます(ウッズホール海洋研究所)。\n・植物プランクトンが多い場所では、水は緑や赤に見えることがあります。\n・浅くて砂の底の場所では、光が底で跳ね返り、水は鮮やかな青に見えることがあります。\n・公的機関・研究者の解説の要約による内容で、原典(原本)そのものの照合は、今回は行っていません。\n",
+ "answer": "条件で、色は変わる",
+ "scenes": [
+  {
+   "text": "海は、いつも、青いのでしょうか。",
+   "big": "海は、いつも青い？",
+   "art": "assets/oceanblue/art_colors.png"
+  },
+  {
+   "text": "堆積物が多いと、水は、茶色に見える、とされます。",
+   "big": "堆積物が多いと、茶色",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_intro.png",
+   "col": "white"
+  },
+  {
+   "text": "植物プランクトンが多い場所では、水は、緑や赤に見えることがあります。",
+   "big": "プランクトンで、緑や赤に",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_light.png"
+  },
+  {
+   "text": "浅くて砂の底の場所では、光が底で跳ね返り、水は、鮮やかな青に見えることがあります。",
+   "big": "浅い砂地は、鮮やかな青",
+   "src": "ウッズホール海洋研究所",
+   "art": "assets/oceanblue/art_sky.png",
+   "col": "white"
+  },
+  {
+   "text": "",
+   "end": true
+  }
+ ],
+ "long_id": "31mlleqtpsM",
+ "long_title": "22_ocean_blue",
+ "nolong": true,
+ "credit": "・イラスト：ChatGPT(OpenAI)による生成イラスト（イメージです。実在の場面・人物・資料の再現ではありません）\n・図・表：自作"
+}
